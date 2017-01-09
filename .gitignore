@@ -38,3 +38,6 @@ jspm_packages
 
 # macOS Specific
 .DS_Store
+
+# dotenv
+.env
