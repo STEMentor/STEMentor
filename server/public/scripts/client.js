@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute']);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
