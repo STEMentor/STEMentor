@@ -14,10 +14,13 @@
 <!--*************************************************************************-->
 
 <!--****************************** STYLESHEETS ******************************-->
+
   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css">
+
   <!-- Our Stylesheet -->
   <link rel="stylesheet" href="./css/main.css" />
+
 <!--*************************************************************************-->
 </head>
 
@@ -27,14 +30,30 @@
 
 <!--******************************** SCRIPTS ********************************-->
 
-  <!-- Angular Material requires Angular.js Libraries -->
+  <!-- Base Angular.js Libraries -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
 
   <!-- Angular Material Library -->
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
+
+  <!-- Firebase Code -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyABZHxlESUvrrmBJEADWwfKhgUSdlVidNk",
+      authDomain: "stementor.firebaseapp.com",
+      databaseURL: "https://stementor.firebaseio.com",
+      storageBucket: "stementor.appspot.com",
+      messagingSenderId: "284578649449"
+    };
+    firebase.initializeApp(config);
+  </script>
 
   <!-- Our JavaScript Code -->
   <script type="text/javascript" src="/scripts/client.js"></script>
