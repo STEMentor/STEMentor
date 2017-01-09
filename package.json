@@ -1,0 +1,19 @@
+{
+  "name": "stementor",
+  "version": "1.0.0",
+  "description": "STEMentor connects STEM professionals to interested students",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hisaac/stementor.git"
+  },
+  "author": "Oliver Alexander, Andrew Froiland, Phil Gebauer, Isaac Halvorson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hisaac/stementor/issues"
+  },
+  "homepage": "https://github.com/hisaac/stementor#readme"
+}
