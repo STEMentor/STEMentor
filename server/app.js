@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 
-app.use(decoder.token); // Above not authenticated, below is authenticated
+//app.use(decoder.token); // Above not authenticated, below is authenticated
 
 
 //------------------------------- START SERVER -------------------------------//
