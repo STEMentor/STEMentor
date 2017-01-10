@@ -1,11 +1,14 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var cssmin = require('gulp-minify-css');
-var rename = require("gulp-rename");
-var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
+var gulp    = require('gulp'),
+    concat  = require('gulp-concat'),
+    cssmin  = require('gulp-minify-css'),
+    rename  = require("gulp-rename"),
+    sass    = require('gulp-sass'),
+    uglify  = require('gulp-uglify'),
+    nodemon = require('gulp-nodemon'),
+    bs      = require('browser-sync').create();
 
-gulp.task('default', ['styles', 'watch']);
+// default task
+gulp.task('default', ['styles', 'watch', 'browserSync', 'nodemon']);
 
 // styles task
 gulp.task('styles', function() {
@@ -22,4 +25,29 @@ gulp.task('styles', function() {
 // watch task
 gulp.task('watch', function() {
   gulp.watch('./src/*.scss', ['styles']);
+});
+
+// browserSync task
+gulp.task('browserSync', function() {
+  bs.init(null, {
+    notify: false,
+    proxy: 'http://localhost:3000',
+    port: 5000,
+    ui: {
+      port: 5001
+    }
+  });
+});
+
+// nodemon task
+gulp.task('nodemon', ['browserSync'], function() {
+  return nodemon({
+    script: 'server/app.js',
+    ext: 'html js',
+    ignore: 'gulpfile.js'
+  }).on('start', function() {
+    setTimeout(function() {
+      bs.reload();
+    }, 1000);
+  });
 });
