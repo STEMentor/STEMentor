@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>STEMentor</title>
-  </head>
-  <body>
 
-  </body>
+<!--
+  Copyright 2017 STEMentor
+-->
+
+<html ng-app="stementor">
+<head>
+<!--******************************* META INFO *******************************-->
+  <title>STEMentor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1" />
+  <meta name="copyright" content="$copy; 2017 STEMentor" />
+<!--*************************************************************************-->
+
+<!--****************************** STYLESHEETS ******************************-->
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css">
+
+  <!-- Our Stylesheet -->
+  <link rel="stylesheet" href="./css/main.css" />
+
+<!--*************************************************************************-->
+</head>
+
+<body ng-view>
+
+  <h1>STEMentor</h1>
+
+<!--******************************** SCRIPTS ********************************-->
+
+<!-- Base Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+
+<!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
+
+<!-- Firebase Code -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.js"></script>
+  <script type="text/javascript" src="./scripts/firebase-config.js"></script>
+
+<!-- Our JavaScript Code -->
+  <script type="text/javascript" src="./scripts/client.js"></script>
+
+  <!-- Controllers -->
+    <script type="text/javascript" src="./scripts/controllers/about.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/home.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/inbox.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/login.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/message.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/nav.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/profile.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/search.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/settings.controller.js"></script>
+
+  <!-- Factories -->
+    <script type="text/javascript" src="./scripts/services/auth.factory.js"></script>
+    <script type="text/javascript" src="./scripts/services/mentor.factory.js"></script>
+    <script type="text/javascript" src="./scripts/services/message.factory.js"></script>
+    <script type="text/javascript" src="./scripts/services/student.factory.js"></script>
+
+<!--*************************************************************************-->
+
+</body>
 </html>
