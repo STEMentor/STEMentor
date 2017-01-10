@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'firebase']);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
