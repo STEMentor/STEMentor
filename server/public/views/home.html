@@ -1,6 +1,18 @@
 
-<h1 class='home-header'> STEMentor </h1>
+<h1 class="home-header" layout="row" layout-align="center"> STEMentor </h1>
 
-<button class='home-button'> Find A Mentor </button>
+<div layout="row" layout-align="center">
+  <button md-button> Find A Mentor </button>
+  <button md-button> Sign-up to become a mentor </button>
+</div>
 
-<button class='home-button'> Sign-up to become a mentor </button>
+<md-card layout="column" layout-align="center center" style="padding-bottom: 10px" >
+      <jk-carousel
+        data="home.dataArray"
+        item-template-url="'./views/item-template.html'"
+        max-width="800"
+        max-height="500"
+        auto-slide="true"
+        auto-slide-time="5000" >
+        </jk-carousel>
+</md-card>
