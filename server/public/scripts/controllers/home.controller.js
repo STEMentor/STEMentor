@@ -22,7 +22,7 @@ app.controller('HomeController', ['$http', function($http) {
         src: '../assets/images/carousel/virus.jpg'
       },
       {
-        src: '../assets/images/carousel/rock-formation.jpgg'
+        src: '../assets/images/carousel/rock-formation.jpg'
       },
       {
         src: '../assets/images/carousel/circuit-board.jpg'
