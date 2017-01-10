@@ -1,7 +1,8 @@
 app.controller('HomeController', ['$http', function($http) {
-    var self = this;
-    self.dataArray = [
+  console.log('HomeController running');
+  var self = this;
 
+      self.dataArray = [
       {
         src: '../assets/images/carousel/genome.jpg'
       },
@@ -25,7 +26,6 @@ app.controller('HomeController', ['$http', function($http) {
       },
       {
         src: '../assets/images/carousel/circuit-board.jpg'
-      },
-
-        ];
+      }
+    ];
 }]);
