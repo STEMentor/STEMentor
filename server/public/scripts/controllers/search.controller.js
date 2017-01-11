@@ -31,9 +31,9 @@ app.controller('SearchController', ['$http', function($http) {
 
     });
 
-  self.newSearch = {first_name: NULL, last_name:NULL, email: NULL, company: NULL,
-                    job_title:NULL, zip: NULL, race: NULL, sex: NULL, orientation: NULL,
-                    birthday: NULL, school: NULL, degree: NULL, major: NULL, language: NULL};
+  self.newSearch = {first_name: null, last_name:null, email: null, company: null,
+                    job_title:null, zip: null, race: null, sex: null, orientation: null,
+                    birthday: null, school: null, degree: null, major: null, language: null};
 
 
   self.mentors = [];
@@ -49,7 +49,10 @@ app.controller('SearchController', ['$http', function($http) {
         .then(function (response) {
           self.mentors = response.data;
           console.log(mentors);
-        });
+        }),
+        function(err){
+          console.log("Error with search get request ", err);
+        };
 
   }
 
