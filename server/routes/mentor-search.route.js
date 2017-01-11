@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var connectionString = require('./db-config.module');
+var connectionString = require('../modules/db-config.module');
 
 router.get('/', function(req, res) {
   console.log('req.headers: ', req.headers);
   var queryObject = JSON.parse(req.headers.newsearchstring);
   var query = '';
-  queryBuilder(req.headers);
+  console.log('QUERY OBJECT', queryObject);
+  query = queryBuilder(queryObject);
+  console.log('QUERY', query);
   pg.connect(connectionString, function(err, client, done){
     if(err){
       console.log('connection error: ', err);
@@ -28,18 +30,20 @@ router.get('/', function(req, res) {
 
 
 function queryBuilder(object){
+  console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'SELECT * FROM mentors WHERE';
   for(property in object){
     if (typeof object[property] === 'string'){
     }
     if (object[property]){
-      query += ' ' + property + ' = ' + object[property] + ' AND';
+      query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
     }
   }
   query = query.slice(0, -4);
   if (query == 'SELECT * FROM mentors W'){
     query = 'SELECT * FROM mentors';
   }
+  return query;
 }
 
 // queryObject = {
