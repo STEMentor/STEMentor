@@ -4,20 +4,10 @@ app.controller('SearchController', ['$http', function($http) {
   angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
     .controller('DemoCtrl', function($scope) {
       $scope.user = {
-        title: 'Developer',
-        email: 'ipsum@lorem.com',
-        firstName: '',
-        lastName: '',
         company: 'Google',
-        address: '1600 Amphitheatre Pkwy',
-        city: 'Mountain View',
-        state: 'CA',
-        biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-        postalCode: '94043'
       };
 
-      $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-      'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
+      $scope.states = (
       'WY').split(' ').map(function(state) {
           return {abbrev: state};
         });
@@ -37,11 +27,7 @@ app.controller('SearchController', ['$http', function($http) {
     .controller('AppCtrl', function($scope) {
 
       $scope.data = {};
-      $scope.data.cb1 = true;
-      $scope.data.cb2 = false;
-      $scope.data.cb3 = false;
-      $scope.data.cb4 = false;
-      $scope.data.cb5 = false;
+  
 
     });
 
