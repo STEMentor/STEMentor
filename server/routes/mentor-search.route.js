@@ -5,7 +5,7 @@ var connectionString = require('./db-config.module');
 
 router.get('/', function(req, res) {
   console.log('req.headers: ', req.headers);
-  var queryObject = req.headers;
+  var queryObject = JSON.parse(req.headers.newsearchstring);
   var query = '';
   queryBuilder(req.headers);
   pg.connect(connectionString, function(err, client, done){
