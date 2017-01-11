@@ -5,6 +5,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder.module');
+var db = require('./modules/db.module');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
 app.use(express.static('./server/public'));
