@@ -19,11 +19,13 @@ app.controller('SearchController', ['$http', function($http) {
   }
 
   self.getMentors = function() {
+    console.log(self.newSearch);
+    var newSearchString = JSON.stringify(self.newSearch);
     return $http({
           method: 'GET',
-          url: '/mentors',
+          url: '/mentor-search',
           headers: {
-            newSearch: newSearch
+            newSearchString: newSearchString
           }
         })
         .then(function (response) {
