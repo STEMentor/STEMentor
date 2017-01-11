@@ -31,7 +31,9 @@ app.controller('SearchController', ['$http', function($http) {
 
     });
 
-  self.newSearch = {};
+  self.newSearch = {first_name: NULL, last_name:NULL, email: NULL, company: NULL,
+                    job_title:NULL, zip: NULL, race: NULL, sex: NULL, orientation: NULL,
+                    birthday: NULL, school: NULL, degree: NULL, major: NULL, language: NULL};
 
 
   self.mentors = [];
@@ -47,11 +49,8 @@ app.controller('SearchController', ['$http', function($http) {
         .then(function (response) {
           self.mentors = response.data;
           console.log(mentors);
-
         });
-    .catch(function (error) {
-      console.log('An error has occurred');
-    });
+
   }
 
 }]);
