@@ -17,11 +17,13 @@
 
         </div>
 
+        <input class="refine" type="checkbox" ng-model="myVar">Refine your search
+<div ng-show="myVar">
 <md-content layout-gt-sm="row" layout-padding="">
     <div>
         <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm="33">
-                <label>First Name</label>
+                <label><i class="fa fa-camera-retro fa-1x"></i> First Name</label>
                 <input ng-model="search.newSearch.first_name">
             </md-input-container>
 
@@ -37,9 +39,64 @@
                 <input ng-model="search.newSearch.company">
             </md-input-container>
 
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Job Title</label>
+                <input ng-model="search.newSearch.job_title">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Zip Code</label>
+                <input ng-model="search.newSearch.zip">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Age</label>
+                <input ng-model="search.newSearch.age">
+            </md-input-container>
+
         </div>
     </div>
 </md-content>
+
+<md-content layout-gt-sm="row" layout-padding="">
+    <div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm="33">
+                <label>Email</label>
+                <input ng-model="search.newSearch.email">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>College</label>
+                <input ng-model="search.newSearch.college">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Degree</label>
+                <input ng-model="search.newSearch.degree">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Major</label>
+                <input ng-model="search.newSearch.major">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Orientation</label>
+                <input ng-model="search.newSearch.orientation">
+            </md-input-container>
+
+        </div>
+    </div>
+</md-content>
+</div>
 
 <div layout="row" layout-align="center">
   <button md-button ng-click="search.test()"> Test</button>
