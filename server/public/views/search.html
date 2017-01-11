@@ -21,25 +21,29 @@
     <div>
         <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm="33">
-                <label>City</label>
-                <input ng-model="user.city">
+                <label>First Name</label>
+                <input ng-model="search.newSearch.first_name">
             </md-input-container>
 
             <md-input-container class="md-block" flex-gt-sm="33">
 
-                <label>City</label>
-                <input ng-model="user.city">
+                <label>Last Name</label>
+                <input ng-model="search.newSearch.last_name">
             </md-input-container>
 
             <md-input-container class="md-block" flex-gt-sm="33">
 
-                <label>City</label>
-                <input ng-model="user.city">
+                <label>Company</label>
+                <input ng-model="search.newSearch.company">
             </md-input-container>
 
         </div>
     </div>
 </md-content>
+
+<div layout="row" layout-align="center">
+  <button md-button ng-click="search.test()"> Test</button>
+</div>
 
 
 

@@ -1,29 +1,22 @@
 app.controller('SearchController', ['$http', function($http) {
   console.log('SearchController running');
-
+  var self = this;
+  self.mentors = [];
   self.newSearch = {first_name: null, last_name:null, email: null, company: null,
                     job_title:null, zip: null, race: null, sex: null, orientation: null,
                     birthday: null, school: null, degree: null, major: null, language: null};
 
 
-  angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-  .controller('DemoCtrl', function($scope) {
-    $scope.user = {
-      city: 'Mountain View',
-    };
+  // .config(function($mdThemingProvider) {
+  //   $mdThemingProvider.theme('docs-dark', 'default')
+  //     .primaryPalette('yellow')
+  //     .dark();
+  //
+  // });
 
-    $scope.states = (
-    'WY').split(' ').map(function(state) {
-        return {abbrev: state};
-      });
-  })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('yellow')
-      .dark();
-
-  });
-
+  self.test = function (){
+      console.log(self.newSearch);
+  }
 
   self.getMentors = function() {
     return $http({
