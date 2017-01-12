@@ -30,7 +30,7 @@ router.get('/profile/:id', function(req, res) {
 });
 
 // For searching the database from the search page
-router.get('/', function(req, res) {
+router.get('/search', function(req, res) {
   console.log('req.headers: ', req.headers);
   var queryObject = JSON.parse(req.headers.newsearchstring);
   var query = '';
