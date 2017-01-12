@@ -1,20 +1,10 @@
 //***** Import Sass files that need to be complied here ***** //
 
-@import "_color-guide.scss";
-@import "_homepage.scss";
-@import "_navbar.scss";
-@import "_search.scss";
-@import "_font-size.scss";
-
+@import "_color-guide";
+@import "_homepage";
+@import "_navbar";
+@import "_search";
+@import "_font-size";
+@import "_profile";
 
 //************************************************************//
-
-
-h1 {
-  color: $main-black;
-}
-
-// .refine {
-//   float: right;
-//   padding-right: 15px;
-// }

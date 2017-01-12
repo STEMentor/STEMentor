@@ -8,7 +8,7 @@ var gulp    = require('gulp'),
     bs      = require('browser-sync').create();
 
 // default task
-gulp.task('default', ['styles', 'watch', 'browserSync', 'nodemon']);
+gulp.task('default', ['styles', 'watch', 'nodemon']);
 
 // styles task
 gulp.task('styles', function() {
@@ -24,7 +24,7 @@ gulp.task('styles', function() {
 
 // watch task
 gulp.task('watch', function() {
-  gulp.watch('./src/*.scss', ['styles']);
+  gulp.watch('./src/*.scss', ['styles', 'browserSync']);
 });
 
 // browserSync task
