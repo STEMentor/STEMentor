@@ -1,0 +1,32 @@
+<div ng-controller="NavController as nav" ng-cloak="" class="navBardemoBasicUsage" ng-app="stementor">
+  <md-content class="md-padding">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="goto('page1')" name="about">
+        About
+      </md-nav-item>
+      <md-button ng-click="nav.logIn()">Log In</md-button>
+      <!-- <md-nav-item md-nav-click="goto('page2')" name="login">
+        Log In
+      </md-nav-item> -->
+      <!-- <md-nav-item md-nav-click="goto('page3')" name="page3">
+        Page Three
+      </md-nav-item>
+
+      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}"> Page Six </md-nav-item> -->
+
+    </md-nav-bar>
+    <!-- <div class="ext-content">
+      External content for `<span>{{currentNavItem}}</span>`.
+    </div>
+
+    <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox> -->
+
+  </md-content>
+</div>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+-->
