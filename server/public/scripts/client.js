@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute']);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache' ]);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider

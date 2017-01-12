@@ -1,0 +1,21 @@
+<div ng-controller="NavController as nav" ng-cloak="" class="navBardemoBasicUsage" ng-app="stementor">
+  <md-content class="md-padding">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-href="#home" name="home">
+        Home
+      </md-nav-item>
+      <md-nav-item md-nav-href="#about" name="about">
+        About
+      </md-nav-item>
+      <md-nav-item md-nav-href="#profile" name="profile">
+        Profile
+      </md-nav-item>
+      <md-button ng-click="nav.logIn()">Log In</md-button>
+    </md-nav-bar>
+  </md-content>
+</div>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+-->

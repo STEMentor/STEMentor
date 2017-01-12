@@ -41,3 +41,9 @@ jspm_packages
 
 # dotenv
 .env
+
+# Firebase Info
+firebase-service-account.json
+
+# Remove CSS files for Gulp to regenerate
+*.css
