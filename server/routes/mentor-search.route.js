@@ -59,7 +59,6 @@ function queryBuilder(object) {
   console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'SELECT * FROM mentors WHERE';
   for (var property in object) {
-    if (typeof object[property] === 'string') {}
     if (object[property]) {
       query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
     }
