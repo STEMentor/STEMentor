@@ -1,7 +1,10 @@
-@import "_color-guide.scss";
+//***** Import Sass files that need to be complied here ***** //
+
+@import "_color-guide";
 @import "_homepage";
 @import "_navbar";
+@import "_search";
+@import "_font-size";
+@import "_profile";
 
-h1 {
-  color: $main-white;
-}
+//************************************************************//
