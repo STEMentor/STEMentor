@@ -17,7 +17,96 @@
 
         </div>
 
-        <div ng-controller="SearchController" class="md-padding checkboxdemoBasicUsage" ng-cloak="" ng-app="stementor">
+        <input class="refine" type="checkbox" ng-model="myVar">Refine your search
+<div ng-show="myVar">
+<md-content layout-gt-sm="row" layout-padding="">
+    <div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-icon-float md-block" flex-gt-sm="33">
+                <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                <input ng-model="search.newSearch.first_name" placeholder="First Name">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Last Name</label>
+                <input ng-model="search.newSearch.last_name">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Company</label>
+                <input ng-model="search.newSearch.company">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Job Title</label>
+                <input ng-model="search.newSearch.job_title">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Zip Code</label>
+                <input ng-model="search.newSearch.zip">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Age</label>
+                <input ng-model="search.newSearch.age">
+            </md-input-container>
+
+        </div>
+    </div>
+</md-content>
+
+<md-content layout-gt-sm="row" layout-padding="">
+    <div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm="33">
+                <label>Email</label>
+                <input ng-model="search.newSearch.email">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>College</label>
+                <input ng-model="search.newSearch.college">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Degree</label>
+                <input ng-model="search.newSearch.degree">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Major</label>
+                <input ng-model="search.newSearch.major">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+
+                <label>Orientation</label>
+                <input ng-model="search.newSearch.orientation">
+            </md-input-container>
+
+        </div>
+    </div>
+</md-content>
+</div>
+
+<div layout="row" layout-align="center">
+  <button md-button ng-click="search.getMentors()">Search</button>
+</div>
+
+
+
+
+
+        <!-- <div ng-controller="SearchController" class="md-padding checkboxdemoBasicUsage" ng-cloak="" ng-app="stementor">
 
             <div flex="100" layout="row">
 
@@ -139,7 +228,7 @@
                         </div>
 
 
-
+ -->
 
 </div>
 </div>
