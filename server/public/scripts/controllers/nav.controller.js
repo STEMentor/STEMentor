@@ -13,7 +13,7 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', function
 
   self.logInModal = function(ev) {
     $mdDialog.show({
-        controller: 'DiagController as diag',
+        controller: 'LoginController as login',
         templateUrl: '../../views/login-modal.html',
         targetEvent: ev,
         clickOutsideToClose: true
