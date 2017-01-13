@@ -30,6 +30,7 @@ app.controller('SearchController', ['$http', function($http) {
         })
         .then(function (response) {
           self.mentors = response.data;
+          console.log("Mentors list:", self.mentors);
         }),
         function(err){
           console.log("Error with search get request ", err);
