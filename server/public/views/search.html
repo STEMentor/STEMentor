@@ -2,256 +2,139 @@
 
     <!-- <h1>Search</h1> -->
 
-        <md-content layout-padding="">
-            <div>
-                <form name="userForm">
+    <md-content layout-padding="">
+        <div>
+            <form name="userForm">
 
-                    <div layout-gt-xs="row">
-                        <md-input-container class="md-block" flex-gt-xs="">
-                            <label>Search for a mentor!</label>
-                            <input ng-model="user.company">
-                        </md-input-container>
-                </form>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs="">
+                        <label>Search for a mentor!</label>
+                        <input ng-model="user.company">
+                    </md-input-container>
+            </form>
+            </div>
+    </md-content>
+
+    </div>
+
+    <input class="refine" type="checkbox" ng-model="myVar">Refine your search
+    <div ng-show="myVar">
+        <md-content layout-gt-sm="row" layout-padding="">
+            <div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-icon-float md-block" flex-gt-sm="33">
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="search.newSearch.first_name" placeholder="First Name">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Last Name</label>
+                        <input ng-model="search.newSearch.last_name">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Company</label>
+                        <input ng-model="search.newSearch.company">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Job Title</label>
+                        <input ng-model="search.newSearch.job_title">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Zip Code</label>
+                        <input ng-model="search.newSearch.zip">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Sex</label>
+                        <input ng-model="search.newSearch.sex">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
+
+                        <label>Age</label>
+                        <input ng-model="search.newSearch.age">
+                    </md-input-container>
+
                 </div>
+            </div>
         </md-content>
 
-        </div>
+        <md-content layout-gt-sm="row" layout-padding="">
+            <div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>Email</label>
+                        <input ng-model="search.newSearch.email">
+                    </md-input-container>
 
-        <input class="refine" type="checkbox" ng-model="myVar">Refine your search
-<div ng-show="myVar">
-<md-content layout-gt-sm="row" layout-padding="">
-    <div>
-        <div layout-gt-sm="row">
-            <md-input-container class="md-icon-float md-block" flex-gt-sm="33">
-                <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                <input ng-model="search.newSearch.first_name" placeholder="First Name">
-            </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
-            <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>College</label>
+                        <input ng-model="search.newSearch.college">
+                    </md-input-container>
 
-                <label>Last Name</label>
-                <input ng-model="search.newSearch.last_name">
-            </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
-            <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>Degree</label>
+                        <input ng-model="search.newSearch.degree">
+                    </md-input-container>
 
-                <label>Company</label>
-                <input ng-model="search.newSearch.company">
-            </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
-            <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>Major</label>
+                        <input ng-model="search.newSearch.major">
+                    </md-input-container>
 
-                <label>Job Title</label>
-                <input ng-model="search.newSearch.job_title">
-            </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
-            <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>Languages</label>
+                        <input ng-model="search.newSearch.languages">
+                    </md-input-container>
 
-                <label>Zip Code</label>
-                <input ng-model="search.newSearch.zip">
-            </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
-            <md-input-container class="md-block" flex-gt-sm="33">
+                        <label>Orientation</label>
+                        <input ng-model="search.newSearch.orientation">
+                    </md-input-container>
 
-                <label>Sex</label>
-                <input ng-model="search.newSearch.sex">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>Age</label>
-                <input ng-model="search.newSearch.age">
-            </md-input-container>
-
-        </div>
+                </div>
+            </div>
+        </md-content>
     </div>
-</md-content>
 
-<md-content layout-gt-sm="row" layout-padding="">
-    <div>
-        <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm="33">
-                <label>Email</label>
-                <input ng-model="search.newSearch.email">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>College</label>
-                <input ng-model="search.newSearch.college">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>Degree</label>
-                <input ng-model="search.newSearch.degree">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>Major</label>
-                <input ng-model="search.newSearch.major">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>Languages</label>
-                <input ng-model="search.newSearch.languages">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm="33">
-
-                <label>Orientation</label>
-                <input ng-model="search.newSearch.orientation">
-            </md-input-container>
-
-        </div>
+    <div layout="row" layout-align="center">
+        <button md-button ng-click="search.getMentors()">Search</button>
     </div>
-</md-content>
-</div>
-
-<div layout="row" layout-align="center">
-  <button md-button ng-click="search.getMentors()">Search</button>
-</div>
-
-  <div ng-repeat="mentor in search.mentors">
-    {{mentor.first_name}}
-    <br/>
-    {{mentor.last_name}}
-  </div>
 
 
-        <!-- <div ng-controller="SearchController" class="md-padding checkboxdemoBasicUsage" ng-cloak="" ng-app="stementor">
-
-            <div flex="100" layout="row">
-
-                <div flex="33" layout="column" layout-wrap="">
-
-                    <fieldset class="standard">
-                        <legend>Pick a Field</legend>
-                        <div layout-wrap="" layout-gt-sm="row" >
-
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Science" class='md-primary'>
-                                    Check
-                                </md-checkbox>
-                            </div>
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Physics" class="md-primary">
-                                    Check
-                                </md-checkbox>
-                            </div>
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                    Check
-                                </md-checkbox>
-                            </div>
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                    Check
-                                </md-checkbox>
-                            </div>
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                    Check
-                                </md-checkbox>
-                            </div>
-                            <div flex-gt-sm="33">
-                                <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                    Check
-                                </md-checkbox>
-                            </div>
-
-
-                    </fieldset>
-                  </div>
-                    <div flex-gt-sm="33" layout="column" layout-wrap>
-
-                        <fieldset class="standard">
-                            <legend>Pick a Field</legend>
-                            <div flex layout-wrap="" layout-gt-sm="row">
-
-                                <div flex-gt-sm="33">
-                                    <md-checkbox md-no-ink="" aria-label="Science" class="md-primary">
-                                        Check
-                                    </md-checkbox>
-                                </div>
-                                <div flex-gt-sm="33">
-                                    <md-checkbox md-no-ink="" aria-label="Physics" class="md-primary">
-                                        Check
-                                    </md-checkbox>
-                                </div>
-                                <div flex-gt-sm="33">
-                                    <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                        Check
-                                    </md-checkbox>
-                                </div>
-                                <div flex-gt-sm="33">
-                                    <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                        Check
-                                    </md-checkbox>
-                                </div>
-                                <div flex-gt-sm="33">
-                                    <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                        Check
-                                    </md-checkbox>
-
-                                </div>
-                            </div>
-                            </fieldset>
-                          </div>
-                          <div flex-gt-sm="33" layout="column" layout-fill>
-
-                              <fieldset class="standard">
-                                  <legend>Pick a Field</legend>
-                                  <div flex layout-wrap="" layout-gt-sm="row">
-
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Science" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-                                      </div>
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Physics" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-                                      </div>
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-                                      </div>
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-                                      </div>
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-                                      </div>
-                                      <div flex-gt-sm="33">
-                                          <md-checkbox md-no-ink="" aria-label="Checkbox No Ink" class="md-primary">
-                                              Check
-                                          </md-checkbox>
-
-                                      </div>
-                                  </div>
-                                  </fieldset>
-                                </div>
-                        </div>
-
-
- -->
 
 </div>
+<div ng-repeat="mentor in search.mentors">
+
+
+    <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
+
+        <flippy-front>
+            {{mentor.first_name}}
+        </flippy-front>
+
+        <flippy-back>
+            {{mentor.last_name}}
+        </flippy-back>
+
+    </flippy>
 </div>
 
 
-
-
-
+</div>
 
 
 <!--
