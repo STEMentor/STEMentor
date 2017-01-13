@@ -35,19 +35,21 @@ app.controller('SearchController', ['$http', function($http) {
     console.log(self.newSearch);
     var newSearchString = JSON.stringify(self.newSearch);
     return $http({
-      method: 'GET',
-      url: '/mentor-search/search',
-      headers: {
-        newSearchString: newSearchString
-      }
-    })
-    .then(function(response) {
-      self.mentors = response.data;
-    }),
-    function(err) {
-      console.log("Error with search get request ", err);
-    };
-  };
+          method: 'GET',
+          url: '/mentor-search',
+          headers: {
+            newSearchString: newSearchString
+          }
+        })
+        .then(function (response) {
+          self.mentors = response.data;
+          console.log("Mentors list:", self.mentors);
+        }),
+        function(err){
+          console.log("Error with search get request ", err);
+        };
+
+  }
 
 }]);
 /**
