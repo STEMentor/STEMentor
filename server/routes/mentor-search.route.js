@@ -32,9 +32,7 @@ router.get('/', function(req, res) {
 function queryBuilder(object){
   console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'SELECT * FROM mentors WHERE';
-  for(property in object){
-    if (typeof object[property] === 'string'){
-    }
+  for(var property in object){
     if (object[property]){
       query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
     }
