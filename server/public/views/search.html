@@ -114,8 +114,11 @@
   <button md-button ng-click="search.getMentors()">Search</button>
 </div>
 
-
-
+  <div ng-repeat="mentor in search.mentors">
+    {{mentor.first_name}}
+    <br/>
+    {{mentor.last_name}}
+  </div>
 
 
         <!-- <div ng-controller="SearchController" class="md-padding checkboxdemoBasicUsage" ng-cloak="" ng-app="stementor">
