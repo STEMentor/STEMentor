@@ -1,4 +1,4 @@
-app.controller('DiagController', ['$scope', '$mdDialog', '$firebaseAuth', function($scope, $mdDialog, $firebaseAuth){
+app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', function($scope, $mdDialog, $firebaseAuth){
   console.log('diag controller is running');
   var auth = $firebaseAuth();
   var self = this;
