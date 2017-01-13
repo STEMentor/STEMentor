@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', function($http){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -16,7 +16,7 @@ app.factory('AuthFactory', ['$http', function($http){
       // Adding new user to db
       $http.get('/login')
       .then(function(response) {
-        // console.log('login response.data: ', response.data);
+        console.log('login response.data: ', response.data);
         users = response.data;
       }).then(function() {
         for (var i = 0; i < users.length; i++) {
@@ -52,7 +52,7 @@ app.factory('AuthFactory', ['$http', function($http){
     },
     logOut: function() {
       return logOut();
-    },
+    }
   };
 
   return publicApi;

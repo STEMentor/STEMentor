@@ -1,14 +1,16 @@
-app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', function($scope, $mdDialog, $firebaseAuth){
+app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', function($scope, $mdDialog, $firebaseAuth, AuthFactory){
   console.log('login controller is running');
   var auth = $firebaseAuth();
   var self = this;
 
-  var logIn = function() {
-    auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user);
-    }).catch(function(error) {
-      console.log("Authentication failed: ", error);
-    });
+  self.logIn = function() {
+    console.log('clicked?');
+    AuthFactory.logIn();
+    // auth.$signInWithPopup("google").then(function(firebaseUser) {
+    //   console.log("Firebase Authenticated as: ", firebaseUser.user);
+    // }).catch(function(error) {
+    //   console.log("Authentication failed: ", error);
+    // });
   };
 
   self.hide = function() {
