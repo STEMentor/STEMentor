@@ -17,11 +17,6 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'InboxController',
     controllerAs: 'inbox'
   })
-  .when('/login', {
-    templateUrl: '/views/login.html',
-    controller: 'LoginController',
-    controllerAs: 'login'
-  })
   .when('/message', {
     templateUrl: '/views/message.html',
     controller: 'MessageController',
