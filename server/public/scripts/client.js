@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase']);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy' ]);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -16,11 +16,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/inbox.html',
     controller: 'InboxController',
     controllerAs: 'inbox'
-  })
-  .when('/login', {
-    templateUrl: '/views/login.html',
-    controller: 'LoginController',
-    controllerAs: 'login'
   })
   .when('/message', {
     templateUrl: '/views/message.html',
