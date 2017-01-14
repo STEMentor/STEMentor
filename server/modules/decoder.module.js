@@ -1,4 +1,8 @@
 var admin = require('firebase-admin');
+var express = require('express');
+var pg = require('pg');
+var connectionString = require('../modules/db-config.module');
+
 
 admin.initializeApp({
   credential: admin.credential.cert({
@@ -30,7 +34,7 @@ var tokenDecoder = function(req, res, next){
       // req.userId = 17;
       console.log('GOT DECODED TOKEN');
 
-      userIdQuery(decodedToken.email, req, next);
+      // userIdQuery(decodedToken.email, req, next);
     })
     .catch(function(error) {
       // If the id_token isn't right, you end up in this callback function
