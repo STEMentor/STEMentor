@@ -33,6 +33,8 @@ var tokenDecoder = function(req, res, next){
       req.decodedToken = decodedToken;
       // req.userId = 17;
       console.log('GOT DECODED TOKEN');
+      next();
+
 
       // userIdQuery(decodedToken.email, req, next);
     })
