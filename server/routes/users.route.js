@@ -4,8 +4,8 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 
 
-router.get('/:type', function(req, res) {
-  console.log('PARAMS', req.params.type)
+router.get('/', function(req, res) {
+  // console.log('PARAMS', req.params.type)
   console.log('ARRIVED IN USERS GET!');
   // var userEmail = req.decodedToken.email;
   // var userExists;
