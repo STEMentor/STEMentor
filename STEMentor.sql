@@ -1,4 +1,6 @@
--- Create tables
+-- The SQL queries below create the necessary tables in your SQL database.
+-- The database needs to be called stementor (all lower case)
+-- Test data can be found in the "test-data" folder
 
 CREATE TABLE mentors (
   id SERIAL PRIMARY KEY,
