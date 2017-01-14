@@ -1,4 +1,4 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDialog) {
   console.log('SearchController running');
   var self = this;
   self.mentors = [];
@@ -50,6 +50,17 @@ app.controller('SearchController', ['$http', function($http) {
         };
 
   }
+
+  self.createMessage = function(ev) {
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
+
 
 }]);
 /**

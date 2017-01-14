@@ -22,7 +22,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
       targetEvent: ev,
       clickOutsideToClose: true
     });
-
   };
 
 
