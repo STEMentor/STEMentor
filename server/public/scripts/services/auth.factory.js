@@ -5,6 +5,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var currentUser = undefined;
   var emailInDatabase = false;
   var loggedIn = false;
+  var userStatus = {};
 
   function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -13,7 +14,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       currentUser = firebaseUser.user;
       console.log('currentUser: ', currentUser);
       console.log('firebaseUser: ', firebaseUser);
-      var type = 'mentor';
+      var type = 'students';
       if(currentUser) {
         currentUser.getToken().then(function(idToken){
           console.log('ID TOKEN:', idToken)
@@ -22,15 +23,34 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
             url: '/users.route',
             headers: {
               id_token: idToken,
-              type: 'students'
+              type: type
             }
-          });
-          // loggedIn = true;
+          })
+          .then(function(response) {
+              console.log('POST SUCCESSFUL');
 
+            });
+          userStatus.isLoggedIn = true;
+          console.log(userStatus);
         });
       }
     });
   }
+
+  auth.$onAuthStateChanged(function(firebaseUser){
+
+    // firebaseUser will be null if not logged in
+    currentUser = firebaseUser;
+    console.log("CURRENT USER", currentUser);
+    if(currentUser){
+      userStatus.isLoggedIn = true;
+    }
+    else {
+      userStatus.isLoggedIn = false;
+    }
+    console.log('User is logged in:', userStatus.isLoggedIn);
+  });
+
     // Adding new user to db
     //   $http.get('/login')
     //   .then(function(response) {
@@ -58,7 +78,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     function logOut() {
       return auth.$signOut().then(function() {
         currentUser = undefined;
-        loggedIn = false;
+        userStatus.isLoggedIn = false;
         console.log('logged out');
         console.log('currentUser: ', currentUser);
       });
@@ -66,6 +86,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
     var publicApi = {
       auth: auth,
+      userStatus: userStatus,
       logIn: function() {
         return logIn();
       },
