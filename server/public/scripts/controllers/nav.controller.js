@@ -1,15 +1,7 @@
-app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', function($http, $firebaseAuth, $mdDialog) {
+app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFactory', function($http, $firebaseAuth, $mdDialog, AuthFactory) {
   console.log('NavController running');
   var auth = $firebaseAuth();
   var self = this;
-
-  self.logIn = function() {
-    auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user);
-    }).catch(function(error) {
-      console.log("Authentication failed: ", error);
-    });
-  };
 
   self.logInModal = function(ev) {
     $mdDialog.show({
