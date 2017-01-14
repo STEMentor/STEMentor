@@ -18,15 +18,7 @@ app.controller('SearchController', ['$http', function($http) {
     major: null,
     language: null
   };
-
-
-  // .config(function($mdThemingProvider) {
-  //   $mdThemingProvider.theme('docs-dark', 'default')
-  //     .primaryPalette('yellow')
-  //     .dark();
-  //
-  // });
-
+  
   self.test = function() {
     console.log(self.newSearch);
   };
