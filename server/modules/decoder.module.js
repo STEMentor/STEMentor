@@ -25,6 +25,8 @@ verify it against firebase service account private_key.
 Then add the decodedToken */
 var tokenDecoder = function(req, res, next){
   //console.log("ID TOKEN",req.headers.id_token);
+  console.log("TYPE IN DECODER", req.headers.type)
+  var userType = req.headers.type;
 
   if(req.headers.id_token){
     console.log('TOKEN DECODER');
@@ -33,10 +35,10 @@ var tokenDecoder = function(req, res, next){
       req.decodedToken = decodedToken;
       // req.userId = 17;
       console.log('GOT DECODED TOKEN');
-      next();
+      // next();
 
 
-      // userIdQuery(decodedToken.email, req, next);
+      userIdQuery(decodedToken.email, req, res, next, userType);
     })
     .catch(function(error) {
       // If the id_token isn't right, you end up in this callback function
@@ -51,14 +53,14 @@ var tokenDecoder = function(req, res, next){
   }
 }
 
-function userIdQuery(userEmail, req, next){
+function userIdQuery(userEmail, req, res, next, userType){
   return pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
 
-    client.query('SELECT id FROM users WHERE email = $1',
+    client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
     [userEmail],
     function(err, result) {
       done(); // close the connection.
@@ -68,19 +70,33 @@ function userIdQuery(userEmail, req, next){
         res.sendStatus(500);
       } else {
         console.log('Length of ROWS:', result.rows.length);
-        if(result.rows.length === 1){
-          var userId = result.rows[0].id;
-          req.userId = userId; // this is the id that corresponds to users email in users table
-          console.log('USER ID DECODER:', userId);
+        if(result.rows.length === 0){
+          console.log("ENTER IF STATEMENT. userEmail:", userEmail);
+          client.query(
+            'INSERT INTO ' + userType +' (email) ' +
+            'VALUES ($1)',
+            [userEmail],
+            function(err, result) {
+              done(); // close the connection.
+
+              if(err) {
+                console.log('insert query error: ', err);
+                res.sendStatus(500);
+              } else {
+                console.log("INSERT SUCCESSFUL!");
+                res.sendStatus(201);
+              }
+
+            });
+          }
+
+          next();
+
         }
 
-        next();
+      });
 
-      }
+    })
+  }
 
-    });
-
-  })
-}
-
-module.exports = { token: tokenDecoder };
+  module.exports = { token: tokenDecoder };
