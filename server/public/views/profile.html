@@ -1,7 +1,7 @@
 
 
 
-<div ng-controller="ProfileController" ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
+<div ng-controller="ProfileController as profile" ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
   <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
     <div  flex="80"  layout="column">
       <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
@@ -17,7 +17,7 @@
           </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button>Ask me a question!</md-button>
+          <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
           <!-- <md-button>Action 2</md-button> -->
         </md-card-actions>
       </md-card>

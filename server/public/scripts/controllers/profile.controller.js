@@ -1,5 +1,6 @@
-app.controller('ProfileController', ['$http', function($http) {
+app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDialog) {
   console.log('ProfileController running');
+  var self = this;
 
 
   angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
@@ -13,6 +14,16 @@ app.controller('ProfileController', ['$http', function($http) {
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
   });
+
+  self.createMessage = function(ev) {
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+
+  };
 
 
   /**
