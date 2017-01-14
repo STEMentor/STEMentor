@@ -84,7 +84,7 @@ function userIdQuery(userEmail, req, res, next, userType){
                 res.sendStatus(500);
               } else {
                 console.log("INSERT SUCCESSFUL!");
-                res.sendStatus(201);
+                // res.sendStatus(201);
               }
 
             });
