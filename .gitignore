@@ -47,3 +47,6 @@ firebase-service-account.json
 
 # Remove CSS files for Gulp to regenerate
 *.css
+
+# Remove CSS files for Gulp to regenerate
+./server/public/css/*.css
