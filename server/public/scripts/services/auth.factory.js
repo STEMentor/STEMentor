@@ -19,9 +19,10 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
           console.log('ID TOKEN:', idToken)
           $http({
             method: 'GET',
-            url: '/users.route' + type,
+            url: '/users.route',
             headers: {
-              id_token: idToken
+              id_token: idToken,
+              type: 'students'
             }
           });
           // loggedIn = true;
