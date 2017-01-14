@@ -27,11 +27,11 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
             }
           })
           .then(function(response) {
-              console.log('POST SUCCESSFUL');
-
+            console.log(response.data);
+            
             });
           userStatus.isLoggedIn = true;
-          console.log(userStatus);
+          // console.log(userStatus);
         });
       }
     });
