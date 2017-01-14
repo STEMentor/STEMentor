@@ -6,6 +6,7 @@ var connectionString = require('../modules/db-config.module');
 
 router.get('/', function(req, res) {
   // console.log('PARAMS', req.params.type)
+  console.log('USER ID DECODER:', req.userId);
   console.log('ARRIVED IN USERS GET!');
   // var userEmail = req.decodedToken.email;
   // var userExists;
