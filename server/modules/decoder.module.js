@@ -33,11 +33,11 @@ var tokenDecoder = function(req, res, next){
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
       // Adding the decodedToken to the request so that downstream processes can use it
       req.decodedToken = decodedToken;
-      // req.userId = 17;
       console.log('GOT DECODED TOKEN');
       // next();
 
-
+      // call this function to check attach user_id to the request
+      // if they are already in the db. If they aren't, add them
       userIdQuery(decodedToken.email, req, res, next, userType);
     })
     .catch(function(error) {
