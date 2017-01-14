@@ -9,7 +9,7 @@ CREATE TABLE mentors (
   job_title VARCHAR(100),
   zip INT,
   race VARCHAR(100),
-  sex VARCHAR(40),
+  gender VARCHAR(40),
   orientation VARCHAR(40),
   birthday DATE,
   school VARCHAR(100),
