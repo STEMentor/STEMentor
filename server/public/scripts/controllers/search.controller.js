@@ -36,7 +36,7 @@ app.controller('SearchController', ['$http', function($http) {
     var newSearchString = JSON.stringify(self.newSearch);
     return $http({
           method: 'GET',
-          url: '/mentor-search',
+          url: '/mentor-search/search',
           headers: {
             newSearchString: newSearchString
           }
