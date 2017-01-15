@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 app.use('/mentor-search', mentorSearch);
+// TODO: uncomment decoder when authentication is implemented
 //app.use(decoder.token); // Above not authenticated, below is authenticated
 
 
