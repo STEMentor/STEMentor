@@ -1,12 +1,18 @@
-app.controller('MessageController', ['$http', function($http) {
+app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
   console.log('MessageController running');
   var self = this;
   self.newMessage = [];
-  var authInfo = auth.factory.auth;
+  var authInfo = AuthFactory.auth;
+  var userStatus = AuthFactory.userStatus;
 
   self.sendMessage = function(message){
     console.log('newMessage: ', self.newMessage);
+    console.log('authInfo: ', authInfo);
+    console.log('userStatus: ', userStatus);
+  };
 
+  self.cancel = function() {
+    $mdDialog.cancel();
   };
 
 }]);
