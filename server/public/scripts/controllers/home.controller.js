@@ -7,7 +7,7 @@ app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFa
   // })
 
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
-  console.log(self.isLoggedIn);
+  console.log("home controller:", AuthFactory.userStatus);
 
       self.dataArray = [
       {
