@@ -85,9 +85,7 @@ router.post('/new-message', function(req, res) {
         }
       }
     );
-
   });
-
 });
 
 // Mark message as read
@@ -113,7 +111,28 @@ router.put('/read-message', function(req, res) {
   });
 });
 
-// TODO: Build reply to message function
+// Reply to message
+router.put('/reply', function(req, res) {
+  var messageId = req.headers.message.id;
+  var messageReply = req.headers.message.reply;
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    client.query(
+      'UPDATE messages SET reply = $1 WHERE id = $2',
+      [messageReply, messageId],
+      function(error, result) {
+        if (error) {
+          console.log('UPDATE database error: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
+    );
+  });
+});
 
 module.exports = router;
 

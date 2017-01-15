@@ -33,6 +33,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     $mdDialog.cancel();
   };
 
+  // TODO: I don't think we need this code, but I could be wrong.
   self.answer = function(answer) {
     logIn();
     // $mdDialog.hide(answer);

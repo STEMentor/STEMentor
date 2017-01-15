@@ -1,7 +1,9 @@
 app.controller('SearchController', ['$http', function($http) {
   console.log('SearchController running');
   var self = this;
+
   self.mentors = [];
+  
   self.newSearch = {
     first_name: null,
     last_name: null,
