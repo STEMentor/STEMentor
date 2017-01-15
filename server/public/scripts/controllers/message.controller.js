@@ -2,10 +2,11 @@ app.controller('MessageController', ['$http', function($http) {
   console.log('MessageController running');
   var self = this;
   self.newMessage = [];
+  var authInfo = auth.factory.auth;
 
-  self.sendMessage = function(){
+  self.sendMessage = function(message){
     console.log('newMessage: ', self.newMessage);
-    
+
   };
 
 }]);
