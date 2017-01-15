@@ -46,4 +46,4 @@ jspm_packages
 firebase-service-account.json
 
 # Remove CSS files for Gulp to regenerate
-*.css
+./server/public/css/*.css
