@@ -23,33 +23,26 @@ router.get('/', function(req, res) {
     client.query(
       'SELECT id FROM $1 WHERE email = $2', [userDatabase, userEmail],
       function(error, result) {
-        done(); // Close connection to database
-        databaseErrorCheck();
-
         if (error) {
           console.log('Database SELECT error when searching for user ID: ', error);
           res.sendStatus(500);
+        } else {
+          // Query messages database for all messages matching the user's ID
+          client.query(
+            'SELECT * FROM messages WHERE $1 = $2', [typeId, userId],
+            function(error, result) {
+              done(); // Close connection to database
+              if (error) {
+                console.log('Database SELECT error when searching for user messages: ', error);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(201).send(result.rows);
+              }
+            }
+          );
         }
       }
-    )
-
-    // Query messages database for all messages matching the user's ID
-    // TODO: Check if it's possible to do multiple queries in one connection
-    .then(
-      client.query(
-        'SELECT * FROM messages WHERE $1 = $2', [typeId, userId],
-        function(error, result) {
-          done(); // Close connection to database
-          if (error) {
-            console.log('Database SELECT error when searching for user messages: ', error);
-            res.sendStatus(500);
-          } else {
-            res.sendStatus(201).send(result.rows);
-          }
-        }
-      )
     );
-
   });
 });
 
@@ -57,7 +50,8 @@ router.get('/', function(req, res) {
 router.post('/new-message', function(req, res) {
   var userId = req.userId;
   var userType = req.headers.type;
-  var message = req.headers.message; // TODO: transfer message info in req.headers
+  // TODO: Check where message is coming through from the client
+  var message = req.headers.message;
 
   // Check that user is a student
   if (userType !== 'student') {
@@ -91,7 +85,8 @@ router.post('/new-message', function(req, res) {
 // Mark message as read
 router.put('/read-message', function(req, res) {
   var userId = req.userId;
-  var messageId = req.headers.message.id; // TODO: Transfr message info in req.headers
+  // TODO: Check where message is coming through from the client
+  var messageId = req.headers.message.id;
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck();
@@ -99,10 +94,21 @@ router.put('/read-message', function(req, res) {
     client.query(
       'UPDATE messages SET message_read = TRUE WHERE id = $1',
       [messageId],
-      
+      function(error, result) {
+        if (error) {
+          console.log('Unable to mark message as read: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
     );
   });
 });
+
+// TODO: Build reply to message function
+
+module.exports = router;
 
 function connectionErrorCheck() {
   if (error) {
@@ -110,5 +116,3 @@ function connectionErrorCheck() {
     res.sendStatus(500);
   }
 }
-
-module.exports = router;
