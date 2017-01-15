@@ -64,9 +64,17 @@
 app.controller('InboxController', ['$http', 'AuthFactory', function($http, AuthFactory) {
   console.log('InboxController running');
   var self = this;
-
   var authInfo = AuthFactory.auth;
+  var userType; // TODO: Where will this come from?
   self.messages = [];
+
+  if (userType === 'student'){
+    
+  } else if (userType === 'mentor'){
+
+  } else {
+
+  }
 
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
   console.log(self.isLoggedIn);
