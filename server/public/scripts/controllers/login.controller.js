@@ -12,6 +12,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     });
 
+    // TODO: Can this be removed?
     // auth.$signInWithPopup("google").then(function(firebaseUser) {
     //   console.log("Firebase Authenticated as: ", firebaseUser.user);
     // }).catch(function(error) {

@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use('/mentor-search', mentorSearch);
 app.use(decoder.token); // Above not authenticated, below is authenticated
 app.use('/users.route', users);
-app.use('/message', message);
+app.use('/message', messages);
 
 //------------------------------- START SERVER -------------------------------//
 app.set('port', process.env.PORT || 3000);
