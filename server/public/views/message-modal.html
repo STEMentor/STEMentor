@@ -15,12 +15,12 @@
 
         <md-input-container class="md-block">
           <label>Name</label>
-          <textarea rows="1" md-select-on-focus=""></textarea>
+          <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.name"></textarea>
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>Message Subject</label>
-          <textarea rows="1" md-select-on-focus=""></textarea>
+          <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.subject"></textarea>
         </md-input-container>
 
         <h4>Create your message below. If you are a student, we suggest
@@ -30,14 +30,14 @@
         </h4>
 
         <md-input-container class="md-block">
-          <textarea rows="5" md-select-on-focus=""></textarea>
+          <textarea rows="5" md-select-on-focus="" ng-model="message.newMessage.body"></textarea>
         </md-input-container>
 
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button ng-click="">
+      <md-button ng-click="message.sendMessage(message.newMessage)">
         Send Message
       </md-button>
     </md-dialog-actions>
