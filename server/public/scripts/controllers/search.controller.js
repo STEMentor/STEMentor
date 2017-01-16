@@ -1,4 +1,4 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDialog) {
   console.log('SearchController running');
   var self = this;
 
@@ -43,6 +43,17 @@ app.controller('SearchController', ['$http', function($http) {
         console.log("Error with search get request ", err);
       };
   };
+
+  self.createMessage = function(ev) {
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
+
 
 }]);
 
