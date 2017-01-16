@@ -5,15 +5,15 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Pull needed data off of req
-var userEmail = req.decodedToken.email;
-var userType = req.userType,
-    typeId = userType + '_id',
-    userDatabase = userType + 's';
-var userId = req.userId;
-
 // Get messages for specific user
 router.get('/get-all-messages', function(req, res) {
+
+  // Pull needed data off of req
+  var userEmail = req.decodedToken.email;
+  var userType = req.userType,
+      typeId = userType + '_id',
+      userDatabase = userType + 's';
+  var userId = req.userId;
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
@@ -75,6 +75,12 @@ router.get('/get-all-messages', function(req, res) {
 
 // Mark message as read
 router.put('/read-message', function(req, res) {
+  // Pull needed data off of req
+  var userEmail = req.decodedToken.email;
+  var userType = req.userType,
+      typeId = userType + '_id',
+      userDatabase = userType + 's';
+  var userId = req.userId;
   var messageId = req.body.message.id;
 
   pg.connect(connectionString, function(error, client, done) {

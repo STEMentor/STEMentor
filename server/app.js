@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 app.use('/mentor-search', mentorSearch);
-// app.use(decoder.token); // Above not authenticated, below is authenticated
-// app.use('/users.route', users);
+app.use(decoder.token); // Above not authenticated, below is authenticated
+app.use('/users.route', users);
 app.use('/message', messages);
 
 //------------------------------- START SERVER -------------------------------//
