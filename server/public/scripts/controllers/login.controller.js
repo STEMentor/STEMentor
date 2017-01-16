@@ -6,9 +6,9 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
   console.log(self.isLoggedIn);
 
-  self.logIn = function(userType) {
+  self.logIn = function() {
     console.log('logging user in');
-    AuthFactory.logIn(userType).then(function(response){
+    AuthFactory.logIn().then(function(response){
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     });
 
