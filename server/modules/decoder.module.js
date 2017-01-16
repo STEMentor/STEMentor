@@ -61,7 +61,7 @@ function userIdQuery(userEmail, req, res, next, userType){
       res.sendStatus(500);
     }
     if(userType){
-      req.userType = userType;
+      req.userType = userType.slice(0, -1);
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
       [userEmail],
       function(err, result) {
