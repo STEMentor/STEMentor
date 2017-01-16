@@ -1,7 +1,7 @@
 
 
 
-<div ng-controller="ProfileController" ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
+<div ng-controller="ProfileController as profile" ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
   <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
     <div  flex="80"  layout="column">
       <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
@@ -17,11 +17,13 @@
           </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button>Ask me a question!</md-button>
+          <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
           <!-- <md-button>Action 2</md-button> -->
         </md-card-actions>
       </md-card>
 
+      <md-tabs md-dynamic-height="" md-border-bottom="">
+        <md-tab label="Profile">
 
   <md-content  layout-padding="">
     <form name="userForm">
@@ -32,13 +34,7 @@
           </p>
 
           <p>
-            <!-- For instance, toggle the switch
-
-            <span hide-xs="" hide-sm="">to the right</span>
-            <span hide-gt-sm="">below</span> -->
-
             Bacon ipsum dolor amet turducken drumstick sirloin, picanha cupim chicken andouille bacon shankle meatball. Pancetta pork drumstick porchetta beef capicola leberkas strip steak pork loin swine tenderloin venison filet mignon rump pork chop. Pig short ribs brisket, beef tail ham hock bacon tenderloin jowl shoulder pancetta beef ribs. to see the messages switch between some custom hints, and the actual error messages.
-
           </p>
         </div>
 
@@ -185,9 +181,13 @@
 
     </form>
   </md-content>
-
+</md-tab>
+<md-tab label="FAQ">
+  <md-content>
+  <p> asl;dfkjas;ldkfj </p>
+</md-content>
+</md-tab>
 </div>
-
 
 
 <!--

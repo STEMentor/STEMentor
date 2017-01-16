@@ -12,6 +12,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     });
 
+    // TODO: Can this be removed?
     // auth.$signInWithPopup("google").then(function(firebaseUser) {
     //   console.log("Firebase Authenticated as: ", firebaseUser.user);
     // }).catch(function(error) {
@@ -24,20 +25,20 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     AuthFactory.logOut();
   };
 
-  self.hide = function() {
-    $mdDialog.hide();
-  };
+  // TODO: I don't think this function is used. Can we delete?
+  // self.hide = function() {
+  //   $mdDialog.hide();
+  // };
 
   self.cancel = function() {
     $mdDialog.cancel();
   };
 
+  // TODO: I don't think we need this code, but I could be wrong.
   self.answer = function(answer) {
     logIn();
     // $mdDialog.hide(answer);
     // console.log('from dialog controller', answer);
   };
-
-
 
 }]);
