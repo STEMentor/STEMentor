@@ -25,7 +25,7 @@ verify it against firebase service account private_key.
 Then add the decodedToken */
 var tokenDecoder = function(req, res, next){
   //console.log("ID TOKEN",req.headers.id_token);
-  console.log("TYPE IN DECODER", req.headers.type)
+  console.log("TYPE IN DECODER", req.headers.type);
   var userType = req.headers.type;
 
   if(req.headers.id_token){
@@ -51,7 +51,7 @@ var tokenDecoder = function(req, res, next){
     console.log('NO ID TOKEN');
     res.send(403);
   }
-}
+};
 
 function userIdQuery(userEmail, req, res, next, userType){
   return pg.connect(connectionString, function(err, client, done) {
