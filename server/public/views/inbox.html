@@ -2,20 +2,22 @@
 
   <md-toolbar class="md-theme-light">
     <h2 class="md-toolbar-tools">
-      <span flex-offset='15'>(Mentor's Name) Inbox</span>
+      <span flex-offset='0'>(Mentor's Name) Inbox</span>
     </h2>
   </md-toolbar>
 
-  <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
-    <div  flex="70"  layout="column">
+  <md-content flex-offset="0" class="md-padding" layout-xs="column" layout="row">
+    <div  flex=""  layout="column">
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="item in inbox.messages">
         <div class="md-list-item-text">
 
-          <h3>{{ item.message }}</h3>
-          <h4>{{item.who}}</h4>
-          <p>{{item.notes}}</p>
-          <p>{{item.when}} </p>
+          <!-- <h3>{  item.message}}</h3> -->
+          <h4 ng-if="item.name">{{ item.name }}</h4>
+          <h4 ng-if="!item.name">Anonymous</h4>
+          <p>{{item.subject}}</p>
+          <p>{{item.date_sent}} </p>
+
         </div>
         <md-button class="md-secondary" ng-click="inbox.createMessage($event)">Respond</md-button>
         <md-divider ng-if="!$last"></md-divider>
