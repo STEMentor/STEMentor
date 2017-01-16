@@ -1,6 +1,13 @@
-app.controller('HomeController', ['$http', function($http) {
+app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFactory) {
   console.log('HomeController running');
   var self = this;
+
+  // AuthFactory.auth.$onAuthStateChanged(function(firebaseUser){
+  //
+  // })
+
+  self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
+  console.log("home controller:", AuthFactory.userStatus);
 
       self.dataArray = [
       {
