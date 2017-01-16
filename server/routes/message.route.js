@@ -8,38 +8,29 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 // Get messages for specific user
-router.get('/', function(req, res) {
-  var userEmail = req.decodedToken.email;
-  var userType = req.headers.type,
-      typeId = userType + '_id',
-      userDatabase = userType + 's';
-  var userId = req.userId;
+router.get('/get-all-messages', function(req, res) {
+  // var userEmail = req.decodedToken.email;
+  // var userType = req.headers.type,
+  //     typeId = userType + '_id',
+  //     userDatabase = userType + 's';
+  // var userId = req.userId;
 
-  pg.connect(connectionString, function(error, client, done) {
+  var typeId = 'mentor_id';
+  var userId = 129;
+
+  pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck();
 
-    // Query database to get user's ID
-    // Note: This may not be necessary
+    // Query the database for the user's messages
     client.query(
-      'SELECT id FROM $1 WHERE email = $2', [userDatabase, userEmail],
+      'SELECT * FROM messages WHERE $1 = $2', [typeId, userId],
       function(error, result) {
+        done(); // Close connection to database
         if (error) {
-          console.log('Database SELECT error when searching for user ID: ', error);
+          console.log('Database SELECT error when searching for user messages: ', error);
           res.sendStatus(500);
         } else {
-          // Query messages database for all messages matching the user's ID
-          client.query(
-            'SELECT * FROM messages WHERE $1 = $2', [typeId, userId],
-            function(error, result) {
-              done(); // Close connection to database
-              if (error) {
-                console.log('Database SELECT error when searching for user messages: ', error);
-                res.sendStatus(500);
-              } else {
-                res.sendStatus(201).send(result.rows);
-              }
-            }
-          );
+          res.sendStatus(201).send(result.rows);
         }
       }
     );
