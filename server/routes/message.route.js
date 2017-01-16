@@ -19,7 +19,7 @@ router.get('/get-all-messages', function(req, res) {
   var userId = '58';
 
   pg.connect(connectionString, function(error, client, done){
-    // connectionErrorCheck();
+    connectionErrorCheck(error);
     if (error) {
       console.log('Database connection error: ', error);
       res.sendStatus(500);
@@ -53,7 +53,7 @@ router.get('/get-all-messages', function(req, res) {
 //   var message = req.headers.message;
 //
 //   pg.connect(connectionString, function(error, client, done) {
-//     connectionErrorCheck();
+//     connectionErrorCheck(error);
 //
 //     // Find mentor_id
 //     client.query(
@@ -91,7 +91,7 @@ router.put('/read-message', function(req, res) {
   var messageId = req.body.message.id;
 
   pg.connect(connectionString, function(error, client, done) {
-    connectionErrorCheck();
+    connectionErrorCheck(error);
 
     client.query(
       'UPDATE messages SET message_read = TRUE WHERE id = $1',
@@ -114,7 +114,7 @@ router.put('/read-message', function(req, res) {
 //   var messageReply = req.headers.message.reply;
 //
 //   pg.connect(connectionString, function(error, client, done) {
-//     connectionErrorCheck();
+//     connectionErrorCheck(error);
 //
 //     client.query(
 //       'UPDATE messages SET reply = $1 WHERE id = $2',
@@ -133,7 +133,7 @@ router.put('/read-message', function(req, res) {
 
 module.exports = router;
 
-function connectionErrorCheck() {
+function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);
     res.sendStatus(500);
