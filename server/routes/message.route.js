@@ -20,10 +20,6 @@ router.get('/get-all-messages', function(req, res) {
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
-    if (error) {
-      console.log('Database connection error: ', error);
-      res.sendStatus(500);
-    }
 
     // Query the database for the user's messages
     client.query(
@@ -35,8 +31,6 @@ router.get('/get-all-messages', function(req, res) {
           console.log('Database SELECT error when searching for user messages: ', error);
           res.sendStatus(500);
         } else {
-          // res.sendStatus(201).send(result.rows);
-          console.log('result', result.rows);
           res.send(result.rows);
         }
       }

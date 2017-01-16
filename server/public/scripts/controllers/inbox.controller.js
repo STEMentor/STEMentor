@@ -68,20 +68,11 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
   // var userType; // TODO: Where will this come from?
   self.messages = [];
 
-  self.markRead = function(message){
-    return $http({
-      method: 'PUT',
-      url: '/message/read-message',
-      data: {
-        message: message.item
-      }
-    });
-  };
   // self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
   // console.log(self.isLoggedIn);
 
   // Get all messages from the database for a specific user
-  self.getMessages = function() {
+  self.getMessages = (function() {
     return $http({
       method: 'GET',
       url: '/message/get-all-messages'
@@ -94,30 +85,25 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     function(error) {
       console.log('Error with messages GET request: ', error);
     };
+  })();
+
+  // Mark message as read
+  self.markRead = function(message){
+    return $http({
+      method: 'PUT',
+      url: '/message/read-message',
+      data: {
+        message: message.item
+      }
+    })
+    .then(function(response) {
+      console.log('Response from server: ', response);
+    }),
+    function(error) {
+      console.log('Error with message-read PUT request: ', error);
+    };
   };
 
-  self.getMessages();
-
-//   // Mark a message as read
-//   self.setMessageRead = function() {
-//     var messageId; // TODO: Need to get the message's ID somehow
-//
-//     return $http({
-//       method: 'PUT',
-//       url: '/message/read-message',
-//       data: {
-//         messageId: messageId,
-//         authInfo: authInfo
-//       }
-//     })
-//     .then(function(response) {
-//       console.log('Response from server: ', response);
-//     }),
-//     function(error) {
-//       console.log('Error with message-read PUT request: ', error);
-//     };
-//   };
-//
 //   // Reply to message
 //   self.replyToMessage = function() {
 //     var messageId; // TODO: Need to get the message's ID somehow
