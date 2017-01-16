@@ -25,9 +25,10 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     AuthFactory.logOut();
   };
 
-  self.hide = function() {
-    $mdDialog.hide();
-  };
+  // TODO: I don't think this function is used. Can we delete?
+  // self.hide = function() {
+  //   $mdDialog.hide();
+  // };
 
   self.cancel = function() {
     $mdDialog.cancel();
@@ -39,7 +40,5 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     // $mdDialog.hide(answer);
     // console.log('from dialog controller', answer);
   };
-
-
 
 }]);
