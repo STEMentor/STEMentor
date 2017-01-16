@@ -6,7 +6,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var emailInDatabase = false;
   var loggedIn = false;
   var userStatus = {};
-  var type = 'students';
+  var type;
 
   function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -33,6 +33,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         }
       })
       .then(function(response) {
+        console.log(response.data);
         userStatus.userType = response.data.userType;
         console.log(userStatus);
       });

@@ -27,6 +27,7 @@ var tokenDecoder = function(req, res, next){
   //console.log("ID TOKEN",req.headers.id_token);
   console.log("TYPE IN DECODER", req.headers.type);
   var userType = req.headers.type;
+  console.log('USER TYPE:', userType);
 
   if(req.headers.id_token){
     console.log('TOKEN DECODER');
@@ -59,47 +60,97 @@ function userIdQuery(userEmail, req, res, next, userType){
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
+    if(userType){
+      req.userType = userType;
+      client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
+      [userEmail],
+      function(err, result) {
+        done(); // close the connection.
 
-    client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
-    [userEmail],
-    function(err, result) {
-      done(); // close the connection.
+        if(err) {
+          console.log('select query error: ', err);
+          res.sendStatus(500);
+        } else {
+          // console.log('Length of ROWS:', result.rows.length);
+          if(result.rows.length === 0){
+            console.log("ENTER IF STATEMENT. userEmail:", userEmail);
+            client.query(
+              'INSERT INTO ' + userType +' (email) ' +
+              'VALUES ($1)',
+              [userEmail],
+              function(err, result) {
+                done(); // close the connection.
 
-      if(err) {
-        console.log('select query error: ', err);
-        res.sendStatus(500);
+                if(err) {
+                  console.log('insert query error: ', err);
+                  res.sendStatus(500);
+                } else {
+                  console.log('----------------------------');
+                  console.log("INSERT SUCCESSFUL!");
+                  console.log('result.rows: ', result.rows);
+                  console.log('USER TYPE', userType);
+                  console.log('----------------------------');
+                  // res.sendStatus(201);
+                                }
+
+              });
+            }
+            if(result.rows.length === 1){
+              var userId = result.rows[0].id;
+              req.userId = userId; // this is the id that corresponds to users email in users table
+              console.log('USER ID DECODER:', userId);
+            }
+            next();
+          }
+        });
       } else {
-        console.log('Length of ROWS:', result.rows.length);
-        if(result.rows.length === 0){
-          console.log("ENTER IF STATEMENT. userEmail:", userEmail);
-          client.query(
-            'INSERT INTO ' + userType +' (email) ' +
-            'VALUES ($1)',
+        console.log('ELSE STATEMENT IN DECODER 1');
+        client.query('SELECT * FROM mentors WHERE email = $1',
+        [userEmail],
+        function(err, result) {
+          done(); // close the connection.
+
+          if(err) {
+            console.log('select query error: ', err);
+            res.sendStatus(500);
+          } else {
+            console.log("RESULT: ", result.rows);
+              if(result.rows.length === 1){
+                console.log('ELSE STATEMENT IN DECODER 2');
+                req.userType = "mentor";
+                req.userInfo = result.rows[0];
+                console.log('req.userInfo:', req.userInfo);
+                next();
+
+              } else {
+
+            client.query('SELECT * FROM students WHERE email = $1',
             [userEmail],
             function(err, result) {
               done(); // close the connection.
 
               if(err) {
-                console.log('insert query error: ', err);
+                console.log('select query error: ', err);
                 res.sendStatus(500);
-              } else {
-                console.log("INSERT SUCCESSFUL!");
-                // res.sendStatus(201);
               }
+              console.log('LANDED IN STUDENTS QUERY!');
+              console.log("RESULT: ", result.rows.length);
+              if(result.rows.length === 1){
 
+                req.userType = "student";
+                req.userInfo = result.rows[0];
+                console.log('req.userInfo:', req.userInfo);
+                next();
+              }
             });
           }
-          if(result.rows.length === 1){
-            var userId = result.rows[0].id;
-            req.userId = userId; // this is the id that corresponds to users email in users table
-            console.log('USER ID DECODER:', userId);
-          }
-
-          next();
 
         }
 
       });
+
+      }
+
 
     })
   }
