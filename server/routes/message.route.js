@@ -3,20 +3,17 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
-// TODO: Add correct decoded token variable below
-// var decodedToken = tokenDecoder;
 //----------------------------------------------------------------------------//
+
+// Pull needed data off of req
+var userEmail = req.decodedToken.email;
+var userType = req.userType,
+    typeId = userType + '_id',
+    userDatabase = userType + 's';
+var userId = req.userId;
 
 // Get messages for specific user
 router.get('/get-all-messages', function(req, res) {
-  // var userEmail = req.decodedToken.email;
-  // var userType = req.headers.type,
-  //     typeId = userType + '_id',
-  //     userDatabase = userType + 's';
-  // var userId = req.userId;
-
-  var typeId = 'mentor_id';
-  var userId = '58';
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
@@ -40,11 +37,7 @@ router.get('/get-all-messages', function(req, res) {
 
 // // Create new message when user hits the "Send" button
 // router.post('/new-message', function(req, res) {
-//   var userId = req.userId; // provided by token decoder route
-//   // TODO: Make sure mentor email makes it onto the request
-//   var mentorEmail = req.headers.message.mentorEmail;
-//   // TODO: Check where message is coming through from the client
-//   var message = req.headers.message;
+//   var message = req.body.message;
 //
 //   pg.connect(connectionString, function(error, client, done) {
 //     connectionErrorCheck(error);
@@ -104,8 +97,8 @@ router.put('/read-message', function(req, res) {
 //
 // // Reply to message
 // router.put('/reply', function(req, res) {
-//   var messageId = req.headers.message.id;
-//   var messageReply = req.headers.message.reply;
+//   var messageId = req.body.message.id;
+//   var messageReply = req.body.message.reply;
 //
 //   pg.connect(connectionString, function(error, client, done) {
 //     connectionErrorCheck(error);
