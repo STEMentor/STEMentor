@@ -2,10 +2,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
   console.log('ProfileController running');
   var self = this;
 
-var self = this;
-
-    self.imagePath = '../server/public/assets/images/cooldog.jpeg';
-
+  self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
   self.createMessage = function(ev) {
     $mdDialog.show({
