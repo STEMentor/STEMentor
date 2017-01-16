@@ -105,7 +105,7 @@ function userIdQuery(userEmail, req, res, next, userType){
         });
       } else {
         //If there is no userType, check db to see which table user is in, then attach userType to req
-        client.query('SELECT students.email AS student, mentors.email AS mentor '+
+        client.query('SELECT students.email AS student, mentors.email AS mentor, students.id AS student_id, mentors.id AS mentor_id '+
         'FROM mentors '+
         'FULL OUTER JOIN students ON mentors.email = students.email '+
         'WHERE students.email=$1 OR mentors.email=$1',
@@ -118,11 +118,17 @@ function userIdQuery(userEmail, req, res, next, userType){
           } else {
             console.log("RESULT: ", result.rows[0]);
               for (var property in result.rows[0]){
-                if (result.rows[0][property] !== null){
+                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'string'){
                   req.userType = property;
+
+                  // req.userId = result.rows[0].id;
+                }
+                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'number'){
+                  req.userId = result.rows[0][property];
                 }
               }
-              console.log(req.userType);
+              console.log('req.userType: ', req.userType);
+              console.log('req.userId: ', req.userId);
               next();
 
             }
@@ -130,61 +136,6 @@ function userIdQuery(userEmail, req, res, next, userType){
         }
       });
 
-
-
   }
-
-
-  // if(result.rows.length === 1){
-    // console.log('ELSE STATEMENT IN DECODER 2');
-    // req.userType = "mentor";
-    // req.userInfo = result.rows[0];
-    // console.log('req.userInfo:', req.userInfo);
-
-        // client.query('SELECT * FROM mentors WHERE email = $1',
-        // [userEmail],
-        // function(err, result) {
-        //   done(); // close the connection.
-        //
-        //   if(err) {
-        //     console.log('select query error: ', err);
-        //     res.sendStatus(500);
-        //   } else {
-        //     console.log("RESULT: ", result.rows);
-        //     if(result.rows.length === 1){
-        //       console.log('ELSE STATEMENT IN DECODER 2');
-        //       req.userType = "mentor";
-        //       req.userInfo = result.rows[0];
-        //       console.log('req.userInfo:', req.userInfo);
-        //       next();
-        //
-        //     } else {
-        //
-        //       client.query('SELECT * FROM students WHERE email = $1',
-        //       [userEmail],
-        //       function(err, result) {
-        //         done(); // close the connection.
-        //
-        //         if(err) {
-        //           console.log('select query error: ', err);
-        //           res.sendStatus(500);
-        //         }
-        //         console.log('LANDED IN STUDENTS QUERY!');
-        //         console.log("RESULT: ", result.rows.length);
-        //         if(result.rows.length === 1){
-        //
-        //           req.userType = "student";
-        //           req.userInfo = result.rows[0];
-        //           console.log('req.userInfo:', req.userInfo);
-        //           next();
-        //         }
-        //       });
-        //     }
-        //
-        //   }
-        //
-        // });
-
-
 
   module.exports = { token: tokenDecoder };
