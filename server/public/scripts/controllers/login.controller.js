@@ -11,12 +11,6 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     AuthFactory.logIn().then(function(response){
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     });
-
-    // auth.$signInWithPopup("google").then(function(firebaseUser) {
-    //   console.log("Firebase Authenticated as: ", firebaseUser.user);
-    // }).catch(function(error) {
-    //   console.log("Authentication failed: ", error);
-    // });
   };
 
   self.logOut = function() {
@@ -24,20 +18,8 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     AuthFactory.logOut();
   };
 
-  self.hide = function() {
-    $mdDialog.hide();
-  };
-
   self.cancel = function() {
     $mdDialog.cancel();
   };
-
-  self.answer = function(answer) {
-    logIn();
-    // $mdDialog.hide(answer);
-    // console.log('from dialog controller', answer);
-  };
-
-
 
 }]);

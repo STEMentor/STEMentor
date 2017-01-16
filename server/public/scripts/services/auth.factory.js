@@ -2,11 +2,11 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
-  var currentUser = undefined;
+  var currentUser;
   var emailInDatabase = false;
   var loggedIn = false;
   var userStatus = {};
-  var type = 'mentors';
+  var type;
 
   function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -17,14 +17,13 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       console.log('firebaseUser: ', firebaseUser);
       if(currentUser) {
         getUser(currentUser);
-      };
+      }
     });
-  };
-
+  }
 
   function getUser(currentUser){
     currentUser.getToken().then(function(idToken){
-      console.log('ID TOKEN:', idToken)
+      console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
         url: '/users.route',
@@ -34,6 +33,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         }
       })
       .then(function(response) {
+        console.log(response.data);
         userStatus.userType = response.data.userType;
         console.log(userStatus);
       });
@@ -55,7 +55,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
-
   function logOut() {
     return auth.$signOut().then(function() {
       currentUser = undefined;
@@ -66,6 +65,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }
 
+  // TODO: Have Oliver explain what these variables are
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
