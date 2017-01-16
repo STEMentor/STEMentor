@@ -16,7 +16,7 @@ router.get('/get-all-messages', function(req, res) {
   // var userId = req.userId;
 
   var typeId = 'mentor_id';
-  var userId = '129';
+  var userId = '58';
 
   pg.connect(connectionString, function(error, client, done){
     // connectionErrorCheck();
