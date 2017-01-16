@@ -12,12 +12,12 @@
     <md-content flex-offset="0" class="md-padding" layout-xs="column" layout="row">
       <div flex="" layout="column">
         <md-list>
-          <md-list-item class="md-3-line" ng-repeat="item in inbox.messages">
+          <md-list-item class="md-3-line" ng-repeat="item in inbox.messages | orderBy: '-date_sent'">
             <div class="md-list-item-text">
 
               <!-- <h3>{  item.message}}</h3> -->
               <h4 ng-if="item.student_name">{{ item.student_name }}</h4>
-              <h4 ng-if="!item.student_name">(Anonymous)</h4>
+              <h4 ng-if="!item.student_name">(Anonymous Student)</h4>
               <p>Subject: {{item.subject}}</p>
               <p>Date Sent: {{item.date_sent | date: shortDate}} </p>
 
