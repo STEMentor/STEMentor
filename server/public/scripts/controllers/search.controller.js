@@ -1,4 +1,4 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDialog) {
   console.log('SearchController running');
   var self = this;
   self.mentors = [];
@@ -18,15 +18,7 @@ app.controller('SearchController', ['$http', function($http) {
     major: null,
     language: null
   };
-
-
-  // .config(function($mdThemingProvider) {
-  //   $mdThemingProvider.theme('docs-dark', 'default')
-  //     .primaryPalette('yellow')
-  //     .dark();
-  //
-  // });
-
+  
   self.test = function() {
     console.log(self.newSearch);
   };
@@ -36,7 +28,7 @@ app.controller('SearchController', ['$http', function($http) {
     var newSearchString = JSON.stringify(self.newSearch);
     return $http({
           method: 'GET',
-          url: '/mentor-search',
+          url: '/mentor-search/search',
           headers: {
             newSearchString: newSearchString
           }
@@ -50,6 +42,17 @@ app.controller('SearchController', ['$http', function($http) {
         };
 
   }
+
+  self.createMessage = function(ev) {
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
+
 
 }]);
 /**
