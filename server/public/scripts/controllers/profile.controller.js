@@ -2,18 +2,10 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
   console.log('ProfileController running');
   var self = this;
 
+var self = this;
 
-  angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+    self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
-  .controller('AppCtrl', function($scope) {
-    $scope.imagePath = '../server/public/assets/images/cooldog.jpeg';
-  })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-    $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-    $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
-  });
 
   self.createMessage = function(ev) {
     $mdDialog.show({
@@ -31,9 +23,3 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
   **/
 
 }]);
-
-// angular.module('cardDemo2', ['ngMaterial'])
-//
-// .controller('AppCtrl', function($scope) {
-//   $scope.imagePath = 'img/washedout.png';
-// });
