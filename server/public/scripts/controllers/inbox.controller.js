@@ -68,8 +68,14 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
   // var userType; // TODO: Where will this come from?
   self.messages = [];
 
-  self.test = function(item){
-    console.log('hi: ', item.item);
+  self.markRead = function(message){
+    return $http({
+      method: 'PUT',
+      url: '/message/read-message',
+      data: {
+        message: message.item
+      }
+    });
   };
   // self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
   // console.log(self.isLoggedIn);

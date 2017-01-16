@@ -85,29 +85,28 @@ router.get('/get-all-messages', function(req, res) {
 //     );
 //   });
 // });
-//
-// // Mark message as read
-// router.put('/read-message', function(req, res) {
-//   // TODO: Check where message is coming through from the client
-//   var messageId = req.headers.message.id;
-//
-//   pg.connect(connectionString, function(error, client, done) {
-//     connectionErrorCheck();
-//
-//     client.query(
-//       'UPDATE messages SET message_read = TRUE WHERE id = $1',
-//       [messageId],
-//       function(error, result) {
-//         if (error) {
-//           console.log('Unable to mark message as read: ', error);
-//           res.sendStatus(500);
-//         } else {
-//           res.sendStatus(200);
-//         }
-//       }
-//     );
-//   });
-// });
+
+// Mark message as read
+router.put('/read-message', function(req, res) {
+  var messageId = req.body.message.id;
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    client.query(
+      'UPDATE messages SET message_read = TRUE WHERE id = $1',
+      [messageId],
+      function(error, result) {
+        if (error) {
+          console.log('Unable to mark message as read: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
+    );
+  });
+});
 //
 // // Reply to message
 // router.put('/reply', function(req, res) {
