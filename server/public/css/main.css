@@ -68,3 +68,22 @@ Use of this source code is governed by an MIT-style license that can be foundin 
   border: 1px solid #000000;
   width: 20px;
   height: 20px; }
+
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important; }
+
+.tabsdemoDynamicHeight md-content md-tabs {
+  background: #f6f6f6;
+  border: 1px solid #e1e1e1; }
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+  background: white; }
+
+.tabsdemoDynamicHeight md-content h1:first-child {
+  margin-top: 0; }
+
+.dividerdemoBasicUsage .face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px; }
