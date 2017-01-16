@@ -47,7 +47,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     currentUser = firebaseUser;
     console.log("CURRENT USER", currentUser);
     if(currentUser) {
-      getUser(currentUser);
+      // getUser(currentUser);
     } else {
       userStatus.isLoggedIn = false;
     }

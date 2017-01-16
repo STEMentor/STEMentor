@@ -1,4 +1,4 @@
-<div ng-controller="InboxController as inbox" ng-cloak="" class="dividerdemoBasicUsage" ng-app="stementor">
+<div ng-cloak="" class="dividerdemoBasicUsage" ng-app="stementor">
 
   <md-toolbar class="md-theme-light">
     <h2 class="md-toolbar-tools">
@@ -12,7 +12,7 @@
       <md-list-item class="md-3-line" ng-repeat="item in inbox.messages">
         <div class="md-list-item-text">
 
-          <h3>{{item.what}}</h3>
+          <h3>{{ item.message }}</h3>
           <h4>{{item.who}}</h4>
           <p>{{item.notes}}</p>
           <p>{{item.when}} </p>

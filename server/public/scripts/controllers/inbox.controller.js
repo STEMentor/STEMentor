@@ -64,19 +64,20 @@
 app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
   console.log('InboxController running');
   var self = this;
-  var authInfo = AuthFactory.auth;
-  var userType; // TODO: Where will this come from?
+  // var authInfo = AuthFactory.auth;
+  // var userType; // TODO: Where will this come from?
   self.messages = [];
 
-  self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
-  console.log(self.isLoggedIn);
+
+  // self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
+  // console.log(self.isLoggedIn);
 
   // Get all messages from the database for a specific user
   self.getMessages = function() {
     return $http({
       method: 'GET',
-      url: '/message',
-      headers: { userInfo: authInfo } // TODO: Not sure what would go here
+      url: '/message/get-all-messages'
+      // headers: { userInfo: authInfo } // TODO: Not sure what would go here
     })
     .then(function(response) {
       self.messages = response.data;
@@ -87,90 +88,92 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     };
   };
 
-  // Mark a message as read
-  self.setMessageRead = function() {
-    var messageId; // TODO: Need to get the message's ID somehow
-
-    return $http({
-      method: 'PUT',
-      url: '/message/read-message',
-      data: {
-        messageId: messageId,
-        authInfo: authInfo
-      }
-    })
-    .then(function(response) {
-      console.log('Response from server: ', response);
-    }),
-    function(error) {
-      console.log('Error with message-read PUT request: ', error);
-    };
-  };
-
-  // Reply to message
-  self.replyToMessage = function() {
-    var messageId; // TODO: Need to get the message's ID somehow
-
-    return $http({
-      method: 'PUT',
-      url: '/message/reply',
-      data: {
-        messageId: messageId,
-        authInfo: authInfo
-      }
-    })
-    .then(function(response) {
-      console.log('Response from the server: ', response);
-    }),
-    function(error) {
-      console.log('Error with the reply PUT request: ', error);
-    };
-  };
-
-  // call getMessages on page load
   self.getMessages();
 
-//***** Phil's inbox JS *****//
-
-self.messages = [{
-      face : 'HEY',
-      what: 'WHAT IS SCIENCE?',
-      who: 'John Adams',
-      when: '3:08PM',
-      notes: " I need to know what science is"
-    }, {
-      face : "SUP",
-      what: 'Brunch this weekend?',
-      who: 'Cool Dog',
-      when: '5:25PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      face : "COOL",
-      what: 'NASA?',
-      who: 'Harry Potter',
-      when: '1:45PM',
-      notes: "What is NASA"
-    }, {
-      face : "ROCKIN",
-      what: 'Im Hungry',
-      who: 'Pepe',
-      when: '3:33AM',
-      notes: " I need to make some pizza"
-    }, {
-      face : "SWEET",
-      what: 'Pizza Stuff?',
-      who: 'Johnny Appleseed',
-      when: '7:34PM',
-      notes: " REALLY gotta make some pizza"
-    }];
-
-    self.createMessage = function(ev) {
-      $mdDialog.show({
-        controller: 'MessageController as message',
-        templateUrl: '../../views/message-modal.html',
-        targetEvent: ev,
-        clickOutsideToClose: true
-      });
-    };
+//   // Mark a message as read
+//   self.setMessageRead = function() {
+//     var messageId; // TODO: Need to get the message's ID somehow
+//
+//     return $http({
+//       method: 'PUT',
+//       url: '/message/read-message',
+//       data: {
+//         messageId: messageId,
+//         authInfo: authInfo
+//       }
+//     })
+//     .then(function(response) {
+//       console.log('Response from server: ', response);
+//     }),
+//     function(error) {
+//       console.log('Error with message-read PUT request: ', error);
+//     };
+//   };
+//
+//   // Reply to message
+//   self.replyToMessage = function() {
+//     var messageId; // TODO: Need to get the message's ID somehow
+//
+//     return $http({
+//       method: 'PUT',
+//       url: '/message/reply',
+//       data: {
+//         messageId: messageId,
+//         authInfo: authInfo
+//       }
+//     })
+//     .then(function(response) {
+//       console.log('Response from the server: ', response);
+//     }),
+//     function(error) {
+//       console.log('Error with the reply PUT request: ', error);
+//     };
+//   };
+//
+//   // call getMessages on page load
+//   self.getMessages();
+//
+// //***** Phil's inbox JS *****//
+//
+// self.messages = [{
+//       face : 'HEY',
+//       what: 'WHAT IS SCIENCE?',
+//       who: 'John Adams',
+//       when: '3:08PM',
+//       notes: " I need to know what science is"
+//     }, {
+//       face : "SUP",
+//       what: 'Brunch this weekend?',
+//       who: 'Cool Dog',
+//       when: '5:25PM',
+//       notes: " I'll be in your neighborhood doing errands"
+//     }, {
+//       face : "COOL",
+//       what: 'NASA?',
+//       who: 'Harry Potter',
+//       when: '1:45PM',
+//       notes: "What is NASA"
+//     }, {
+//       face : "ROCKIN",
+//       what: 'Im Hungry',
+//       who: 'Pepe',
+//       when: '3:33AM',
+//       notes: " I need to make some pizza"
+//     }, {
+//       face : "SWEET",
+//       what: 'Pizza Stuff?',
+//       who: 'Johnny Appleseed',
+//       when: '7:34PM',
+//       notes: " REALLY gotta make some pizza"
+//     }];
+//
+//     self.createMessage = function(ev) {
+//       $mdDialog.show({
+//         controller: 'MessageController as message',
+//         templateUrl: '../../views/message-modal.html',
+//         targetEvent: ev,
+//         clickOutsideToClose: true
+//       });
+//     };
 
 }]);
