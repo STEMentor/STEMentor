@@ -1,4 +1,4 @@
-<div ng-controller="InboxController" ng-cloak="" class="dividerdemoBasicUsage" ng-app="stementor">
+<div ng-controller="InboxController as inbox" ng-cloak="" class="dividerdemoBasicUsage" ng-app="stementor">
 
   <md-toolbar class="md-theme-light">
     <h2 class="md-toolbar-tools">
@@ -17,7 +17,7 @@
           <p>{{item.notes}}</p>
           <p>{{item.when}} </p>
         </div>
-        <md-button class="md-secondary">Respond</md-button>
+        <md-button class="md-secondary" ng-click="inbox.createMessage($event)">Respond</md-button>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>

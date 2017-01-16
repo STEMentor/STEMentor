@@ -1,4 +1,4 @@
-app.controller('InboxController', ['$http', function($http) {
+app.controller('InboxController', ['$http', '$mdDialog', function($http, $mdDialog) {
   console.log('InboxController running');
 
 var self = this;
@@ -36,6 +36,13 @@ self.messages = [{
       notes: " REALLY gotta make some pizza"
     }];
 
-
+    self.createMessage = function(ev) {
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
 
 }]);
