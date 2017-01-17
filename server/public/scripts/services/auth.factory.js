@@ -34,6 +34,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       .then(function(response) {
         // console.log(response.data);
         userStatus.userType = response.data.userType;
+        userStatus.newUser = response.data.newUser;
         console.log(userStatus);
       });
       userStatus.isLoggedIn = true;
@@ -68,6 +69,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
+    currentUser: currentUser,
     logIn: function(userType) {
       return logIn(userType);
     },
