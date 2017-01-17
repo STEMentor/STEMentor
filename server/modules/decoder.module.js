@@ -45,12 +45,12 @@ var tokenDecoder = function(req, res, next){
       // If the id_token isn't right, you end up in this callback function
       // Here we are returning a forbidden error
       console.log('User token could not be verified');
-      res.send(403);
+      res.sendStatus(403);
     });
 
   } else {
     console.log('NO ID TOKEN');
-    res.send(403);
+    res.sendStatus(403);
   }
 };
 
