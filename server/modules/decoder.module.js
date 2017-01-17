@@ -119,14 +119,15 @@ function userIdQuery(userEmail, req, res, next, userType){
             res.sendStatus(500);
           } else {
             console.log("RESULT: ", result.rows[0]);
-              for (var property in result.rows[0]){
-                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'string'){
+            var userObject = result.rows[0];
+              for (var property in userObject){
+                if (userObject[property] !== null && typeof userObject[property] === 'string'){
                   req.userType = property;
 
-                  // req.userId = result.rows[0].id;
+                  // req.userId = userObject.id;
                 }
-                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'number'){
-                  req.userId = result.rows[0][property];
+                if (userObject[property] !== null && typeof userObject[property] === 'number'){
+                  req.userId = userObject[property];
                 }
               }
               console.log('req.userType: ', req.userType);
