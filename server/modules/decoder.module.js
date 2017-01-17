@@ -63,7 +63,9 @@ function userIdQuery(userEmail, req, res, next, userType){
     }
     //Checking to see is user exists in db and if not, adds them based on type
     if(userType){
-      req.userType = userType.slice(0, -1);
+      req.userType = userType;
+      userType = userType + 's'; // Add 's' to match tables (mentors, students)
+
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
       [userEmail],
       function(err, result) {
