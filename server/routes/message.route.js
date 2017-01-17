@@ -1,122 +1,144 @@
+//----------------------------------------------------------------------------//
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
+// TODO: Add correct decoded token variable below
+// var decodedToken = tokenDecoder;
+//----------------------------------------------------------------------------//
 
-//get messages
-router.get('/', function(res, res){
-  console.log('req.headers: ', req.headers);
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query('SELECT message FROM messages WHERE $1 = $2',
-    //[mentor_id or student_id, id value],
-    function(err, result){
-      done();
-      if(err){
-        console.log('select query error: ', err);
-        res.sendStatus(500);
+// Get messages for specific user
+router.get('/', function(req, res) {
+  var userEmail = req.decodedToken.email;
+  var userType = req.headers.type,
+      typeId = userType + '_id',
+      userDatabase = userType + 's';
+  var userId = req.userId;
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    // Query database to get user's ID
+    // Note: This may not be necessary
+    client.query(
+      'SELECT id FROM $1 WHERE email = $2', [userDatabase, userEmail],
+      function(error, result) {
+        if (error) {
+          console.log('Database SELECT error when searching for user ID: ', error);
+          res.sendStatus(500);
+        } else {
+          // Query messages database for all messages matching the user's ID
+          client.query(
+            'SELECT * FROM messages WHERE $1 = $2', [typeId, userId],
+            function(error, result) {
+              done(); // Close connection to database
+              if (error) {
+                console.log('Database SELECT error when searching for user messages: ', error);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(201).send(result.rows);
+              }
+            }
+          );
+        }
       }
-      console.log('result.rows: ', result.rows);
-      res.send(result.rows);
-    });
+    );
   });
 });
 
+// Create new message when user hits the "Send" button
+router.post('/new-message', function(req, res) {
+  var userId = req.userId; // provided by token decoder route
+  // TODO: Make sure mentor email makes it onto the request
+  var mentorEmail = req.headers.message.mentorEmail;
+  // TODO: Check where message is coming through from the client
+  var message = req.headers.message;
 
-//post new message from student
-router.post('/', function(req, res){
-  console.log('req.body: ', req.body);
-  var newMessage = req.body;
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query('INSERT INTO messages (mentor_id, student_id, date_sent, date_replied, subject, message, student_name)' +
-    'VALUES ($1, $2, $3, $4, $5, $6, $7)',
-    //[values],
-    function(err, result){
-      done();
-      if(err){
-        console.log('insert query error: ', err);
-        res.sendStatus(500);
-      }else{
-        res.sendStatus(201);
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    // Find mentor_id
+    client.query(
+      'SELECT id FROM mentors WHERE email = $1', [mentorEmail],
+      function(error, result) {
+        if (error) {
+          console.log('Database SELECT error when searching for mentor ID: ', error);
+          res.sendStatus(500);
+        } else {
+          var mentorId = result.rows[0].id; // TODO: Verify this value is returning correctly
+          // Create new message record
+          client.query(
+            'INSERT INTO messages' +
+            '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
+            'VALUES ($1, $2, now(), $3, $4, $5)',
+            [mentorId, userId, message.subject, message.body, message.student_name],
+            function(error, result) {
+              done(); // Close connection to database
+              if (error) {
+                console.log('Error creating new message: ', error);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(201);
+              }
+            }
+          );
+        }
       }
-    });
+    );
   });
 });
 
+// Mark message as read
+router.put('/read-message', function(req, res) {
+  // TODO: Check where message is coming through from the client
+  var messageId = req.headers.message.id;
 
-//mark message as"read"
-router.put('/:id', function(req, res){
-  //something
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query('UPDATE messages SET message_read=TRUE WHERE id=$1',
-    //[id value],
-    function(err, result){
-      if(err){
-        console.log('update error: ', err);
-        res.sendStatus(500);
-      }else{
-        res.sendStatus(200);
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    client.query(
+      'UPDATE messages SET message_read = TRUE WHERE id = $1',
+      [messageId],
+      function(error, result) {
+        if (error) {
+          console.log('Unable to mark message as read: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
       }
-    });
+    );
   });
 });
 
+// Reply to message
+router.put('/reply', function(req, res) {
+  var messageId = req.headers.message.id;
+  var messageReply = req.headers.message.reply;
 
-//add reply message
-router.put('/:id', function(req, res){
-  //something
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query('UPDATE messages SET reply=$1 WHERE id=$2',
-    [],   //change
-    function(err, result){
-      if(err){
-        console.log('update error: ', err);
-        res.sendStatus(500);
-      }else{
-        res.sendStatus(200);
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck();
+
+    client.query(
+      'UPDATE messages SET reply = $1 WHERE id = $2',
+      [messageReply, messageId],
+      function(error, result) {
+        if (error) {
+          console.log('UPDATE database error: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
       }
-    });
+    );
   });
 });
-
-
-//delete message
-router.delete('/:id', function(req, res){
-  console.log('req.params: ', req.params);
-  //something
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query('DELETE FROM messages WHERE id=$1',
-    [],   //change
-    function(err, result){
-      done();
-      if(err){
-        console.log('delete query error: ', err);
-        res.sendStatus(500);
-      }else{
-        res.sendStatus(200);
-      }
-    });
-  });
-});
-
 
 module.exports = router;
+
+function connectionErrorCheck() {
+  if (error) {
+    console.log('Database connection error: ', error);
+    res.sendStatus(500);
+  }
+}
