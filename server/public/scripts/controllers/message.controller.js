@@ -5,6 +5,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
 
+  self.userStatus = AuthFactory.userStatus;
+
   self.sendMessage = function(message){
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);

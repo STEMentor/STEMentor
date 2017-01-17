@@ -1,6 +1,11 @@
-app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDialog) {
+app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
   console.log('ProfileController running');
   var self = this;
+  // var userStatus = AuthFactory.userStatus;
+  var isMentor = false;
+  var isStudent = false;
+
+  self.userStatus = AuthFactory.userStatus;
 
   self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
