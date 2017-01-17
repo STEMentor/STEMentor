@@ -64,28 +64,35 @@
 app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
   console.log('InboxController running');
   var self = this;
-  // var authInfo = AuthFactory.auth;
-  // var userType; // TODO: Where will this come from?
+  self.userStatus = AuthFactory.userStatus;
   self.messages = [];
 
-  // self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
-  // console.log(self.isLoggedIn);
+  // Makes sure that currentUser is set before getting messages from the server
+  AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    getMessages(currentUser);
+  });
 
   // Get all messages from the database for a specific user
-  self.getMessages = (function() {
-    return $http({
-      method: 'GET',
-      url: '/message/get-all-messages'
-      // headers: { userInfo: authInfo } // TODO: Not sure what would go here
-    })
-    .then(function(response) {
-      self.messages = response.data;
-      console.log('Messages list: ', self.messages);
-    }),
-    function(error) {
-      console.log('Error with messages GET request: ', error);
-    };
-  })();
+  function getMessages(currentUser) {
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'GET',
+          url: '/message/get-all-messages',
+          headers: {
+            id_token: idToken
+          }
+        })
+        .then(function(response) {
+          self.messages = response.data;
+          console.log('Messages list: ', self.messages);
+        }),
+        function(error) {
+          console.log('Error with messages GET request: ', error);
+        };
+      });
+    }
+  }
 
   // Mark message as read
   self.markRead = function(message){
