@@ -118,7 +118,7 @@
 
 
 
-<div ng-repeat="mentor in search.mentors">
+<div ng-repeat="mentor in search.mentors.info">
 
 
     <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
@@ -137,7 +137,7 @@
                     </md-card-title-media>
                 </md-card-title>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button>View Profile</md-button>
+                    <md-button ng-click="search.getMentor(mentor.id)">View Profile</md-button>
                     <md-button ng-click="search.createMessage($event)">Message</md-button>
                 </md-card-actions>
               </md-card>
