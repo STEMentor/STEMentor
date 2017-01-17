@@ -16,9 +16,6 @@ var faq = require('./routes/faq.route');
 app.use(express.static('./server/public'));
 app.use(bodyParser.json());
 
-//----------------------- POSTGRES CONNECTION HANDLING -----------------------//
-
-
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 app.use('/mentor-search', mentorSearch);

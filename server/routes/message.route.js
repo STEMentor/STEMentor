@@ -57,7 +57,7 @@ router.get('/get-all-messages', function(req, res) {
 //           var mentorId = result.rows[0].id; // TODO: Verify this value is returning correctly
 //           // Create new message record
 //           client.query(
-//             'INSERT INTO messages' +
+//             'INSERT INTO messages ' +
 //             '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
 //             'VALUES ($1, $2, now(), $3, $4, $5)',
 //             [mentorId, userId, message.subject, message.body, message.student_name],
