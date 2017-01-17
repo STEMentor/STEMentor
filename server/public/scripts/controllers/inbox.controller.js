@@ -94,6 +94,15 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     }
   }
 
+  self.createMessage = function(ev) {
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
   // Mark message as read
   self.markRead = function(message){
     return $http({

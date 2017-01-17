@@ -10,6 +10,7 @@ app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', functi
   self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
   self.createMessage = function(ev) {
+    console.log('profile controller self.userStatus: ', self.userStatus);
     $mdDialog.show({
       controller: 'MessageController as message',
       templateUrl: '../../views/message-modal.html',
