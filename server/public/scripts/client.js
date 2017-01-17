@@ -22,11 +22,6 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'MessageController',
     controllerAs: 'message'
   })
-  .when('/nav', {
-    templateUrl: '/views/nav.html',
-    controller: 'NavController',
-    controllerAs: 'nav'
-  })
   .when('/profile', {
     templateUrl: '/views/profile.html',
     controller: 'ProfileController',
