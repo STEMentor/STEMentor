@@ -11,9 +11,12 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
-    // message.newMessage.name = '';
-    // message.newMessage.subject = '';
-    // message.newMessage.body = '';
+    // $http.post('/message/new-message', self.newMessage);
+    //   .then(function(response) {
+    //     console.log('response: ', response);
+    //   });
+  // };
+
   };
 
   self.cancel = function() {

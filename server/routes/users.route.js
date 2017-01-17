@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
   var data = {};
 
   data.userType = req.userType;
+
   res.send(data);
 });
 
