@@ -3,6 +3,7 @@
         <div flex="80" layout="column">
           <md-card>
             <md-card-title>
+              <!-- TODO: Make this card editable. Add fields (first name, last name, email, avatar, zip) -->
                 <md-card-title-text>
                     <span class="md-headline">Mark Hibbs</span>
                     </br>
@@ -36,7 +37,7 @@
                     <md-card>
                        <md-card-title>
                          <md-card-title-text>
-                           <span class="md-headline">Bio</span>
+                           <span class="md-headline">Blurb</span>
                            <span class="md-subhead"></span>
                          </md-card-title-text>
                        </md-card-title>
@@ -89,41 +90,61 @@
 <md-card>
    <md-card-title>
      <md-card-title-text>
-       <span class="md-headline">Account Preferences</span>
-       <span class="md-subhead">Tell us a little about you.</span>
+       <span class="md-headline">Bio</span>
+       <span class="md-subhead"></span>
      </md-card-title-text>
    </md-card-title>
 
-   <md-card-content>
-     <div layout="row">
-       <md-input-container>
-         <label>Street Name</label>
-         <input>
+   <md-card-content ng-if="showEdits">
+     <div layout-gt-sm="row">
+
+       <md-input-container class="md-block" flex-gt-sm="" rows="5">
+         <label>Name</label>
+         <textarea ng-if="showEdits" ng-model="fields" rows="5">Tell us a little bit about you... </textarea>
+         <!-- <input  required="" name="name" ng-model="user.name"> -->
+
+         <div>Tell us what we should call you!</div>
+
+         <div ng-messages="userForm.name.$error" ng-if="!showHints">
+           <div ng-message="required">Name is required.</div>
+           <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+         </div>
        </md-input-container>
 
-       <md-input-container>
-         <label>City</label>
-         <input>
+       <div flex="5" hide-xs="" hide-sm="">
+         <!-- Spacer //-->
+       </div>
+     </div>
+   </md-card-content>
+   <md-card-content ng-if="!showEdits">
+     <div layout-gt-sm="row">
+
+       <md-input-container class="md-block" flex-gt-sm="" rows="5">
+         <!-- <label>Name</label> -->
+         <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
+         <!-- <input  required="" name="name" ng-model="user.name"> -->
+
+         <div>{{profile.fields.bio}}</div>
+
+         <div ng-messages="userForm.name.$error" ng-if="!showHints">
+           <div ng-message="required">Name is required.</div>
+           <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+         </div>
        </md-input-container>
 
-       <md-input-container>
-         <label>State</label>
-         <md-select ng-model="ctrl.userState">
-           <md-option><em>None</em></md-option>
-           <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-             {{state.abbrev}}
-           </md-option>
-         </md-select>
-       </md-input-container>
+       <div flex="5" hide-xs="" hide-sm="">
+         <!-- Spacer //-->
+       </div>
      </div>
    </md-card-content>
  </md-card>
+
 
  <!-- third card -->
  <md-card>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">Account Preferences</span>
+        <span class="md-headline">Education</span>
         <span class="md-subhead">Tell us a little about you.</span>
       </md-card-title-text>
     </md-card-title>
@@ -153,6 +174,107 @@
     </md-card-content>
   </md-card>
 
+  <!-- fourth card -->
+  <md-card>
+     <md-card-title>
+       <md-card-title-text>
+         <span class="md-headline">Job Info</span>
+         <span class="md-subhead">Tell us a little about you.</span>
+       </md-card-title-text>
+     </md-card-title>
+
+     <md-card-content>
+       <div layout="row">
+         <md-input-container>
+           <label>Street Name</label>
+           <input>
+         </md-input-container>
+
+         <md-input-container>
+           <label>City</label>
+           <input>
+         </md-input-container>
+
+         <md-input-container>
+           <label>State</label>
+           <md-select ng-model="ctrl.userState">
+             <md-option><em>None</em></md-option>
+             <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+               {{state.abbrev}}
+             </md-option>
+           </md-select>
+         </md-input-container>
+       </div>
+     </md-card-content>
+   </md-card>
+
+   <!-- fifth card -->
+   <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Languages</span>
+          <span class="md-subhead">Tell us a little about you.</span>
+        </md-card-title-text>
+      </md-card-title>
+
+      <md-card-content>
+        <div layout="row">
+          <md-input-container>
+            <label>Street Name</label>
+            <input>
+          </md-input-container>
+
+          <md-input-container>
+            <label>City</label>
+            <input>
+          </md-input-container>
+
+          <md-input-container>
+            <label>State</label>
+            <md-select ng-model="ctrl.userState">
+              <md-option><em>None</em></md-option>
+              <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <!-- sixth card -->
+    <md-card>
+       <md-card-title>
+         <md-card-title-text>
+           <span class="md-headline">Personal Info</span>
+           <span class="md-subhead">Tell us a little about you.</span>
+         </md-card-title-text>
+       </md-card-title>
+
+       <md-card-content>
+         <div layout="row">
+           <md-input-container>
+             <label>Street Name</label>
+             <input>
+           </md-input-container>
+
+           <md-input-container>
+             <label>City</label>
+             <input>
+           </md-input-container>
+
+           <md-input-container>
+             <label>State</label>
+             <md-select ng-model="ctrl.userState">
+               <md-option><em>None</em></md-option>
+               <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+                 {{state.abbrev}}
+               </md-option>
+             </md-select>
+           </md-input-container>
+         </div>
+       </md-card-content>
+     </md-card>
                 </md-tab>
 
                 <md-tab label="FAQ">
