@@ -3,25 +3,24 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
   var auth = $firebaseAuth();
   var currentUser;
-  var emailInDatabase = false;
   var loggedIn = false;
   var userStatus = {};
-  var type = 'students';
 
-  function logIn() {
+  function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-      console.log('firebaseUser.user.email: ', firebaseUser.user.email);
+      // console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
+      // console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      console.log('currentUser: ', currentUser);
-      console.log('firebaseUser: ', firebaseUser);
+      // console.log('currentUser: ', currentUser);
+      // console.log('firebaseUser: ', firebaseUser);
+      console.log('USER TYPE:', userType);
       if(currentUser) {
-        getUser(currentUser);
+        getUser(currentUser, userType);
       }
     });
   }
 
-  function getUser(currentUser){
+  function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
       console.log('ID TOKEN:', idToken);
       $http({
@@ -29,10 +28,11 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         url: '/users.route',
         headers: {
           id_token: idToken,
-          type: type
+          type: userType
         }
       })
       .then(function(response) {
+        // console.log(response.data);
         userStatus.userType = response.data.userType;
         console.log(userStatus);
       });
@@ -68,8 +68,8 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
-    logIn: function() {
-      return logIn();
+    logIn: function(userType) {
+      return logIn(userType);
     },
     logOut: function() {
       return logOut();
