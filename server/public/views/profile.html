@@ -25,7 +25,7 @@
       <md-tabs md-dynamic-height="" md-border-bottom="">
         <md-tab label="Profile">
 
-  <md-content  layout-padding="">
+  <md-content class="md-inline-form" layout-padding="">
     <form name="userForm">
       <div layout="row" layout-xs="column" layout-sm="column" layout-align="space-between center">
         <div flex-gt-sm="80">
@@ -45,9 +45,10 @@
 
       <div layout-gt-sm="row">
 
-        <md-input-container class="md-block" flex-gt-sm="">
+        <md-input-container class="md-block" flex-gt-sm="" rows="5">
           <label>Name</label>
-          <input md-maxlength="30" required="" name="name" ng-model="user.name">
+          <!-- <textarea rows="5">erfewrtwerter </textarea> -->
+          <input  required="" name="name" ng-model="user.name">
 
           <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
 
@@ -63,7 +64,9 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>Social Security Number</label>
-          <input name="social" ng-model="user.social" ng-pattern="/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/">
+          <textarea rows="5"> </textarea>
+
+          <!-- <input name="social" ng-model="user.social" ng-pattern="/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/"> -->
 
           <div class="hint" ng-if="showHints">###-##-####</div>
 
@@ -78,7 +81,9 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>Email</label>
-          <input name="email" ng-model="user.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+          <textarea rows="5"> </textarea>
+
+          <!-- <input name="email" ng-model="user.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"> -->
 
           <div class="hint" ng-show="showHints">How can we reach you?</div>
 
@@ -95,7 +100,9 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>Phone Number</label>
-          <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/">
+          <textarea rows="5"> </textarea>
+
+          <!-- <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/"> -->
 
           <div class="hint" ng-show="showHints">(###) ###-####</div>
 
@@ -110,7 +117,8 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                   <label>Name</label>
-                  <input md-maxlength="30" required="" name="name" ng-model="user.name">
+                  <textarea  rows="5"> </textarea>
+                  <!-- <input md-maxlength="30" required="" name="name" ng-model="user.name"> -->
 
                   <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
 
@@ -126,7 +134,9 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                   <label>Social Security Number</label>
-                  <input name="social" ng-model="user.social" ng-pattern="/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/">
+                  <textarea rows="5"> </textarea>
+
+                  <!-- <input name="social" ng-model="user.social" ng-pattern="/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/"> -->
 
                   <div class="hint" ng-if="showHints">###-##-####</div>
 
@@ -141,7 +151,9 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                   <label>Email</label>
-                  <input name="email" ng-model="user.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                  <textarea rows="5"> </textarea>
+
+                  <!-- <input name="email" ng-model="user.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"> -->
 
                   <div class="hint" ng-show="showHints">How can we reach you?</div>
 
@@ -156,9 +168,11 @@
                   <!-- Spacer //-->
                 </div>
 
-                <md-input-container class="md-block" flex-gt-sm="">
+                <md-input-container md-no-float="" class="md-block" flex-gt-sm="">
                   <label>Phone Number</label>
-                  <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/">
+                  <textarea rows="5"> </textarea>
+
+                  <!-- <input name="phone" ng-model="user.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/"> -->
 
                   <div class="hint" ng-show="showHints">(###) ###-####</div>
 
