@@ -1,11 +1,11 @@
 app.factory('BioFactory', ['$http', function($http){
   console.log('BioFactory running');
 
-  var mentorInfo = {};
   var mentors = {};
-  var mentor = {};
+  var mentorBio = {};
 
 
+  // gets all the mentors that match the newSearch selected fields
   function getMentors(newSearch){
     console.log("NEW SEARCH:", newSearch);
     var newSearchString = JSON.stringify(newSearch);
@@ -17,32 +17,32 @@ app.factory('BioFactory', ['$http', function($http){
         }
       })
       .then(function(response) {
-
-        console.log("--------------------------------------");
         mentors.info = response.data;
         console.log("Mentors list:", mentors);
-
-
       }),
       function(err) {
         console.log("Error with search get request ", err);
       };
   };
 
-  function setMentorId(mentorId){
-    mentor.id = mentorId;
+
+// Attach the chosen mentor object to the info property on mentorBio.
+// This will be accessed by the profile controller
+  function setMentor(mentor){
+    mentorBio.info = mentor;
+    console.log("MENTOR:", mentorBio.info);
   }
 
 
 
   var publicApi = {
     mentors: mentors,
-    mentor: mentor,
+    mentorBio: mentorBio,
     getMentors: function(newSearch){
       return getMentors(newSearch);
     },
-    setMentorId: function(mentorId){
-      return setMentorId(mentorId);
+    setMentor: function(mentor){
+      return setMentor(mentor);
     },
     // getMentorId: function(){
     //   return getMentorId();
