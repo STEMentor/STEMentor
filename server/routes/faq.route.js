@@ -26,16 +26,6 @@ router.get('/:id', function(req, res) {
   });
 });
 
-// Create a new FAQ entry
-router.post('/', function(req, res) {
-
-});
-
-// Edit an existing FAQ entry
-router.put('/', function(req, res) {
-
-});
-
 module.exports = router;
 
 // Checks for errors connecting to the database
