@@ -4,6 +4,9 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
 
   self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
+
   self.createMessage = function(ev) {
     $mdDialog.show({
       controller: 'MessageController as message',
@@ -13,15 +16,12 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
     });
   };
 
-  // function getMentorId(){
-  //   console.log(BioFactory.mentor.id);
-  // }
   getFaqs();
 
+  // gets faqs associated with the mentor
+  
   function getFaqs(){
-    var id = BioFactory.mentor.id;
-    console.log(id);
-    return $http.get('/faq/' + id)
+    return $http.get('/faq/' + self.mentor.id)
     .then(function (response) {
       console.log(response);
     })
