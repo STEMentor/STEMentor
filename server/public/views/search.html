@@ -1,4 +1,4 @@
-<div ng-controller="SearchController" layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-app="stementor">
+<div layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-app="stementor">
 
     <!-- <h1>Search</h1> -->
 
@@ -11,6 +11,7 @@
                         <label>Search for a mentor!</label>
                         <input ng-model="user.company">
                     </md-input-container>
+                </div>
             </form>
             </div>
     </md-content>
@@ -53,8 +54,8 @@
 
                     <md-input-container class="md-block" flex-gt-sm="33">
 
-                        <label>Sex</label>
-                        <input ng-model="search.newSearch.sex">
+                        <label>Gender</label>
+                        <input ng-model="search.newSearch.gender">
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
@@ -111,12 +112,12 @@
     </div>
 
     <div layout="row" layout-align="center">
-        <button md-button ng-click="search.getMentors()">Search</button>
+        <button type="submit" md-button ng-click="search.getMentors()">Search</button>
     </div>
 
 
 
-</div>
+
 <div ng-repeat="mentor in search.mentors">
 
 
@@ -149,9 +150,6 @@
         </flippy-back>
 
     </flippy>
-</div>
-
-
 </div>
 
 

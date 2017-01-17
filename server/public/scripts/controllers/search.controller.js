@@ -3,7 +3,7 @@ app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDia
   var self = this;
 
   self.mentors = [];
-  
+
   self.newSearch = {
     first_name: null,
     last_name: null,
