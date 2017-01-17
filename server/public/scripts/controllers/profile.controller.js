@@ -4,6 +4,10 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
 
   self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
+  self.fields = {
+    bio: ""
+  };
+
   self.createMessage = function(ev) {
     $mdDialog.show({
       controller: 'MessageController as message',
