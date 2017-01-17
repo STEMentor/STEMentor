@@ -11,9 +11,9 @@ var users = require('./routes/users.route');
 var messages = require('./routes/message.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
+
 app.use(express.static('./server/public'));
 app.use(bodyParser.json());
-
 
 //----------------------- POSTGRES CONNECTION HANDLING -----------------------//
 

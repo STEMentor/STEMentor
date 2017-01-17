@@ -27,6 +27,7 @@ var tokenDecoder = function(req, res, next){
   //console.log("ID TOKEN",req.headers.id_token);
   console.log("TYPE IN DECODER", req.headers.type);
   var userType = req.headers.type;
+  console.log('USER TYPE:', userType);
 
   if(req.headers.id_token){
     console.log('TOKEN DECODER');
@@ -44,64 +45,102 @@ var tokenDecoder = function(req, res, next){
       // If the id_token isn't right, you end up in this callback function
       // Here we are returning a forbidden error
       console.log('User token could not be verified');
-      res.send(403);
+      res.sendStatus(403);
     });
 
   } else {
     console.log('NO ID TOKEN');
-    res.send(403);
+    res.sendStatus(403);
   }
 };
 
+//This runs everytime a request goes through decoder
 function userIdQuery(userEmail, req, res, next, userType){
   return pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
+    //Checking to see is user exists in db and if not, adds them based on type
+    if(userType){
+      req.userType = userType;
+      userType = userType + 's'; // Add 's' to match tables (mentors, students)
 
-    client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
-    [userEmail],
-    function(err, result) {
-      done(); // close the connection.
+      client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
+      [userEmail],
+      function(err, result) {
+        done(); // close the connection.
 
-      if(err) {
-        console.log('select query error: ', err);
-        res.sendStatus(500);
-      } else {
-        console.log('Length of ROWS:', result.rows.length);
-        if(result.rows.length === 0){
-          console.log("ENTER IF STATEMENT. userEmail:", userEmail);
-          client.query(
-            'INSERT INTO ' + userType +' (email) ' +
-            'VALUES ($1)',
-            [userEmail],
-            function(err, result) {
-              done(); // close the connection.
+        if(err) {
+          console.log('select query error: ', err);
+          res.sendStatus(500);
+        } else {
+          //If not in db, insert new user into db
+          if(result.rows.length === 0){
+            console.log("ENTER IF STATEMENT. userEmail:", userEmail);
+            client.query(
+              'INSERT INTO ' + userType +' (email) ' +
+              'VALUES ($1)',
+              [userEmail],
+              function(err, result) {
+                done(); // close the connection.
 
-              if(err) {
-                console.log('insert query error: ', err);
-                res.sendStatus(500);
-              } else {
-                console.log("INSERT SUCCESSFUL!");
-                // res.sendStatus(201);
+                if(err) {
+                  console.log('insert query error: ', err);
+                  res.sendStatus(500);
+                } else {
+
+                  console.log("INSERT SUCCESSFUL!");
+
+                }
+
+              });
+            } else {
+              //If already in db, attach userId to req
+              if(result.rows.length === 1){
+                var userId = result.rows[0].id;
+                req.userId = userId; // this is the id that corresponds to users email in users table
+                console.log('USER ID DECODER:', userId);
               }
+            }
 
-            });
+            next();
           }
-          if(result.rows.length === 1){
-            var userId = result.rows[0].id;
-            req.userId = userId; // this is the id that corresponds to users email in users table
-            console.log('USER ID DECODER:', userId);
-          }
+        });
+      } else {
+        //If there is no userType, check db to see which table user is in, then attach userType to req
+        client.query('SELECT students.email AS student, mentors.email AS mentor, students.id AS student_id, mentors.id AS mentor_id '+
+        'FROM mentors '+
+        'FULL OUTER JOIN students ON mentors.email = students.email '+
+        'WHERE students.email=$1 OR mentors.email=$1',
+        [userEmail],
+        function(err, result) {
+          done();
+          if(err) {
+            console.log('select query error: ', err);
+            res.sendStatus(500);
+          } else {
+            console.log("RESULT: ", result.rows[0]);
+            var userObject = result.rows[0];
+              for (var property in userObject){
+                if (userObject[property] !== null && typeof userObject[property] === 'string'){
+                  req.userType = property;
 
-          next();
+                  // req.userId = userObject.id;
+                }
+                if (userObject[property] !== null && typeof userObject[property] === 'number'){
+                  req.userId = userObject[property];
+                }
+              }
+              console.log('req.userType: ', req.userType);
+              console.log('req.userId: ', req.userId);
+              next();
 
+            }
+          });
         }
-
       });
 
-    })
   }
 
   module.exports = { token: tokenDecoder };

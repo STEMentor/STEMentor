@@ -2,26 +2,21 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
-  var currentUser;
-  var emailInDatabase = false;
+  var currentUser = {};
   var loggedIn = false;
   var userStatus = {};
-  var type = 'mentors';
 
-  function logIn() {
+  function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-      console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      console.log('currentUser: ', currentUser);
-      console.log('firebaseUser: ', firebaseUser);
+      console.log('USER TYPE:', userType);
       if(currentUser) {
-        getUser(currentUser);
+        getUser(currentUser, userType);
       }
     });
   }
 
-  function getUser(currentUser){
+  function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
       console.log('ID TOKEN:', idToken);
       $http({
@@ -29,10 +24,11 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         url: '/users.route',
         headers: {
           id_token: idToken,
-          type: type
+          type: userType
         }
       })
       .then(function(response) {
+        // console.log(response.data);
         userStatus.userType = response.data.userType;
         console.log(userStatus);
       });
@@ -46,11 +42,13 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
     console.log("CURRENT USER", currentUser);
+
     if(currentUser) {
       getUser(currentUser);
     } else {
       userStatus.isLoggedIn = false;
     }
+
     console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
@@ -68,8 +66,9 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
-    logIn: function() {
-      return logIn();
+    currentUser: currentUser.user,
+    logIn: function(userType) {
+      return logIn(userType);
     },
     logOut: function() {
       return logOut();
