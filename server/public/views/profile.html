@@ -1,15 +1,15 @@
 
+<md-button ng-click="profile.test()">Mentor</md-button>
 
-
-<div ng-controller="ProfileController as profile" ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
+<div ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
   <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
     <div  flex="80"  layout="column">
       <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Mark Hibbs</span>
+            <span class="md-headline">{{profile.mentor.first_name}} {{profile.mentor.last_name}}</span>
             </br>
-            <span class="md-subhead">Scientist</span>
+            <span class="md-subhead">{{profile.mentor.job_title}}</span>
             <span class="md-subhead">I love mentoring kids in STEM fields. </span>
           </md-card-title-text>
           <md-card-title-media>
