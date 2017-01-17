@@ -63,7 +63,9 @@ function userIdQuery(userEmail, req, res, next, userType){
     }
     //Checking to see is user exists in db and if not, adds them based on type
     if(userType){
-      req.userType = userType.slice(0, -1);
+      req.userType = userType;
+      userType = userType + 's'; // Add 's' to match tables (mentors, students)
+
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
       [userEmail],
       function(err, result) {
@@ -93,13 +95,15 @@ function userIdQuery(userEmail, req, res, next, userType){
                 }
 
               });
+            } else {
+              //If already in db, attach userId to req
+              if(result.rows.length === 1){
+                var userId = result.rows[0].id;
+                req.userId = userId; // this is the id that corresponds to users email in users table
+                console.log('USER ID DECODER:', userId);
+              }
             }
-            //If already in db, attach userId to req
-            if(result.rows.length === 1){
-              var userId = result.rows[0].id;
-              req.userId = userId; // this is the id that corresponds to users email in users table
-              console.log('USER ID DECODER:', userId);
-            }
+
             next();
           }
         });
@@ -117,14 +121,15 @@ function userIdQuery(userEmail, req, res, next, userType){
             res.sendStatus(500);
           } else {
             console.log("RESULT: ", result.rows[0]);
-              for (var property in result.rows[0]){
-                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'string'){
+            var userObject = result.rows[0];
+              for (var property in userObject){
+                if (userObject[property] !== null && typeof userObject[property] === 'string'){
                   req.userType = property;
 
-                  // req.userId = result.rows[0].id;
+                  // req.userId = userObject.id;
                 }
-                if (result.rows[0][property] !== null && typeof result.rows[0][property] === 'number'){
-                  req.userId = result.rows[0][property];
+                if (userObject[property] !== null && typeof userObject[property] === 'number'){
+                  req.userId = userObject[property];
                 }
               }
               console.log('req.userType: ', req.userType);
