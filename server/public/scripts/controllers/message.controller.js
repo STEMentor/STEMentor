@@ -5,13 +5,18 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
 
+  self.userStatus = AuthFactory.userStatus;
+
   self.sendMessage = function(message){
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
-    // message.newMessage.name = '';
-    // message.newMessage.subject = '';
-    // message.newMessage.body = '';
+    // $http.post('/message/new-message', self.newMessage);
+    //   .then(function(response) {
+    //     console.log('response: ', response);
+    //   });
+  // };
+
   };
 
   self.cancel = function() {

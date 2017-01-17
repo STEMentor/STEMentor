@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy' ]);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -21,11 +21,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/message.html',
     controller: 'MessageController',
     controllerAs: 'message'
-  })
-  .when('/nav', {
-    templateUrl: '/views/nav.html',
-    controller: 'NavController',
-    controllerAs: 'nav'
   })
   .when('/profile', {
     templateUrl: '/views/profile.html',

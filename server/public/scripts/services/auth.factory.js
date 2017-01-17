@@ -2,44 +2,45 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
-  var currentUser = undefined;
-  var emailInDatabase = false;
+  var currentUser;
   var loggedIn = false;
   var userStatus = {};
-  var type = 'mentors';
 
-  function logIn() {
+  function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-      console.log('firebaseUser.user.email: ', firebaseUser.user.email);
+      // console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
+      // console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      console.log('currentUser: ', currentUser);
-      console.log('firebaseUser: ', firebaseUser);
+      // console.log('currentUser: ', currentUser);
+      // console.log('firebaseUser: ', firebaseUser);
+      console.log('USER TYPE:', userType);
       if(currentUser) {
-        getUser(currentUser);
-      };
+        getUser(currentUser, userType);
+      }
     });
-  };
+  }
 
-
-  function getUser(currentUser){
+  function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
-      console.log('ID TOKEN:', idToken)
+      // console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
         url: '/users.route',
         headers: {
           id_token: idToken,
-          type: type
+          type: userType
         }
       })
       .then(function(response) {
+        // console.log(response.data);
         userStatus.userType = response.data.userType;
-        console.log(userStatus);
+        console.log("USER STATUS:", userStatus);
+
       });
       userStatus.isLoggedIn = true;
       // console.log(userStatus);
     });
+    
   }
 
   auth.$onAuthStateChanged(function(firebaseUser){
@@ -55,7 +56,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
-
   function logOut() {
     return auth.$signOut().then(function() {
       currentUser = undefined;
@@ -66,11 +66,12 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     });
   }
 
+  // TODO: Have Oliver explain what these variables are
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
-    logIn: function() {
-      return logIn();
+    logIn: function(userType) {
+      return logIn(userType);
     },
     logOut: function() {
       return logOut();

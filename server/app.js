@@ -8,11 +8,12 @@ var decoder = require('./modules/decoder.module');
 var db = require('./modules/db.module');
 var mentorSearch = require('./routes/mentor-search.route');
 var users = require('./routes/users.route');
+var messages = require('./routes/message.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
+
 app.use(express.static('./server/public'));
 app.use(bodyParser.json());
-
 
 //----------------------- POSTGRES CONNECTION HANDLING -----------------------//
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/mentor-search', mentorSearch);
 app.use(decoder.token); // Above not authenticated, below is authenticated
 app.use('/users.route', users);
+app.use('/message', messages);
 
 //------------------------------- START SERVER -------------------------------//
 app.set('port', process.env.PORT || 3000);
