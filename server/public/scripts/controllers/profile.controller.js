@@ -12,11 +12,25 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
       clickOutsideToClose: true
     });
   };
-  getMentorId();
 
-  function getMentorId(){
-    console.log(BioFactory.mentor.id);
+  // function getMentorId(){
+  //   console.log(BioFactory.mentor.id);
+  // }
+  getFaqs();
+
+  function getFaqs(){
+    var id = BioFactory.mentor.id;
+    console.log(id);
+    return $http.get('/faq/' + id)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log('An error has occurred');
+    });
   }
+
+
 
 
 
