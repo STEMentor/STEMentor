@@ -22,7 +22,8 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
   function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
-      console.log('ID TOKEN:', idToken);
+      console.log("CURRENT USER:", currentUser);
+      // console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
         url: '/users.route',
@@ -48,7 +49,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     currentUser = firebaseUser;
     console.log("CURRENT USER", currentUser);
     if(currentUser) {
-      getUser(currentUser);
+      return getUser(currentUser);
     } else {
       userStatus.isLoggedIn = false;
     }
@@ -69,7 +70,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
-    currentUser: currentUser,
     logIn: function(userType) {
       return logIn(userType);
     },
