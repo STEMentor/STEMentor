@@ -61,10 +61,13 @@ function userIdQuery(userEmail, req, res, next, userType){
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
+    req.newUser = false;
     //Checking to see is user exists in db and if not, adds them based on type
     if(userType){
       req.userType = userType;
       userType = userType + 's'; // Add 's' to match tables (mentors, students)
+
+      // TODO sanitize userType input
 
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1',
       [userEmail],
@@ -89,9 +92,10 @@ function userIdQuery(userEmail, req, res, next, userType){
                   console.log('insert query error: ', err);
                   res.sendStatus(500);
                 } else {
-
                   console.log("INSERT SUCCESSFUL!");
+                  req.newUser = true;
 
+                  next();
                 }
 
               });
@@ -101,10 +105,12 @@ function userIdQuery(userEmail, req, res, next, userType){
                 var userId = result.rows[0].id;
                 req.userId = userId; // this is the id that corresponds to users email in users table
                 console.log('USER ID DECODER:', userId);
+
+                next();
               }
             }
 
-            next();
+
           }
         });
       } else {
