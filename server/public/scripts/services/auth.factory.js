@@ -2,17 +2,13 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
-  var currentUser;
+  var currentUser = {};
   var loggedIn = false;
   var userStatus = {};
 
   function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
-      // console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-      // console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      // console.log('currentUser: ', currentUser);
-      // console.log('firebaseUser: ', firebaseUser);
       console.log('USER TYPE:', userType);
       if(currentUser) {
         getUser(currentUser, userType);
@@ -48,11 +44,13 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
     console.log("CURRENT USER", currentUser);
+
     if(currentUser) {
       getUser(currentUser);
     } else {
       userStatus.isLoggedIn = false;
     }
+
     console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
@@ -70,6 +68,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
+    currentUser: currentUser.user,
     logIn: function(userType) {
       return logIn(userType);
     },

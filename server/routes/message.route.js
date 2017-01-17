@@ -17,9 +17,11 @@ router.get('/get-all-messages', function(req, res) {
 
       typeId = userType + '_id',
       userDatabase = userType + 's';
-  // next line commented out (and line after hardcoded) for testing
+
   // var userId = req.userId;
   var userId = '58';
+
+  console.log('get all messages is running');
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
