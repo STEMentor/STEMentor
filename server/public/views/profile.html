@@ -163,9 +163,9 @@
 
         <md-input-container>
           <label>State</label>
-          <md-select ng-model="ctrl.userState">
+          <md-select ng-model="profile.userState">
             <md-option><em>None</em></md-option>
-            <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+            <md-option ng-repeat="state in profile.states" ng-value="state.abbrev" ng-disabled="$index === 1">
               {{state.abbrev}}
             </md-option>
           </md-select>
