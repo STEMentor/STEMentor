@@ -25,9 +25,9 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
     console.log(self.newSearch);
   };
 
-  self.getMentor = function(mentorId){
-    console.log(mentorId);
-    BioFactory.setMentorId(mentorId);
+  self.setMentor = function(mentor){
+    console.log(mentor);
+    BioFactory.setMentor(mentor);
   }
 
   self.getMentors = function() {
