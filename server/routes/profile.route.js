@@ -50,19 +50,53 @@ router.put('/update', function(req, res) {
   });
 });
 
-// Gets a user's FAQ entries
-router.get('/faq', function(req, res) {
-
-});
-
 // Create a new FAQ entry
-router.post('/faq', function(req, res) {
+router.post('/new-faq', function(req, res) {
+  var userId = req.userId;
+  var question = req.body.question;
+  var answer = req.body.answer;
 
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck(error);
+
+    client.query(
+      'INSERT INTO faq (mentor_id, question, answer) VALUES ($1, $2, $3)',
+      [userId, question, answer],
+      function(error, result) {
+        if(error) {
+          console.log('Error when creating new FAQ: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      }
+    );
+  });
 });
 
 // Edit an existing FAQ entry
-router.put('/faq', function(req, res) {
+router.put('/edit-faq/:faq-id', function(req, res) {
+  var userId = req.userId;
+  var faqId = req.body.faqId;
+  var question = req.body.question;
+  var answer = req.body.answer;
 
+  pg.connect(connectionString, function(error, client, done) {
+    connectionString(error);
+
+    client.query(
+      'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
+      [question, answer, faqId],
+      function(error, result) {
+        if(error) {
+          console.log('Error when updating FAQ: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      }
+    );
+  });
 });
 
 module.exports = router;
