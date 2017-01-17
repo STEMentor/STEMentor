@@ -9,6 +9,7 @@ var db = require('./modules/db.module');
 var mentorSearch = require('./routes/mentor-search.route');
 var users = require('./routes/users.route');
 var messages = require('./routes/message.route');
+var faq = require('./routes/faq.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 app.use('/mentor-search', mentorSearch);
+app.use('/faq', faq);
 app.use(decoder.token); // Above not authenticated, below is authenticated
 app.use('/users.route', users);
 app.use('/message', messages);
