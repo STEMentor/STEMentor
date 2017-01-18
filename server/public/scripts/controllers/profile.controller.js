@@ -1,4 +1,4 @@
-app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
+app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
   console.log('ProfileController running');
   var self = this;
   // var userStatus = AuthFactory.userStatus;
@@ -9,6 +9,9 @@ app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', functi
 
   self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
+
   self.createMessage = function(ev) {
     console.log('profile controller self.userStatus: ', self.userStatus);
     $mdDialog.show({
@@ -18,5 +21,23 @@ app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', functi
       clickOutsideToClose: true
     });
   };
+
+  getFaqs();
+
+  // gets faqs associated with the mentor
+
+  function getFaqs(){
+    return $http.get('/faq/' + self.mentor.id)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log('An error has occurred');
+    });
+  }
+
+
+
+
 
 }]);
