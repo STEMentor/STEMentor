@@ -30,11 +30,13 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       .then(function(response) {
         // console.log(response.data);
         userStatus.userType = response.data.userType;
-        // console.log(userStatus);
+        console.log("USER STATUS:", userStatus);
+        userStatus.userId = response.data.userId;
       });
       userStatus.isLoggedIn = true;
       // console.log(userStatus);
     });
+
   }
 
   auth.$onAuthStateChanged(function(firebaseUser){

@@ -10,6 +10,9 @@ router.get('/', function(req, res) {
   var data = {};
 
   data.userType = req.userType;
+
+  data.userId = req.userId;
+
   res.send(data);
 });
 
