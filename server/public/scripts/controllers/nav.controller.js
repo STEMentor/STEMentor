@@ -15,27 +15,15 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
       });
   };
 
-<<<<<<< Updated upstream
-  self.setMentorId = function(){
-    BioFactory.setMentorId(AuthFactory.userStatus.userId);
-  }
-=======
-<<<<<<< Updated upstream
-=======
   self.setMentorId = function(){
     BioFactory.setMentorId(AuthFactory.userStatus.userId);
   };
->>>>>>> Stashed changes
 
   self.logOut = function() {
     console.log('logging user out');
     AuthFactory.logOut();
   };
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 }]);
 
 // $scope.showAdvanced = function(ev) {
