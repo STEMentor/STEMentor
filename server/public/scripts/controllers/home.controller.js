@@ -3,31 +3,29 @@ app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFa
   var self = this;
   self.userStatus = AuthFactory.userStatus;
 
-  console.log("home controller:", AuthFactory.userStatus);
-
   self.dataArray = [{
-      src: '../assets/images/carousel/genome.jpg'
+      src: '../assets/images/carousel/genome-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/falkirk-wheel.jpg'
+      src: '../assets/images/carousel/falkirk-wheel-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/iss.jpg'
+      src: '../assets/images/carousel/iss-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/shark.jpg'
+      src: '../assets/images/carousel/shark-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/snowflake.jpg'
+      src: '../assets/images/carousel/snowflake-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/virus.jpg'
+      src: '../assets/images/carousel/virus-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/rock-formation.jpg'
+      src: '../assets/images/carousel/rock-formation-sm.jpg'
     },
     {
-      src: '../assets/images/carousel/circuit-board.jpg'
+      src: '../assets/images/carousel/circuit-board-sm.jpg'
     }
   ];
 }]);
