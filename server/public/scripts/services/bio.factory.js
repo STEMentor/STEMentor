@@ -34,29 +34,29 @@ app.factory('BioFactory', ['$http', function($http){
     .then(function (response) {
 
       mentorBio = {
-        id: response.data[0].id,
-        first_name: response.data[0].first_name,
-        last_name: response.data[0].last_name,
-        email: response.data[0].email,
-        avatar: response.data[0].avatar,
-        company: response.data[0].company,
-        job_title: response.data[0].job_title,
-        zip: response.data[0].zip,
-        race: response.data[0].race,
-        gender: response.data[0].gender,
-        orientation: response.data[0].orientation,
-        birthday: response.data[0].birthday,
-        school: response.data[0].school,
-        degree: response.data[0].degree,
-        major: response.data[0].major,
-        languages: response.data[0].languages
+        id:           response.data[0].id,
+        first_name:   response.data[0].first_name,
+        last_name:    response.data[0].last_name,
+        email:        response.data[0].email,
+        avatar:       response.data[0].avatar,
+        company:      response.data[0].company,
+        job_title:    response.data[0].job_title,
+        zip:          response.data[0].zip,
+        race:         response.data[0].race,
+        gender:       response.data[0].gender,
+        orientation:  response.data[0].orientation,
+        birthday:     response.data[0].birthday,
+        school:       response.data[0].school,
+        degree:       response.data[0].degree,
+        major:        response.data[0].major,
+        languages:    response.data[0].languages
       };
 
       for(var key in response.data) {
         mentorFAQs.push(
           {
-            question: response.data[key].question,
-            answer: response.data[key].answer
+            question:   response.data[key].question,
+            answer:     response.data[key].answer
           }
         );
       }
