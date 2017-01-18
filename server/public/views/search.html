@@ -3,28 +3,48 @@
     <!-- <h1>Search</h1> -->
 
     <md-content layout-padding="">
+    <br>
+    <br>
+    <br>
         <div>
             <form name="userForm">
 
-                <div layout-gt-xs="row">
+              <div class="field" id="searchform">
+                <input type="text" id="searchterm" placeholder="what kind of mentor are you looking for?" />
+                  <button type="button" id="search">Find!</button>
+                </div>
+
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+                <!-- <div layout-gt-xs="row">
                     <md-input-container class="md-block" flex-gt-xs="">
                         <label>Search for a mentor!</label>
                         <input ng-model="user.company">
                     </md-input-container>
                 </div>
             </form>
-            </div>
+            </div> -->
+            <input class="refine" type="checkbox" ng-model="myVar">Refine your search
+
     </md-content>
 
     </div>
 
-    <input class="refine" type="checkbox" ng-model="myVar">Refine your search
-    <div ng-show="myVar">
+    <!-- <input class="refine" type="checkbox" ng-model="myVar">Refine your search -->
+    <div ng-show="myVar" flex-offset="25" flex="50">
         <md-content layout-padding="">
             <div>
+              <div layout-gt-xs="row" flex='100'>
+                  <br>
+                  <md-input-container class="md-block" flex-gt-xs>
+                      <label>Personal Info: </label>
+                      <input ng-model="user.company" disabled> </input>
+
+                  </md-input-container>
+              </div>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm='50' >
-                        <!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
                         <input ng-model="search.newSearch.first_name" placeholder="First Name">
                     </md-input-container>
 
@@ -35,35 +55,37 @@
                         <label>Last Name</label>
                         <input ng-model="search.newSearch.last_name">
                     </md-input-container>
-                  </div>
-                  <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm='50'>
+
+                    </div>
+                    <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm='33'>
 
                         <label>Company</label>
                         <input ng-model="search.newSearch.company">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="50">
+
+                    <md-input-container class="md-block" flex-gt-sm="25">
 
                         <label>Job Title</label>
                         <input ng-model="search.newSearch.job_title">
                     </md-input-container>
-                  </div>
-                  <div layout-gt-sm="row">
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+
+
+                    <md-input-container class="md-block" flex-gt-sm="25">
 
                         <label>Zip Code</label>
                         <input ng-model="search.newSearch.zip">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+                    <md-input-container class="md-block" flex-gt-sm="25">
 
                         <label>Gender</label>
                         <input ng-model="search.newSearch.gender">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+                    <md-input-container class="md-block" flex-gt-sm="25">
 
                         <label>Age</label>
                         <input ng-model="search.newSearch.age">
