@@ -125,6 +125,10 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     };
   };
 
+  self.openMessage = function(message){
+    
+  };
+
 //   // Reply to message
 //   self.replyToMessage = function() {
 //     var messageId; // TODO: Need to get the message's ID somehow

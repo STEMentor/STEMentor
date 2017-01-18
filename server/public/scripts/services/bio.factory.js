@@ -3,7 +3,7 @@ app.factory('BioFactory', ['$http', function($http){
 
   var mentors = {};
   var mentorBio = {};
-
+  var mentorId;
 
   // gets all the mentors that match the newSearch selected fields
   function getMentors(newSearch){
@@ -25,12 +25,32 @@ app.factory('BioFactory', ['$http', function($http){
       };
   };
 
+  // gets profiles associated with the mentor
+
+  function getProfiles(){
+    console.log("MENTOR ID IN getProfiles()", mentorId);
+    return $http.get('/profile/' + mentorId)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log('An error has occurred');
+    });
+  }
+
 
 // Attach the chosen mentor object to the info property on mentorBio.
 // This will be accessed by the profile controller
   function setMentor(mentor){
     mentorBio.info = mentor;
+    mentorId = mentorBio.info.id;
     console.log("MENTOR:", mentorBio.info);
+  }
+
+  function setMentorId(id){
+
+    mentorId = id;
+    console.log('MENTOR ID:', mentorId);
   }
 
 
@@ -44,6 +64,12 @@ app.factory('BioFactory', ['$http', function($http){
     setMentor: function(mentor){
       return setMentor(mentor);
     },
+    getProfiles: function(){
+      return getProfiles();
+    },
+    setMentorId: function(id){
+      return setMentorId(id)
+    }
     // getMentorId: function(){
     //   return getMentorId();
     // }
