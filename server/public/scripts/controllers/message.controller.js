@@ -17,7 +17,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
   };
 
 
-  self.testMessage = function(){
+  self.testMessage = function() {
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
@@ -29,7 +29,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
   };
 
 
-  // User creating a new message
+  // User (student) creating a new message
   function sendMessage(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
@@ -59,16 +59,5 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
     }
   }
 
+
 }]);
-
-
-// To create a new message when a student clicks "Send Message"
-// 	- Send a `POST` request to `/message/new-message`
-// 		- Must send token to be decoded
-// 		- Must send a `message` object on data following this template:
-// 			message {
-// 				mentorEmail: 'mentor's email address',
-// 				subject: 'subject text',
-// 				body: 'body text',
-// 				studentName: 'optional student name'
-// 			}
