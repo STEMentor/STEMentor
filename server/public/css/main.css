@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates);
 .homepage-header {
   justify-content: center;
   text-align: center; }
@@ -56,14 +57,30 @@
 .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
   color: red; }
 
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-*/
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-*/
+.field {
+  display: flex;
+  position: realtive;
+  margin: 5em auto;
+  width: 70%;
+  flex-direction: row;
+  box-shadow: 1px 1px 0 #16a085, 2px 2px 0 #16a085, 3px 3px 0 #16a085, 4px 4px 0 #16a085, 5px 5px 0 #16a085, 6px 6px 0 #16a085, 7px 7px 0 #16a085; }
+
+.field > input[type=text],
+.field > button {
+  display: block;
+  font: 1.2em 'Montserrat Alternates'; }
+
+.field > input[type=text] {
+  flex: 1;
+  padding: 0.6em;
+  border: 0.2em solid #1abc9c; }
+
+.field > button {
+  padding: 0.6em 0.8em;
+  background-color: #1abc9c;
+  color: white;
+  border: none; }
+
 #profileHeader {
   border: 1px solid #000000;
   width: 20px;
@@ -81,6 +98,16 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 
 .tabsdemoDynamicHeight md-content h1:first-child {
   margin-top: 0; }
+
+.contentdemoBasicUsage div.demo-content {
+  height: 450px; }
+
+.contentdemoBasicUsage div[ng-controller] {
+  height: 100%;
+  padding-bottom: 15px; }
+
+.contentdemoBasicUsage md-content {
+  padding: 24px; }
 
 .dividerdemoBasicUsage .face {
   border-radius: 30px;
