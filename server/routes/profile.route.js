@@ -14,9 +14,10 @@ router.get('/:id', function(req, res) {
 
     client.query(
       'SELECT * FROM mentors ' +
-      'JOIN faq ON mentors.id = faq.mentor_id ' +
+      'FULL OUTER JOIN faq ON mentors.id = faq.mentor_id ' +
       'WHERE mentors.id = $1', [userId],
       function(error, result) {
+        done();
         if(error) {
           console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);
