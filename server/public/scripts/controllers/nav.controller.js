@@ -4,7 +4,7 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
   var self = this;
 
   var userId = AuthFactory.userStatus.userId;
-
+  self.userStatus = AuthFactory.userStatus;
 
   self.logInModal = function(ev) {
     $mdDialog.show({
@@ -21,6 +21,11 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
   self.setMentorId = function(){
     BioFactory.setMentorId(AuthFactory.userStatus.userId);
   }
+
+  self.logOut = function() {
+    console.log('logging user out');
+    AuthFactory.logOut();
+  };
 
 }]);
 

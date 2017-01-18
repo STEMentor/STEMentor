@@ -82,6 +82,16 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 .tabsdemoDynamicHeight md-content h1:first-child {
   margin-top: 0; }
 
+.contentdemoBasicUsage div.demo-content {
+  height: 450px; }
+
+.contentdemoBasicUsage div[ng-controller] {
+  height: 100%;
+  padding-bottom: 15px; }
+
+.contentdemoBasicUsage md-content {
+  padding: 24px; }
+
 .dividerdemoBasicUsage .face {
   border-radius: 30px;
   border: 1px solid #ddd;
