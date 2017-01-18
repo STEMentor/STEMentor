@@ -8,6 +8,8 @@ CREATE TABLE mentors (
   last_name VARCHAR(100),
   email VARCHAR(100),
   avatar VARCHAR(200),
+  blurb VARCHAR(1000),
+  bio VARCHAR(5000),
   company VARCHAR(100),
   job_title VARCHAR(100),
   zip INT,

@@ -94,6 +94,20 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     }
   }
 
+  self.selectedMessage;
+
+
+  self.createMessage = function(ev, clickedMessage) {
+    self.selectedMessage = clickedMessage.item;
+    console.log('self.selectedMessage: ', self.selectedMessage);
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
   // Mark message as read
   self.markRead = function(message){
     return $http({
@@ -109,6 +123,10 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     function(error) {
       console.log('Error with message-read PUT request: ', error);
     };
+  };
+
+  self.openMessage = function(message){
+    
   };
 
 //   // Reply to message

@@ -12,7 +12,7 @@
     <md-content flex-offset="0" class="md-padding" layout-xs="column" layout="row">
       <div flex="" layout="column">
         <md-list>
-          <md-list-item ng-click="inbox.markRead(this)" class="md-3-line" ng-repeat="item in inbox.messages | orderBy: 'date_sent'">
+          <md-list-item ng-click="inbox.markRead(this); inbox.createMessage($event, this)" class="md-3-line" ng-repeat="item in inbox.messages | orderBy: 'date_sent'">
 
             <div class="md-list-item-text">
 
