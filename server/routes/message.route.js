@@ -17,9 +17,6 @@ router.get('/get-all-messages', function(req, res) {
   // var userId = req.userId;
   var userId = '58';
 
-  console.log('get all messages is running');
-
-
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
 
@@ -131,6 +128,7 @@ router.get('/get-all-messages', function(req, res) {
 
 module.exports = router;
 
+// Checks for errors connecting to the database
 function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);
