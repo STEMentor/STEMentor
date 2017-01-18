@@ -15,6 +15,13 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
       });
   };
 
+  self.userStatus = AuthFactory.userStatus;
+
+  self.logOut = function() {
+    console.log('logging user out');
+    AuthFactory.logOut();
+  };
+
 }]);
 
 // $scope.showAdvanced = function(ev) {
