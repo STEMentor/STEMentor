@@ -277,52 +277,50 @@
      </md-card>
                 </md-tab>
 
+
+
+<!-- FAQ page html -->
+
                 <md-tab label="FAQ">
-                    <md-content>
-                        <p> asl;dfkjas;ldkfj </p>
-                    </md-content>
+                  <md-content layout-padding>
+                    <form name="userForm">
+
+                      <md-card>
+                      <md-card-content ng-if="showEdits">
+                      <div layout-gt-xs="row">
+                        <br>
+                        <md-input-container class="md-block" flex-gt-xs>
+                          <label>Question:</label>
+                          <input ng-model="user.company" >
+                        </md-input-container>
+                     </div>
+                     <div layout-gt-xs="row">
+                       <md-input-container class="md-block" flex-gt-xs>
+                         <label>Answer:</label>
+                         <input ng-model="user.company" >
+                       </md-input-container>
+                  </div>
+                </md-card-content>
+                <md-card-content ng-if="!showEdits">
+                <div layout-gt-xs="row">
+                  <br>
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <label>Question:</label>
+                    <input ng-model="user.company" disabled> sldkfjsldkfjsd </input>
+                    
+                  </md-input-container>
+               </div>
+               <div layout-gt-xs="row">
+                 <md-input-container class="md-block" flex-gt-xs>
+                   <label>Answer:</label>
+                   <input ng-model="user.company" disabled > sldkfjslkfjslkdfjsdlkfj </input>
+
+                 </md-input-container>
+            </div>
+          </md-card-content>
+
+              </md-card>
+                 </form>
+               </md-content>
                 </md-tab>
         </div>
-
-
-
-
-
-
-
-
-
-        <!-- <div layout="row" layout-align="center">
-  <div layout="column">
-
-    <div layout="row">
-      <h1>STEMentor</h1>
-    </div>
-
-    <div layout="row">
-      <div><img src="../assets/images/cooldog.jpeg"></div>
-      <div>
-        <h2>firstName lastName</h2>
-        <h3>jobTitle</h3>
-        <h4>school</h4>
-      </div>
-    </div>
-
-    <div>
-      <md-tabs>
-        <md-tab label="About Me"></md-tab>
-        <md-tab label="FAQ"></md-ta
-      </md-tabs>
-    </div>
-
-  </div>
-</div> -->
-
-        <!-- <div id="profileContainer" layout="row">
-  <div id="profileHeader" flex>
-
-  </div>
-  <div id="profileContent" flex>
-
-  </div>
-</div> -->
