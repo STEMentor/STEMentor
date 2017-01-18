@@ -94,7 +94,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     }
   }
 
-  self.selectedMessage;
+  self.selectedMessage = null;
 
 
   self.createMessage = function(ev, clickedMessage) {
@@ -126,7 +126,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
   };
 
   self.openMessage = function(message){
-    
+
   };
 
 //   // Reply to message
