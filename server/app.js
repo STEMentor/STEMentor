@@ -10,8 +10,8 @@ var db = require('./modules/db.module');
 var mentorSearch = require('./routes/mentor-search.route');
 var users = require('./routes/users.route');
 var message = require('./routes/message.route');
+var profileEdit = require('./routes/profile-edit.route');
 var profile = require('./routes/profile.route');
-var faq = require('./routes/faq.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
 
@@ -21,11 +21,11 @@ app.use(bodyParser.json());
 //----------------------------- ROUTES & MODULES -----------------------------//
 
 app.use('/mentor-search', mentorSearch);
-app.use('/faq', faq);
+app.use('/profile', profile);
 app.use(decoder.token); // Above not authenticated, below is authenticated
 app.use('/users.route', users);
 app.use('/message', message);
-app.use('/profile', profile);
+app.use('/profile-edit', profileEdit);
 
 //------------------------------- START SERVER -------------------------------//
 app.set('port', process.env.PORT || 3000);
