@@ -6,7 +6,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
   var userStatus = AuthFactory.userStatus;
   // var messageInfo =
 
-  console.log(InboxController.selectedMessage);
+  // console.log(InboxController.selectedMessage);
 
   self.userStatus = AuthFactory.userStatus;
 
