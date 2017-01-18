@@ -1,8 +1,8 @@
-app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDialog) {
+app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
   console.log('SearchController running');
   var self = this;
 
-  self.mentors = [];
+  self.mentors = BioFactory.mentors;
 
   self.newSearch = {
     first_name: null,
@@ -21,27 +21,14 @@ app.controller('SearchController', ['$http', '$mdDialog', function($http, $mdDia
     language: null
   };
 
-  self.test = function() {
-    console.log(self.newSearch);
-  };
+  self.setMentor = function(mentor){
+    console.log(mentor.id);
+    BioFactory.setMentor(mentor);
+  }
 
   self.getMentors = function() {
-    console.log(self.newSearch);
-    var newSearchString = JSON.stringify(self.newSearch);
-    return $http({
-        method: 'GET',
-        url: '/mentor-search/search',
-        headers: {
-          newSearchString: newSearchString
-        }
-      })
-      .then(function(response) {
-        self.mentors = response.data;
-        console.log("Mentors list:", self.mentors);
-      }),
-      function(err) {
-        console.log("Error with search get request ", err);
-      };
+    console.log("SEARCH controller new.Search:", self.newSearch)
+    BioFactory.getMentors(self.newSearch);
   };
 
   self.createMessage = function(ev) {
