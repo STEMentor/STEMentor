@@ -7,9 +7,9 @@ var connectionString = require('../modules/db-config.module');
 
 // Edit user info
 router.put('/update', function(req, res) {
-  var userType = req.userType,
-      typeId = userType + '_id',
-      userDatabase = userType + 's';
+  var userType = req.userType;
+  var typeId = userType + '_id';
+  var userDatabase = userType + 's';
   // var userId = req.userId;
   var userId = '58';
 

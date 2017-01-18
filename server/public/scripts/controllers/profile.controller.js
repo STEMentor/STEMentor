@@ -3,9 +3,11 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
 
   var self = this;
 
-  self.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-    'WY').split(' ').map(function(state) {
+  self.states = (
+    'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
+    'WI WY'
+  ).split(' ').map(function(state) {
     return {
       abbrev: state
     };
@@ -23,23 +25,16 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
     });
   };
 
-  getFaqs();
-
   // gets faqs associated with the mentor
-  
-  function getFaqs(){
+  (function getFaqs() {
     return $http.get('/faq/' + self.mentor.id)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log('An error has occurred');
-    });
-  }
-
-
-
-
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log('An error has occurred');
+      });
+  })();
 
 }]);
 
