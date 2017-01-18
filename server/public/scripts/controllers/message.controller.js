@@ -17,7 +17,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
   };
 
 
-  self.testMessage = function(message){
+  self.testMessage = function(){
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
@@ -29,9 +29,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
   };
 
 
-
   // User creating a new message
-  function sendMessage(currentUser, message) {
+  function sendMessage(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
