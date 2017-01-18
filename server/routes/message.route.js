@@ -17,7 +17,7 @@ router.get('/get-all-messages', function(req, res) {
   // var userId = req.userId;
   var userId = '58';
 
-  pg.connect(connectionString, function(error, client, done) {
+  pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
 
     // Query the database for the user's messages
@@ -76,32 +76,32 @@ router.get('/get-all-messages', function(req, res) {
 // });
 
 // Mark message as read
-router.put('/read-message', function(req, res) {
-  // Pull needed data off of req
-  var userEmail = req.decodedToken.email;
-  var userType = req.userType,
-      typeId = userType + '_id',
-      userDatabase = userType + 's';
-  var userId = req.userId;
-  var messageId = req.body.message.id;
-
-  pg.connect(connectionString, function(error, client, done) {
-    connectionErrorCheck(error);
-
-    client.query(
-      'UPDATE messages SET message_read = TRUE WHERE id = $1',
-      [messageId],
-      function(error, result) {
-        if (error) {
-          console.log('Unable to mark message as read: ', error);
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
-        }
-      }
-    );
-  });
-});
+// router.put('/read-message', function(req, res) {
+//   // Pull needed data off of req
+//   var userEmail = req.decodedToken.email;
+//   var userType = req.userType,
+//       typeId = userType + '_id',
+//       userDatabase = userType + 's';
+//   var userId = req.userId;
+//   var messageId = req.body.message.id;
+//
+//   pg.connect(connectionString, function(error, client, done) {
+//     connectionErrorCheck(error);
+//
+//     client.query(
+//       'UPDATE messages SET message_read = TRUE WHERE id = $1',
+//       [messageId],
+//       function(error, result) {
+//         if (error) {
+//           console.log('Unable to mark message as read: ', error);
+//           res.sendStatus(500);
+//         } else {
+//           res.sendStatus(200);
+//         }
+//       }
+//     );
+//   });
+// });
 //
 // // Reply to message
 // router.put('/reply', function(req, res) {
