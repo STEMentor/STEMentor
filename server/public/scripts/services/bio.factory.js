@@ -3,6 +3,7 @@ app.factory('BioFactory', ['$http', function($http){
 
   var mentors = {};
   var mentorBio = {};
+  var mentorFAQs = [];
   var mentorId;
 
   // gets all the mentors that match the newSearch selected fields
@@ -23,7 +24,7 @@ app.factory('BioFactory', ['$http', function($http){
       function(err) {
         console.log("Error with search get request ", err);
       };
-  };
+  }
 
   // gets profiles associated with the mentor
 
@@ -31,7 +32,35 @@ app.factory('BioFactory', ['$http', function($http){
     console.log("MENTOR ID IN getProfiles()", mentorId);
     return $http.get('/profile/' + mentorId)
     .then(function (response) {
-      console.log(response);
+
+      mentorBio = {
+        id: response.data[0].id,
+        first_name: response.data[0].first_name,
+        last_name: response.data[0].last_name,
+        email: response.data[0].email,
+        avatar: response.data[0].avatar,
+        company: response.data[0].company,
+        job_title: response.data[0].job_title,
+        zip: response.data[0].zip,
+        race: response.data[0].race,
+        gender: response.data[0].gender,
+        orientation: response.data[0].orientation,
+        birthday: response.data[0].birthday,
+        school: response.data[0].school,
+        degree: response.data[0].degree,
+        major: response.data[0].major,
+        languages: response.data[0].languages
+      };
+
+      for(var key in response.data) {
+        mentorFAQs.push(
+          {
+            question: response.data[key].question,
+            answer: response.data[key].answer
+          }
+        );
+      }
+
     })
     .catch(function (error) {
       console.log('An error has occurred');
@@ -48,7 +77,6 @@ app.factory('BioFactory', ['$http', function($http){
   }
 
   function setMentorId(id){
-
     mentorId = id;
     console.log('MENTOR ID:', mentorId);
   }
@@ -58,6 +86,7 @@ app.factory('BioFactory', ['$http', function($http){
   var publicApi = {
     mentors: mentors,
     mentorBio: mentorBio,
+    mentorFAQs: mentorFAQs,
     getMentors: function(newSearch){
       return getMentors(newSearch);
     },
@@ -68,7 +97,7 @@ app.factory('BioFactory', ['$http', function($http){
       return getProfiles();
     },
     setMentorId: function(id){
-      return setMentorId(id)
+      return setMentorId(id);
     }
     // getMentorId: function(){
     //   return getMentorId();
