@@ -28,17 +28,4 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
     });
   };
 
-//   $scope.test = 'Test Message';
-// }).directive("ngPortlet", function ($compile) {
-// return {
-// template: '<div>{{test}}</div>   ',
-// restrict: 'E',
-// link: function (scope, elm) {
-//     scope.add = function(){
-//         console.log(elm);
-//        elm.after($compile('<ng-portlet></ng-portlet>')(scope));
-//     }
-// }
-// };
-
 }]);

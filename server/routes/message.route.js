@@ -10,14 +10,14 @@ router.get('/get-all-messages', function(req, res) {
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
-  var userType = req.userType,
+  // var userType = req.userType,
+  var userType = 'mentor',
       typeId = userType + '_id',
       userDatabase = userType + 's';
   // var userId = req.userId;
-
-
-  // var typeId = 'mentor_id';
   var userId = '58';
+
+  console.log('get all messages is running');
 
 
   pg.connect(connectionString, function(error, client, done){
@@ -58,7 +58,7 @@ router.get('/get-all-messages', function(req, res) {
 //           var mentorId = result.rows[0].id; // TODO: Verify this value is returning correctly
 //           // Create new message record
 //           client.query(
-//             'INSERT INTO messages' +
+//             'INSERT INTO messages ' +
 //             '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
 //             'VALUES ($1, $2, now(), $3, $4, $5)',
 //             [mentorId, userId, message.subject, message.body, message.student_name],
