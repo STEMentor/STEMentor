@@ -29,7 +29,7 @@ app.factory('BioFactory', ['$http', function($http){
   // gets profiles associated with the mentor
 
   function getProfiles(){
-    console.log(mentorId);
+    console.log("MENTOR ID IN getProfiles()", mentorId);
     return $http.get('/profile/' + mentorId)
     .then(function (response) {
 
