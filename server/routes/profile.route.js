@@ -5,45 +5,23 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Edit user info
-router.put('/update', function(req, res) {
-  var userType = req.userType,
-      typeId = userType + '_id',
-      userDatabase = userType + 's';
-  var userId = req.userId;
-
-  var userData = {
-    id: null,
-    first_name: null,
-    last_name: null,
-    email: null,
-    avatar: null,
-    company: null,
-    job_title: null,
-    zip: null,
-    race: null,
-    gender: null,
-    orientation: null,
-    birthday: null,
-    school: null,
-    degree: null,
-    major: null,
-    languages: null
-  };
-
-  var query = queryBuilder(userData) + ' WHERE id = $1';
+// Gets a user's profile info and FAQ entries
+router.get('/:id', function(req, res) {
+  var userId = req.params.id;
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
-    // Update the database
-    client.query(query, [userData.id],
+    client.query(
+      'SELECT * FROM mentors ' +
+      'JOIN faq ON mentors.id = faq.mentor_id ' +
+      'WHERE mentors.id = $1', [userId],
       function(error, result) {
         if(error) {
-          console.log('Unable to update user information: ', error);
+          console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);
         } else {
-          res.sendStatus(200);
+          res.send(result.rows);
         }
       }
     );
@@ -58,24 +36,4 @@ function connectionErrorCheck(error) {
     console.log('Database connection error: ', error);
     res.sendStatus(500);
   }
-}
-
-// Cunstructs SQL query based off of user defined search paramaters
-function queryBuilder(object) {
-  console.log('OBJECT IN QUERY BUILDER', object);
-  var query = 'UPDATE mentors SET';
-
-  // query builder logic goes here
-
-  for(var property in object) {
-    if(object[property]) {
-      query += ' ' + property + ' = \'' + object[property] + '\' AND';
-    }
-  }
-
-  // query = query.slice(0, -4);
-  if (query === 'UPDATE mentors SET') {
-    query = 'SELECT * FROM mentors';
-  }
-  return query;
 }
