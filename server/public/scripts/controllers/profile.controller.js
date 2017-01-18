@@ -16,19 +16,9 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
     });
   };
 
-  getFaqs();
+  BioFactory.getProfiles();
 
-  // gets faqs associated with the mentor
   
-  function getFaqs(){
-    return $http.get('/faq/' + self.mentor.id)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log('An error has occurred');
-    });
-  }
 
 
 
