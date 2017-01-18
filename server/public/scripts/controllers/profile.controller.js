@@ -1,29 +1,37 @@
-app.controller('ProfileController', ['$http', function($http) {
+app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('ProfileController running');
 
+  var self = this;
+  // var userStatus = AuthFactory.userStatus;
+  var isMentor = false;
+  var isStudent = false;
 
-  angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+  self.userStatus = AuthFactory.userStatus;
 
-  .controller('AppCtrl', function($scope) {
-    $scope.imagePath = '../server/public/assets/images/cooldog.jpeg';
-  })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-    $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-    $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+  self.states = (
+    'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
+    'WI WY'
+  ).split(' ').map(function(state) {
+    return {
+      abbrev: state
+    };
   });
 
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
 
-  /**
-  Copyright 2016 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-  **/
+  self.createMessage = function(ev) {
+    console.log('profile controller self.userStatus: ', self.userStatus);
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
+
+  BioFactory.getProfiles();
 
 }]);
-
-// angular.module('cardDemo2', ['ngMaterial'])
-//
-// .controller('AppCtrl', function($scope) {
-//   $scope.imagePath = 'img/washedout.png';
-// });
