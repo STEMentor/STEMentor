@@ -1,4 +1,4 @@
-app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
+app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, $mdDialog, BioFactory) {
   console.log('MessageController running');
   var self = this;
   self.newMessage = [];
@@ -10,10 +10,13 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
 
   self.userStatus = AuthFactory.userStatus;
 
+  self.mentor = BioFactory.mentorBio.info;
+
   self.sendMessage = function(message){
     console.log('newMessage: ', self.newMessage);
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
+    console.log('self.mentor: ', self.mentor);
     // $http.post('/message/new-message', self.newMessage);
     //   .then(function(response) {
     //     console.log('response: ', response);
