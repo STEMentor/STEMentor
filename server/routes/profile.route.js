@@ -5,7 +5,7 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Gets a user's FAQ entries
+// Gets a user's profile info and FAQ entries
 router.get('/:id', function(req, res) {
   var userId = req.params.id;
 
@@ -13,10 +13,11 @@ router.get('/:id', function(req, res) {
     connectionErrorCheck(error);
 
     client.query(
-      'SELECT * FROM faq WHERE mentor_id = $1', [userId],
+      'SELECT * FROM mentors JOIN faq ON mentors.id = faq.mentor_id' +
+      'WHERE mentors.id = $1', [userId],
       function(error, result) {
         if(error) {
-          console.log('Error when searching FAQ table: ', error);
+          console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);
         } else {
           res.send(result.rows);
