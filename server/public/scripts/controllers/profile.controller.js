@@ -1,19 +1,11 @@
-app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDialog) {
+app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
   console.log('ProfileController running');
   var self = this;
 
+  self.imagePath = '../server/public/assets/images/cooldog.jpeg';
 
-  angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-
-  .controller('AppCtrl', function($scope) {
-    $scope.imagePath = '../server/public/assets/images/cooldog.jpeg';
-  })
-  .config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-    $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-    $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
-  });
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
 
   self.createMessage = function(ev) {
     $mdDialog.show({
@@ -24,16 +16,22 @@ app.controller('ProfileController', ['$http', '$mdDialog', function($http, $mdDi
     });
   };
 
+  getFaqs();
 
-  /**
-  Copyright 2016 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-  **/
+  // gets faqs associated with the mentor
+  
+  function getFaqs(){
+    return $http.get('/faq/' + self.mentor.id)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log('An error has occurred');
+    });
+  }
+
+
+
+
 
 }]);
-
-// angular.module('cardDemo2', ['ngMaterial'])
-//
-// .controller('AppCtrl', function($scope) {
-//   $scope.imagePath = 'img/washedout.png';
-// });
