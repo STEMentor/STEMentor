@@ -16,7 +16,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
     $mdDialog.cancel();
   };
 
-  self.sendNewMessage = function() {
+  self.sendStudentMessage = function() {
     // console.log('newMessage: ', self.newMessage);
     // console.log('authInfo: ', authInfo);
     // console.log('userStatus: ', userStatus);
