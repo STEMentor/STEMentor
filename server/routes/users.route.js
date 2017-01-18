@@ -9,6 +9,8 @@ router.get('/', function(req, res) {
   var data = {};
 
   data.userType = req.userType;
+  data.newUser = req.newUser;
+  console.log("NEW USER:", req.newUser);
   res.send(data);
 });
 
