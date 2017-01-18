@@ -24,7 +24,7 @@
                 </div>
             </form>
             </div> -->
-            <input class="refine" type="checkbox" ng-model="myVar">Refine your search
+            <input flex-offset="75" class="refine" type="checkbox" ng-model="myVar">Refine your search
 
     </md-content>
 
@@ -57,21 +57,31 @@
                     </md-input-container>
 
                     </div>
-                    <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm='33'>
 
-                        <label>Company</label>
+                    <div layout-gt-xs="row" flex='100'>
+                        <br>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Professional Info: </label>
+                            <input ng-model="user.company" disabled> </input>
+
+                        </md-input-container>
+                    </div>
+
+                    <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm='50'>
+                        <md-icon class="material-icons">face</md-icon>
+                        <label> Company</label>
                         <input ng-model="search.newSearch.company">
                     </md-input-container>
 
 
-                    <md-input-container class="md-block" flex-gt-sm="25">
+                    <md-input-container class="md-block" flex-gt-sm="50">
 
                         <label>Job Title</label>
                         <input ng-model="search.newSearch.job_title">
                     </md-input-container>
 
-
+                  </div>
 
                     <md-input-container class="md-block" flex-gt-sm="25">
 
@@ -92,7 +102,7 @@
                     </md-input-container>
                   </div>
 
-                </div>
+
 
         </md-content>
 
