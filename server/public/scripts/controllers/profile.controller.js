@@ -11,6 +11,9 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
     };
   });
 
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
+
   self.createMessage = function(ev) {
     $mdDialog.show({
       controller: 'MessageController as message',
@@ -19,6 +22,24 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
       clickOutsideToClose: true
     });
   };
+
+  getFaqs();
+
+  // gets faqs associated with the mentor
+  
+  function getFaqs(){
+    return $http.get('/faq/' + self.mentor.id)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log('An error has occurred');
+    });
+  }
+
+
+
+
 
 }]);
 
