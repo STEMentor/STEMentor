@@ -10,7 +10,10 @@
       <md-nav-item md-nav-href="#about" name="about">
         About
       </md-nav-item>
-      <md-nav-item ng-if="nav.userStatus.isLoggedIn" md-nav-href="#profile" name="profile">
+
+      <span flex></span>
+
+      <md-nav-item ng-click="nav.setMentorId()" ng-if="nav.userStatus.isLoggedIn" md-nav-href="#profile" name="profile">
         Profile
       </md-nav-item>
       <md-nav-item ng-if="nav.userStatus.isLoggedIn" md-nav-href="#inbox" name="inbox">
