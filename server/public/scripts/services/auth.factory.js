@@ -30,6 +30,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
       .then(function(response) {
         // console.log(response.data);
         userStatus.userType = response.data.userType;
+        userStatus.userId = response.data.userId;
         console.log(userStatus);
       });
       userStatus.isLoggedIn = true;
