@@ -62,12 +62,14 @@
 
           <md-input-container class="md-block">
             <label>Name</label>
-            <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.name"></textarea>
+            {{item.student_name}}
+            <!-- <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.name"></textarea> -->
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Message Subject</label>
-            <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.subject"></textarea>
+            {{inbox.sel}}
+            <!-- <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.subject"></textarea> -->
           </md-input-container>
 
           <md-input-container class="md-block">

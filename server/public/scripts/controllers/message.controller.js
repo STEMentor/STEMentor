@@ -4,6 +4,9 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', functi
   self.newMessage = [];
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
+  // var messageInfo =
+
+  console.log(InboxController.selectedMessage);
 
   self.userStatus = AuthFactory.userStatus;
 
