@@ -9,11 +9,14 @@ var connectionString = require('../modules/db-config.module');
 router.get('/:id', function(req, res) {
   var userId = req.params.id;
 
+  console.log('userId in get user profile route: ', userId);
+
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
     client.query(
-      'SELECT * FROM mentors JOIN faq ON mentors.id = faq.mentor_id' +
+      'SELECT * FROM mentors ' +
+      'JOIN faq ON mentors.id = faq.mentor_id ' +
       'WHERE mentors.id = $1', [userId],
       function(error, result) {
         if(error) {
