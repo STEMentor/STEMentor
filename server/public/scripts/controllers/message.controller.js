@@ -16,18 +16,17 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
     $mdDialog.cancel();
   };
 
+  self.sendNewMessage = function() {
+    // console.log('newMessage: ', self.newMessage);
+    // console.log('authInfo: ', authInfo);
+    // console.log('userStatus: ', userStatus);
+    // console.log('self.mentor: ', self.mentor);
 
-  self.testMessage = function() {
-    console.log('newMessage: ', self.newMessage);
-    console.log('authInfo: ', authInfo);
-    console.log('userStatus: ', userStatus);
-    console.log('self.mentor: ', self.mentor);
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendMessage(currentUser);
     });
   };
-
 
   // User (student) creating a new message
   function sendMessage(currentUser) {
