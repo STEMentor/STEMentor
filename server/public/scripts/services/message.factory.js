@@ -7,8 +7,14 @@ app.factory('MessageFactory', ['$http', function($http){
 
 
 
+ var publicApi = {
+   messages: messages,
+   currentMessage: currentMessage,
+   
+ };
+
+ return publicApi;
 
 
- 
 
 }]);

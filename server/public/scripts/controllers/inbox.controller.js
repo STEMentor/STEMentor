@@ -61,7 +61,7 @@
 
 \*----------------------------------------------------------------------------*/
 
-app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
+app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', function($http, AuthFactory, MessageFactory, $mdDialog) {
   console.log('InboxController running');
   var self = this;
   self.userStatus = AuthFactory.userStatus;
@@ -126,7 +126,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
   };
 
   self.openMessage = function(message){
-    
+
   };
 
 //   // Reply to message

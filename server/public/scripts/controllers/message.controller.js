@@ -1,4 +1,4 @@
-app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, $mdDialog, BioFactory) {
+app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('MessageController running');
   var self = this;
   self.newMessage = [];
@@ -17,10 +17,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
   };
 
   self.sendStudentMessage = function() {
-    // console.log('newMessage: ', self.newMessage);
-    // console.log('authInfo: ', authInfo);
-    // console.log('userStatus: ', userStatus);
-    // console.log('self.mentor: ', self.mentor);
+    console.log('newMessage: ', self.newMessage);
+    console.log('authInfo: ', authInfo);
+    console.log('userStatus: ', userStatus);
+    console.log('self.mentor: ', self.mentor);
 
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
