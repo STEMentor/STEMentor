@@ -79,6 +79,7 @@ app.factory('BioFactory', ['$http', function($http){
     mentorBio.info = mentor;
     mentorId = mentorBio.info.id;
     console.log("MENTOR:", mentorBio.info);
+    getProfiles();
   }
 
   function setMentorId(id){
