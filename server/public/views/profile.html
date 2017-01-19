@@ -24,6 +24,9 @@
                 <md-input-container>
                     <md-switch ng-model="showEdits">Edit Your Profile</md-switch>
                 </md-input-container>
+                <md-input-container>
+                    <button ng-click="BioFactory.getProfiles()"> Save Changes </button>
+                </md-input-container>
             </div>
             <md-tabs md-dynamic-height="" md-border-bottom="">
                 <md-tab label="Profile">
@@ -47,7 +50,7 @@
                               <md-input-container class="md-block">
                                     <label>Blurb</label>
                                     <input ng-model="profile.mentor.info.blurb">
-                                    <button ng-click="BioFactory.getProfiles()"> Click me </button>
+
                                   </md-input-container>
 
                                 <div flex="5" hide-xs="" hide-sm="">
@@ -92,7 +95,6 @@
                               <md-input-container class="md-block">
                                     <label>Blurb</label>
                                     <input ng-model="profile.mentor.info.bio">
-                                    <button ng-click="BioFactory.getProfiles()"> Click me </button>
                                   </md-input-container>
 
                                 <div flex="5" hide-xs="" hide-sm="">
@@ -151,7 +153,6 @@
                   <md-input-container class="md-block">
                         <label>School</label>
                         <input ng-model="profile.mentor.info.school">
-                        <button ng-click="BioFactory.getProfiles()"> Click me </button>
                       </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
@@ -192,7 +193,7 @@
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Education</span>
+            <span class="md-headline">Jobs</span>
             <span class="md-subhead"></span>
         </md-card-title-text>
     </md-card-title>
@@ -247,7 +248,7 @@
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Education</span>
+            <span class="md-headline">Personal Info</span>
             <span class="md-subhead"></span>
         </md-card-title-text>
     </md-card-title>
@@ -276,7 +277,6 @@
                       <md-input-container class="md-block">
                             <label>Languages</label>
                             <input ng-model="profile.mentor.info.languages">
-                            <button ng-click="BioFactory.getProfiles()"> Click me </button>
                           </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
