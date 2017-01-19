@@ -7,7 +7,7 @@ var connectionString = require('../modules/db-config.module');
 
 // Gets a user's profile info and FAQ entries
 router.get('/:id', function(req, res) {
-  var userId = req.params.id;
+  var userId = parseInt(req.params.id);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
