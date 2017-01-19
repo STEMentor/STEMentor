@@ -22,7 +22,7 @@
               <p>Date Sent: {{item.date_sent | date: shortDate}} </p>
 
             </div>
-            <md-button class="md-secondary" ng-click="inbox.createMessage($event)">
+            <md-button class="md-secondary" ng-click="inbox.createMessage($event, this)">
               Respond
             </md-button>
 
