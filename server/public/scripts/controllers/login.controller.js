@@ -11,6 +11,9 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     console.log(userType);
     AuthFactory.logIn(userType).then(function(response){
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
+    })
+    .then(function(){
+      self.cancel();
     });
   };
 

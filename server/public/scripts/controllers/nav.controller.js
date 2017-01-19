@@ -12,15 +12,12 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
         templateUrl: '../../views/login-modal.html',
         targetEvent: ev,
         clickOutsideToClose: true
-      })
-      .then(function(answer) {
-        // logIn();
       });
   };
 
   self.setMentorId = function(){
     BioFactory.setMentorId(AuthFactory.userStatus.userId);
-  }
+  };
 
   self.logOut = function() {
     console.log('logging user out');
