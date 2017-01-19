@@ -1,6 +1,7 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
   console.log('SearchController running');
   var self = this;
+
   self.mentors = [];
   self.newSearch = {
     generic_search: null,
