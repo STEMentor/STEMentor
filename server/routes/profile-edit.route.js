@@ -7,10 +7,10 @@ var connectionString = require('../modules/db-config.module');
 
 // Edit user info
 router.put('/update', function(req, res) {
-  var userType = req.userType;
+  var userType = req.userStatus.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
-  var userId = req.userId;
+  var userId = req.userStatus.userId;
 
   var userData = {
     id: null,
@@ -52,7 +52,7 @@ router.put('/update', function(req, res) {
 
 // Create a new FAQ entry
 router.post('/new-faq', function(req, res) {
-  var userId = req.userId;
+  var userId = req.userStatus.userId;
   var question = req.body.question;
   var answer = req.body.answer;
 
@@ -76,7 +76,7 @@ router.post('/new-faq', function(req, res) {
 
 // Edit an existing FAQ entry
 router.put('/edit-faq/:faq-id', function(req, res) {
-  var userId = req.userId;
+  var userId = req.userStatus.userId;
   var faqId = req.body.faqId;
   var question = req.body.question;
   var answer = req.body.answer;
