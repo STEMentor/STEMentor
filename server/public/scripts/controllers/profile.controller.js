@@ -42,9 +42,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editBio = function(){
-
     BioFactory.editBio(self.userData);
-  }
+  };
 
   self.createMessage = function(ev) {
     console.log('profile controller self.userStatus: ', self.userStatus);
@@ -64,8 +63,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
       });
     }
   };
-
-
 
   BioFactory.getProfiles();
 
