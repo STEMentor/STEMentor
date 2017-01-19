@@ -32,7 +32,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     });
   };
 
-
-  BioFactory.getProfiles();
+  // BioFactory.getProfiles();
 
 }]);
