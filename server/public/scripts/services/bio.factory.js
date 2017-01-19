@@ -1,4 +1,4 @@
-app.factory('BioFactory', ['$http', function($http){
+app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   console.log('BioFactory running');
 
   var mentors = {};
@@ -12,26 +12,26 @@ app.factory('BioFactory', ['$http', function($http){
     console.log("NEW SEARCH:", newSearch);
     var newSearchString = JSON.stringify(newSearch);
     return $http({
-        method: 'GET',
-        url: '/mentor-search/search',
-        headers: {
-          newSearchString: newSearchString
-        }
-      })
-      .then(function(response) {
-        mentors.info = response.data;
-        console.log("Mentors list:", mentors);
-      }),
-      function(err) {
-        console.log("Error with search get request ", err);
-      };
+      method: 'GET',
+      url: '/mentor-search/search',
+      headers: {
+        newSearchString: newSearchString
+      }
+    })
+    .then(function(response) {
+      mentors.info = response.data;
+      console.log("Mentors list:", mentors);
+    }),
+    function(err) {
+      console.log("Error with search get request ", err);
+    };
   }
 
   // gets profiles associated with the mentor
 
   function getProfiles(){
-    console.log("MENTOR ID IN getProfiles()", mentorId);
-    return $http.get('/profile/' + mentorId)
+    console.log("MENTOR ID IN getProfiles()", AuthFactory.userStatus.userId);
+    return $http.get('/profile/' + AuthFactory.userStatus.userId)
     .then(function (response) {
       // console.log("getProfiles result:", response.data);
       // mentorBio.info = response.data[0];
@@ -76,8 +76,8 @@ app.factory('BioFactory', ['$http', function($http){
   }
 
 
-// Attach the chosen mentor object to the info property on mentorBio.
-// This will be accessed by the profile controller
+  // Attach the chosen mentor object to the info property on mentorBio.
+  // This will be accessed by the profile controller
   function setMentor(mentor){
 
     mentorBio.info = mentor;
@@ -91,6 +91,35 @@ app.factory('BioFactory', ['$http', function($http){
     getProfiles();
     console.log('MENTOR ID:', mentorId);
   }
+
+  function editBio(userData) {
+    // Makes sure that currentUser is set before getting messages from the server
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    console.log('USER DATA:', userData);
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'PUT',
+          url: '/profile-edit/update',
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            userData: userData
+          }
+        })
+        .then(function(response) {
+          console.log("USER DATA IN RESPONSE:", response.data);
+          getProfiles();
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+    });
+  }
+
 
 
 
@@ -107,12 +136,13 @@ app.factory('BioFactory', ['$http', function($http){
     getProfiles: function(){
       return getProfiles();
     },
+    editBio: function(userData){
+      return editBio(userData);
+    },
     setMentorId: function(id){
       return setMentorId(id);
-    }
-    // getMentorId: function(){
-    //   return getMentorId();
-    // }
+    },
+
   };
 
   return publicApi;
