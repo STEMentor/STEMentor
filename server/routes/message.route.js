@@ -10,7 +10,6 @@ router.get('/get-all-messages', function(req, res) {
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
-
   var userType = req.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
@@ -19,7 +18,7 @@ router.get('/get-all-messages', function(req, res) {
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
     console.log('message route userType: ', userType);
-    console.log('mr userId: ', userId);
+    console.log('message route userId: ', userId);
     // Query the database for the user's messages
     client.query(
       'SELECT * FROM messages where ' + typeId + ' = $1', [userId],
