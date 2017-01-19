@@ -10,7 +10,6 @@ router.get('/get-all-messages', function(req, res) {
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
-
   var userType = req.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
