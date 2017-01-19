@@ -60,8 +60,8 @@
 
                                 <md-input-container class="md-block" flex-gt-sm="" rows="5">
                                     <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}} mentors blurb here</textarea>
-                                    <p> mentors blurb here {{profile.mentor.info.blurb}} </p>
+                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                                    <p>{{profile.mentor.info.blurb}} </p>
 
                                     <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
@@ -76,27 +76,24 @@
                     </md-card>
 
                     <!-- Bio card -->
+                    <!-- Basic info card -->
+
                     <md-card>
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Bio</span>
-                                <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+                                <span class="md-subhead"></span>
                             </md-card-title-text>
                         </md-card-title>
 
                         <md-card-content ng-if="showEdits">
                             <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="" rows="5">
-                                    <label>Bio goes here. When toggled this switches {{profile.mentor.info.bio}} </label>
-                                    <textarea ng-if="showEdits" ng-model="fields" rows="5"></textarea>
-                                    <!-- <input  required="" name="name" ng-model="user.name"> -->
-
-
-                                    <div ng-messages="userForm.name.$error" ng-if="!showHints">
-
-                                    </div>
-                                </md-input-container>
+                              <md-input-container class="md-block">
+                                    <label>Blurb</label>
+                                    <input ng-model="profile.mentor.info.bio">
+                                    <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                                  </md-input-container>
 
                                 <div flex="5" hide-xs="" hide-sm="">
                                     <!-- Spacer //-->
@@ -108,10 +105,8 @@
 
                                 <md-input-container class="md-block" flex-gt-sm="" rows="5">
                                     <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
-                                    <!-- <input  required="" name="name" ng-model="user.name"> -->
-
-                                    <div>{{profile.fields.bio}}</div>
+                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.bio}}</textarea>
+                                    <p>{{profile.mentor.info.bio}} </p>
 
                                     <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
@@ -128,32 +123,40 @@
 
 <!-- Education card -->
 
+<!-- Basic info card -->
+
 <md-card>
     <md-card-title>
         <md-card-title-text>
             <span class="md-headline">Education</span>
-            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+            <span class="md-subhead"></span>
         </md-card-title-text>
     </md-card-title>
 
     <md-card-content ng-if="showEdits">
-        <div layout="row">
-            <md-input-container>
+        <div layout-gt-sm="row">
+
+          <md-input-container class="md-block">
                 <label>Degree</label>
-                <input>
-            </md-input-container>
+                <input ng-model="profile.mentor.info.degree">
 
-            <md-input-container>
-                <label>Major</label>
-                <input>
-            </md-input-container>
+              </md-input-container>
 
-            <md-input-container>
-                <label>School</label>
-                <input>
-            </md-input-container>
+              <md-input-container class="md-block">
+                    <label>Major</label>
+                    <input ng-model="profile.mentor.info.major">
 
+                  </md-input-container>
 
+                  <md-input-container class="md-block">
+                        <label>School</label>
+                        <input ng-model="profile.mentor.info.school">
+                        <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                      </md-input-container>
+
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
         </div>
     </md-card-content>
     <md-card-content ng-if="!showEdits">
@@ -161,16 +164,14 @@
 
             <md-input-container class="md-block" flex-gt-sm="" rows="5">
                 <!-- <label>Name</label> -->
-                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
-                <!-- <input  required="" name="name" ng-model="user.name"> -->
-
-                <div>{{profile.fields.degree}}</div>
-
-                <div>{{profile.fields.major}}</div>
-
-                <div>{{profile.fields.school}}
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <p>{{profile.mentor.info.degree}} </p>
+                <p>{{profile.mentor.info.major}} </p>
+                <p>{{profile.mentor.info.school}} </p>
 
 
+
+                <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
                 </div>
             </md-input-container>
@@ -182,32 +183,39 @@
     </md-card-content>
 </md-card>
 
+
 <!-- End of Education card -->
 
 <!-- Jobs card -->
 
+
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Job Info</span>
-            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+            <span class="md-headline">Education</span>
+            <span class="md-subhead"></span>
         </md-card-title-text>
     </md-card-title>
 
     <md-card-content ng-if="showEdits">
-        <div layout="row">
-            <md-input-container>
+        <div layout-gt-sm="row">
+
+          <md-input-container class="md-block">
                 <label>Job Title</label>
-                <input>
-            </md-input-container>
+                <input ng-model="profile.mentor.info.job_title">
 
-            <md-input-container>
-                <label>Company</label>
-                <input>
-            </md-input-container>
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                    <label>Company</label>
+                    <input ng-model="profile.mentor.info.company">
+
+                  </md-input-container>
 
 
-
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
         </div>
     </md-card-content>
     <md-card-content ng-if="!showEdits">
@@ -215,14 +223,13 @@
 
             <md-input-container class="md-block" flex-gt-sm="" rows="5">
                 <!-- <label>Name</label> -->
-                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
-                <!-- <input  required="" name="name" ng-model="user.name"> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <p>{{profile.mentor.info.job_title}} </p>
+                <p>{{profile.mentor.info.company}} </p>
 
-                <div>{{profile.fields.job_title}}</div>
+                <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
-                <div>{{profile.fields.company}}</div>
-
-                <div> </div>
+                </div>
             </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
@@ -234,34 +241,41 @@
 
 <!-- End of jobs card -->
 
-<!-- Jobs card -->
+<!-- Personal Info card -->
+
 
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Personal Info</span>
-            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+            <span class="md-headline">Education</span>
+            <span class="md-subhead"></span>
         </md-card-title-text>
     </md-card-title>
 
     <md-card-content ng-if="showEdits">
-        <div layout="row">
-            <md-input-container>
+        <div layout-gt-sm="row">
+
+          <md-input-container class="md-block">
                 <label>Gender</label>
-                <input>
-            </md-input-container>
+                <input ng-model="profile.mentor.info.degree">
 
-            <md-input-container>
-                <label>Orientation</label>
-                <input>
-            </md-input-container>
+              </md-input-container>
 
-            <md-input-container>
-                <label>Zip</label>
-                <input>
-            </md-input-container>
+              <md-input-container class="md-block">
+                    <label>Orientation</label>
+                    <input ng-model="profile.mentor.info.major">
 
+                  </md-input-container>
 
+                  <md-input-container class="md-block">
+                        <label>Zip</label>
+                        <input ng-model="profile.mentor.info.school">
+                        <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                      </md-input-container>
+
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
         </div>
     </md-card-content>
     <md-card-content ng-if="!showEdits">
@@ -269,16 +283,16 @@
 
             <md-input-container class="md-block" flex-gt-sm="" rows="5">
                 <!-- <label>Name</label> -->
-                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
-                <!-- <input  required="" name="name" ng-model="user.name"> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <p>{{profile.mentor.info.gender}} </p>
+                <p>{{profile.mentor.info.orientation}} </p>
+                <p>{{profile.mentor.info.zip}} </p>
 
-                <div>{{profile.fields.gender}}</div>
 
-                <div>{{profile.fields.orientation}}</div>
 
-                <div>{{profile.fields.Zip}}</div>
+                <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
-                <div> </div>
+                </div>
             </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
@@ -287,7 +301,6 @@
         </div>
     </md-card-content>
 </md-card>
-
 <!-- End of personal card -->
                 </md-tab>
 
