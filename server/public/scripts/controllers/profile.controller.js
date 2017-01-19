@@ -1,5 +1,6 @@
-app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
+app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('ProfileController running');
+
   var self = this;
   // var userStatus = AuthFactory.userStatus;
   var isMentor = false;
@@ -7,9 +8,21 @@ app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', functi
 
   self.userStatus = AuthFactory.userStatus;
 
-  self.imagePath = '../server/public/assets/images/cooldog.jpeg';
+  self.states = (
+    'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
+    'WI WY'
+  ).split(' ').map(function(state) {
+    return {
+      abbrev: state
+    };
+  });
+
+  // This is an object containing all of mentor's fields
+  self.mentor = BioFactory.mentorBio.info;
 
   self.createMessage = function(ev) {
+    console.log('profile controller self.userStatus: ', self.userStatus);
     $mdDialog.show({
       controller: 'MessageController as message',
       templateUrl: '../../views/message-modal.html',
@@ -19,9 +32,6 @@ app.controller('ProfileController', ['$http', 'AuthFactory', '$mdDialog', functi
   };
 
 
-  /**
-  Copyright 2016 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-  **/
+  BioFactory.getProfiles();
 
 }]);
