@@ -109,6 +109,19 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
     });
   };
 
+  self.viewMessage = function(ev, clickedMessage) {
+    console.log('clickedMessage.item: ', clickedMessage.item);
+    MessageFactory.setMessage(clickedMessage.item);
+    // self.selectedMessage = clickedMessage.item;
+    console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal2.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
+
   // Mark message as read
   self.markRead = function(message){
     return $http({
