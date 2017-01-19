@@ -1,11 +1,10 @@
 <div ng-cloak="" class="dividerdemoBasicUsage" ng-app="stementor">
 
-  <!-- TODO: Add user type data to divs -->
   <!-- This code is for student inboxes -->
-  <div>
+  <div ng-if="inbox.userStatus.userType === 'student'">
     <md-toolbar class="md-theme-light">
       <h2 class="md-toolbar-tools">
-      <span flex-offset="0">(Mentor's Name) Inbox</span>
+      <span flex-offset="0">(Student's Name) Inbox</span>
     </h2>
     </md-toolbar>
 
@@ -22,9 +21,9 @@
               <p>Date Sent: {{item.date_sent | date: shortDate}} </p>
 
             </div>
-            <md-button class="md-secondary" ng-click="inbox.createMessage($event, this)">
+            <!-- <md-button class="md-secondary" ng-click="inbox.createMessage($event, this)">
               Respond
-            </md-button>
+            </md-button> -->
 
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
@@ -35,7 +34,7 @@
   </div>
 
   <!-- This code is for mentor inboxes -->
-  <!-- <div>
+  <div ng-if="inbox.userStatus.userType === 'mentor'">
   <md-toolbar class="md-theme-light">
     <h2 class="md-toolbar-tools">
       <span flex-offset='0'>(Mentor's Name) Inbox</span>
@@ -54,12 +53,12 @@
           <p>Date Sent: {{item.date_sent | date: shortDate}} </p>
 
         </div>
-        <md-button class="md-secondary" ng-click="inbox.createMessage($event)">Respond</md-button>
+        <md-button class="md-secondary" ng-click="inbox.createMessage($event, this)">Respond</md-button>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>
   </md-content>
-</div> -->
+</div>
 </div>
 
 <!-- <md-toolbar class="md-theme-light">
