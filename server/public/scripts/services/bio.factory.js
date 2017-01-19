@@ -33,37 +33,38 @@ app.factory('BioFactory', ['$http', function($http){
     console.log("MENTOR ID IN getProfiles()", mentorId);
     return $http.get('/profile/' + mentorId)
     .then(function (response) {
-      console.log("getProfiles result:", response.data);
-      mentorBio.info = response.data[0];
-      console.log(mentorBio.info);
+      // console.log("getProfiles result:", response.data);
+      // mentorBio.info = response.data[0];
+      // console.log(mentorBio.info);
 
-      // mentor.mentorBio = {
-      //   id: response.data[0].id,
-      //   first_name: response.data[0].first_name,
-      //   last_name: response.data[0].last_name,
-      //   email: response.data[0].email,
-      //   avatar: response.data[0].avatar,
-      //   company: response.data[0].company,
-      //   job_title: response.data[0].job_title,
-      //   zip: response.data[0].zip,
-      //   race: response.data[0].race,
-      //   gender: response.data[0].gender,
-      //   orientation: response.data[0].orientation,
-      //   birthday: response.data[0].birthday,
-      //   school: response.data[0].school,
-      //   degree: response.data[0].degree,
-      //   major: response.data[0].major,
-      //   languages: response.data[0].languages
-      // };
-      // mentor.mentorFAQs = [];
-      // for(var key in response.data) {
-      //   mentor.mentorFAQs.push(
-      //     {
-      //       question: response.data[key].question,
-      //       answer: response.data[key].answer
-      //     }
-      //   );
-      // }
+      mentorBio.info = {
+        id: response.data[0].id,
+        first_name: response.data[0].first_name,
+        last_name: response.data[0].last_name,
+        email: response.data[0].email,
+        avatar: response.data[0].avatar,
+        company: response.data[0].company,
+        job_title: response.data[0].job_title,
+        zip: response.data[0].zip,
+        race: response.data[0].race,
+        gender: response.data[0].gender,
+        orientation: response.data[0].orientation,
+        birthday: response.data[0].birthday,
+        school: response.data[0].school,
+        degree: response.data[0].degree,
+        major: response.data[0].major,
+        languages: response.data[0].languages
+      };
+      mentorBio.faqs = [];
+      for(var key in response.data) {
+        mentorBio.faqs.push(
+          {
+            question: response.data[key].question,
+            answer: response.data[key].answer
+          }
+        );
+      }
+      console.log(mentorBio.faqs);
     })
     .catch(function (error) {
       console.log('An error has occurred');
@@ -82,6 +83,7 @@ app.factory('BioFactory', ['$http', function($http){
 
   function setMentorId(id){
     mentorId = id;
+    getProfiles();
     console.log('MENTOR ID:', mentorId);
   }
 
