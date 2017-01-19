@@ -3,7 +3,7 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
   var self = this;
 
   self.mentors = [];
-  
+
   self.newSearch = {
     generic_search: null,
     first_name: null,
@@ -22,8 +22,9 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
     language: null
   };
 
-  self.test = function() {
-    console.log(self.newSearch);
+  self.setMentor = function(mentor){
+    console.log(mentor.id);
+    BioFactory.setMentor(mentor);
   };
 
   self.getMentors = function() {
