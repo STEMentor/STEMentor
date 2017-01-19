@@ -2,9 +2,10 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
   console.log('SearchController running');
   var self = this;
 
-  self.mentors = BioFactory.mentors;
-
+  self.mentors = [];
+  
   self.newSearch = {
+    generic_search: null,
     first_name: null,
     last_name: null,
     email: null,
@@ -12,7 +13,7 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
     job_title: null,
     zip: null,
     race: null,
-    gender: null,
+    sex: null,
     orientation: null,
     birthday: null,
     school: null,
@@ -21,25 +22,27 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
     language: null
   };
 
-  self.setMentor = function(mentor){
-    console.log(mentor.id);
-    BioFactory.setMentor(mentor);
+  self.test = function() {
+    console.log(self.newSearch);
   };
 
   self.getMentors = function() {
-    console.log("SEARCH controller new.Search:", self.newSearch);
-    BioFactory.getMentors(self.newSearch);
+    console.log(self.newSearch);
+    var newSearchString = JSON.stringify(self.newSearch);
+    return $http({
+      method: 'GET',
+      url: '/mentor-search/search',
+      headers: {
+        newSearchString: newSearchString
+      }
+    })
+    .then(function(response) {
+      self.mentors = response.data;
+      console.log("Mentors list:", self.mentors);
+    }),
+    function(err) {
+      console.log("Error with search get request ", err);
+    };
   };
-
-  self.createMessage = function(ev) {
-    $mdDialog.show({
-      controller: 'MessageController as message',
-      templateUrl: '../../views/message-modal.html',
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
-  };
-
-
 
 }]);
