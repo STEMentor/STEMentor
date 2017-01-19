@@ -10,7 +10,7 @@
             <form name="userForm">
 
               <div class="field" id="searchform">
-                <input type="text" id="searchterm" placeholder="what kind of mentor are you looking for?" />
+                <input type="text" id="searchterm" placeholder="what kind of mentor are you looking for?" ng-model="search.newSearch.generic_search" />
                   <button ng-click="search.getMentors()" type="submit" id="search">Find!</button>
                 </div>
 
@@ -176,7 +176,7 @@
 
 
 
-<div ng-repeat="mentor in search.mentors.info">
+<div ng-repeat="mentor in search.mentors">
 
 
     <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
@@ -221,9 +221,3 @@
 
     </flippy>
 </div>
-
-
-<!--
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
--->
