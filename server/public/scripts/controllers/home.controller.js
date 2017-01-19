@@ -13,4 +13,5 @@ app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFa
     { src: '../assets/images/carousel/rock-formation-sm.jpg' },
     { src: '../assets/images/carousel/circuit-board-sm.jpg' }
   ];
+
 }]);
