@@ -10,10 +10,11 @@ router.get('/get-all-messages', function(req, res) {
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
-  var userType = req.userType;
+  var userType = req.userStatus.userType;
+  console.log("USER TYPE:", userType);
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
-  var userId = req.userId;
+  var userId = req.userStatus.userId;
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
@@ -58,7 +59,7 @@ router.post('/new-message', function(req, res) {
             'INSERT INTO messages' +
             '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
             'VALUES ($1, $2, now(), $3, $4, $5)',
-            [mentorId, req.userId, message.msgSubject, message.msgBody, message.msgName],
+            [mentorId, req.userStatus.userId, message.msgSubject, message.msgBody, message.msgName],
             function(error, result) {
               done(); // Close connection to database
               if (error) {
@@ -76,32 +77,34 @@ router.post('/new-message', function(req, res) {
 });
 
 // Mark message as read
-// router.put('/read-message', function(req, res) {
-//   // Pull needed data off of req
-//   var userEmail = req.decodedToken.email;
-//   var userType = req.userType,
-//       typeId = userType + '_id',
-//       userDatabase = userType + 's';
-//   var userId = req.userId;
-//   var messageId = req.body.message.id;
-//
-//   pg.connect(connectionString, function(error, client, done) {
-//     connectionErrorCheck(error);
-//
-//     client.query(
-//       'UPDATE messages SET message_read = TRUE WHERE id = $1',
-//       [messageId],
-//       function(error, result) {
-//         if (error) {
-//           console.log('Unable to mark message as read: ', error);
-//           res.sendStatus(500);
-//         } else {
-//           res.sendStatus(200);
-//         }
-//       }
-//     );
-//   });
-// });
+router.put('/read-message', function(req, res) {
+  // Pull needed data off of req
+  var userEmail = req.decodedToken.email;
+  var userType = req.userStatus.userType,
+      typeId = userType + '_id',
+      userDatabase = userType + 's';
+  var userId = req.userStatus.userId;
+  var messageId = req.body.message.id;
+  console.log('userEmail: ', userEmail);
+  console.log('messageId: ', messageId);
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck(error);
+
+    client.query(
+      'UPDATE messages SET message_read = TRUE WHERE id = $1',
+      [messageId],
+      function(error, result) {
+        if (error) {
+          console.log('Unable to mark message as read: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
+    );
+  });
+});
 //
 // // Reply to message
 // router.put('/reply', function(req, res) {
