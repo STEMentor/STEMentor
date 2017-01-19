@@ -48,6 +48,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
 
     if(currentUser) {
       getUser(currentUser);
+
     } else {
       userStatus.isLoggedIn = false;
     }
