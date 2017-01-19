@@ -67,6 +67,7 @@ app.factory('BioFactory', ['$http', function($http){
           }
         );
       }
+      console.log(mentorBio.info);
       console.log(mentorBio.faqs);
     })
     .catch(function (error) {
