@@ -74,6 +74,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
 
   // Get all messages from the database for a specific user
   function getMessages(currentUser) {
+    console.log('checking');
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         return $http({

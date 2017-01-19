@@ -7,6 +7,7 @@ var connectionString = require('../modules/db-config.module');
 
 // Get messages for specific user
 router.get('/get-all-messages', function(req, res) {
+  // console.log('req.decodedToken: ', req.decodedToken);
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
@@ -106,29 +107,31 @@ router.put('/read-message', function(req, res) {
     );
   });
 });
-//
-// // Reply to message
-// router.put('/reply', function(req, res) {
-//   var messageId = req.body.message.id;
-//   var messageReply = req.body.message.reply;
-//
-//   pg.connect(connectionString, function(error, client, done) {
-//     connectionErrorCheck(error);
-//
-//     client.query(
-//       'UPDATE messages SET reply = $1 WHERE id = $2',
-//       [messageReply, messageId],
-//       function(error, result) {
-//         if (error) {
-//           console.log('UPDATE database error: ', error);
-//           res.sendStatus(500);
-//         } else {
-//           res.sendStatus(200);
-//         }
-//       }
-//     );
-//   });
-// });
+
+// Reply to message
+router.put('/reply', function(req, res) {
+  console.log('req.body: ', req.body);
+
+  var messageId = req.body.message_info.msgId;
+  var messageReply = req.body.message_info.msgBody;
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck(error);
+
+    client.query(
+      'UPDATE messages SET reply = $1 WHERE id = $2',
+      [messageReply, messageId],
+      function(error, result) {
+        if (error) {
+          console.log('UPDATE database error: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
+    );
+  });
+});
 
 module.exports = router;
 
