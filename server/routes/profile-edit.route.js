@@ -7,42 +7,47 @@ var connectionString = require('../modules/db-config.module');
 
 // Edit user info
 router.put('/update', function(req, res) {
+  console.log('ARRIVED IN EDIT ROUTE');
+  console.log('USER DATA:', req.body.userData);
+  var userData = req.body.userData;
+
   var userType = req.userStatus.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
   var userId = req.userStatus.userId;
 
-  var userData = {
-    id: null,
-    first_name: null,
-    last_name: null,
-    email: null,
-    avatar: null,
-    company: null,
-    job_title: null,
-    zip: null,
-    race: null,
-    gender: null,
-    orientation: null,
-    birthday: null,
-    school: null,
-    degree: null,
-    major: null,
-    languages: null
-  };
+  // var userData = {
+  //   first_name: 'John',
+  //   last_name: null,
+  //   email: null,
+  //   avatar: null,
+  //   company: null,
+  //   job_title: null,
+  //   zip: null,
+  //   race: null,
+  //   gender: null,
+  //   orientation: null,
+  //   birthday: null,
+  //   school: null,
+  //   degree: null,
+  //   major: null,
+  //   languages: null
+  // };
 
   var query = queryBuilder(userData) + ' WHERE id = $1';
+  console.log(query);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
     // Update the database
-    client.query(query, [userData.id],
+    client.query(query, [userId],
       function(error, result) {
         if(error) {
           console.log('Unable to update user information: ', error);
           res.sendStatus(500);
         } else {
+          console.log('SUCCESSFUL! USER DATA:', userData);
           res.sendStatus(200);
         }
       }
@@ -122,9 +127,9 @@ function queryBuilder(object) {
     }
   }
 
-  // query = query.slice(0, -4);
-  if (query === 'UPDATE mentors SET') {
-    query = 'SELECT * FROM mentors';
-  }
+  query = query.slice(0, -4);
+  // if (query === 'UPDATE mentors SET') {
+  //   query = 'SELECT * FROM mentors';
+  // }
   return query;
 }
