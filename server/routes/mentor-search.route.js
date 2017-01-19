@@ -1,9 +1,11 @@
+//----------------------------------------------------------------------------//
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
+//----------------------------------------------------------------------------//
 
-// For bringing up a specific mentor profile
+// For bringing up a specific mentor profile ---------------------------------//
 router.get('/profile/:id', function(req, res) {
   // The id of the mentor is transferred via the url and extracted using req.params
   var mentorID = req.params.id;
@@ -29,14 +31,15 @@ router.get('/profile/:id', function(req, res) {
   });
 });
 
-// For searching the database from the search page
+// For searching the database from the search page ---------------------------//
 router.get('/search', function(req, res) {
-  console.log('req.headers: ', req.headers);
+
   var queryObject = JSON.parse(req.headers.newsearchstring);
-  var query = '';
-  console.log('QUERY OBJECT', queryObject);
-  query = queryBuilder(queryObject);
-  console.log('QUERY', query);
+  console.log('Query object: ', queryObject);
+
+  var query = queryBuilder(queryObject);
+  console.log('Built query: ', query);
+
   pg.connect(connectionString, function(error, client, done) {
     if (error) {
       console.log('connection error: ', error);
@@ -54,19 +57,45 @@ router.get('/search', function(req, res) {
   });
 });
 
-// Cunstructs SQL query based off of user defined search paramaters
+// Cunstructs SQL query based off of user defined search paramaters ----------//
 function queryBuilder(object) {
-  console.log('OBJECT IN QUERY BUILDER', object);
-  var query = 'SELECT * FROM mentors WHERE';
+
+  var query;
+
+  if(object.generic_search) {
+    query = 'SELECT * FROM mentors' +
+            ' WHERE first_name ILIKE \'%'   + object.generic_search +
+            '%\' OR last_name ILIKE \'%'    + object.generic_search +
+            '%\' OR email ILIKE \'%'        + object.generic_search +
+            '%\' OR blurb ILIKE \'%'        + object.generic_search +
+            '%\' OR bio ILIKE \'%'          + object.generic_search +
+            '%\' OR company ILIKE \'%'      + object.generic_search +
+            '%\' OR job_title ILIKE \'%'    + object.generic_search +
+            '%\' OR race ILIKE \'%'         + object.generic_search +
+            '%\' OR gender ILIKE \'%'       + object.generic_search +
+            '%\' OR orientation ILIKE \'%'  + object.generic_search +
+            '%\' OR school ILIKE \'%'       + object.generic_search +
+            '%\' OR degree ILIKE \'%'       + object.generic_search +
+            '%\' OR major ILIKE \'%'        + object.generic_search +
+            '%\' OR languages ILIKE \'%'    + object.generic_search +
+            '%\' AND';
+  } else {
+    query = 'SELECT * FROM mentors WHERE';
+  }
+
   for (var property in object) {
-    if (object[property]) {
-      query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
+    if (object[property] && property !== 'generic_search') {
+      query += ' ' + property + ' = \'' + object[property] + '\' AND';
     }
   }
+
   query = query.slice(0, -4);
   if (query == 'SELECT * FROM mentors W') {
     query = 'SELECT * FROM mentors';
   }
+
+  console.log('Query after query builder: ', query);
+
   return query;
 }
 
