@@ -92,10 +92,10 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     console.log('MENTOR ID:', mentorId);
   }
 
-  function editBio() {
+  function editBio(userData) {
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-    var bio = {something: "something"}
+    console.log('USER DATA:', userData);
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         return $http({
@@ -104,10 +104,12 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
           headers: {
             id_token: idToken
           },
-          bio: bio
+          data: {
+            userData: userData
+          }
         })
         .then(function(response) {
-          console.log(response);
+          console.log("USER DATA IN RESPONSE:", response.data);
         }),
         function(error) {
           console.log('Error with messages POST request: ', error);
@@ -133,8 +135,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     getProfiles: function(){
       return getProfiles();
     },
-    editBio: function(){
-      return editBio();
+    editBio: function(userData){
+      return editBio(userData);
     },
     setMentorId: function(id){
       return setMentorId(id);
