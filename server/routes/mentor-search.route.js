@@ -64,27 +64,28 @@ function queryBuilder(object) {
 
   if(object.generic_search) {
     query = 'SELECT * FROM mentors' +
-            ' WHERE first_name ILIKE ' + object.generic_search +
-            ' OR last_name ILIKE ' + object.generic_search +
-            ' OR email ILIKE ' + object.generic_search +
-            ' OR blurb ILIKE ' + object.generic_search +
-            ' OR bio ILIKE ' + object.generic_search +
-            ' OR company ILIKE ' + object.generic_search +
-            ' OR job_title ILIKE ' + object.generic_search +
-            ' OR race ILIKE ' + object.generic_search +
-            ' OR gender ILIKE ' + object.generic_search +
-            ' OR orientation ILIKE ' + object.generic_search +
-            ' OR school ILIKE ' + object.generic_search +
-            ' OR degree ILIKE ' + object.generic_search +
-            ' OR major ILIKE ' + object.generic_search +
-            ' OR languages ILIKE ' + object.generic_search + ' AND';
+            ' WHERE first_name ILIKE \'%' + object.generic_search +
+            '%\' OR last_name ILIKE \'%' + object.generic_search +
+            '%\' OR email ILIKE \'%' + object.generic_search +
+            '%\' OR blurb ILIKE \'%' + object.generic_search +
+            '%\' OR bio ILIKE \'%' + object.generic_search +
+            '%\' OR company ILIKE \'%' + object.generic_search +
+            '%\' OR job_title ILIKE \'%' + object.generic_search +
+            '%\' OR race ILIKE \'%' + object.generic_search +
+            '%\' OR gender ILIKE \'%' + object.generic_search +
+            '%\' OR orientation ILIKE \'%' + object.generic_search +
+            '%\' OR school ILIKE \'%' + object.generic_search +
+            '%\' OR degree ILIKE \'%' + object.generic_search +
+            '%\' OR major ILIKE \'%' + object.generic_search +
+            '%\' OR languages ILIKE \'%' + object.generic_search +
+            '%\' AND';
   } else {
     query = 'SELECT * FROM mentors WHERE';
   }
 
   for (var property in object) {
-    if (object[property] && object[property] !== 'generic_search') {
-      query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
+    if (object[property] && property !== 'generic_search') {
+      query += ' ' + property + ' = \'' + object[property] + '\' AND';
     }
   }
 

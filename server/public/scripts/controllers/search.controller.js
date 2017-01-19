@@ -3,6 +3,7 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
   var self = this;
 
   self.mentors = [];
+  
   self.newSearch = {
     generic_search: null,
     first_name: null,
