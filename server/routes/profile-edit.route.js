@@ -8,7 +8,7 @@ var connectionString = require('../modules/db-config.module');
 // Edit user info
 router.put('/update', function(req, res) {
   console.log('ARRIVED IN EDIT ROUTE');
-  console.log('BIO:', req.body.userData);
+  console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
 
   var userType = req.userStatus.userType;
