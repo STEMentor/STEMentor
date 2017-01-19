@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($http, $firebaseAuth, BioFactory){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location', function($http, $firebaseAuth, BioFactory, $location){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -36,7 +36,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
         userStatus.userId = response.data.userId;
         if(userStatus.userType === 'mentor'){
           BioFactory.setMentorId(userStatus.userId);
-          if(userStatus.newUser === 'true'){
+          if(userStatus.newUser === true){
               $location.path("profile");
           }
         }
@@ -68,6 +68,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
       currentUser = undefined;
       userStatus.isLoggedIn = false;
       userStatus.userType = "None";
+      $location.path("home");
       console.log('logged out');
       console.log('currentUser: ', currentUser);
     });
