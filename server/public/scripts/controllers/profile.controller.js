@@ -1,7 +1,12 @@
-app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
+app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('ProfileController running');
 
   var self = this;
+  // var userStatus = AuthFactory.userStatus;
+  var isMentor = false;
+  var isStudent = false;
+
+  self.userStatus = AuthFactory.userStatus;
 
   self.states = (
     'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
@@ -14,9 +19,11 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
   });
 
   // This is an object containing all of mentor's fields
-  self.mentor = BioFactory.mentorBio.info;
+  // self.mentor = BioFactory.mentor;
+  self.mentor = BioFactory.mentorBio;
 
   self.createMessage = function(ev) {
+    console.log('profile controller self.userStatus: ', self.userStatus);
     $mdDialog.show({
       controller: 'MessageController as message',
       templateUrl: '../../views/message-modal.html',
@@ -25,25 +32,4 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', functio
     });
   };
 
-  BioFactory.getProfiles();
-
 }]);
-
-// var userData = {
-//   id: null,
-//   first_name: null,
-//   last_name: null,
-//   email: null,
-//   avatar: null,
-//   company: null,
-//   job_title: null,
-//   zip: null,
-//   race: null,
-//   gender: null,
-//   orientation: null,
-//   birthday: null,
-//   school: null,
-//   degree: null,
-//   major: null,
-//   languages: null
-// };
