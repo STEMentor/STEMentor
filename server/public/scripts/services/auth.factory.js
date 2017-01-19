@@ -28,12 +28,14 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
         }
       })
       .then(function(response) {
-        // console.log(response.data);
-        userStatus.userType = response.data.userType;
-        userStatus.newUser = response.data.newUser;
-        console.log("USER STATUS:", userStatus);
+        console.log(response.data);
+        userStatus.userType = response.data.userStatus.userType;
+        userStatus.newUser = response.data.userStatus.newUser;
+        userStatus.userId = response.data.userStatus.userId;
+        console.log("USER STATUS:", response.data.userStatus);
 
-        userStatus.userId = response.data.userId;
+        // if they are a new mentor go straight to profile
+
         if(userStatus.userType === 'mentor'){
           BioFactory.setMentorId(userStatus.userId);
           if(userStatus.newUser === true){

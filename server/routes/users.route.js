@@ -8,11 +8,7 @@ var connectionString = require('../modules/db-config.module');
 router.get('/', function(req, res) {
   console.log('req.userInfo in user route', req.userType);
   var data = {};
-
-  data.userType = req.userType;
-  data.newUser = req.newUser;
-  console.log("NEW USER:", req.newUser);
-  data.userId = req.userId;
+  data.userStatus = req.userStatus;
 
   res.send(data);
 });
