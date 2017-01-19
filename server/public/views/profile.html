@@ -103,7 +103,7 @@
                             <div layout-gt-sm="row">
 
                                 <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                                    <textarea ng-if="showEdits" rows="5">{{profile.userDate.blurb}}</textarea>
+                                    <textarea ng-if="showEdits" rows="5">{{profile.userData.blurb}}</textarea>
                                     <p>{{profile.mentor.info.blurb}}</p>
 
                                 </md-input-container>
@@ -144,8 +144,9 @@
 
                                 <md-input-container class="md-block" flex-gt-sm="100" rows="5">
                                     <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.bio}}</textarea>
+                                    <textarea ng-if="showEdits" rows="5">{{profile.userData.bio}}</textarea>
                                     <p>{{profile.mentor.info.bio}} </p>
+
 
                                 </md-input-container>
 
