@@ -14,15 +14,9 @@
                   <button ng-click="search.getMentors()" type="submit" id="search">Find!</button>
                 </div>
 
-
             <input flex-offset="75" class="refine" type="checkbox" ng-model="myVar">Refine your search
-
     </md-content>
-
     </div>
-
-    <!-- <input class="refine" type="checkbox" ng-model="myVar">Refine your search -->
-
 
     <div ng-show="myVar" flex-offset="25" flex="50">
         <md-tabs md-dynamic-height="" md-border-bottom="">
@@ -43,7 +37,6 @@
                     <md-input-container class="md-block" flex-gt-sm='50' >
                         <input ng-model="search.newSearch.first_name" placeholder="First Name">
                     </md-input-container>
-
 
 
                     <md-input-container class="md-block" flex-gt-sm='50' >
@@ -194,6 +187,7 @@
                     <md-card-title-text>
                         <span class="md-headline">{{mentor.first_name}} {{mentor.last_name}}</span>
                         <span class="md-subhead">{{mentor.job_title}}</span>
+                        <span class="md-subhead">{{mentor.blurb}}</span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg card-media">
