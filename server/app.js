@@ -6,6 +6,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder.module');
 var db = require('./modules/db.module');
+var mentorSearch = require('./routes/mentor-search.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
 app.use(express.static('./server/public'));
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 //----------------------------- ROUTES & MODULES -----------------------------//
 
-
+app.use('/mentor-search', mentorSearch);
 //app.use(decoder.token); // Above not authenticated, below is authenticated
 
 
