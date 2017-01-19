@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location', function($http, $firebaseAuth, BioFactory, $location){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($http, $firebaseAuth, $location){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -35,7 +35,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
         // if they are a new mentor go straight to profile
 
         if(userStatus.userType === 'mentor'){
-          BioFactory.setMentorId(userStatus.userId);
+          // BioFactory.setMentorId(userStatus.userId);
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
               userStatus.newUser = true;
