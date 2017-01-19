@@ -63,8 +63,8 @@ function queryBuilder(object) {
   var query;
 
   if(object.generic_search) {
-    query = 'SELECT * FROM mentors' +
-            ' WHERE first_name ILIKE \'%'   + object.generic_search +
+    query = 'SELECT * FROM mentors ' +
+            'WHERE first_name ILIKE \'%'    + object.generic_search +
             '%\' OR last_name ILIKE \'%'    + object.generic_search +
             '%\' OR email ILIKE \'%'        + object.generic_search +
             '%\' OR blurb ILIKE \'%'        + object.generic_search +
@@ -80,12 +80,12 @@ function queryBuilder(object) {
             '%\' OR languages ILIKE \'%'    + object.generic_search +
             '%\' AND';
   } else {
-    query = 'SELECT * FROM mentors WHERE';
+    query = 'SELECT * FROM mentors WHERE ';
   }
 
   for (var property in object) {
     if (object[property] && property !== 'generic_search') {
-      query += ' ' + property + ' = \'' + object[property] + '\' AND';
+      query += property + ' ILIKE \'%' + object[property] + '%\' AND';
     }
   }
 
