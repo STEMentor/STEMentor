@@ -40,7 +40,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendMessage(currentUser);
     });
-  }
+  };
 
   // User (student) creating a new message
   function sendMessage(currentUser) {
@@ -71,6 +71,27 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       });
     }
   }
+
+  //   // Reply to message
+  //   self.replyToMessage = function() {
+  //     var messageId; // TODO: Need to get the message's ID somehow
+  //
+  //     return $http({
+  //       method: 'PUT',
+  //       url: '/message/reply',
+  //       data: {
+  //         messageId: messageId,
+  //         authInfo: authInfo
+  //       }
+  //     })
+  //     .then(function(response) {
+  //       console.log('Response from the server: ', response);
+  //     }),
+  //     function(error) {
+  //       console.log('Error with the reply PUT request: ', error);
+  //     };
+  //   };
+
 
 
 }]);
