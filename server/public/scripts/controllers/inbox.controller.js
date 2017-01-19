@@ -94,12 +94,13 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
     }
   }
 
-  self.selectedMessage;
-
+  self.selectedMessage = MessageFactory.currentMessage;
 
   self.createMessage = function(ev, clickedMessage) {
-    self.selectedMessage = clickedMessage.item;
-    console.log('self.selectedMessage: ', self.selectedMessage);
+    console.log('clickedMessage.item: ', clickedMessage.item);
+    MessageFactory.setMessage(clickedMessage.item);
+    // self.selectedMessage = clickedMessage.item;
+    console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
     $mdDialog.show({
       controller: 'MessageController as message',
       templateUrl: '../../views/message-modal.html',

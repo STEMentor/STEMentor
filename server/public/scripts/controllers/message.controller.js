@@ -12,6 +12,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
 
   self.mentor = BioFactory.mentorBio.info;
 
+  self.currentMessage = MessageFactory.currentMessage.thing;
+
   self.cancel = function() {
     $mdDialog.cancel();
   };
@@ -27,6 +29,18 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       sendMessage(currentUser);
     });
   };
+
+  self.sendMentorMessage = function() {
+    console.log('newMessage: ', self.newMessage);
+    console.log('authInfo: ', authInfo);
+    console.log('userStatus: ', userStatus);
+    console.log('self.mentor: ', self.mentor);
+
+    // Makes sure that currentUser is set before getting messages from the server
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+      sendMessage(currentUser);
+    });
+  }
 
   // User (student) creating a new message
   function sendMessage(currentUser) {
