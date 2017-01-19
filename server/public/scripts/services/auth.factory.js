@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($http, $firebaseAuth, BioFactory){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location', function($http, $firebaseAuth, BioFactory, $location){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -28,14 +28,24 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
         }
       })
       .then(function(response) {
-        // console.log(response.data);
-        userStatus.userType = response.data.userType;
-        console.log("USER STATUS:", userStatus);
-        userStatus.userId = response.data.userId;
-        BioFactory.setMentorId(userStatus.userId);
+        console.log(response.data);
+        userStatus.userType = response.data.userStatus.userType;
+        userStatus.userId = response.data.userStatus.userId;
+
+        // if they are a new mentor go straight to profile
+
+        if(userStatus.userType === 'mentor'){
+          BioFactory.setMentorId(userStatus.userId);
+          var newUser = response.data.userStatus.newUser;
+          if(newUser === true){
+              userStatus.newUser = true;
+              $location.path("profile");
+          }
+          console.log("USER STATUS:", userStatus);
+        }
+
       });
       userStatus.isLoggedIn = true;
-      // console.log(userStatus);
     });
 
   }
@@ -44,16 +54,12 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
 
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
-    // console.log("CURRENT USER", currentUser);
-
     if(currentUser) {
       getUser(currentUser);
-
     } else {
       userStatus.isLoggedIn = false;
     }
 
-    // console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
   function logOut() {
@@ -61,6 +67,8 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
       currentUser = undefined;
       userStatus.isLoggedIn = false;
       userStatus.userType = "None";
+      $location.path("home");
+      userStatus.newUser = false;
       console.log('logged out');
       console.log('currentUser: ', currentUser);
     });
