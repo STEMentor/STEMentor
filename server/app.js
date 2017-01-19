@@ -21,7 +21,9 @@ app.use(bodyParser.json());
 
 app.use('/mentor-search', mentorSearch);
 app.use('/profile', profile);
+
 app.use(decoder.token); // Above not authenticated, below is authenticated
+
 app.use('/users.route', users);
 app.use('/message', message);
 app.use('/profile-edit', profileEdit);
