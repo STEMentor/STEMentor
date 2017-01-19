@@ -40,14 +40,14 @@
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Blurb</span>
-                                <span class="md-subhead"></span>
+                              
                             </md-card-title-text>
                         </md-card-title>
 
                         <md-card-content ng-if="showEdits">
                             <div layout-gt-sm="row">
 
-                              <md-input-container class="md-block">
+                              <md-input-container class="md-block" flex-gt-sm="100" rows='3'>
                                     <label>Blurb</label>
                                     <input ng-model="profile.mentor.info.blurb">
 
@@ -59,9 +59,9 @@
                             </div>
                         </md-card-content>
                         <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
+                            <div layout-gt-sm="row" >
 
-                                <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                                <md-input-container class="md-block" flex-gt-sm="100" rows="5">
                                     <!-- <label>Name</label> -->
                                     <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
                                     <p>{{profile.mentor.info.blurb}} </p>
