@@ -32,7 +32,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
         userStatus.userType = response.data.userType;
         console.log("USER STATUS:", userStatus);
         userStatus.userId = response.data.userId;
-        BioFactory.setMentorId(userStatus.userId );
+        BioFactory.setMentorId(userStatus.userId);
       });
       userStatus.isLoggedIn = true;
       // console.log(userStatus);
