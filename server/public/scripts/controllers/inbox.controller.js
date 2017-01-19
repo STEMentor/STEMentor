@@ -61,31 +61,53 @@
 
 \*----------------------------------------------------------------------------*/
 
-app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
+app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', function($http, AuthFactory, MessageFactory, $mdDialog) {
   console.log('InboxController running');
   var self = this;
-  // var authInfo = AuthFactory.auth;
-  // var userType; // TODO: Where will this come from?
+  self.userStatus = AuthFactory.userStatus;
   self.messages = [];
 
-  // self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
-  // console.log(self.isLoggedIn);
+  // Makes sure that currentUser is set before getting messages from the server
+  AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    getMessages(currentUser);
+  });
 
   // Get all messages from the database for a specific user
-  self.getMessages = (function() {
-    return $http({
-      method: 'GET',
-      url: '/message/get-all-messages'
-      // headers: { userInfo: authInfo } // TODO: Not sure what would go here
-    })
-    .then(function(response) {
-      self.messages = response.data;
-      console.log('Messages list: ', self.messages);
-    }),
-    function(error) {
-      console.log('Error with messages GET request: ', error);
-    };
-  })();
+  function getMessages(currentUser) {
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'GET',
+          url: '/message/get-all-messages',
+          headers: {
+            id_token: idToken
+          }
+        })
+        .then(function(response) {
+          self.messages = response.data;
+          console.log('Messages list: ', self.messages);
+        }),
+        function(error) {
+          console.log('Error with messages GET request: ', error);
+        };
+      });
+    }
+  }
+
+  self.selectedMessage = MessageFactory.currentMessage;
+
+  self.createMessage = function(ev, clickedMessage) {
+    console.log('clickedMessage.item: ', clickedMessage.item);
+    MessageFactory.setMessage(clickedMessage.item);
+    // self.selectedMessage = clickedMessage.item;
+    console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
+    $mdDialog.show({
+      controller: 'MessageController as message',
+      templateUrl: '../../views/message-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
 
   // Mark message as read
   self.markRead = function(message){
@@ -102,6 +124,10 @@ app.controller('InboxController', ['$http', 'AuthFactory', '$mdDialog', function
     function(error) {
       console.log('Error with message-read PUT request: ', error);
     };
+  };
+
+  self.openMessage = function(message){
+
   };
 
 //   // Reply to message

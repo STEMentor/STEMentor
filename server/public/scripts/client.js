@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy' ]);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -31,11 +31,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/search.html',
     controller: 'SearchController',
     controllerAs: 'search'
-  })
-  .when('/settings', {
-    templateUrl: '/views/settings.html',
-    controller: 'SettingsController',
-    controllerAs: 'settings'
   })
   .otherwise({
     redirectTo: 'home'
