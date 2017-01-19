@@ -5,10 +5,10 @@
                 <md-card-title>
                     <!-- TODO: Make this card editable. Add fields (first name, last name, email, avatar, zip) -->
                     <md-card-title-text>
-                        <span class="md-headline">{{profile.mentor.info.first_name}}</span>
+                        <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
                         </br>
-                        <span class="md-subhead">Scientist</span>
-                        <span class="md-subhead">I love mentoring kids in STEM fields. </span>
+                        <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
+                        <span class="md-subhead"></span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg card-media"></div>
@@ -38,7 +38,7 @@
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Blurb</span>
-                                <span class="md-subhead"></span>
+                                <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
                             </md-card-title-text>
                         </md-card-title>
 
@@ -91,7 +91,7 @@
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Bio</span>
-                                <span class="md-subhead"></span>
+                                <span class="md-subhead">{{profile.mentor.info.bio}}</span>
                             </md-card-title-text>
                         </md-card-title>
 
@@ -145,7 +145,8 @@
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Education</span>
-                                <span class="md-subhead">Tell us a little about you.</span>
+                                <!-- <span class="md-subhead">Tell us a little about you.</span> -->
+                                <span class="md-subhead">Degree: {{profile.mentor.info.degree}}, Major: {{profile.mentor.info.major}}, School: {{profile.mentor.info.school}}</span>
                             </md-card-title-text>
                         </md-card-title>
 

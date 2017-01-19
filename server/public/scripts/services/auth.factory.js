@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseAuth){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($http, $firebaseAuth, BioFactory){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -32,6 +32,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
         userStatus.userType = response.data.userType;
         console.log("USER STATUS:", userStatus);
         userStatus.userId = response.data.userId;
+        BioFactory.setMentorId(userStatus.userId );
       });
       userStatus.isLoggedIn = true;
       // console.log(userStatus);
@@ -47,6 +48,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', function($http, $firebaseA
 
     if(currentUser) {
       getUser(currentUser);
+
     } else {
       userStatus.isLoggedIn = false;
     }
