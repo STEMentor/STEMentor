@@ -223,7 +223,7 @@
 
             <md-input-container class="md-block" flex-gt-sm="" rows="5">
                 <!-- <label>Name</label> -->
-                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <textarea ng-if="showEdits" rows="5"></textarea>
                 <p>{{profile.mentor.info.job_title}} </p>
                 <p>{{profile.mentor.info.company}} </p>
 
@@ -257,21 +257,27 @@
 
           <md-input-container class="md-block">
                 <label>Gender</label>
-                <input ng-model="profile.mentor.info.degree">
+                <input ng-model="profile.mentor.info.gender">
 
               </md-input-container>
 
               <md-input-container class="md-block">
                     <label>Orientation</label>
-                    <input ng-model="profile.mentor.info.major">
+                    <input ng-model="profile.mentor.info.orientation">
 
                   </md-input-container>
 
                   <md-input-container class="md-block">
                         <label>Zip</label>
-                        <input ng-model="profile.mentor.info.school">
-                        <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                        <input ng-model="profile.mentor.info.zip">
+
                       </md-input-container>
+
+                      <md-input-container class="md-block">
+                            <label>Languages</label>
+                            <input ng-model="profile.mentor.info.languages">
+                            <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                          </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
                 <!-- Spacer //-->
@@ -287,6 +293,7 @@
                 <p>{{profile.mentor.info.gender}} </p>
                 <p>{{profile.mentor.info.orientation}} </p>
                 <p>{{profile.mentor.info.zip}} </p>
+                <p>{{profile.mentor.info.languages}} </p>
 
 
 
