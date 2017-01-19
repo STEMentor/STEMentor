@@ -20,7 +20,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   });
 
   // This is an object containing all of mentor's fields
-  self.mentor = BioFactory.mentorBio.info;
+  // self.mentor = BioFactory.mentor;
+  self.mentor = BioFactory.mentorBio;
 
   self.createMessage = function(ev) {
     console.log('profile controller self.userStatus: ', self.userStatus);
@@ -39,7 +40,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
         clickOutsideToClose: true
       });
     }
-
   };
 
   BioFactory.getProfiles();
