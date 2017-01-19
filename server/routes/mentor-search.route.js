@@ -1,18 +1,48 @@
+//----------------------------------------------------------------------------//
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
+//----------------------------------------------------------------------------//
 
-router.get('/', function(req, res) {
-  console.log('req.headers: ', req.headers);
+// For bringing up a specific mentor profile ---------------------------------//
+router.get('/profile/:id', function(req, res) {
+  // The id of the mentor is transferred via the url and extracted using req.params
+  var mentorID = req.params.id;
+
+  // Add the mentor id to the SQL search query
+  var query = 'SELECT * FROM mentors WHERE id = ' + mentorID;
+
+  // Query the database and send the results back to the client
+  pg.connect(connectionString, function(error, client, done) {
+    if (error) {
+      console.log('connection error: ', error);
+      res.sendStatus(500);
+    }
+    client.query(query, function(error, result){
+      done();
+      if (error) {
+        console.log('select query error: ', error);
+        res.sendStatus(500);
+      }
+      console.log('result.rows: ', result.rows);
+      res.send(result.rows);
+    });
+  });
+});
+
+// For searching the database from the search page ---------------------------//
+router.get('/search', function(req, res) {
+
   var queryObject = JSON.parse(req.headers.newsearchstring);
-  var query = '';
-  console.log('QUERY OBJECT', queryObject);
-  query = queryBuilder(queryObject);
-  console.log('QUERY', query);
-  pg.connect(connectionString, function(err, client, done){
-    if(err){
-      console.log('connection error: ', err);
+  console.log('Query object: ', queryObject);
+
+  var query = queryBuilder(queryObject);
+  console.log('Built query: ', query);
+
+  pg.connect(connectionString, function(error, client, done) {
+    if (error) {
+      console.log('connection error: ', error);
       res.sendStatus(500);
     }
     client.query(query,
@@ -28,14 +58,33 @@ router.get('/', function(req, res) {
   });
 });
 
+// Cunstructs SQL query based off of user defined search paramaters ----------//
+function queryBuilder(object) {
 
-function queryBuilder(object){
-  console.log('OBJECT IN QUERY BUILDER', object);
-  var query = 'SELECT * FROM mentors WHERE';
-  for(property in object){
-    if (typeof object[property] === 'string'){
-    }
-    if (object[property]){
+  var query;
+
+  if(object.genericSearch) {
+    query = 'SELECT * FROM mentors' +
+            'WHERE first_name ILIKE ' +
+            'OR last_name ILIKE ' +
+            'OR email ILIKE ' +
+            'OR blurb ILIKE ' +
+            'OR bio ILIKE ' +
+            'OR company ILIKE ' +
+            'OR job_title ILIKE ' +
+            'OR race ILIKE ' +
+            'OR gender ILIKE ' +
+            'OR orientation ILIKE ' +
+            'OR school ILIKE ' +
+            'OR degree ILIKE ' +
+            'OR major ILIKE ' +
+            'OR languages ILIKE AND';
+  } else {
+    query = 'SELECT * FROM mentors WHERE';
+  }
+
+  for (var property in object) {
+    if (object[property]) {
       query += ' ' + property + ' = ' + "'" + object[property] + "'" + ' AND';
     }
   }
@@ -43,25 +92,10 @@ function queryBuilder(object){
   if (query == 'SELECT * FROM mentors W'){
     query = 'SELECT * FROM mentors';
   }
+
+  console.log('Query after query builder: ', query);
+
   return query;
 }
-
-// queryObject = {
-//   first_name: null,
-//   last_name: null,
-//   email: null,
-//   company: null,
-//   job_title: null,
-//   zip: null,
-//   race: null,
-//   sex: null,
-//   orientation: null,
-//   birthday: null,
-//   school: null,
-//   degree: null,
-//   major: null,
-//   languages: null
-// }
-
 
 module.exports = router;
