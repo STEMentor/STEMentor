@@ -30,22 +30,22 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
       .then(function(response) {
         console.log(response.data);
         userStatus.userType = response.data.userStatus.userType;
-        userStatus.newUser = response.data.userStatus.newUser;
         userStatus.userId = response.data.userStatus.userId;
-        console.log("USER STATUS:", response.data.userStatus);
 
         // if they are a new mentor go straight to profile
 
         if(userStatus.userType === 'mentor'){
           BioFactory.setMentorId(userStatus.userId);
-          if(userStatus.newUser === true){
+          var newUser = response.data.userStatus.newUser;
+          if(newUser === true){
+              userStatus.newUser = true;
               $location.path("profile");
           }
+          console.log("USER STATUS:", userStatus);
         }
 
       });
       userStatus.isLoggedIn = true;
-      // console.log(userStatus);
     });
 
   }
@@ -54,15 +54,12 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
 
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
-    // console.log("CURRENT USER", currentUser);
-
     if(currentUser) {
       getUser(currentUser);
     } else {
       userStatus.isLoggedIn = false;
     }
 
-    // console.log('User is logged in:', userStatus.isLoggedIn);
   });
 
   function logOut() {
@@ -71,6 +68,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
       userStatus.isLoggedIn = false;
       userStatus.userType = "None";
       $location.path("home");
+      userStatus.newUser = false;
       console.log('logged out');
       console.log('currentUser: ', currentUser);
     });
