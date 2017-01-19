@@ -8,6 +8,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
 
   self.userStatus = AuthFactory.userStatus;
 
+  // Not currently used
   self.states = (
     'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
     'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
@@ -24,12 +25,23 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
 
   self.createMessage = function(ev) {
     console.log('profile controller self.userStatus: ', self.userStatus);
-    $mdDialog.show({
-      controller: 'MessageController as message',
-      templateUrl: '../../views/message-modal.html',
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
+    if(self.userStatus.isLoggedIn) {
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    } else {
+      $mdDialog.show({
+        controller: 'WarningController as warning',
+        templateUrl: '../../views/warning-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
   };
+
+  BioFactory.getProfiles();
 
 }]);

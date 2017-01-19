@@ -24,10 +24,10 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
   self.setMentor = function(mentor){
     console.log(mentor.id);
     BioFactory.setMentor(mentor);
-  }
+  };
 
   self.getMentors = function() {
-    console.log("SEARCH controller new.Search:", self.newSearch)
+    console.log("SEARCH controller new.Search:", self.newSearch);
     BioFactory.getMentors(self.newSearch);
   };
 
@@ -43,8 +43,3 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
 
 
 }]);
-
-/**
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-**/

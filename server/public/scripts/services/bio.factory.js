@@ -53,7 +53,10 @@ app.factory('BioFactory', ['$http', function($http){
         school: response.data[0].school,
         degree: response.data[0].degree,
         major: response.data[0].major,
-        languages: response.data[0].languages
+        languages: response.data[0].languages,
+        bio: response.data[0].bio,
+        blurb: response.data[0].blurb
+
       };
       mentorBio.faqs = [];
       for(var key in response.data) {
