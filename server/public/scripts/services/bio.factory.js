@@ -30,8 +30,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   // gets profiles associated with the mentor
 
   function getProfiles(){
-    console.log("MENTOR ID IN getProfiles()", mentorId);
-    return $http.get('/profile/' + mentorId)
+    console.log("MENTOR ID IN getProfiles()", AuthFactory.userStatus.userId);
+    return $http.get('/profile/' + AuthFactory.userStatus.userId)
     .then(function (response) {
       // console.log("getProfiles result:", response.data);
       // mentorBio.info = response.data[0];
@@ -110,6 +110,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
         })
         .then(function(response) {
           console.log("USER DATA IN RESPONSE:", response.data);
+          getProfiles();
         }),
         function(error) {
           console.log('Error with messages POST request: ', error);

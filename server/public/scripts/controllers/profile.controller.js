@@ -29,6 +29,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     email: null,
     company: null,
     job_title: null,
+    bio: null,
     zip: null,
     race: null,
     gender: null,

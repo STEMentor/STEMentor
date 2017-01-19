@@ -19,7 +19,7 @@
                 </md-card-actions>
             </md-card>
 
-            <md-button ng-click="profile.editBio()">Save</md-button>
+            <md-button ng-click="">Save</md-button>
 
             <div flex-offset="80">
 
@@ -27,7 +27,7 @@
                     <md-switch ng-model="showEdits">Edit Your Profile</md-switch>
                 </md-input-container>
                 <md-input-container>
-                    <button ng-click="BioFactory.getProfiles()"> Save Changes </button>
+                    <button ng-click="profile.editBio()"> Save Changes </button>
                 </md-input-container>
             </div>
             <md-tabs md-dynamic-height="" md-border-bottom="">
@@ -51,7 +51,7 @@
 
                               <md-input-container class="md-block">
                                     <label>Blurb</label>
-                                    <input ng-model="profile.mentor.info.blurb">
+                                    <input ng-model="profile.userData.blurb">
 
                                   </md-input-container>
 
@@ -96,7 +96,7 @@
 
                               <md-input-container class="md-block">
                                     <label>Blurb</label>
-                                    <input ng-model="profile.mentor.info.bio">
+                                    <input ng-model="profile.userData.bio">
                                   </md-input-container>
 
                                 <div flex="5" hide-xs="" hide-sm="">
@@ -142,19 +142,19 @@
 
           <md-input-container class="md-block">
                 <label>Degree</label>
-                <input ng-model="profile.mentor.info.degree">
+                <input ng-model="profile.userData.degree">
 
               </md-input-container>
 
               <md-input-container class="md-block">
                     <label>Major</label>
-                    <input ng-model="profile.mentor.info.major">
+                    <input ng-model="profile.userData.major">
 
                   </md-input-container>
 
                   <md-input-container class="md-block">
                         <label>School</label>
-                        <input ng-model="profile.mentor.info.school">
+                        <input ng-model="profile.userData.school">
                       </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
@@ -205,13 +205,13 @@
 
           <md-input-container class="md-block">
                 <label>Job Title</label>
-                <input ng-model="profile.mentor.info.job_title">
+                <input ng-model="profile.userData.job_title">
 
               </md-input-container>
 
               <md-input-container class="md-block">
                     <label>Company</label>
-                    <input ng-model="profile.mentor.info.company">
+                    <input ng-model="profile.userData.company">
 
                   </md-input-container>
 
@@ -260,25 +260,25 @@
 
           <md-input-container class="md-block">
                 <label>Gender</label>
-                <input ng-model="profile.mentor.info.gender">
+                <input ng-model="profile.userData.gender">
 
               </md-input-container>
 
               <md-input-container class="md-block">
                     <label>Orientation</label>
-                    <input ng-model="profile.mentor.info.orientation">
+                    <input ng-model="profile.userData.orientation">
 
                   </md-input-container>
 
                   <md-input-container class="md-block">
                         <label>Zip</label>
-                        <input ng-model="profile.mentor.info.zip">
+                        <input ng-model="profile.userData.zip">
 
                       </md-input-container>
 
                       <md-input-container class="md-block">
                             <label>Languages</label>
-                            <input ng-model="profile.mentor.info.languages">
+                            <input ng-model="profile.userData.languages">
                           </md-input-container>
 
             <div flex="5" hide-xs="" hide-sm="">
