@@ -121,46 +121,56 @@
 
         </md-content>
         <md-tab label="Education">
+          <div layout-gt-xs="row" flex='100'>
+              <br>
+              <md-input-container class="md-block" flex-gt-xs>
+                <md-icon class="material-icons">laptop_chromebook</md-icon>
+
+                  <label>Education Info: </label>
+                  <input ng-model="user.company" disabled> </input>
+
+              </md-input-container>
         <md-content layout-padding="">
             <div>
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="50">
+                    <md-input-container class="md-block" flex-gt-sm="33">
                         <label>Email</label>
                         <input ng-model="search.newSearch.email">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="50">
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
                         <label>College</label>
                         <input ng-model="search.newSearch.college">
                     </md-input-container>
-                  </div>
-                    <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="50">
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
                         <label>Degree</label>
                         <input ng-model="search.newSearch.degree">
                     </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="50">
+                  </div>
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
                         <label>Major</label>
                         <input ng-model="search.newSearch.major">
                     </md-input-container>
-                  </div>
-                  <div layout-gt-sm="row">
 
-                    <md-input-container class="md-block" flex-gt-sm="50">
+
+
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
                         <label>Languages</label>
                         <input ng-model="search.newSearch.languages">
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="50">
+                    <md-input-container class="md-block" flex-gt-sm="33">
 
                         <label>Orientation</label>
                         <input ng-model="search.newSearch.orientation">
                     </md-input-container>
+                  </div>
                   </div>
 
                 </div>
