@@ -31,7 +31,11 @@
     </div>
 
     <!-- <input class="refine" type="checkbox" ng-model="myVar">Refine your search -->
+
+
     <div ng-show="myVar" flex-offset="25" flex="50">
+        <md-tabs md-dynamic-height="" md-border-bottom="">
+          <md-tab label="Personal Info">
         <md-content layout-padding="">
             <div>
               <div layout-gt-xs="row" flex='100'>
@@ -58,7 +62,8 @@
                     </md-input-container>
 
                     </div>
-
+                  </tab>
+                  <md-tab label="Professional Info">
                     <div layout-gt-xs="row" flex='100'>
                         <br>
                         <md-input-container class="md-block" flex-gt-xs>
@@ -84,7 +89,8 @@
                     </md-input-container>
 
                   </div>
-                  
+                </md-tab>
+              </md-tabs>
 
                     <md-input-container class="md-block" flex-gt-sm="25">
 
@@ -191,7 +197,19 @@
         </flippy-front>
 
         <flippy-back>
-            {{mentor.last_name}}
+          <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{mentor.company}}</span>
+                        <span class="md-subhead">{{mentor.job_title}}</span>
+                        <br>
+                        <span class="md-subhead">{{mentor.school}}</span>
+
+                    </md-card-title-text>
+
+                </md-card-title>
+
+              </md-card>
         </flippy-back>
 
     </flippy>
