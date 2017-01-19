@@ -10,8 +10,7 @@ router.put('/update', function(req, res) {
   var userType = req.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
-  // var userId = req.userId;
-  var userId = '58';
+  var userId = req.userId;
 
   var userData = {
     id: null,
