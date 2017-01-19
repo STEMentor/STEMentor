@@ -32,8 +32,15 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', function($ht
         userStatus.userType = response.data.userType;
         userStatus.newUser = response.data.newUser;
         console.log("USER STATUS:", userStatus);
+
         userStatus.userId = response.data.userId;
-        BioFactory.setMentorId(userStatus.userId);
+        if(userStatus.userType === 'mentor'){
+          BioFactory.setMentorId(userStatus.userId);
+          if(userStatus.newUser === 'true'){
+              $location.path("profile");
+          }
+        }
+
       });
       userStatus.isLoggedIn = true;
       // console.log(userStatus);
