@@ -37,25 +37,18 @@
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Blurb</span>
-                                <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
+                                <span class="md-subhead"></span>
                             </md-card-title-text>
                         </md-card-title>
 
                         <md-card-content ng-if="showEdits">
                             <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="" rows="5">
-                                    <label>Name</label>
-                                    <textarea ng-if="showEdits" ng-model="fields" rows="5">Tell us a little bit about you... </textarea>
-                                    <!-- <input  required="" name="name" ng-model="user.name"> -->
-
-                                    <div>Tell us what we should call you!</div>
-
-                                    <div ng-messages="userForm.name.$error" ng-if="!showHints">
-                                        <div ng-message="required">Name is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                                    </div>
-                                </md-input-container>
+                              <md-input-container class="md-block">
+                                    <label>Blurb</label>
+                                    <input ng-model="profile.mentor.info.blurb">
+                                    <button ng-click="BioFactory.getProfiles()"> Click me </button>
+                                  </md-input-container>
 
                                 <div flex="5" hide-xs="" hide-sm="">
                                     <!-- Spacer //-->
@@ -67,14 +60,11 @@
 
                                 <md-input-container class="md-block" flex-gt-sm="" rows="5">
                                     <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
-                                    <!-- <input  required="" name="name" ng-model="user.name"> -->
-
-                                    <div>{{profile.fields.bio}}</div>
+                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}} mentors blurb here</textarea>
+                                    <p> mentors blurb here {{profile.mentor.info.blurb}} </p>
 
                                     <div ng-messages="userForm.name.$error" ng-if="!showHints">
-                                        <div ng-message="required">Name is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+
                                     </div>
                                 </md-input-container>
 
@@ -85,7 +75,7 @@
                         </md-card-content>
                     </md-card>
 
-                    <!-- second card -->
+                    <!-- Bio card -->
                     <md-card>
                         <md-card-title>
                             <md-card-title-text>
@@ -98,15 +88,13 @@
                             <div layout-gt-sm="row">
 
                                 <md-input-container class="md-block" flex-gt-sm="" rows="5">
-                                    <label>Name</label>
-                                    <textarea ng-if="showEdits" ng-model="fields" rows="5">Tell us a little bit about you... </textarea>
+                                    <label>Bio goes here. When toggled this switches {{profile.mentor.info.bio}} </label>
+                                    <textarea ng-if="showEdits" ng-model="fields" rows="5"></textarea>
                                     <!-- <input  required="" name="name" ng-model="user.name"> -->
 
-                                    <div>Tell us what we should call you!</div>
 
                                     <div ng-messages="userForm.name.$error" ng-if="!showHints">
-                                        <div ng-message="required">Name is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+
                                     </div>
                                 </md-input-container>
 
@@ -126,8 +114,7 @@
                                     <div>{{profile.fields.bio}}</div>
 
                                     <div ng-messages="userForm.name.$error" ng-if="!showHints">
-                                        <div ng-message="required">Name is required.</div>
-                                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+
                                     </div>
                                 </md-input-container>
 
@@ -139,142 +126,169 @@
                     </md-card>
 
 
-                    <!-- third card -->
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Education</span>
-                                <!-- <span class="md-subhead">Tell us a little about you.</span> -->
-                                <span class="md-subhead">Degree: {{profile.mentor.info.degree}}, Major: {{profile.mentor.info.major}}, School: {{profile.mentor.info.school}}</span>
-                            </md-card-title-text>
-                        </md-card-title>
+<!-- Education card -->
 
-                        <md-card-content>
-                            <div layout="row">
-                                <md-input-container>
-                                    <label>Street Name</label>
-                                    <input>
-                                </md-input-container>
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Education</span>
+            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+        </md-card-title-text>
+    </md-card-title>
 
-                                <md-input-container>
-                                    <label>City</label>
-                                    <input>
-                                </md-input-container>
+    <md-card-content ng-if="showEdits">
+        <div layout="row">
+            <md-input-container>
+                <label>Degree</label>
+                <input>
+            </md-input-container>
 
-                                <md-input-container>
-                                    <label>State</label>
-                                    <md-select ng-model="profile.userState">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="state in profile.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                                            {{state.abbrev}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+            <md-input-container>
+                <label>Major</label>
+                <input>
+            </md-input-container>
 
-                    <!-- fourth card -->
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Job Info</span>
-                                <span class="md-subhead">Tell us a little about you.</span>
-                            </md-card-title-text>
-                        </md-card-title>
+            <md-input-container>
+                <label>School</label>
+                <input>
+            </md-input-container>
 
-                        <md-card-content>
-                            <div layout="row">
-                                <md-input-container>
-                                    <label>Street Name</label>
-                                    <input>
-                                </md-input-container>
 
-                                <md-input-container>
-                                    <label>City</label>
-                                    <input>
-                                </md-input-container>
+        </div>
+    </md-card-content>
+    <md-card-content ng-if="!showEdits">
+        <div layout-gt-sm="row">
 
-                                <md-input-container>
-                                    <label>State</label>
-                                    <md-select ng-model="ctrl.userState">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                                            {{state.abbrev}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+            <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
+                <!-- <input  required="" name="name" ng-model="user.name"> -->
 
-                    <!-- fifth card -->
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Languages</span>
-                                <span class="md-subhead">Tell us a little about you.</span>
-                            </md-card-title-text>
-                        </md-card-title>
+                <div>{{profile.fields.degree}}</div>
 
-                        <md-card-content>
-                            <div layout="row">
-                                <md-input-container>
-                                    <label>Street Name</label>
-                                    <input>
-                                </md-input-container>
+                <div>{{profile.fields.major}}</div>
 
-                                <md-input-container>
-                                    <label>City</label>
-                                    <input>
-                                </md-input-container>
+                <div>{{profile.fields.school}}
 
-                                <md-input-container>
-                                    <label>State</label>
-                                    <md-select ng-model="ctrl.userState">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                                            {{state.abbrev}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </md-card-content>
-                    </md-card>
 
-                    <!-- sixth card -->
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Personal Info</span>
-                                <span class="md-subhead">Tell us a little about you.</span>
-                            </md-card-title-text>
-                        </md-card-title>
 
-                        <md-card-content>
-                            <div layout="row">
-                                <md-input-container>
-                                    <label>Street Name</label>
-                                    <input>
-                                </md-input-container>
+                </div>
+            </md-input-container>
 
-                                <md-input-container>
-                                    <label>City</label>
-                                    <input>
-                                </md-input-container>
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
+        </div>
+    </md-card-content>
+</md-card>
 
-                                <md-input-container>
-                                    <label>State</label>
-                                    <md-select ng-model="ctrl.userState">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
-                                            {{state.abbrev}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+<!-- End of Education card -->
+
+<!-- Jobs card -->
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Job Info</span>
+            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content ng-if="showEdits">
+        <div layout="row">
+            <md-input-container>
+                <label>Job Title</label>
+                <input>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Company</label>
+                <input>
+            </md-input-container>
+
+
+
+        </div>
+    </md-card-content>
+    <md-card-content ng-if="!showEdits">
+        <div layout-gt-sm="row">
+
+            <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
+                <!-- <input  required="" name="name" ng-model="user.name"> -->
+
+                <div>{{profile.fields.job_title}}</div>
+
+                <div>{{profile.fields.company}}</div>
+
+                <div> </div>
+            </md-input-container>
+
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
+        </div>
+    </md-card-content>
+</md-card>
+
+<!-- End of jobs card -->
+
+<!-- Jobs card -->
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Personal Info</span>
+            <span class="md-subhead">{{profile.mentor.info.bio}}</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content ng-if="showEdits">
+        <div layout="row">
+            <md-input-container>
+                <label>Gender</label>
+                <input>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Orientation</label>
+                <input>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Zip</label>
+                <input>
+            </md-input-container>
+
+
+        </div>
+    </md-card-content>
+    <md-card-content ng-if="!showEdits">
+        <div layout-gt-sm="row">
+
+            <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.fields.bio}}</textarea>
+                <!-- <input  required="" name="name" ng-model="user.name"> -->
+
+                <div>{{profile.fields.gender}}</div>
+
+                <div>{{profile.fields.orientation}}</div>
+
+                <div>{{profile.fields.Zip}}</div>
+
+                <div> </div>
+            </md-input-container>
+
+            <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+            </div>
+        </div>
+    </md-card-content>
+</md-card>
+
+<!-- End of personal card -->
                 </md-tab>
 
 
