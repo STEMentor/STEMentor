@@ -56,8 +56,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
         languages: response.data[0].languages,
         bio: response.data[0].bio,
         blurb: response.data[0].blurb
-
       };
+
       mentorBio.faqs = [];
       for(var key in response.data) {
         mentorBio.faqs.push(
