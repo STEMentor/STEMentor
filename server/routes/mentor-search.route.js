@@ -63,7 +63,7 @@ function queryBuilder(object) {
 
   var query;
 
-  if(object.genericSearch) {
+  if(object.generic_search) {
     query = 'SELECT * FROM mentors' +
             'WHERE first_name ILIKE ' +
             'OR last_name ILIKE ' +
