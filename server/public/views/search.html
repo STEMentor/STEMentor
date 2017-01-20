@@ -55,9 +55,13 @@
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Gender</label>
-                        <input ng-model="search.newSearch.gender">
+                      <label>Gender</label>
+                      <md-select name="type" ng-model="search.newSearch.gender">
+                        <md-option value=""></md-option>
+                        <md-option value="male">Male</md-option>
+                        <md-option value="female">Female</md-option>
+                        <md-option valeu="other">Other</md-option>
+                      </md-select>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
@@ -130,10 +134,6 @@
         <md-content layout-padding="">
             <div>
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="50">
-                        <label>Email</label>
-                        <input ng-model="search.newSearch.email">
-                    </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="50">
 
