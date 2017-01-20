@@ -8,7 +8,8 @@
                         <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
                         </br>
                         <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
-                        <span class="md-subhead"></span>
+                        </br>
+                        <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
                     </md-card-title-text>
                     <md-card-title-media>
                         <div class="md-media-lg card-media"></div>
@@ -47,7 +48,7 @@
 
                               <md-card-title>
                                   <md-card-title-text>
-                                      <span class="md-headline">Edit your Header Info</span>
+                                      <span class="md-headline">Header</span>
                                   </md-card-title-text>
                               </md-card-title>
                                 <br>
@@ -78,18 +79,22 @@
 
 
                     <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Blurb</span>
 
-                            </md-card-title-text>
-                        </md-card-title>
 
                         <md-card-content ng-if="showEdits">
                             <div layout-gt-sm="row">
 
+                              <md-card-title>
+                                  <md-card-title-text>
+                                      <span class="md-headline">Blurb</span>
+
+                                  </md-card-title-text>
+                              </md-card-title>
+                            </div>
+                            <div layout-gt-sm="row">
+
                                 <md-input-container class="md-block" flex-gt-sm="100">
-                                    <textarea ng-model="profile.userData.blurb" rows='3' placeholder="Edit your blurb here"> Blurbbbbb</textarea>
+                                    <textarea ng-model="profile.userData.blurb" rows='3' placeholder="Edit your blurb here"> Blurb</textarea>
                                     <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
                                 </md-input-container>
@@ -99,21 +104,7 @@
                                 </div>
                             </div>
                         </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                                    <textarea ng-if="showEdits" rows="5">{{profile.userData.blurb}}</textarea>
-                                    <p>{{profile.mentor.info.blurb}}</p>
-
-
-                                </md-input-container>
-
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
                     </md-card>
 
                     <!-- End Blub card -->
