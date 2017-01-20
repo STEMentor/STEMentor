@@ -24,6 +24,14 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
     AuthFactory.logOut();
   };
 
+  self.firstLoginModal = function(){
+    $mdDialog.show({
+      controller: 'FirstLoginController',
+      templateUrl: '../../views/first-login-modal.html',
+      clickOutsideToClose: true
+    });
+  };
+
 }]);
 
 // $scope.showAdvanced = function(ev) {
