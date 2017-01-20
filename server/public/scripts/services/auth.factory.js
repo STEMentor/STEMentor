@@ -21,16 +21,17 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       // console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
-        url: '/users.route',
+        url: '/users',
         headers: {
           id_token: idToken,
           type: userType
         }
       })
       .then(function(response) {
-        console.log(response.data);
+
         userStatus.userType = response.data.userStatus.userType;
         userStatus.userId = response.data.userStatus.userId;
+        userStatus.isAdmin = response.data.userStatus.isAdmin;
 
         // if they are a new mentor go straight to profile
 

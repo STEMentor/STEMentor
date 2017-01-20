@@ -133,13 +133,17 @@ function userIdQuery(userEmail, req, res, next, userType) {
               console.log("RESULT: ", result.rows[0]);
               var userObject = result.rows[0];
               for (var property in userObject) {
+
                 if (userObject[property] !== null && typeof userObject[property] === 'string') {
                   req.userStatus.userType = property;
                 }
+
                 if (userObject[property] !== null && typeof userObject[property] === 'number') {
                   req.userStatus.userId = userObject[property];
                 }
+
               }
+              req.userStatus.isAdmin = userObject.admin;
               console.log('req.userType: ', req.userType);
               console.log('req.userId: ', req.userId);
               next();
