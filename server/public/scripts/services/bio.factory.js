@@ -127,6 +127,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     mentors: mentors,
     mentor: mentor,
     mentorBio: mentorBio,
+    mentorId: mentorId,
     getMentors: function(newSearch){
       return getMentors(newSearch);
     },
