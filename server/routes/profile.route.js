@@ -9,6 +9,8 @@ var connectionString = require('../modules/db-config.module');
 router.get('/:id', function(req, res) {
   var userId = parseInt(req.params.id);
   console.log('USER ID:', userId);
+  var data = {};
+
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -24,7 +26,9 @@ router.get('/:id', function(req, res) {
           res.sendStatus(500);
         } else {
           console.log('RESULT:', result.rows);
-          res.send(result.rows);
+          data.userId = userId;
+          data.result = result.rows;
+          res.send(data);
         }
       }
     );
