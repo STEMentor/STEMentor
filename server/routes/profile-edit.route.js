@@ -125,11 +125,11 @@ function queryBuilder(object) {
 
   for(var property in object) {
     if(object[property]) {
-      query += ' ' + property + ' = \'' + object[property] + '\' AND';
+      query += ' ' + property + ' = \'' + object[property] + '\',';
     }
   }
 
-  query = query.slice(0, -4);
+  query = query.slice(0, -1);
 
   return query;
 }
