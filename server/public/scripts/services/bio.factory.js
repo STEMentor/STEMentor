@@ -36,7 +36,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       // console.log("getProfiles result:", response.data);
       // mentorBio.info = response.data[0];
       // console.log(mentorBio.info);
-      console.log(response.data.result[0]);
+      console.log(response.data.result);
       response.data.result[0].id = response.data.userId;
       mentorBio.info = response.data.result[0];
 
@@ -65,11 +65,11 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       // };
       //
       mentorBio.faqs = [];
-      for(var key in response.data) {
+      for(var key in response.data.result) {
         mentorBio.faqs.push(
           {
-            question: response.data[key].question,
-            answer: response.data[key].answer
+            question: response.data.result[key].question,
+            answer: response.data.result[key].answer
           }
         );
       }
