@@ -16,24 +16,24 @@ router.put('/update', function(req, res) {
   var userDatabase = userType + 's';
   var userId = req.userStatus.userId;
 
-  This is what incoming data will look like
-  var userData = {
-    first_name: null,
-    last_name: null,
-    email: null,
-    avatar: null,
-    company: null,
-    job_title: null,
-    zip: null,
-    race: null,
-    gender: null,
-    orientation: null,
-    birthday: null,
-    school: null,
-    degree: null,
-    major: null,
-    languages: null
-  };
+  // This is what incoming data will look like
+  // var userData = {
+  //   first_name: null,
+  //   last_name: null,
+  //   email: null,
+  //   avatar: null,
+  //   company: null,
+  //   job_title: null,
+  //   zip: null,
+  //   race: null,
+  //   gender: null,
+  //   orientation: null,
+  //   birthday: null,
+  //   school: null,
+  //   degree: null,
+  //   major: null,
+  //   languages: null
+  // };
 
   var query = queryBuilder(userData) + ' WHERE id = $1';
   console.log(query);
