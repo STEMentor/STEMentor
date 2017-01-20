@@ -126,6 +126,33 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     });
   }
 
+  function postFaq(faqData){
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    console.log('FAQ DATA:', faqData);
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'POST',
+          url: '/profile-edit/new-faq',
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            faqData: faqData
+          }
+        })
+        .then(function(response) {
+          console.log("FAQ DATA IN RESPONSE:", response);
+          getProfiles();
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+    });
+  }
+
 
 
 
@@ -144,6 +171,9 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     },
     editBio: function(userData){
       return editBio(userData);
+    },
+    postFaq: function(faqData){
+      return postFaq(faqData);
     },
     setMentorId: function(id){
       return setMentorId(id);
