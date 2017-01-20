@@ -39,7 +39,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
               userStatus.newUser = true;
-              $location.path("profile");
+              // $location.path("profile");
           }
           console.log("USER STATUS:", userStatus);
         }
