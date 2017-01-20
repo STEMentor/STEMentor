@@ -78,14 +78,14 @@ function queryBuilder(object) {
             '%\' OR degree ILIKE \'%'       + object.generic_search +
             '%\' OR major ILIKE \'%'        + object.generic_search +
             '%\' OR languages ILIKE \'%'    + object.generic_search +
-            '%\' AND';
+            '%\' AND ';
   } else {
     query = 'SELECT * FROM mentors WHERE ';
   }
 
   for (var property in object) {
     if (object[property] && property !== 'generic_search') {
-      query += property + ' ILIKE \'%' + object[property] + '%\' AND';
+      query += property + ' ILIKE \'%' + object[property] + '%\' AND ';
     }
   }
 
