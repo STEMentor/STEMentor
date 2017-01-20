@@ -32,11 +32,6 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'SearchController',
     controllerAs: 'search'
   })
-  .when('/settings', {
-    templateUrl: '/views/settings.html',
-    controller: 'SettingsController',
-    controllerAs: 'settings'
-  })
   .otherwise({
     redirectTo: 'home'
   });

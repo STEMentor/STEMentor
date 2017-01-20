@@ -7,16 +7,17 @@ var connectionString = require('../modules/db-config.module');
 
 // Gets a user's profile info and FAQ entries
 router.get('/:id', function(req, res) {
-  var userId = req.params.id;
+  var userId = parseInt(req.params.id);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
     client.query(
       'SELECT * FROM mentors ' +
-      'JOIN faq ON mentors.id = faq.mentor_id ' +
+      'FULL OUTER JOIN faq ON mentors.id = faq.mentor_id ' +
       'WHERE mentors.id = $1', [userId],
       function(error, result) {
+        done();
         if(error) {
           console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);
