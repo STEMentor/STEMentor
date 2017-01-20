@@ -50,6 +50,7 @@ router.post('/new-message', function(req, res) {
     client.query(
       'SELECT id FROM mentors WHERE email = $1', [message.email],
       function(error, result) {
+        done();
         if (error) {
           console.log('Database SELECT error when searching for mentor ID: ', error);
           res.sendStatus(500);
@@ -97,6 +98,7 @@ router.put('/read-message', function(req, res) {
       'UPDATE messages SET message_read = TRUE WHERE id = $1',
       [messageId],
       function(error, result) {
+        done();
         if (error) {
           console.log('Unable to mark message as read: ', error);
           res.sendStatus(500);
@@ -122,6 +124,7 @@ router.put('/reply', function(req, res) {
       'UPDATE messages SET reply = $1 WHERE id = $2',
       [messageReply, messageId],
       function(error, result) {
+        done();
         if (error) {
           console.log('UPDATE database error: ', error);
           res.sendStatus(500);
