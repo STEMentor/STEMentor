@@ -28,8 +28,12 @@
         <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id" ng-model="showEdits">Edit Your Profile</md-switch>
       </md-input-container>
       <md-input-container>
-        <button ng-click="profile.editBio()"> Save Changes </button>
-        <button ng-click="profile.editFaq()"> Save Changes </button>
+        <button ng-click="profile.edit()"> Save Changes </button>
+        <!-- <button ng-click="profile.Faq()"> Save FAQ Changes </button> -->
+        <!-- {{profile.mentor}} -->
+        <button ng-show="profile.addFaqClicked" ng-click="profile.saveFaq()"> Save Faq </button>
+        <button ng-hide="profile.addFaqClicked" ng-click="profile.changeAddFaqClicked(true)"> Add Faq </button>
+        <button ng-show="profile.addFaqClicked" ng-click="profile.changeAddFaqClicked(false)"> Cancel</button>
       </md-input-container>
     </div>
     <md-tabs md-dynamic-height="" md-border-bottom="">
@@ -342,7 +346,7 @@
         <md-content layout-padding>
           <form name="userForm">
 
-            <md-card ng-if="showEdits">
+            <md-card ng-if="profile.addFaqClicked">
               <md-card-content >
                 <div layout-gt-xs="row">
                   <br>
