@@ -41,15 +41,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     language: null
   };
 
-  self.faqData = {
-    question: null,
-    answer: null
-  }
-
-  self.editFaq = function(){
-    console.log(self.faqData);
-    BioFactory.postFaq(self.faqData);
-  }
 
   self.editBio = function(){
     BioFactory.editBio(self.userData);
