@@ -41,6 +41,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     language: null
   };
 
+
   self.editBio = function(){
     BioFactory.editBio(self.userData);
   };
