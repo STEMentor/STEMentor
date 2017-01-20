@@ -19,13 +19,15 @@ router.get('/profile/:id', function(req, res) {
       console.log('connection error: ', error);
       res.sendStatus(500);
     }
+
     client.query(query, function(error, result){
-      done();
+      done(); // Close connection to the database
+
       if (error) {
         console.log('select query error: ', error);
         res.sendStatus(500);
       }
-      console.log('result.rows: ', result.rows);
+      // console.log('result.rows: ', result.rows);
       res.send(result.rows);
     });
   });
@@ -35,23 +37,26 @@ router.get('/profile/:id', function(req, res) {
 router.get('/search', function(req, res) {
 
   var queryObject = JSON.parse(req.headers.newsearchstring);
-  console.log('Query object: ', queryObject);
+  // console.log('Query object: ', queryObject);
 
   var query = queryBuilder(queryObject);
-  console.log('Built query: ', query);
+  // console.log('Built query: ', query);
 
   pg.connect(connectionString, function(error, client, done) {
     if (error) {
       console.log('connection error: ', error);
       res.sendStatus(500);
     }
+
     client.query(query, function(error, result) {
-      done();
+      done(); // Close connection to the database
+
       if (error) {
         console.log('select query error: ', error);
         res.sendStatus(500);
       }
-      console.log('result.rows: ', result.rows);
+
+      // console.log('result.rows: ', result.rows);
       res.send(result.rows);
     });
   });
@@ -85,7 +90,7 @@ function queryBuilder(object) {
 
   for (var property in object) {
     if (object[property] && property !== 'generic_search') {
-      query += property + ' ILIKE \'%' + object[property] + '%\' AND ';
+      query += property + ' ILIKE \'' + object[property] + '\' AND ';
     }
   }
 

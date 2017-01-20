@@ -17,7 +17,8 @@ router.get('/:id', function(req, res) {
       'FULL OUTER JOIN faq ON mentors.id = faq.mentor_id ' +
       'WHERE mentors.id = $1', [userId],
       function(error, result) {
-        done();
+        done(); // Close connection to the database
+        
         if(error) {
           console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);

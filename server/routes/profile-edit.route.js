@@ -8,7 +8,7 @@ var connectionString = require('../modules/db-config.module');
 // Edit user info ------------------------------------------------------------//
 router.put('/update', function(req, res) {
   console.log('ARRIVED IN EDIT ROUTE');
-  console.log('USER DATA:', req.body.userData);
+  // console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
 
   var userType = req.userStatus.userType;
@@ -36,7 +36,6 @@ router.put('/update', function(req, res) {
   // };
 
   var query = queryBuilder(userData) + ' WHERE id = $1';
-  console.log(query);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -50,7 +49,7 @@ router.put('/update', function(req, res) {
           console.log('Unable to update user information: ', error);
           res.sendStatus(500);
         } else {
-          console.log('SUCCESSFUL! USER DATA:', userData);
+          // console.log('SUCCESSFUL! USER DATA:', userData);
           res.sendStatus(200);
         }
 
@@ -72,6 +71,8 @@ router.post('/new-faq', function(req, res) {
       'INSERT INTO faq (mentor_id, question, answer) VALUES ($1, $2, $3)',
       [userId, question, answer],
       function(error, result) {
+        done(); // Close connection to the database
+
         if(error) {
           console.log('Error when creating new FAQ: ', error);
           res.sendStatus(500);
@@ -97,6 +98,8 @@ router.put('/edit-faq/:faq-id', function(req, res) {
       'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
       [question, answer, faqId],
       function(error, result) {
+        done(); // Close connection to the database
+
         if(error) {
           console.log('Error when updating FAQ: ', error);
           res.sendStatus(500);
@@ -120,7 +123,7 @@ function connectionErrorCheck(error) {
 
 // Cunstructs SQL query based off of user defined search paramaters ----------//
 function queryBuilder(object) {
-  console.log('OBJECT IN QUERY BUILDER', object);
+  // console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'UPDATE mentors SET';
 
   for(var property in object) {
