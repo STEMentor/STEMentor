@@ -35,12 +35,13 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     console.log('authInfo: ', authInfo);
     console.log('userStatus: ', userStatus);
     console.log('self.mentor: ', self.mentor);
+    console.log('self.currentMessage: ', self.currentMessage);
 
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      sendMessage(currentUser);
+      sendReply(currentUser);
     });
-  }
+  };
 
   // User (student) creating a new message
   function sendMessage(currentUser) {
@@ -71,6 +72,60 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       });
     }
   }
+
+  //Mentor sending response message (updating field in db)
+  function sendReply(currentUser) {
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        messageInfo = self.mentor;
+        messageInfo.msgName = self.newMessage.name;
+        messageInfo.msgSubject = self.newMessage.subject;
+        messageInfo.msgBody = self.newMessage.body;
+        messageInfo.msgId = self.currentMessage.id;
+        console.log('messageInfo: ', messageInfo);
+        return $http({
+          method: 'PUT',
+          url: '/message/reply',
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            message_info: messageInfo
+          }
+        })
+        .then(function(response) {
+          self.messages = response.data;
+          console.log('Adding new message, messageInfo: ', messageInfo);
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+  }
+
+
+
+  //   // Reply to message
+  //   self.replyToMessage = function() {
+  //     var messageId; // TODO: Need to get the message's ID somehow
+  //
+  //     return $http({
+  //       method: 'PUT',
+  //       url: '/message/reply',
+  //       data: {
+  //         messageId: messageId,
+  //         authInfo: authInfo
+  //       }
+  //     })
+  //     .then(function(response) {
+  //       console.log('Response from the server: ', response);
+  //     }),
+  //     function(error) {
+  //       console.log('Error with the reply PUT request: ', error);
+  //     };
+  //   };
+
 
 
 }]);
