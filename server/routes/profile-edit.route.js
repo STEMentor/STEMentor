@@ -72,7 +72,6 @@ router.put('/edit-faq', function(req, res) {
   // console.log('--- profile-edit.route faqArray: ', faqArray);
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
-  // console.log('queryObject', queryObject);
 
   userId = assignUserId(req);
 
