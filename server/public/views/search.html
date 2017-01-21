@@ -55,9 +55,13 @@
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Gender</label>
-                        <input ng-model="search.newSearch.gender">
+                      <label>Gender</label>
+                      <md-select name="type" ng-model="search.newSearch.gender">
+                        <md-option value=""></md-option>
+                        <md-option value="male">Male</md-option>
+                        <md-option value="female">Female</md-option>
+                        <md-option valeu="other">Other</md-option>
+                      </md-select>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
@@ -130,10 +134,6 @@
         <md-content layout-padding="">
             <div>
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="50">
-                        <label>Email</label>
-                        <input ng-model="search.newSearch.email">
-                    </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="50">
 
@@ -167,44 +167,72 @@
     </div>
   </md-tab>
 
+<!-- <div layout='row' layout-align="space-around center" flex-gt-xl='0'> -->
 
-    <div layout="row" layout-align="center">
-        <button type="submit" md-button ng-click="search.getMentors()">Search</button>
-    </div>
-    </md-tabs>
+<div class="aligner spacer" flex>
+  <div class="carousel" layout-align="space-around center" flex>
+ <div ng-repeat="mentor in search.mentors" flex>
 
-
-
-
-<div ng-repeat="mentor in search.mentors">
-
-
-    <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
-
+    <flippy class="fancy front" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
         <flippy-front>
-          <md-card>
-                <md-card-title>
+
+          <div >
+                <md-card-title md-media-lg>
                     <md-card-title-text>
-                        <span class="md-headline">{{mentor.first_name}} {{mentor.last_name}}</span>
-                        <span class="md-subhead">{{mentor.job_title}}</span>
+                        <h1 class="md-headline">{{mentor.first_name}} {{mentor.last_name}}</h1>
+                        <br>
+                        <h3 class="md-subhead">{{mentor.job_title}}</h3>
                     </md-card-title-text>
                     <md-card-title-media>
+
+
                         <div class="md-media-lg card-media">
-                            <img src="{{mentor.avatar}}" style="width: 100px; height: 100px; display: block; margin: 10px auto 0 auto;">
+                            <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;">
                         </div>
                     </md-card-title-media>
                 </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
+
+                <!-- <md-card-actions layout="row" layout-align="end center">
                     <a href=#profile><md-button ng-click="search.setMentor(mentor)">View Profile</md-button></a>
-                    <md-button ng-click="search.createMessage($event)">Message</md-button>
-                </md-card-actions>
-              </md-card>
+                    <a href=#profile> <md-button ng-click="search.createMessage($event)">Message</md-button> </a>
+                </md-card-actions> -->
+                <br>
+                <br>
+
+            <md-card-actions layout="row" layout-align="space-around center">
+              <div class="md-accent">
+                    <div class="md-toolbar-tools">
+
+
+            <md-button class="md-icon-button md-fab" aria-label="refresh">
+              <md-tooltip md-direction="left">
+                Send a Message
+              </md-tooltip>
+
+              <md-icon class="material-icons" style="width: 24px; height: 24px;"> message
+              </md-icon>
+            </md-button>
+            <md-button class="md-icon-button md-fab" aria-label="refresh">
+              <md-tooltip md-direction="right">
+                Go to Profile
+              </md-tooltip>
+
+              <md-icon class="material-icons" style="width: 24px; height: 24px;"> perm_identity
+              </md-icon>
+            </md-button>
+          </div>
+        </div>
+
+          </md-card-actions>
+        </div>
+
+
             <!-- {{mentor.first_name}}
             <img src="{{mentor.avatar}}" style="width: 100px; height: 100px; display: block; margin: 10px auto 0 auto;"> -->
         </flippy-front>
 
         <flippy-back>
-          <md-card>
+            <md-card>
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">{{mentor.company}}</span>
@@ -216,8 +244,12 @@
 
                 </md-card-title>
 
-              </md-card>
-        </flippy-back>
 
+        </flippy-back>
+      </md-card>
     </flippy>
+
+  </div>
+</div>
+</div>
 </div>

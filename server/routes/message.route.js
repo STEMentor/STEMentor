@@ -5,22 +5,22 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Get messages for specific user
+// Get messages for specific user --------------------------------------------//
 router.get('/get-all-messages', function(req, res) {
   // console.log('req.decodedToken: ', req.decodedToken);
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
   var userType = req.userStatus.userType;
-  console.log("USER TYPE:", userType);
+  // console.log("USER TYPE:", userType);
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
   var userId = req.userStatus.userId;
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
-    console.log('message route userType: ', userType);
-    console.log('message route userId: ', userId);
+    // console.log('message route userType: ', userType);
+    // console.log('message route userId: ', userId);
     // Query the database for the user's messages
     client.query(
       'SELECT * FROM messages where ' + typeId + ' = $1', [userId],
@@ -38,9 +38,9 @@ router.get('/get-all-messages', function(req, res) {
   });
 });
 
-// Create new message (from student) when user hits the "Send" button
+// Create new message (from student) when user hits the "Send" button --------//
 router.post('/new-message', function(req, res) {
-  console.log('req.body: ', req.body);
+  // console.log('req.body: ', req.body);
   var message = req.body.message_info;
 
   pg.connect(connectionString, function(error, client, done) {
@@ -50,6 +50,8 @@ router.post('/new-message', function(req, res) {
     client.query(
       'SELECT id FROM mentors WHERE email = $1', [message.email],
       function(error, result) {
+        done(); // Close connection to the database
+
         if (error) {
           console.log('Database SELECT error when searching for mentor ID: ', error);
           res.sendStatus(500);
@@ -63,6 +65,7 @@ router.post('/new-message', function(req, res) {
             [mentorId, req.userStatus.userId, message.msgSubject, message.msgBody, message.msgName],
             function(error, result) {
               done(); // Close connection to database
+
               if (error) {
                 console.log('Error creating new message: ', error);
                 res.sendStatus(500);
@@ -77,7 +80,7 @@ router.post('/new-message', function(req, res) {
   });
 });
 
-// Mark message as read
+// Mark message as read ------------------------------------------------------//
 router.put('/read-message', function(req, res) {
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
@@ -87,8 +90,8 @@ router.put('/read-message', function(req, res) {
       userDatabase = userType + 's';
   var userId = req.userStatus.userId;
   var messageId = req.body.message.id;
-  console.log('userEmail: ', userEmail);
-  console.log('messageId: ', messageId);
+  // console.log('userEmail: ', userEmail);
+  // console.log('messageId: ', messageId);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -97,6 +100,8 @@ router.put('/read-message', function(req, res) {
       'UPDATE messages SET message_read = TRUE WHERE id = $1',
       [messageId],
       function(error, result) {
+        done(); // Close connection to the database
+
         if (error) {
           console.log('Unable to mark message as read: ', error);
           res.sendStatus(500);
@@ -108,9 +113,9 @@ router.put('/read-message', function(req, res) {
   });
 });
 
-// Reply to message
+// Reply to message ----------------------------------------------------------//
 router.put('/reply', function(req, res) {
-  console.log('req.body: ', req.body);
+  // console.log('req.body: ', req.body);
 
   var messageId = req.body.message_info.msgId;
   var messageReply = req.body.message_info.msgBody;
@@ -122,6 +127,8 @@ router.put('/reply', function(req, res) {
       'UPDATE messages SET reply = $1 WHERE id = $2',
       [messageReply, messageId],
       function(error, result) {
+        done(); // Close connection to the database
+
         if (error) {
           console.log('UPDATE database error: ', error);
           res.sendStatus(500);
@@ -135,7 +142,7 @@ router.put('/reply', function(req, res) {
 
 module.exports = router;
 
-// Checks for errors connecting to the database
+// Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);
