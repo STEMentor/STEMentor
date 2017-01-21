@@ -18,7 +18,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
         console.log('duh');
         self.cancel();
       }
-      setTimeout(firstTimeMentor, 750);
+      setTimeout(firstTimeMentor, 1500);
     });
   };
 
@@ -35,7 +35,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
       $mdDialog.alert()
       .parent(angular.element(document.querySelector('#popupContainer')))
       .clickOutsideToClose(true)
-      .title('Successfully Created New Account')
+      .title('New Mentor Account')
       .textContent('Welcome, mentor! Now you can fill your profile page with information about yourself.')
       .ariaLabel('Alert Dialog Demo')
       .ok('Got it!')
