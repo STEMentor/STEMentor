@@ -32,25 +32,24 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     console.log("SOMETHING");
     self.faqTabSelected = true;
     self.profileTabSelected = false;
-  }
+  };
 
   self.selectProfileTab = function(){
     self.profileTabSelected = true;
     self.faqTabSelected = false;
-  }
+  };
 
   self.changeAddFaqClicked = function(boolean){
     self.addFaqClicked = boolean;
     // console.log(boolean);
     console.log(self.faqTabSelected);
-  }
+  };
 
   self.saveFaq = function() {
     BioFactory.postFaq(self.faqData);
     self.addFaqClicked = false;
     console.log(self.addFaqClicked);
-  }
-
+  };
 
   self.userData = {
     first_name: null,
@@ -72,13 +71,14 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
 
   self.faqData = {
     question: null,
-    answer: null
-  }
+    answer: null,
+    faq_id: null
+  };
 
   self.editFaqs = function(){
-    console.log("FAQ DATA:", self.mentor.faqs);
+    // console.log("FAQ DATA:", self.mentor.faqs);
     BioFactory.editFaqs(self.mentor.faqs);
-  }
+  };
 
   self.editBio = function(){
     console.log("USER DATA", self.userData);
