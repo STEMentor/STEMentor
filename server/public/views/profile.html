@@ -7,7 +7,7 @@
             <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
           </br>
           <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
-          <span class="md-subhead"></span>
+          <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
         </md-card-title-text>
         <md-card-title-media>
           <div class="md-media-lg card-media"></div>
@@ -82,13 +82,6 @@
                 <textarea ng-model="profile.userData.last_name" rows='1' placeholder="Last Name"> </textarea>
                 <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-              </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="33">
-                <textarea ng-model="profile.userData.bio" rows='1' placeholder="Name"> </textarea>
-                <!-- <input ng-model="profile.mentor.info.blurb" > -->
-
-              </md-input-container>
-
             </div>
 
           </md-card-content>
@@ -98,14 +91,17 @@
 
 
         <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">Blurb</span>
 
-            </md-card-title-text>
-          </md-card-title>
 
           <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Blurb</span>
+
+              </md-card-title-text>
+            </md-card-title>
+          </div>
             <div layout-gt-sm="row">
 
               <md-input-container class="md-block" flex-gt-sm="100">
@@ -119,23 +115,10 @@
               </div>
             </div>
           </md-card-content>
-          <md-card-content ng-if="!showEdits">
-            <div layout-gt-sm="row">
 
-              <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                <textarea ng-if="showEdits" rows="5">{{profile.userDate.blurb}}</textarea>
-                <p>{{profile.mentor.info.blurb}} </p>
-
-              </md-input-container>
-
-              <div flex="5" hide-xs="" hide-sm="">
-                <!-- Spacer //-->
-              </div>
-            </div>
-          </md-card-content>
         </md-card>
 
-        <!-- End Blub card -->
+        <!-- End Blurb card -->
         <!-- Bio info card -->
 
         <md-card>
