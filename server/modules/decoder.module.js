@@ -27,10 +27,6 @@ admin.initializeApp({
 var tokenDecoder = function(req, res, next) {
   //console.log("ID TOKEN",req.headers.id_token);
   // console.log("TYPE IN DECODER", req.headers.type);
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
   req.userStatus = {};
 
   var userType = req.headers.type;
