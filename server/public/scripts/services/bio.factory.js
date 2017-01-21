@@ -69,7 +69,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
         mentorBio.faqs.push(
           {
             question: response.data.result[key].question,
-            answer: response.data.result[key].answer
+            answer: response.data.result[key].answer,
+            faq_id: response.data.result[key].faq_id
           }
         );
       }

@@ -72,6 +72,7 @@ router.put('/edit-faq', function(req, res) {
   console.log('--- profile-edit.route faqArray: ', faqArray);
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
+  console.log('queryObject', queryObject);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -133,22 +134,38 @@ function profileEditQueryBuilder(object, userId) {
 function faqEditQueryBuilder(faqArray, userId) {
   // console.log('ARRAY IN QUERY BUILDER', array);
 
-  var queryString = 'UPDATE faq SET ';
+  var queryString = '';
   var propertyArray = [];
-  var questionString = 'question = CASE';
+  var questionString = '';
   var answerString = '';
+  var loopTracker = 0;
 
   for (var index = 0; index < faqArray.length; index++) {
-    questionString += ' WHEN ' + faqArray[index].id + ' THEN ' + faqArray[index].question;
-    answerString += ' WHEN ' + faqArray[index].id + ' THEN ' + faqArray[index].answer;
+    loopTracker++;
+    questionString += ' WHEN $' + loopTracker;
+    loopTracker++;
+    questionString += ' THEN $' + loopTracker;
   }
 
-  console.log('questionString: ', questionString);
-  console.log('answerString: ', answerString);
+  for (index = 0; index < faqArray.length; index++) {
+    loopTracker++;
+    answerString += ' WHEN $' + loopTracker;
+    loopTracker++;
+    answerString += ' THEN $' + loopTracker;
+  }
 
-  // console.log('--- profile.edit queryString: ', queryString);
-  // console.log('--- profile.edit propertyArray: ', propertyArray);
-  // console.log('--- profile.edit index: ', index);
+  queryString +=
+    'UPDATE faq ' +
+    'SET question = CASE id' + questionString + ' END, ' +
+    'answer = CASE id' + answerString + ' END';
+
+  for (index = 0; index < faqArray.length; index++) {
+    propertyArray.push(faqArray[index].faq_id, faqArray[index].question);
+  }
+
+  for (index = 0; index < faqArray.length; index++) {
+    propertyArray.push(faqArray[index].faq_id, faqArray[index].answer);
+  }
 
   return {
     queryString: queryString,

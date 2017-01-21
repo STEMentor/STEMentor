@@ -75,7 +75,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
 
   self.faqData = {
     question: null,
-    answer: null
+    answer: null,
+    faq_id: null
   };
 
   self.editFaqs = function(){

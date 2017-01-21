@@ -16,7 +16,7 @@ router.get('/:id', function(req, res) {
     connectionErrorCheck(error);
 
     client.query(
-      'SELECT * FROM mentors ' +
+      'SELECT *, faq.id AS faq_id FROM mentors ' +
       'FULL OUTER JOIN faq ON mentors.id = faq.mentor_id ' +
       'WHERE mentors.id = $1', [userId],
       function(error, result) {
