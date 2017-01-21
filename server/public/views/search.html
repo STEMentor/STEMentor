@@ -55,9 +55,13 @@
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Gender</label>
-                        <input ng-model="search.newSearch.gender">
+                      <label>Gender</label>
+                      <md-select name="type" ng-model="search.newSearch.gender">
+                        <md-option value=""></md-option>
+                        <md-option value="male">Male</md-option>
+                        <md-option value="female">Female</md-option>
+                        <md-option valeu="other">Other</md-option>
+                      </md-select>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="33">
@@ -130,10 +134,6 @@
         <md-content layout-padding="">
             <div>
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="50">
-                        <label>Email</label>
-                        <input ng-model="search.newSearch.email">
-                    </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="50">
 
@@ -192,14 +192,14 @@
                     </md-card-title-media>
                 </md-card-title>
 
-                <!-- <md-card-actions layout="row" layout-align="end center">
-                    <a href=#profile><md-button ng-click="search.setMentor(mentor)">View Profile</md-button></a>
-                    <a href=#profile> <md-button ng-click="search.createMessage($event)">Message</md-button> </a>
-                </md-card-actions> -->
+                <md-card-actions layout="row" layout-align="end center">
+                    <a href="#profile"><md-button ng-click="search.setMentor(mentor)">View Profile</md-button></a>
+                    <a href="#profile"> <md-button ng-click="search.createMessage($event)">Message</md-button> </a>
+                </md-card-actions>
                 <br>
                 <br>
 
-            <md-card-actions layout="row" layout-align="space-around center">
+            <!-- <md-card-actions layout="row" layout-align="space-around center">
               <div class="md-accent">
                     <div class="md-toolbar-tools">
 
@@ -223,7 +223,7 @@
           </div>
         </div>
 
-          </md-card-actions>
+          </md-card-actions> -->
         </div>
 
 

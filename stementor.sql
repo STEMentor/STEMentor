@@ -12,7 +12,7 @@ CREATE TABLE mentors (
   bio VARCHAR(5000),
   company VARCHAR(100),
   job_title VARCHAR(100),
-  zip INT,
+  state VARCHAR(20),
   race VARCHAR(100),
   gender VARCHAR(40),
   orientation VARCHAR(40),
@@ -21,6 +21,7 @@ CREATE TABLE mentors (
   degree VARCHAR(100),
   major VARCHAR(100),
   languages VARCHAR(100),
+  stem_primary VARCHAR(20),
   admin BOOLEAN DEFAULT FALSE
 );
 
