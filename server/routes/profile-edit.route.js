@@ -10,7 +10,10 @@ router.put('/update/:id', function(req, res) {
   // console.log('ARRIVED IN EDIT ROUTE');
   // console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
-  var userId = req.userStatus.userId;
+  // var userId = req.userStatus.userId;
+
+
+  userId = assignUserId(req);
 
   var queryObject = profileEditQueryBuilder(userData, userId);
 
@@ -67,7 +70,7 @@ router.post('/new-faq', function(req, res) {
 
 // Edit an existing FAQ entry ------------------------------------------------//
 router.put('/edit-faq', function(req, res) {
-  var userId = req.userStatus.userId;
+  var userId;
   var faqArray = req.body.faqArray;
   // console.log('--- profile-edit.route faqArray: ', faqArray);
 
@@ -95,6 +98,15 @@ router.put('/edit-faq', function(req, res) {
 //----------------------------------------------------------------------------//
 
 module.exports = router;
+
+// Assigns userId based on isAdmin
+function assignUserId(req){
+  if(req.userStatus.isAdmin){
+    return req.params.id;
+  } else {
+    return req.user.userStatus.id;
+  }
+}
 
 // Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
