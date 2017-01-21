@@ -69,10 +69,9 @@ router.post('/new-faq', function(req, res) {
 router.put('/edit-faq', function(req, res) {
   var userId = req.userStatus.userId;
   var faqArray = req.body.faqArray;
-  console.log('--- profile-edit.route faqArray: ', faqArray);
+  // console.log('--- profile-edit.route faqArray: ', faqArray);
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
-  console.log('queryObject', queryObject);
 
   userId = assignUserId(req);
 
