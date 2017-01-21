@@ -23,6 +23,27 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   // self.mentor = BioFactory.mentor;
   self.mentor = BioFactory.mentorBio;
 
+  self.addFaqClicked = false;
+
+  // self.faqText = function(){
+  //   if (self.faqAddClicked) {
+  //     return "Send";
+  //   } else {
+  //     return "Add";
+  //   }
+  // }
+
+  self.changeAddFaqClicked = function(boolean){
+    self.addFaqClicked = boolean;
+    console.log(boolean);
+  }
+
+  self.saveFaq = function() {
+      BioFactory.postFaq(self.faqData);
+      self.addFaqClicked = false;
+      console.log(self.addFaqClicked);
+  }
+
   self.userData = {
     first_name: null,
     last_name: null,
@@ -41,7 +62,18 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     language: null
   };
 
-  self.editBio = function(){
+  self.faqData = {
+    question: null,
+    answer: null
+  }
+
+  self.postFaq = function(){
+    console.log("FAQ DATA:", self.faqData);
+    BioFactory.postFaq(self.faqData);
+  }
+
+  self.edit = function(){
+
     BioFactory.editBio(self.userData);
   };
 

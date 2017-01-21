@@ -1,382 +1,406 @@
 <div ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
-    <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
-        <div flex="80" layout="column">
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
-                        </br>
-                        <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
-                        <span class="md-subhead"></span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
-                    <!-- <md-button>Action 2</md-button> -->
-                </md-card-actions>
-            </md-card>
+  <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
+    <div flex="80" layout="column">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
+          </br>
+          <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
+          <span class="md-subhead"></span>
+        </md-card-title-text>
+        <md-card-title-media>
+          <div class="md-media-lg card-media"></div>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
+        <!-- <md-button>Action 2</md-button> -->
+      </md-card-actions>
+    </md-card>
 
-            <md-button ng-click="">Save</md-button>
+    <md-button ng-click="">Save</md-button>
 
-            <div flex-offset="80">
+    <div flex-offset="80">
 
-                <md-input-container>
-                    <md-switch ng-model="showEdits">Edit Your Profile</md-switch>
-                </md-input-container>
-                <md-input-container>
-                    <button ng-click="profile.editBio()"> Save Changes </button>
-                </md-input-container>
+      <!-- {{profile.mentor.info}} -->
+      <md-input-container>
+        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id" ng-model="showEdits">Edit Your Profile</md-switch>
+      </md-input-container>
+      <md-input-container>
+
+        <button ng-click="profile.edit()" ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id" > Save Changes </button>
+        <!-- <button ng-click="profile.Faq()"> Save FAQ Changes </button> -->
+        <!-- {{profile.mentor}} -->
+        <button ng-click="profile.saveFaq()" ng-show="profile.addFaqClicked"> Save Faq </button>
+        <button ng-click="profile.changeAddFaqClicked(true)" ng-show="profile.addFaqClicked == false &&profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id"> Add Faq </button>
+        <button ng-click="profile.changeAddFaqClicked(false)" ng-show="profile.addFaqClicked"> Cancel</button>
+      </md-input-container>
+    </div>
+    <md-tabs md-dynamic-height="" md-border-bottom="">
+      <md-tab label="Profile">
+        <br>
+        <br>
+        <br>
+
+        <!-- Basic info card -->
+        <!-- Top card edit feature -->
+        <md-card>
+
+
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
+
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">Edit your Header Info</span>
+                </md-card-title-text>
+              </md-card-title>
+              <br>
             </div>
-            <md-tabs md-dynamic-height="" md-border-bottom="">
-                <md-tab label="Profile">
-                    <br>
-                    <br>
-                    <br>
+            <div layout-gt-sm="row">
+              <md-input-container class="md-block" flex-gt-sm="33">
+                <textarea ng-model="profile.userData.first_name" rows='1' placeholder="First Name"> </textarea>
+                <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-                    <!-- Basic info card -->
-                    <!-- Top card edit feature -->
-                    <md-card>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="">
+                <textarea ng-model="profile.userData.last_name" rows='1' placeholder="Last Name"> </textarea>
+                <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="33">
+                <textarea ng-model="profile.userData.bio" rows='1' placeholder="Name"> </textarea>
+                <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-                        <md-card-content ng-if="showEdits">
-                            <div layout-gt-sm="row">
+              </md-input-container>
 
-                              <md-card-title>
-                                  <md-card-title-text>
-                                      <span class="md-headline">Edit your Header Info</span>
-                                  </md-card-title-text>
-                              </md-card-title>
-                                <br>
-                              </div>
-                              <div layout-gt-sm="row">
-                                  <md-input-container class="md-block" flex-gt-sm="33">
-                                      <textarea ng-model="profile.userData.first_name" rows='1' placeholder="First Name"> </textarea>
-                                      <!-- <input ng-model="profile.mentor.info.blurb" > -->
+            </div>
 
-                                  </md-input-container>
-                                  <md-input-container class="md-block" flex-gt-sm="">
-                                      <textarea ng-model="profile.userData.last_name" rows='1' placeholder="Last Name"> </textarea>
-                                      <!-- <input ng-model="profile.mentor.info.blurb" > -->
-
-                                  </md-input-container>
-                                  <md-input-container class="md-block" flex-gt-sm="33">
-                                      <textarea ng-model="profile.userData.bio" rows='1' placeholder="Name"> </textarea>
-                                      <!-- <input ng-model="profile.mentor.info.blurb" > -->
-
-                                  </md-input-container>
-
-                            </div>
-
-                       </md-card-content>
-                     </md-card>
+          </md-card-content>
+        </md-card>
 
 
 
 
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Blurb</span>
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Blurb</span>
 
-                            </md-card-title-text>
-                        </md-card-title>
+            </md-card-title-text>
+          </md-card-title>
 
-                        <md-card-content ng-if="showEdits">
-                            <div layout-gt-sm="row">
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="100">
-                                    <textarea ng-model="profile.userData.blurb" rows='3' placeholder="Edit your blurb here"> Blurbbbbb</textarea>
-                                    <!-- <input ng-model="profile.mentor.info.blurb" > -->
+              <md-input-container class="md-block" flex-gt-sm="100">
+                <textarea ng-model="profile.userData.blurb" rows='3' placeholder="Edit your blurb here"> Blurbbbbb</textarea>
+                <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-                                </md-input-container>
+              </md-input-container>
 
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+          <md-card-content ng-if="!showEdits">
+            <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                                    <textarea ng-if="showEdits" rows="5">{{profile.userDate.blurb}}</textarea>
-                                    <p>{{profile.mentor.info.blurb}} </p>
+              <md-input-container class="md-block" flex-gt-sm="100" rows="5">
+                <textarea ng-if="showEdits" rows="5">{{profile.userDate.blurb}}</textarea>
+                <p>{{profile.mentor.info.blurb}} </p>
 
-                                </md-input-container>
+              </md-input-container>
 
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
 
-                    <!-- End Blub card -->
-                    <!-- Bio info card -->
+        <!-- End Blub card -->
+        <!-- Bio info card -->
 
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Bio</span>
-                            </md-card-title-text>
-                        </md-card-title>
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Bio</span>
+            </md-card-title-text>
+          </md-card-title>
 
-                        <md-card-content ng-if="showEdits">
-                            <div layout-gt-sm="row">
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
 
-                                  <md-input-container class="md-block" flex-gt-sm="100">
-                                      <textarea ng-model="profile.userData.bio" rows='3' placeholder="Edit your bio here"> </textarea>
-                                      <!-- <input ng-model="profile.mentor.info.blurb" > -->
+              <md-input-container class="md-block" flex-gt-sm="100">
+                <textarea ng-model="profile.userData.bio" rows='3' placeholder="Edit your bio here"> </textarea>
+                <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-                                  </md-input-container>
+              </md-input-container>
 
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+          <md-card-content ng-if="!showEdits">
+            <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                                    <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.bio}}</textarea>
-                                    <p>{{profile.mentor.info.bio}} </p>
+              <md-input-container class="md-block" flex-gt-sm="100" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.bio}}</textarea>
+                <p>{{profile.mentor.info.bio}} </p>
 
-                                </md-input-container>
+              </md-input-container>
 
-                            </div>
-                        </md-card-content>
-                    </md-card>
+            </div>
+          </md-card-content>
+        </md-card>
 
-                    <!-- End Bio Card -->
-                    <!-- Education card -->
+        <!-- End Bio Card -->
+        <!-- Education card -->
 
 
 
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Education</span>
-                                <span class="md-subhead"></span>
-                            </md-card-title-text>
-                        </md-card-title>
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Education</span>
+              <span class="md-subhead"></span>
+            </md-card-title-text>
+          </md-card-title>
 
-                        <md-card-content ng-if="showEdits">
-                            <div layout-gt-sm="row">
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
 
-          <md-input-container class="md-block" flex-gt-sm="33">
+              <md-input-container class="md-block" flex-gt-sm="33">
                 <label>Degree</label>
                 <input ng-model="profile.userData.degree">
 
-                                </md-input-container>
+              </md-input-container>
 
               <md-input-container class="md-block" flex-gt-sm="33">
-                    <label>Major</label>
-                    <input ng-model="profile.userData.major">
+                <label>Major</label>
+                <input ng-model="profile.userData.major">
 
 
-                                </md-input-container>
+              </md-input-container>
 
-                  <md-input-container class="md-block" flex-gt-sm="33">
-                        <label>School</label>
-                        <input ng-model="profile.userData.school">
-                      </md-input-container>
-
-
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
-
-                                <md-input-container class="md-block" flex-gt-sm="">
-                                    <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
-                                    <p>{{profile.mentor.info.degree}} </p>
-                                    <p>{{profile.mentor.info.major}} </p>
-                                    <p>{{profile.mentor.info.school}} </p>
-
-                                </md-input-container>
-
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+              <md-input-container class="md-block" flex-gt-sm="33">
+                <label>School</label>
+                <input ng-model="profile.userData.school">
+              </md-input-container>
 
 
-                    <!-- End of Education card -->
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+          <md-card-content ng-if="!showEdits">
+            <div layout-gt-sm="row">
 
-                    <!-- Jobs card -->
+              <md-input-container class="md-block" flex-gt-sm="">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <p>{{profile.mentor.info.degree}} </p>
+                <p>{{profile.mentor.info.major}} </p>
+                <p>{{profile.mentor.info.school}} </p>
+
+              </md-input-container>
+
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
 
 
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Jobs</span>
-                                <span class="md-subhead"></span>
-                            </md-card-title-text>
-                        </md-card-title>
+        <!-- End of Education card -->
 
-                        <md-card-content ng-if="showEdits">
-                            <div layout-gt-sm="row">
+        <!-- Jobs card -->
 
-          <md-input-container class="md-block" flex-gt-sm="50">
+
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Jobs</span>
+              <span class="md-subhead"></span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
+
+              <md-input-container class="md-block" flex-gt-sm="50">
                 <label>Job Title</label>
                 <input ng-model="profile.userData.job_title">
 
 
-                                </md-input-container>
+              </md-input-container>
 
               <md-input-container class="md-block" flex-gt-sm="50">
-                    <label>Company</label>
-                    <input ng-model="profile.userData.company">
-                  </md-input-container>
+                <label>Company</label>
+                <input ng-model="profile.userData.company">
+              </md-input-container>
 
 
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+          <md-card-content ng-if="!showEdits">
+            <div layout-gt-sm="row">
 
-                                <md-input-container class="md-block" flex-gt-sm="" rows="5">
-                                    <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5"></textarea>
-                                    <p>{{profile.mentor.info.job_title}} </p>
-                                    <p>{{profile.mentor.info.company}} </p>
+              <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5"></textarea>
+                <p>{{profile.mentor.info.job_title}} </p>
+                <p>{{profile.mentor.info.company}} </p>
 
-                                    <div ng-messages="userForm.name.$error" ng-if="!showHints">
+                <div ng-messages="userForm.name.$error" ng-if="!showHints">
 
-                                    </div>
-                                </md-input-container>
+                </div>
+              </md-input-container>
 
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </md-card>
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
 
-                    <!-- End of jobs card -->
+        <!-- End of jobs card -->
 
-                    <!-- Personal Info card -->
+        <!-- Personal Info card -->
 
 
-                    <md-card>
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">Personal Info</span>
-                                <span class="md-subhead"></span>
-                            </md-card-title-text>
-                        </md-card-title>
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Personal Info</span>
+              <span class="md-subhead"></span>
+            </md-card-title-text>
+          </md-card-title>
 
-                        <md-card-content ng-if="showEdits">
-                          <div layout-gt-sm="row">
+          <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
 
-          <md-input-container class="md-block" flex-gt-sm="50">
+              <md-input-container class="md-block" flex-gt-sm="50">
                 <label>Gender</label>
                 <input ng-model="profile.userData.gender">
 
               </md-input-container>
 
               <md-input-container class="md-block" flex-gt-sm="50">
-                    <label>Orientation</label>
-                    <input ng-model="profile.userData.orientation">
-                                </md-input-container>
+                <label>Orientation</label>
+                <input ng-model="profile.userData.orientation">
+              </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+
+              <md-input-container class="md-block" flex-gt-sm="50">
+                <label>Zip</label>
+                <input ng-model="profile.userData.zip">
+
+              </md-input-container>
+
+              <md-input-container class="md-block" flex-gt-sm="50">
+                <label>Languages</label>
+                <input ng-model="profile.userData.languages">
+              </md-input-container>
+
+            </div>
+          </md-card-content>
+          <md-card-content ng-if="!showEdits">
+            <div layout-gt-sm="row">
+
+              <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                <!-- <label>Name</label> -->
+                <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
+                <p>{{profile.mentor.info.gender}} </p>
+                <p>{{profile.mentor.info.orientation}} </p>
+                <p>{{profile.mentor.info.zip}} </p>
+                <p>{{profile.mentor.info.languages}} </p>
+
+                <div ng-messages="userForm.name.$error" ng-if="!showHints">
+
+                </div>
+              </md-input-container>
+
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+        <!-- End of personal card -->
+      </md-tab>
+
+      <!-- FAQ page html -->
+
+      <md-tab label="FAQ">
+        <md-content layout-padding>
+          <form name="userForm">
+
+            <md-card ng-if="profile.addFaqClicked">
+              <md-card-content >
+                <div layout-gt-xs="row">
+                  <br>
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <label>Question:</label>
+                    <input ng-model="profile.faqData.question">
+                  </md-input-container>
+                </div>
+                <div layout-gt-xs="row">
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <label>Answer:</label>
+                    <input ng-model="profile.faqData.answer">
+                  </md-input-container>
+                </div>
+              </md-card-content>
+              <!-- <md-card-content ng-if="!showEdits">
+                <div layout-gt-xs="row">
+                  <br>
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <label>Question:</label>
+                    <input ng-model="user.company" disabled> sldkfjsldkfjsd </input>
+
+                  </md-input-container>
+                </div>
+                <div layout-gt-xs="row">
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <label>Answer:</label>
+                    <input ng-model="user.company" disabled> sldkfjslkfjslkdfjsdlkfj </input>
+
+                  </md-input-container>
+                </div>
+
+              </md-card-content> -->
+
+            </md-card>
+
+              <md-card ng-repeat="faq in profile.mentor.faqs">
+                <md-card-content >
+                  <div layout-gt-xs="row">
+                    <br>
+                    <md-input-container class="md-block" flex-gt-xs>
+                      {{faq.question}}
+                    </md-input-container>
                   </div>
-                  <div layout-gt-sm="row">
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                      {{faq.answer}}
+                    </md-input-container>
+                  </div>
+                </md-card-content>
+              </md-card>
 
-                  <md-input-container class="md-block" flex-gt-sm="50">
-                        <label>Zip</label>
-                        <input ng-model="profile.userData.zip">
-
-                                </md-input-container>
-
-                      <md-input-container class="md-block" flex-gt-sm="50">
-                            <label>Languages</label>
-                            <input ng-model="profile.userData.languages">
-                          </md-input-container>
-
-                            </div>
-                        </md-card-content>
-                        <md-card-content ng-if="!showEdits">
-                            <div layout-gt-sm="row">
-
-                                <md-input-container class="md-block" flex-gt-sm="" rows="5">
-                                    <!-- <label>Name</label> -->
-                                    <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
-                                    <p>{{profile.mentor.info.gender}} </p>
-                                    <p>{{profile.mentor.info.orientation}} </p>
-                                    <p>{{profile.mentor.info.zip}} </p>
-                                    <p>{{profile.mentor.info.languages}} </p>
-
-                                    <div ng-messages="userForm.name.$error" ng-if="!showHints">
-
-                                    </div>
-                                </md-input-container>
-
-                                <div flex="5" hide-xs="" hide-sm="">
-                                    <!-- Spacer //-->
-                                </div>
-                            </div>
-                        </md-card-content>
-                    </md-card>
-                    <!-- End of personal card -->
-                </md-tab>
-
-                <!-- FAQ page html -->
-
-                <md-tab label="FAQ">
-                    <md-content layout-padding>
-                        <form name="userForm">
-
-                            <md-card>
-                                <md-card-content ng-if="showEdits">
-                                    <div layout-gt-xs="row">
-                                        <br>
-                                        <md-input-container class="md-block" flex-gt-xs>
-                                            <label>Question:</label>
-                                            <input ng-model="user.company">
-                                        </md-input-container>
-                                    </div>
-                                    <div layout-gt-xs="row">
-                                        <md-input-container class="md-block" flex-gt-xs>
-                                            <label>Answer:</label>
-                                            <input ng-model="user.company">
-                                        </md-input-container>
-                                    </div>
-                                </md-card-content>
-                                <md-card-content ng-if="!showEdits">
-                                    <div layout-gt-xs="row">
-                                        <br>
-                                        <md-input-container class="md-block" flex-gt-xs>
-                                            <label>Question:</label>
-                                            <input ng-model="user.company" disabled> sldkfjsldkfjsd </input>
-
-                                        </md-input-container>
-                                    </div>
-                                    <div layout-gt-xs="row">
-                                        <md-input-container class="md-block" flex-gt-xs>
-                                            <label>Answer:</label>
-                                            <input ng-model="user.company" disabled> sldkfjslkfjslkdfjsdlkfj </input>
-
-                                        </md-input-container>
-                                    </div>
-
-                                </md-card-content>
-
-                            </md-card>
-                        </form>
-                    </md-content>
-                </md-tab>
-        </div>
+          </form>
+        </md-content>
+      </md-tab>
+    </div>

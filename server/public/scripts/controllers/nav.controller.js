@@ -16,12 +16,22 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
   };
 
   self.setMentorId = function(){
+    console.log("SOMETHING");
+    console.log("USER ID in setMentorId", AuthFactory.userStatus.userId);
     BioFactory.setMentorId(AuthFactory.userStatus.userId);
   };
 
   self.logOut = function() {
     console.log('logging user out');
     AuthFactory.logOut();
+  };
+
+  self.firstLoginModal = function(){
+    $mdDialog.show({
+      controller: 'FirstLoginController',
+      templateUrl: '../../views/first-login-modal.html',
+      clickOutsideToClose: true
+    });
   };
 
 }]);
