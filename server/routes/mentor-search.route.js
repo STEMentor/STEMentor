@@ -44,13 +44,16 @@ router.get('/search', function(req, res) {
   var query = queryBuilder(queryObject);
   console.log('Built query: ', query);
 
+  var propertyArray = propertyArrayBuilder(queryObject);
+  console.log('Built array: ', propertyArray);
+
   pg.connect(connectionString, function(error, client, done) {
     if (error) {
       console.log('connection error: ', error);
       res.sendStatus(500);
     }
 
-    client.query(query, function(error, result) {
+    client.query(query, propertyArray, function(error, result) {
       done(); // Close connection to the database
 
       if (error) {
@@ -69,72 +72,67 @@ router.get('/search', function(req, res) {
 // Constructs SQL query based off of user defined search paramaters ----------//
 function queryBuilder(object) {
   var index = 0;
-  var query;
+  var query = 'SELECT * FROM mentors WHERE ';
 
-  // If the generic search bar was used, the `object.generic_search` property
-  // will have a value, and we need to build a query based on that.
+  /* If `object.generic_search` exists, we need to start our query off with a
+  long `if` statement to search all table columns for that query */
   if (object.generic_search) {
     index++;
-    query = 'SELECT * FROM mentors ' +
-            'WHERE first_name ILIKE %$1% ' +
-            'WHERE last_name ILIKE %$1% ' +
-            'WHERE blurb ILIKE %$1% ' +
-            'WHERE bio ILIKE %$1% ' +
-            'WHERE company ILIKE %$1% ' +
-            'WHERE job_title ILIKE %$1% ' +
-            'WHERE race ILIKE %$1% ' +
-            'WHERE gender ILIKE $1 ' +
-            'WHERE orientation ILIKE %$1% ' +
-            'WHERE school ILIKE %$1% ' +
-            'WHERE degree ILIKE %$1% ' +
-            'WHERE major ILIKE %$1% ' +
-            'WHERE languages ILIKE %$1% ' +
-            'AND ';
+    query +=
+      '(first_name ILIKE $' + index +
+      ' OR last_name ILIKE $' + index +
+      ' OR blurb ILIKE $' + index +
+      ' OR bio ILIKE $' + index +
+      ' OR company ILIKE $' + index +
+      ' OR job_title ILIKE $' + index +
+      ' OR race ILIKE $' + index +
+      ' OR gender ILIKE $' + index +
+      ' OR orientation ILIKE $' + index +
+      ' OR school ILIKE $' + index +
+      ' OR degree ILIKE $' + index +
+      ' OR major ILIKE $' + index +
+      ' OR languages ILIKE $' + index + ')';
+  }
 
-    // This loops through the properties of the query object
-    for (var property in object) {
-      if (object[property] && property !== 'generic_search') {
+  // Next we loop through each of the query object's properties
+  for (var property in object) {
 
-        // If gender has been specified in the search, we need to match this
-        // exactly, not loosely like the other queries.
-        if (property === 'gender') {
-          index++;
-          query += property + ' = $' + index + ' AND ';
-        }
+    // First we check if the property has a value
+    if (object[property]) {
 
-        else {
-          index++;
-          query += property + ' ILIKE $' + index + ' AND ';
-        }
+      /* If `generic_search` has a value, that means the long search object
+      above was created, so we need to add an `AND` to the end of the query
+      in preparation for the rest of the query */
+      if (property === 'generic_search') {
+        query += ' AND ';
       }
-    }
 
-  // If no generic search was specified, we set the standard query string, and
-  // loop through the same way as above.
-  } else {
-    query = 'SELECT * FROM mentors WHERE ';
+      /* For the `gender` property, we want to make a more strict match, so we
+      omit the `%` from that part of the query */
+      else if (property === 'gender') {
+        index++;
+        query += property + ' = $' + index + ' AND ';
+      }
 
-    for (var property in object) {
-      if (object[property] && property !== 'generic_search') {
-        if (property === 'gender') {
-          index++;
-          query += property + ' = $' + index + ' AND ';
-        } else {
-          index++;
-          query += property + ' ILIKE $' + index + ' AND ';
-        }
+      /* Finally, if the property is not `generic_search` or `gender`, we add a
+      loose, case insensitive search to the query */
+      else {
+        index++;
+        query += property + ' ILIKE $' + index + ' AND ';
       }
     }
   }
 
-  // Slice off the last four characters to remove the trailing 'AND'
-  query = query.slice(0, -4);
-
-  // If no search filters were specified, the slice will still remove the last
-  // four characters. The query well end up being 'SELECT * FROM mentors WH',
-  // so this will set it to be a search to return all mentors from the database.
-  if (query == 'SELECT * FROM mentors WH') {
+  /* After all of the above conditionals, if the query ends with `WHERE `, that
+  means that no filter was applied, so we return all of the `mentors` data */
+  if (query.endsWith('WHERE ')) {
     query = 'SELECT * FROM mentors';
+  }
+
+  /* If the query ends with `AND ` or ` AND`, that means some filters were
+  used, and we need to slice off the trailing `AND` */
+  else if (query.endsWith('AND ') || query.endsWith(' AND')) {
+    query = query.slice(0, -4);
   }
 
   return query;
@@ -143,7 +141,22 @@ function queryBuilder(object) {
 
 // Constructs an array of property names for PG to use in the query
 function propertyArrayBuilder(object) {
-  
+  var propertyArray = [];
+
+  for (var property in object) {
+    if (object[property]) {
+      if (property === 'generic_search') {
+        propertyArray.push('%' + object[property] + '%');
+      } else if (property === 'gender'){
+        propertyArray.push(object[property]);
+      } else {
+        propertyArray.push('%' + object[property] + '%');
+      }
+    }
+  }
+
+  return propertyArray;
+
 }
 //----------------------------------------------------------------------------//
 
