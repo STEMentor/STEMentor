@@ -39,7 +39,7 @@ var tokenDecoder = function(req, res, next) {
         req.decodedToken = decodedToken;
         // console.log('GOT DECODED TOKEN');
         // next();
-        console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
+        // console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
 
         // call this function to check attach user_id to the request
         // if they are already in the db. If they aren't, add them

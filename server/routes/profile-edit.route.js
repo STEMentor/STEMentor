@@ -6,7 +6,7 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 // Edit user profile info ----------------------------------------------------//
-router.put('/update', function(req, res) {
+router.put('/update/:id', function(req, res) {
   // console.log('ARRIVED IN EDIT ROUTE');
   // console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
