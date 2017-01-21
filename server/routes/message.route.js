@@ -5,7 +5,7 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Get messages for specific user
+// Get messages for specific user --------------------------------------------//
 router.get('/get-all-messages', function(req, res) {
   // console.log('req.decodedToken: ', req.decodedToken);
 
@@ -38,7 +38,7 @@ router.get('/get-all-messages', function(req, res) {
   });
 });
 
-// Create new message (from student) when user hits the "Send" button
+// Create new message (from student) when user hits the "Send" button --------//
 router.post('/new-message', function(req, res) {
   // console.log('req.body: ', req.body);
   var message = req.body.message_info;
@@ -80,7 +80,7 @@ router.post('/new-message', function(req, res) {
   });
 });
 
-// Mark message as read
+// Mark message as read ------------------------------------------------------//
 router.put('/read-message', function(req, res) {
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
@@ -113,7 +113,7 @@ router.put('/read-message', function(req, res) {
   });
 });
 
-// Reply to message
+// Reply to message ----------------------------------------------------------//
 router.put('/reply', function(req, res) {
   // console.log('req.body: ', req.body);
 
@@ -142,7 +142,7 @@ router.put('/reply', function(req, res) {
 
 module.exports = router;
 
-// Checks for errors connecting to the database
+// Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);

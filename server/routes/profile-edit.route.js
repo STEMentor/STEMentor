@@ -5,7 +5,7 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Edit user info ------------------------------------------------------------//
+// Edit user profile info ----------------------------------------------------//
 router.put('/update', function(req, res) {
   console.log('ARRIVED IN EDIT ROUTE');
   // console.log('USER DATA:', req.body.userData);
@@ -20,7 +20,6 @@ router.put('/update', function(req, res) {
   // var userData = {
   //   first_name: null,
   //   last_name: null,
-  //   email: null,
   //   avatar: null,
   //   company: null,
   //   job_title: null,
@@ -35,28 +34,30 @@ router.put('/update', function(req, res) {
   //   languages: null
   // };
 
-  var query = queryBuilder(userData) + ' WHERE id = $1';
+  var queryObject = queryBuilder(userData);
+  res.sendStatus(200); // FOR TESTING
 
-  pg.connect(connectionString, function(error, client, done) {
-    connectionErrorCheck(error);
-
-    // Update the database
-    client.query(query, [userId],
-      function(error, result) {
-        done(); // Close connection to the database
-
-        if(error) {
-          console.log('Unable to update user information: ', error);
-          res.sendStatus(500);
-        } else {
-          // console.log('SUCCESSFUL! USER DATA:', userData);
-          res.sendStatus(200);
-        }
-
-      }
-    );
-  });
+  // pg.connect(connectionString, function(error, client, done) {
+  //   connectionErrorCheck(error);
+  //
+  //   // Update the database
+  //   client.query(queryObject.queryString, queryObject.propertyArray,
+  //     function(error, result) {
+  //       done(); // Close connection to the database
+  //
+  //       if(error) {
+  //         console.log('Unable to update user information: ', error);
+  //         res.sendStatus(500);
+  //       } else {
+  //         // console.log('SUCCESSFUL! USER DATA:', userData);
+  //         res.sendStatus(200);
+  //       }
+  //
+  //     }
+  //   );
+  // });
 });
+//----------------------------------------------------------------------------//
 
 // Create a new FAQ entry ----------------------------------------------------//
 router.post('/new-faq', function(req, res) {
@@ -84,13 +85,12 @@ router.post('/new-faq', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 // Edit an existing FAQ entry ------------------------------------------------//
-router.put('/edit-faq/:faq-id', function(req, res) {
+router.put('/edit-faq', function(req, res) {
   var userId = req.userStatus.userId;
-  var faqId = req.body.faqId;
-  var question = req.body.question;
-  var answer = req.body.answer;
+  var faqArray = req.body.faqArray;
 
   pg.connect(connectionString, function(error, client, done) {
     connectionString(error);
@@ -111,6 +111,7 @@ router.put('/edit-faq/:faq-id', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 module.exports = router;
 
@@ -121,19 +122,37 @@ function connectionErrorCheck(error) {
     res.sendStatus(500);
   }
 }
+//----------------------------------------------------------------------------//
 
-// Cunstructs SQL query based off of user defined search paramaters ----------//
-function queryBuilder(object) {
+// Cunstructs SQL query based off of the profile fields ----------------------//
+function profileEditQueryBuilder(object) {
   // console.log('OBJECT IN QUERY BUILDER', object);
-  var query = 'UPDATE mentors SET';
+  var query = 'UPDATE mentors SET ';
+  var array = [];
+  var index = 0;
 
-  for(var property in object) {
-    if(object[property]) {
-      query += ' ' + property + ' = \'' + object[property] + '\',';
+  for (var property in object) {
+    if (object[property]) {
+      index++;
+      query += property + ' = $' + index + ' AND ';
+      array.push(property);
     }
   }
 
-  query = query.slice(0, -1);
+  query += ' WHERE id = $' + index++;
 
-  return query;
+  // query = query.slice(0, -1);
+
+  console.log('QUERY AFTER BUILDER: ', query);
+  console.log('ARRAY AFTER BUILDER: ', array);
+
+  return {
+    queryString: query,
+    propertyArray: array
+  };
+}
+//----------------------------------------------------------------------------//
+
+function faqEditQueryBuilder(object) {
+
 }
