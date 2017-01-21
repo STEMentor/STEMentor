@@ -76,9 +76,7 @@ router.put('/edit-faq', function(req, res) {
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
-    client.query(
-      'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
-      [question, answer, faqId],
+    client.query(queryObject.queryString, queryObject.propertyArray,
       function(error, result) {
         done(); // Close connection to the database
 
@@ -107,7 +105,6 @@ function connectionErrorCheck(error) {
 
 // Cunstructs SQL query based off of the profile fields ----------------------//
 function profileEditQueryBuilder(object, userId) {
-  // console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'UPDATE mentors SET ';
   var array = [];
   var index = 0;
@@ -133,11 +130,29 @@ function profileEditQueryBuilder(object, userId) {
 //----------------------------------------------------------------------------//
 
 // Constructs SQL query based off of updated FAQ info ------------------------//
-function faqEditQueryBuilder(object, userId) {
-  var query = '';
-  var array = [];
-  var index = 0;
+function faqEditQueryBuilder(faqArray, userId) {
+  // console.log('ARRAY IN QUERY BUILDER', array);
 
-  
+  var queryString = 'UPDATE faq SET ';
+  var propertyArray = [];
+  var questionString = 'question = CASE';
+  var answerString = '';
+
+  for (var index = 0; index < faqArray.length; index++) {
+    questionString += ' WHEN ' + faqArray[index].id + ' THEN ' + faqArray[index].question;
+    answerString += ' WHEN ' + faqArray[index].id + ' THEN ' + faqArray[index].answer;
+  }
+
+  console.log('questionString: ', questionString);
+  console.log('answerString: ', answerString);
+
+  // console.log('--- profile.edit queryString: ', queryString);
+  // console.log('--- profile.edit propertyArray: ', propertyArray);
+  // console.log('--- profile.edit index: ', index);
+
+  return {
+    queryString: queryString,
+    propertyArray: propertyArray
+  };
 }
 //----------------------------------------------------------------------------//
