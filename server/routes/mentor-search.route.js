@@ -105,12 +105,6 @@ function queryBuilder(object) {
     }
   }
 
-  if (query.endsWith('WHERE ')) {
-    query = 'SELECT * FROM mentors';
-  } else if (query.endsWith('AND ') || query.endsWith(' AND')) {
-    query = query.slice(0, -4);
-  }
-
   return query;
 }
 //----------------------------------------------------------------------------//
