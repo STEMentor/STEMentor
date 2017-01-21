@@ -126,6 +126,34 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     });
   }
 
+  function editFaqs(faqArray) {
+    // Makes sure that currentUser is set before getting messages from the server
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    console.log('FAQ DATA:', faqArray);
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'PUT',
+          url: '/profile-edit/edit-faq',
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            faqArray: faqArray
+          }
+        })
+        .then(function(response) {
+          console.log("USER DATA IN RESPONSE:", response.data);
+          getProfiles();
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+  });
+  }
+
   function postFaq(faqData){
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
     console.log('FAQ DATA:', faqData);
@@ -171,6 +199,9 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     },
     editBio: function(userData){
       return editBio(userData);
+    },
+    editFaqs: function(faqData){
+      return editFaqs(faqData)
     },
     postFaq: function(faqData){
       return postFaq(faqData);
