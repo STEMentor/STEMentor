@@ -36,7 +36,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       // console.log("getProfiles result:", response.data);
       // mentorBio.info = response.data[0];
       // console.log(mentorBio.info);
-      console.log(response.data.result);
+      console.log("RESULT FROM GET PROFILES:", response.data.result);
       response.data.result[0].id = response.data.userId;
       mentorBio.info = response.data.result[0];
 
@@ -69,7 +69,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
         mentorBio.faqs.push(
           {
             question: response.data.result[key].question,
-            answer: response.data.result[key].answer
+            answer: response.data.result[key].answer,
+            faq_id: response.data.result[key].faq_id
           }
         );
       }
@@ -85,7 +86,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   // Attach the chosen mentor object to the info property on mentorBio.
   // This will be accessed by the profile controller
   function setMentor(mentor){
-
     mentorBio.info = mentor;
     mentorId = mentorBio.info.id;
     console.log("MENTOR:", mentorBio.info);
@@ -106,7 +106,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       return currentUser.getToken().then(function(idToken) {
         return $http({
           method: 'PUT',
-          url: '/profile-edit/update',
+          url: '/profile-edit/update/'+ mentorId,
           headers: {
             id_token: idToken
           },
@@ -201,7 +201,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       return editBio(userData);
     },
     editFaqs: function(faqData){
-      return editFaqs(faqData)
+      return editFaqs(faqData);
     },
     postFaq: function(faqData){
       return postFaq(faqData);
