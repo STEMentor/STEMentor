@@ -69,9 +69,12 @@ router.post('/new-faq', function(req, res) {
 router.put('/edit-faq', function(req, res) {
   var userId = req.userStatus.userId;
   var faqArray = req.body.faqArray;
+  console.log('--- profile-edit.route faqArray: ', faqArray);
+
+  var queryObject = faqEditQueryBuilder(faqArray, userId);
 
   pg.connect(connectionString, function(error, client, done) {
-    connectionString(error);
+    connectionErrorCheck(error);
 
     client.query(
       'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
@@ -129,6 +132,12 @@ function profileEditQueryBuilder(object, userId) {
 }
 //----------------------------------------------------------------------------//
 
-function faqEditQueryBuilder(object) {
+// Constructs SQL query based off of updated FAQ info ------------------------//
+function faqEditQueryBuilder(object, userId) {
+  var query = '';
+  var array = [];
+  var index = 0;
 
+  
 }
+//----------------------------------------------------------------------------//
