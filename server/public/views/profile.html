@@ -6,8 +6,9 @@
           <md-card-title-text>
             <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
             <br />
-            <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
-            <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
+            <span class="md-subhead">Primary Stem Field: {{profile.mentor.info.stem_primary}}</span>
+            <span class="md-subhead">Job Title: {{profile.mentor.info.job_title}}</span>
+            <span class="md-subhead" ng-if="profile.mentor.info.blurb">"{{profile.mentor.info.blurb}}"</span>
 
           </md-card-title-text>
           <md-card-title-media>
