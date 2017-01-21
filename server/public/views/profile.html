@@ -26,14 +26,14 @@
       <!-- {{profile.mentor.info}} -->
       <md-input-container>
         <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
-        profile.userStatus.userId == profile.mentor.info.id" ng-model="showEdits">Edit Your Profile</md-switch>
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">Edit Your Profile</md-switch>
       </md-input-container>
       <md-input-container>
 
         <!-- save changes button for bio edits -->
         <button ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true &&
         profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
-        profile.userStatus.userId == profile.mentor.info.id" > Save Changes </button>
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" > Save Changes </button>
         <!-- save changes button for faq edits -->
         <button ng-click="profile.editFaqs()" ng-show="showEdits && profile.faqTabSelected == true &&
         profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
