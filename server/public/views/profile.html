@@ -8,10 +8,13 @@
           </br>
           <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
           <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
+
         </md-card-title-text>
         <md-card-title-media>
-          <div class="md-media-lg card-media"></div>
-        </md-card-title-media>
+    <div class="md-media-lg card-media">
+      <img src="{{profile.mentor.info.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;">
+    </div>
+  </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
         <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
