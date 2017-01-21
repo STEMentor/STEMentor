@@ -7,55 +7,33 @@ var connectionString = require('../modules/db-config.module');
 
 // Edit user profile info ----------------------------------------------------//
 router.put('/update', function(req, res) {
-  console.log('ARRIVED IN EDIT ROUTE');
+  // console.log('ARRIVED IN EDIT ROUTE');
   // console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
-
-  var userType = req.userStatus.userType;
-  var typeId = userType + '_id';
-  var userDatabase = userType + 's';
   var userId = req.userStatus.userId;
 
-  // This is what incoming data will look like
-  // var userData = {
-  //   first_name: null,
-  //   last_name: null,
-  //   avatar: null,
-  //   company: null,
-  //   job_title: null,
-  //   zip: null,
-  //   race: null,
-  //   gender: null,
-  //   orientation: null,
-  //   birthday: null,
-  //   school: null,
-  //   degree: null,
-  //   major: null,
-  //   languages: null
-  // };
+  var queryObject = profileEditQueryBuilder(userData, userId);
 
-  var queryObject = queryBuilder(userData);
-  res.sendStatus(200); // FOR TESTING
+  if (queryObject.queryString !== 'UPDATE mentors SE WHERE id = $1') {
+    pg.connect(connectionString, function(error, client, done) {
+      connectionErrorCheck(error);
 
-  // pg.connect(connectionString, function(error, client, done) {
-  //   connectionErrorCheck(error);
-  //
-  //   // Update the database
-  //   client.query(queryObject.queryString, queryObject.propertyArray,
-  //     function(error, result) {
-  //       done(); // Close connection to the database
-  //
-  //       if(error) {
-  //         console.log('Unable to update user information: ', error);
-  //         res.sendStatus(500);
-  //       } else {
-  //         // console.log('SUCCESSFUL! USER DATA:', userData);
-  //         res.sendStatus(200);
-  //       }
-  //
-  //     }
-  //   );
-  // });
+      // Update the database
+      client.query(queryObject.queryString, queryObject.propertyArray,
+        function(error, result) {
+          done(); // Close connection to the database
+
+          if(error) {
+            console.log('Unable to update user information: ', error);
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+
+        }
+      );
+    });
+  }
 });
 //----------------------------------------------------------------------------//
 
@@ -125,7 +103,7 @@ function connectionErrorCheck(error) {
 //----------------------------------------------------------------------------//
 
 // Cunstructs SQL query based off of the profile fields ----------------------//
-function profileEditQueryBuilder(object) {
+function profileEditQueryBuilder(object, userId) {
   // console.log('OBJECT IN QUERY BUILDER', object);
   var query = 'UPDATE mentors SET ';
   var array = [];
@@ -134,17 +112,15 @@ function profileEditQueryBuilder(object) {
   for (var property in object) {
     if (object[property]) {
       index++;
-      query += property + ' = $' + index + ' AND ';
-      array.push(property);
+      query += property + ' = $' + index + ', ';
+      array.push(object[property]);
     }
   }
 
-  query += ' WHERE id = $' + index++;
-
-  // query = query.slice(0, -1);
-
-  console.log('QUERY AFTER BUILDER: ', query);
-  console.log('ARRAY AFTER BUILDER: ', array);
+  index++;
+  query = query.slice(0, -2);
+  query += ' WHERE id = $' + index;
+  array.push(userId);
 
   return {
     queryString: query,
