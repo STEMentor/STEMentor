@@ -302,9 +302,13 @@
               <div layout-gt-sm="row">
 
                 <md-input-container class="md-block" flex-gt-sm="50">
-                  <label>Zip</label>
-                  <input ng-model="profile.userData.zip">
-
+                  <label>State</label>
+                  <md-select ng-model="profile.userData.state">
+                    <md-option value=""></md-option>
+                    <md-option ng-repeat="state in profile.states" value="{{state.abbrev}}">
+                      {{state.abbrev}}
+                    </md-option>
+                  </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="50">

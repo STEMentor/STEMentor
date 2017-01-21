@@ -55,11 +55,10 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   self.userData = {
     first_name: null,
     last_name: null,
-    email: null,
     company: null,
     job_title: null,
     bio: null,
-    zip: null,
+    state: null,
     race: null,
     gender: null,
     orientation: null,
@@ -67,7 +66,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     school: null,
     degree: null,
     major: null,
-    language: null
+    language: null,
+    stem_primary: null
   };
 
   self.faqData = {
