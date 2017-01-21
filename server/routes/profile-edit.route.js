@@ -62,8 +62,9 @@ router.put('/update', function(req, res) {
 // Create a new FAQ entry ----------------------------------------------------//
 router.post('/new-faq', function(req, res) {
   var userId = req.userStatus.userId;
-  var question = req.body.question;
-  var answer = req.body.answer;
+  var question = req.body.faqData.question;
+  var answer = req.body.faqData.answer;
+  console.log("FAQ OBJECT:", req.body.faqData);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -72,6 +73,7 @@ router.post('/new-faq', function(req, res) {
       'INSERT INTO faq (mentor_id, question, answer) VALUES ($1, $2, $3)',
       [userId, question, answer],
       function(error, result) {
+        done();
         if(error) {
           console.log('Error when creating new FAQ: ', error);
           res.sendStatus(500);
@@ -97,6 +99,7 @@ router.put('/edit-faq/:faq-id', function(req, res) {
       'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
       [question, answer, faqId],
       function(error, result) {
+        done();
         if(error) {
           console.log('Error when updating FAQ: ', error);
           res.sendStatus(500);
