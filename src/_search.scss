@@ -95,3 +95,27 @@
   color:white;
   border:none;
 }
+
+//***** Tooltip CSS *****//
+
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+  box-shadow: none;
+  border: none;
+  transform: none;
+  -webkit-transform: none; }
+
+////////////////////////////
+
+
+//***** flippy css *****//
+
+.front{
+    height: 500px;
+
+}
+
+.spacer {
+  padding-left: 8%;
+
+}

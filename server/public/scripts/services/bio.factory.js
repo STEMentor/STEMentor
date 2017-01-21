@@ -36,7 +36,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       // console.log("getProfiles result:", response.data);
       // mentorBio.info = response.data[0];
       // console.log(mentorBio.info);
-      console.log(response.data.result);
+      console.log("RESULT FROM GET PROFILES:", response.data.result);
       response.data.result[0].id = response.data.userId;
       mentorBio.info = response.data.result[0];
 
@@ -106,7 +106,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       return currentUser.getToken().then(function(idToken) {
         return $http({
           method: 'PUT',
-          url: '/profile-edit/update',
+          url: '/profile-edit/update/'+ mentorId,
           headers: {
             id_token: idToken
           },

@@ -6,7 +6,7 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 // Edit user info ------------------------------------------------------------//
-router.put('/update', function(req, res) {
+router.put('/update/:id', function(req, res) {
   console.log('ARRIVED IN EDIT ROUTE');
   console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
@@ -14,7 +14,12 @@ router.put('/update', function(req, res) {
   var userType = req.userStatus.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
-  var userId = req.userStatus.userId;
+  var userId;
+
+  console.log("USER ID IN PARAMS", req.params.id);
+  userId = assignUserId(req);
+
+  // userId = req.userStatus.userId;
 
   // This is what incoming data will look like
   // var userData = {
@@ -87,10 +92,12 @@ router.post('/new-faq', function(req, res) {
 
 // Edit an existing FAQ entry ------------------------------------------------//
 router.put('/edit-faq/:faq-id', function(req, res) {
-  var userId = req.userStatus.userId;
+  var userId;
   var faqId = req.body.faqId;
   var question = req.body.question;
   var answer = req.body.answer;
+
+  userId = assignUserId(req);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionString(error);
@@ -118,6 +125,16 @@ function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);
     res.sendStatus(500);
+  }
+}
+
+// Assign user id to the mentor id if user is an admin -----------------------//
+function assignUserId(req){
+  console.log("THIS IS REQ IN ASSIGN USER ID", req.params.id);
+  if(req.userStatus.isAdmin === true){
+    return req.params.id;
+  } else {
+    return req.userStatus.userId;
   }
 }
 
