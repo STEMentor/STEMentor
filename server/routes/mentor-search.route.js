@@ -74,8 +74,6 @@ function queryBuilder(object) {
   var index = 0;
   var query = 'SELECT * FROM mentors WHERE ';
 
-  /* If `object.generic_search` exists, we need to start our query off with a
-  long `if` statement to search all table columns for that query */
   if (object.generic_search) {
     index++;
     query +=
@@ -94,44 +92,23 @@ function queryBuilder(object) {
       ' OR languages ILIKE $' + index + ')';
   }
 
-  // Next we loop through each of the query object's properties
   for (var property in object) {
-
-    // First we check if the property has a value
     if (object[property]) {
-
-      /* If `generic_search` has a value, that means the long search object
-      above was created, so we need to add an `AND` to the end of the query
-      in preparation for the rest of the query */
       if (property === 'generic_search') {
         query += ' AND ';
-      }
-
-      /* For the `gender` property, we want to make a more strict match, so we
-      omit the `%` from that part of the query */
-      else if (property === 'gender') {
+      } else if (property === 'gender') {
         index++;
         query += property + ' = $' + index + ' AND ';
-      }
-
-      /* Finally, if the property is not `generic_search` or `gender`, we add a
-      loose, case insensitive search to the query */
-      else {
+      } else {
         index++;
         query += property + ' ILIKE $' + index + ' AND ';
       }
     }
   }
 
-  /* After all of the above conditionals, if the query ends with `WHERE `, that
-  means that no filter was applied, so we return all of the `mentors` data */
   if (query.endsWith('WHERE ')) {
     query = 'SELECT * FROM mentors';
-  }
-
-  /* If the query ends with `AND ` or ` AND`, that means some filters were
-  used, and we need to slice off the trailing `AND` */
-  else if (query.endsWith('AND ') || query.endsWith(' AND')) {
+  } else if (query.endsWith('AND ') || query.endsWith(' AND')) {
     query = query.slice(0, -4);
   }
 
