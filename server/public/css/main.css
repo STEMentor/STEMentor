@@ -91,6 +91,9 @@
 .front {
   height: 500px; }
 
+.spacer {
+  padding-left: 8%; }
+
 #profileHeader {
   border: 1px solid #000000;
   width: 20px;

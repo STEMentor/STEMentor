@@ -168,7 +168,10 @@
   </md-tab>
 
 <!-- <div layout='row' layout-align="space-around center" flex-gt-xl='0'> -->
- <div ng-repeat="mentor in search.mentors" >
+
+<div class="aligner spacer" flex>
+  <div class="carousel" layout-align="space-around center" flex>
+ <div ng-repeat="mentor in search.mentors" flex>
 
     <flippy class="fancy front" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
         <flippy-front>
@@ -181,11 +184,10 @@
                         <h3 class="md-subhead">{{mentor.job_title}}</h3>
                     </md-card-title-text>
                     <md-card-title-media>
-                      <br>
-                      <br>
+
 
                         <div class="md-media-lg card-media">
-                            <img src="{{mentor.avatar}}" style="width: 100px; height: 100px; display: block; margin: 10px auto 0 auto;">
+                            <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;">
                         </div>
                     </md-card-title-media>
                 </md-card-title>
@@ -248,5 +250,6 @@
     </flippy>
 
   </div>
-
+</div>
+</div>
 </div>
