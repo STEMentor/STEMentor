@@ -72,12 +72,12 @@ router.get('/search', function(req, res) {
 // Constructs SQL query based off of user defined search paramaters ----------//
 function queryBuilder(object) {
   var index = 0;
-  var query = 'SELECT * FROM mentors WHERE ';
+  var query = 'SELECT * FROM mentors';
 
   if (object.generic_search) {
     index++;
-    query +=
-      '(first_name ILIKE $' + index +
+    query += ' WHERE' +
+      ' (first_name ILIKE $' + index +
       ' OR last_name ILIKE $' + index +
       ' OR blurb ILIKE $' + index +
       ' OR bio ILIKE $' + index +
@@ -93,15 +93,14 @@ function queryBuilder(object) {
   }
 
   for (var property in object) {
-    if (object[property]) {
-      if (property === 'generic_search') {
+    if (object[property] && property !== 'generic_search') {
         query += ' AND ';
-      } else if (property === 'gender') {
+      if (property === 'gender') {
         index++;
-        query += property + ' = $' + index + ' AND ';
+        query += property + ' = $' + index;
       } else {
         index++;
-        query += property + ' ILIKE $' + index + ' AND ';
+        query += property + ' ILIKE $' + index;
       }
     }
   }
