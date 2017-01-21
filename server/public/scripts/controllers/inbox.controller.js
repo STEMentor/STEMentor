@@ -61,7 +61,7 @@ reply: 'reply text',
 
 \*----------------------------------------------------------------------------*/
 
-app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', function($http, AuthFactory, MessageFactory, $mdDialog) {
+app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('InboxController running');
   var self = this;
   self.userStatus = AuthFactory.userStatus;
@@ -71,6 +71,8 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
     getMessages(currentUser);
   });
+
+  self.person = BioFactory.mentorBio;
 
   // Get all messages from the database for a specific user
   function getMessages(currentUser) {

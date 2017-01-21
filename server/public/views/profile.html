@@ -7,32 +7,52 @@
             <span class="md-headline">{{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}</span>
           </br>
           <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
-          <span class="md-subhead"></span>
+          <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
+
         </md-card-title-text>
         <md-card-title-media>
-          <div class="md-media-lg card-media"></div>
-        </md-card-title-media>
+    <div class="md-media-lg card-media">
+      <img src="{{profile.mentor.info.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;">
+    </div>
+  </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
         <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
-        <!-- <md-button>Action 2</md-button> -->
       </md-card-actions>
     </md-card>
-
-    <md-button ng-click="">Save</md-button>
 
     <div flex-offset="80">
 
       <!-- {{profile.mentor.info}} -->
       <md-input-container>
-        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id" ng-model="showEdits">Edit Your Profile</md-switch>
+        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">Edit Your Profile</md-switch>
       </md-input-container>
       <md-input-container>
-        <button ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id" ng-click="profile.editBio()"> Save Changes </button>
+
+        <!-- save changes button for bio edits -->
+        <button ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true &&
+        profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" > Save Changes </button>
+        <!-- save changes button for faq edits -->
+        <button ng-click="profile.editFaqs()" ng-show="showEdits && profile.faqTabSelected == true &&
+        profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
+        profile.userStatus.userId == profile.mentor.info.id" > Save Changes </button>
+
+        <!-- Add a new faq button -->
+        <button ng-click="profile.changeAddFaqClicked(true)" ng-show="profile.addFaqClicked == false &&
+        profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor'
+        && profile.userStatus.userId == profile.mentor.info.id"> Add Faq </button>
+        <!-- Save or cancel the new faq -->
+        <button ng-click="profile.saveFaq()" ng-show="profile.addFaqClicked &&
+        profile.faqTabSelected == true"  > Save Faq </button>
+        <button ng-click="profile.changeAddFaqClicked(false)" ng-show="profile.addFaqClicked &&
+        profile.faqTabSelected == true"> Cancel</button>
       </md-input-container>
+
     </div>
     <md-tabs md-dynamic-height="" md-border-bottom="">
-      <md-tab label="Profile">
+      <md-tab md-on-select="profile.selectProfileTab()" label="Profile">
         <br>
         <br>
         <br>
@@ -62,13 +82,6 @@
                 <textarea ng-model="profile.userData.last_name" rows='1' placeholder="Last Name"> </textarea>
                 <!-- <input ng-model="profile.mentor.info.blurb" > -->
 
-              </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="33">
-                <textarea ng-model="profile.userData.bio" rows='1' placeholder="Name"> </textarea>
-                <!-- <input ng-model="profile.mentor.info.blurb" > -->
-
-              </md-input-container>
-
             </div>
 
           </md-card-content>
@@ -78,14 +91,17 @@
 
 
         <md-card>
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">Blurb</span>
 
-            </md-card-title-text>
-          </md-card-title>
 
           <md-card-content ng-if="showEdits">
+            <div layout-gt-sm="row">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Blurb</span>
+
+              </md-card-title-text>
+            </md-card-title>
+          </div>
             <div layout-gt-sm="row">
 
               <md-input-container class="md-block" flex-gt-sm="100">
@@ -99,23 +115,10 @@
               </div>
             </div>
           </md-card-content>
-          <md-card-content ng-if="!showEdits">
-            <div layout-gt-sm="row">
 
-              <md-input-container class="md-block" flex-gt-sm="100" rows="5">
-                <textarea ng-if="showEdits" rows="5">{{profile.userDate.blurb}}</textarea>
-                <p>{{profile.mentor.info.blurb}} </p>
-
-              </md-input-container>
-
-              <div flex="5" hide-xs="" hide-sm="">
-                <!-- Spacer //-->
-              </div>
-            </div>
-          </md-card-content>
         </md-card>
 
-        <!-- End Blub card -->
+        <!-- End Blurb card -->
         <!-- Bio info card -->
 
         <md-card>
@@ -337,11 +340,11 @@
 
       <!-- FAQ page html -->
 
-      <md-tab label="FAQ">
+      <md-tab label="FAQ" md-on-select="profile.selectFaqTab()">
         <md-content layout-padding>
           <form name="userForm">
 
-            <md-card ng-if="showEdits">
+            <md-card ng-if="profile.addFaqClicked">
               <md-card-content >
                 <div layout-gt-xs="row">
                   <br>
@@ -358,43 +361,45 @@
                 </div>
               </md-card-content>
               <!-- <md-card-content ng-if="!showEdits">
-                <div layout-gt-xs="row">
-                  <br>
-                  <md-input-container class="md-block" flex-gt-xs>
-                    <label>Question:</label>
-                    <input ng-model="user.company" disabled> sldkfjsldkfjsd </input>
+              <div layout-gt-xs="row">
+              <br>
+              <md-input-container class="md-block" flex-gt-xs>
+              <label>Question:</label>
+              <input ng-model="user.company" disabled> sldkfjsldkfjsd </input>
 
-                  </md-input-container>
-                </div>
-                <div layout-gt-xs="row">
-                  <md-input-container class="md-block" flex-gt-xs>
-                    <label>Answer:</label>
-                    <input ng-model="user.company" disabled> sldkfjslkfjslkdfjsdlkfj </input>
+            </md-input-container>
+          </div>
+          <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+          <label>Answer:</label>
+          <input ng-model="user.company" disabled> sldkfjslkfjslkdfjsdlkfj </input>
 
-                  </md-input-container>
-                </div>
+        </md-input-container>
+      </div>
 
-              </md-card-content> -->
+    </md-card-content> -->
 
-            </md-card>
+  </md-card>
 
-              <md-card ng-repeat="faq in profile.mentor.faqs">
-                <md-card-content >
-                  <div layout-gt-xs="row">
-                    <br>
-                    <md-input-container class="md-block" flex-gt-xs>
-                      {{faq.question}}
-                    </md-input-container>
-                  </div>
-                  <div layout-gt-xs="row">
-                    <md-input-container class="md-block" flex-gt-xs>
-                      {{faq.answer}}
-                    </md-input-container>
-                  </div>
-                </md-card-content>
-              </md-card>
+  <md-card ng-repeat="faq in profile.mentor.faqs">
+    <md-card-content >
+      <div layout-gt-xs="row">
+        <br>
+        <md-input-container class="md-block" flex-gt-xs>
+          <div ng-hide="showEdits">{{faq.question}}</div>
+          <input type="text" ng-show="showEdits" ng-model="faq.question" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_7" aria-hidden="false" aria-invalid="false" style="">
+        </md-input-container>
+      </div>
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs>
+          <div ng-hide="showEdits">{{faq.answer}}</div>
+          <input type="text" ng-show="showEdits" ng-model="faq.answer" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_7" aria-hidden="false" aria-invalid="false" style="">
+        </md-input-container>
+      </div>
+    </md-card-content>
+  </md-card>
 
-          </form>
-        </md-content>
-      </md-tab>
-    </div>
+</form>
+</md-content>
+</md-tab>
+</div>
