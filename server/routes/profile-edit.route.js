@@ -18,13 +18,7 @@ router.put('/update/:id', function(req, res) {
 
   console.log("USER ID IN PARAMS", req.params.id);
   assignUserId();
-  function assignUserId(){
-    if(req.userStatus.isAdmin === true){
-      userId = req.params.id;
-    } else {
-      userId = req.userStatus.userId;
-    }
-  }
+
   // userId = req.userStatus.userId;
 
   // This is what incoming data will look like
@@ -98,10 +92,12 @@ router.post('/new-faq', function(req, res) {
 
 // Edit an existing FAQ entry ------------------------------------------------//
 router.put('/edit-faq/:faq-id', function(req, res) {
-  var userId = req.userStatus.userId;
+  var userId;
   var faqId = req.body.faqId;
   var question = req.body.question;
   var answer = req.body.answer;
+
+  assignUserId();
 
   pg.connect(connectionString, function(error, client, done) {
     connectionString(error);
@@ -129,6 +125,15 @@ function connectionErrorCheck(error) {
   if (error) {
     console.log('Database connection error: ', error);
     res.sendStatus(500);
+  }
+}
+
+// Assign user id to the mentor id if user is an admin -----------------------//
+function assignUserId(){
+  if(req.userStatus.isAdmin === true){
+    userId = req.params.id;
+  } else {
+    userId = req.userStatus.userId;
   }
 }
 
