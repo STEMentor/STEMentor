@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var pg_escape = require('pg-escape');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
