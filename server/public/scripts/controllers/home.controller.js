@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFactory) {
+app.controller('HomeController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
   console.log('HomeController running');
   var self = this;
   self.userStatus = AuthFactory.userStatus;
@@ -13,5 +13,15 @@ app.controller('HomeController', ['$http', 'AuthFactory', function($http, AuthFa
     { src: '../assets/images/carousel/rock-formation-sm.jpg' },
     { src: '../assets/images/carousel/circuit-board-sm.jpg' }
   ];
+
+  self.logInModal = function(ev) {
+    $mdDialog.show({
+        controller: 'LoginController as login',
+        templateUrl: '../../views/mentor-login-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+  };
+
 
 }]);
