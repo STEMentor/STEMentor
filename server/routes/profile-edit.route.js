@@ -6,7 +6,7 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 // Edit user info ------------------------------------------------------------//
-router.put('/update', function(req, res) {
+router.put('/update/:id', function(req, res) {
   console.log('ARRIVED IN EDIT ROUTE');
   console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
@@ -14,7 +14,18 @@ router.put('/update', function(req, res) {
   var userType = req.userStatus.userType;
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
-  var userId = req.userStatus.userId;
+  var userId;
+
+  console.log("USER ID IN PARAMS", req.params.id);
+  assignUserId();
+  function assignUserId(){
+    if(req.userStatus.isAdmin === true){
+      userId = req.params.id;
+    } else {
+      userId = req.userStatus.userId;
+    }
+  }
+  // userId = req.userStatus.userId;
 
   // This is what incoming data will look like
   // var userData = {
