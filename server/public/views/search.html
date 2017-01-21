@@ -167,20 +167,10 @@
     </div>
   </md-tab>
 
-
-    <div layout="row" layout-align="center">
-        <button type="submit" md-button ng-click="search.getMentors()">Search</button>
-    </div>
-    </md-tabs>
-
-
-
-
-<div ng-repeat="mentor in search.mentors">
-
+<!-- <div layout='row' layout-align="space-around center" flex-gt-xl='0'> -->
+ <div ng-repeat="mentor in search.mentors" >
 
     <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
-
         <flippy-front>
           <md-card>
                 <md-card-title>
@@ -220,4 +210,6 @@
         </flippy-back>
 
     </flippy>
+  </div>
+
 </div>
