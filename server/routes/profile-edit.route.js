@@ -61,8 +61,9 @@ router.put('/update', function(req, res) {
 // Create a new FAQ entry ----------------------------------------------------//
 router.post('/new-faq', function(req, res) {
   var userId = req.userStatus.userId;
-  var question = req.body.question;
-  var answer = req.body.answer;
+  var question = req.body.faqData.question;
+  var answer = req.body.faqData.answer;
+  console.log("FAQ OBJECT:", req.body.faqData);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
