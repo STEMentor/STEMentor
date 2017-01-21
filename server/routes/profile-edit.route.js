@@ -5,12 +5,30 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
+<<<<<<< HEAD
 // Edit user profile info ----------------------------------------------------//
 router.put('/update', function(req, res) {
   // console.log('ARRIVED IN EDIT ROUTE');
   // console.log('USER DATA:', req.body.userData);
   var userData = req.body.userData;
   var userId = req.userStatus.userId;
+=======
+// Edit user info ------------------------------------------------------------//
+router.put('/update/:id', function(req, res) {
+  console.log('ARRIVED IN EDIT ROUTE');
+  console.log('USER DATA:', req.body.userData);
+  var userData = req.body.userData;
+
+  var userType = req.userStatus.userType;
+  var typeId = userType + '_id';
+  var userDatabase = userType + 's';
+  var userId;
+
+  console.log("USER ID IN PARAMS", req.params.id);
+  userId = assignUserId(req);
+
+  // userId = req.userStatus.userId;
+>>>>>>> dev
 
   var queryObject = profileEditQueryBuilder(userData, userId);
 
@@ -66,6 +84,7 @@ router.post('/new-faq', function(req, res) {
 //----------------------------------------------------------------------------//
 
 // Edit an existing FAQ entry ------------------------------------------------//
+<<<<<<< HEAD
 router.put('/edit-faq', function(req, res) {
   var userId = req.userStatus.userId;
   var faqArray = req.body.faqArray;
@@ -73,6 +92,15 @@ router.put('/edit-faq', function(req, res) {
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
   console.log('queryObject', queryObject);
+=======
+router.put('/edit-faq/:faq-id', function(req, res) {
+  var userId;
+  var faqId = req.body.faqId;
+  var question = req.body.question;
+  var answer = req.body.answer;
+>>>>>>> dev
+
+  userId = assignUserId(req);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -104,6 +132,7 @@ function connectionErrorCheck(error) {
 }
 //----------------------------------------------------------------------------//
 
+<<<<<<< HEAD
 // Cunstructs SQL query based off of the profile fields ----------------------//
 function profileEditQueryBuilder(object, userId) {
   var query = 'UPDATE mentors SET ';
@@ -115,6 +144,26 @@ function profileEditQueryBuilder(object, userId) {
       index++;
       query += property + ' = $' + index + ', ';
       array.push(object[property]);
+=======
+// Assign user id to the mentor id if user is an admin -----------------------//
+function assignUserId(req){
+  console.log("THIS IS REQ IN ASSIGN USER ID", req.params.id);
+  if(req.userStatus.isAdmin === true){
+    return req.params.id;
+  } else {
+    return req.userStatus.userId;
+  }
+}
+
+// Cunstructs SQL query based off of user defined search paramaters ----------//
+function queryBuilder(object) {
+  console.log('OBJECT IN QUERY BUILDER', object);
+  var query = 'UPDATE mentors SET';
+
+  for(var property in object) {
+    if(object[property]) {
+      query += ' ' + property + ' = \'' + object[property] + '\',';
+>>>>>>> dev
     }
   }
 

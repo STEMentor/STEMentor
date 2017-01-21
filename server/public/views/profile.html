@@ -8,32 +8,32 @@
           <br />
           <span class="md-subhead">{{profile.mentor.info.job_title}}</span>
           <span class="md-subhead">{{profile.mentor.info.blurb}}</span>
+
         </md-card-title-text>
         <md-card-title-media>
-          <div class="md-media-lg card-media"></div>
-        </md-card-title-media>
+    <div class="md-media-lg card-media">
+      <img src="{{profile.mentor.info.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;">
+    </div>
+  </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
         <md-button ng-click="profile.createMessage($event)">Ask me a question!</md-button>
-        <!-- <md-button>Action 2</md-button> -->
       </md-card-actions>
     </md-card>
-
-    <md-button ng-click="">Save</md-button>
 
     <div flex-offset="80">
 
       <!-- {{profile.mentor.info}} -->
       <md-input-container>
         <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
-        profile.userStatus.userId == profile.mentor.info.id" ng-model="showEdits">Edit Your Profile</md-switch>
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">Edit Your Profile</md-switch>
       </md-input-container>
       <md-input-container>
 
         <!-- save changes button for bio edits -->
         <button ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true &&
         profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&
-        profile.userStatus.userId == profile.mentor.info.id" > Save Changes </button>
+        profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" > Save Changes </button>
         <!-- save changes button for faq edits -->
         <button ng-click="profile.editFaqs()" ng-show="showEdits && profile.faqTabSelected == true &&
         profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' &&

@@ -51,10 +51,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     console.log(self.addFaqClicked);
   };
 
-  self.editFaqs = function(){
-    console.log("FAQS:", self.mentor.faqs);
-  };
-
   self.userData = {
     first_name: null,
     last_name: null,
@@ -85,6 +81,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editBio = function(){
+    console.log("USER DATA", self.userData);
     BioFactory.editBio(self.userData);
   };
 
