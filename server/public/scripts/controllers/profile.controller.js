@@ -20,28 +20,39 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   });
 
   // This is an object containing all of mentor's fields
-  // self.mentor = BioFactory.mentor;
   self.mentor = BioFactory.mentorBio;
 
   self.addFaqClicked = false;
 
-  // self.faqText = function(){
-  //   if (self.faqAddClicked) {
-  //     return "Send";
-  //   } else {
-  //     return "Add";
-  //   }
-  // }
+  self.profileTabSelected = true;
+  self.faqTabSelected = false;
+
+
+  self.selectFaqTab = function(){
+    console.log("SOMETHING");
+    self.faqTabSelected = true;
+    self.profileTabSelected = false;
+  }
+
+  self.selectProfileTab = function(){
+    self.profileTabSelected = true;
+    self.faqTabSelected = false;
+  }
 
   self.changeAddFaqClicked = function(boolean){
     self.addFaqClicked = boolean;
-    console.log(boolean);
+    // console.log(boolean);
+    console.log(self.faqTabSelected);
   }
 
   self.saveFaq = function() {
-      BioFactory.postFaq(self.faqData);
-      self.addFaqClicked = false;
-      console.log(self.addFaqClicked);
+    BioFactory.postFaq(self.faqData);
+    self.addFaqClicked = false;
+    console.log(self.addFaqClicked);
+  }
+
+  self.editFaqs = function(){
+    console.log("FAQS:", self.mentor.faqs);
   }
 
   self.userData = {
@@ -67,13 +78,12 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     answer: null
   }
 
-  self.postFaq = function(){
-    console.log("FAQ DATA:", self.faqData);
-    BioFactory.postFaq(self.faqData);
+  self.editFaqs = function(){
+    console.log("FAQ DATA:", self.mentor.faqs);
+    BioFactory.editFaqs(self.mentor.faqs);
   }
 
-  self.edit = function(){
-
+  self.editBio = function(){
     BioFactory.editBio(self.userData);
   };
 

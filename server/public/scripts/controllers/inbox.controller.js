@@ -61,7 +61,7 @@ reply: 'reply text',
 
 \*----------------------------------------------------------------------------*/
 
-app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, sBioFactory) {
+app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('InboxController running');
   var self = this;
   self.userStatus = AuthFactory.userStatus;
