@@ -18,7 +18,7 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
         console.log('duh');
         self.cancel();
       }
-      setTimeout(firstTimeMentor, 1500);
+      setTimeout(firstTimeMentor, 2000);
     });
   };
 
