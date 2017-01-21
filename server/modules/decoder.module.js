@@ -27,18 +27,21 @@ admin.initializeApp({
 var tokenDecoder = function(req, res, next) {
   //console.log("ID TOKEN",req.headers.id_token);
   // console.log("TYPE IN DECODER", req.headers.type);
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
   req.userStatus = {};
 
   var userType = req.headers.type;
-  console.log('USER TYPE:', userType);
+  // console.log('USER TYPE:', userType);
 
   if (req.headers.id_token) {
-    console.log('TOKEN DECODER');
+    // console.log('TOKEN DECODER');
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
         // Adding the decodedToken to the request so that downstream processes can use it
         req.decodedToken = decodedToken;
-        console.log('GOT DECODED TOKEN');
+        // console.log('GOT DECODED TOKEN');
         // next();
         console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
 
@@ -54,7 +57,7 @@ var tokenDecoder = function(req, res, next) {
       });
 
   } else {
-    console.log('NO ID TOKEN');
+    // console.log('NO ID TOKEN');
     res.sendStatus(403);
   }
 };
@@ -85,8 +88,6 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
           } else {
             //If not in db, insert new user into db
             if (result.rows.length === 0) {
-              console.log("ENTER IF STATEMENT. userEmail:", userEmail);
-              console.log("USERS DISPLAY PIC");
               client.query(
                 'INSERT INTO ' + userType + ' (email, avatar) ' +
                 'VALUES ($1, $2)', [userEmail, userAvatar],
@@ -97,7 +98,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                     console.log('insert query error: ', err);
                     res.sendStatus(500);
                   } else {
-                    console.log("INSERT SUCCESSFUL!");
+                    // console.log("INSERT SUCCESSFUL!");
                     req.userStatus.newUser = true;
 
                     next();
@@ -110,7 +111,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                 var userId = result.rows[0].id;
                 req.userStatus.userId = userId; // this is the id that corresponds to users email in users table
 
-                console.log('USER ID DECODER:', userId);
+                // console.log('USER ID DECODER:', userId);
 
                 next();
               }
@@ -133,7 +134,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
               console.log('select query error: ', err);
               res.sendStatus(500);
             } else {
-              console.log("RESULT: ", result.rows[0]);
+              // console.log("RESULT: ", result.rows[0]);
               var userObject = result.rows[0];
               for (var property in userObject) {
 
@@ -147,8 +148,8 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
 
               }
               req.userStatus.isAdmin = userObject.admin;
-              console.log('req.userType: ', req.userType);
-              console.log('req.userId: ', req.userId);
+              // console.log('req.userType: ', req.userType);
+              // console.log('req.userId: ', req.userId);
               next();
             }
           });

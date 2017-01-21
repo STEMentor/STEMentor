@@ -69,7 +69,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
         mentorBio.faqs.push(
           {
             question: response.data.result[key].question,
-            answer: response.data.result[key].answer
+            answer: response.data.result[key].answer,
+            faq_id: response.data.result[key].faq_id
           }
         );
       }
@@ -85,7 +86,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   // Attach the chosen mentor object to the info property on mentorBio.
   // This will be accessed by the profile controller
   function setMentor(mentor){
-
     mentorBio.info = mentor;
     mentorId = mentorBio.info.id;
     console.log("MENTOR:", mentorBio.info);
@@ -201,7 +201,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       return editBio(userData);
     },
     editFaqs: function(faqData){
-      return editFaqs(faqData)
+      return editFaqs(faqData);
     },
     postFaq: function(faqData){
       return postFaq(faqData);
