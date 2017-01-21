@@ -78,13 +78,12 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     answer: null
   }
 
-  self.editFaq = function(){
-    console.log("FAQ DATA:", self.faqData);
-    // BioFactory.postFaq(self.faqData);
+  self.editFaqs = function(){
+    console.log("FAQ DATA:", self.mentor.faqs);
+    BioFactory.editFaqs(self.mentor.faqs);
   }
 
-  self.edit = function(){
-
+  self.editBio = function(){
     BioFactory.editBio(self.userData);
   };
 
