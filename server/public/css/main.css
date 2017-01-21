@@ -115,5 +115,8 @@
   width: 48px;
   margin: 16px; }
 
+#clickToView {
+  color: #808080; }
+
 .border {
   border-radius: 2px; }
