@@ -73,12 +73,12 @@
                 <br>
               </div>
               <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm="33">
+                <md-input-container class="md-block" flex-gt-sm="50">
                   <textarea ng-model="profile.userData.first_name" rows="1" placeholder="First Name"> </textarea>
                   <!-- <input ng-model="profile.mentor.info.blurb" > -->
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm="">
+                <md-input-container class="md-block" flex-gt-sm="50">
                   <textarea ng-model="profile.userData.last_name" rows="1" placeholder="Last Name"> </textarea>
                   <!-- <input ng-model="profile.mentor.info.blurb" > -->
                 </md-input-container>
@@ -290,8 +290,12 @@
 
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label>Gender</label>
-                  <input ng-model="profile.userData.gender">
-
+                  <md-select name="type" ng-model="profile.userData.gender">
+                    <md-option value=""></md-option>
+                    <md-option value="male">Male</md-option>
+                    <md-option value="female">Female</md-option>
+                    <md-option valeu="other">Other</md-option>
+                  </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="50">
@@ -326,7 +330,7 @@
                   <textarea ng-if="showEdits" rows="5">{{profile.mentor.info.blurb}}</textarea>
                   <p>{{profile.mentor.info.gender}} </p>
                   <p>{{profile.mentor.info.orientation}} </p>
-                  <p>{{profile.mentor.info.zip}} </p>
+                  <p>{{profile.mentor.info.state}} </p>
                   <p>{{profile.mentor.info.languages}} </p>
 
                   <div ng-messages="userForm.name.$error" ng-if="!showHints">

@@ -82,7 +82,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editBio = function(){
-    console.log("USER DATA", self.userData);
+    console.log("USER DATA TO UPDATE: ", self.userData);
     BioFactory.editBio(self.userData);
   };
 
