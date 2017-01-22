@@ -1,14 +1,39 @@
 app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('ProfileController running');
-
   var self = this;
-  // var userStatus = AuthFactory.userStatus;
+
   var isMentor = false;
   var isStudent = false;
-
+  self.mentor = BioFactory.mentorBio;
+  self.addFaqClicked = false;
+  self.profileTabSelected = true;
+  self.faqTabSelected = false;
   self.userStatus = AuthFactory.userStatus;
 
-  // Not currently used
+  self.userData = {
+    first_name: null,
+    last_name: null,
+    company: null,
+    job_title: null,
+    bio: null,
+    state: null,
+    race: null,
+    gender: null,
+    orientation: null,
+    birthday: null,
+    school: null,
+    degree: null,
+    major: null,
+    language: null,
+    stem_primary: null
+  };
+
+  self.faqData = {
+    question: null,
+    answer: null,
+    faq_id: null
+  };
+
   self.states = (
     'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
     'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
@@ -19,14 +44,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     };
   });
 
-  // This is an object containing all of mentor's fields
-  self.mentor = BioFactory.mentorBio;
-
-  self.addFaqClicked = false;
-
-  self.profileTabSelected = true;
-  self.faqTabSelected = false;
-
+  self.primaryStemField = '';
 
   self.selectFaqTab = function(){
     console.log("SOMETHING");
@@ -41,7 +59,6 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
 
   self.changeAddFaqClicked = function(boolean){
     self.addFaqClicked = boolean;
-    // console.log(boolean);
     console.log(self.faqTabSelected);
   };
 
@@ -51,42 +68,16 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     console.log(self.addFaqClicked);
   };
 
-  self.userData = {
-    first_name: null,
-    last_name: null,
-    email: null,
-    company: null,
-    job_title: null,
-    bio: null,
-    zip: null,
-    race: null,
-    gender: null,
-    orientation: null,
-    birthday: null,
-    school: null,
-    degree: null,
-    major: null,
-    language: null
-  };
-
-  self.faqData = {
-    question: null,
-    answer: null,
-    faq_id: null
-  };
-
   self.editFaqs = function(){
-    // console.log("FAQ DATA:", self.mentor.faqs);
     BioFactory.editFaqs(self.mentor.faqs);
   };
 
   self.editBio = function(){
-    console.log("USER DATA", self.userData);
+    console.log("Updates to profile data: ", self.userData);
     BioFactory.editBio(self.userData);
   };
 
   self.createMessage = function(ev) {
-    console.log('profile controller self.userStatus: ', self.userStatus);
     if(self.userStatus.isLoggedIn) {
       $mdDialog.show({
         controller: 'MessageController as message',
