@@ -15,9 +15,10 @@
         Refine your search
       </md-checkbox>
     </div>
-  </md-content>
+
 <!--–––––––––––––––––––-––––– Refined Search Fields –––––––––––––––––-–––––––-->
-  <div ng-show="refineChecked" layout-align="center" layout-padding flex-offset="25" flex="50">
+<div layout="column" flex-offset="15" flex='70'>
+  <div ng-show="refineChecked" >
     <md-tabs md-dynamic-height="" md-border-bottom="">
       <md-tab label="Personal Info">
 
@@ -138,6 +139,8 @@
       </md-tab>
     </md-tabs>
   </div>
+</div>
+</md-content>
 <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
   <div class="aligner spacer" flex>
@@ -159,7 +162,7 @@
                 <md-card-title-media>
                   <div class="md-media-lg card-media">
                     <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
-                  </div>        
+                  </div>
                   <p ng-if="mentor.blurb">
                     "{{mentor.blurb}}"
                   </p>
