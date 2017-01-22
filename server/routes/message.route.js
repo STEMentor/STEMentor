@@ -115,10 +115,8 @@ router.put('/read-message', function(req, res) {
 
 // Reply to message ----------------------------------------------------------//
 router.put('/reply', function(req, res) {
-  // console.log('req.body: ', req.body);
-
   var messageId = req.body.message_info.msgId;
-  var messageReply = req.body.message_info.msgBody;
+  var messageReply = req.body.message_info.msgReply;
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
