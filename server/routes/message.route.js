@@ -41,20 +41,19 @@ router.get('/get-all-messages', function(req, res) {
 // Get all unread messages for current user ----------------------------------//
 router.get('/unread-messages', function(req, res) {
   console.log("IN UNREAD-MESSAGES ROUTE");
-  console.log("UserId", userId);
+
   // Pull needed data off of req
   var userType = req.userStatus.userType,
       typeId = userType + '_id';
   var userId = req.userStatus.userId;
+  console.log("UserId, typeId", userId, typeId);
+  console.log(typeof userId);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
     client.query(
-      'SELECT * ' +
-      'FROM messages ' +
-      'WHERE message_read = FALSE AND $1 = $2;',
-      [typeId, userId],
+      'SELECT * FROM messages WHERE message_read = FALSE AND '+typeId+' = ' + userId,
       function(error, result) {
         done(); // Close connection to the database
 
@@ -62,7 +61,8 @@ router.get('/unread-messages', function(req, res) {
           console.log('Unable to mark message as read: ', error);
           res.sendStatus(500);
         } else {
-          res.sendStatus(200);
+          console.log("RESULT OF UNREAD MESSAGES query", result.rows.length);
+          res.send(result.rows);
         }
       }
     );

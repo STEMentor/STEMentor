@@ -78,6 +78,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
+        console.log('messageInfo', messageInfo);
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;

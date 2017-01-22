@@ -1,4 +1,4 @@
-app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', function($scope, $mdDialog, $firebaseAuth, AuthFactory){
+app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', '$http','MessageFactory', function($scope, $mdDialog, $firebaseAuth, AuthFactory, $http, MessageFactory){
   console.log('login controller is running');
   var auth = $firebaseAuth();
   var self = this;
@@ -15,6 +15,8 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     .then(function(){
       // TODO This isn't working because user type isn't set in time
       if(AuthFactory.userStatus.newUser === false && AuthFactory.userStatus.userType == 'mentor') {
+        getUnreadMessages();
+
         console.log('duh');
         self.cancel();
       }
@@ -22,12 +24,16 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     });
   };
 
+  
+
   function firstTimeMentor() {
     console.log('and here, AuthFactory.userStatus.newUser: ', AuthFactory.userStatus.newUser);
+
     if (AuthFactory.userStatus.newUser === true && AuthFactory.userStatus.userType == 'mentor') {
       // alert('fill out yer profile');
       launchPopup();
     }
+    MessageFactory.getUnreadMessages();
   }
 
   function launchPopup(ev) {

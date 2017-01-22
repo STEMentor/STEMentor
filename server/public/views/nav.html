@@ -17,7 +17,7 @@
         Your Profile
       </md-nav-item>
       <md-nav-item ng-if="nav.userStatus.isLoggedIn" md-nav-href="#inbox" name="inbox">
-        Inbox
+        Inbox({{nav.unreadMessages.unread}})
       </md-nav-item>
       <md-button ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()">
         Log Out
