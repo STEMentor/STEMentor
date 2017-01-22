@@ -6,11 +6,12 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 // Edit user profile info ----------------------------------------------------//
-router.put('/update', function(req, res) {
-  // console.log('ARRIVED IN EDIT ROUTE');
-  // console.log('USER DATA:', req.body.userData);
+router.put('/update/:id', function(req, res) {
+
   var userData = req.body.userData;
-  var userId = req.userStatus.userId;
+  // var userId = req.userStatus.userId;
+
+  var userId = assignUserId(req);
 
   var queryObject = profileEditQueryBuilder(userData, userId);
 
@@ -66,10 +67,9 @@ router.post('/new-faq', function(req, res) {
 //----------------------------------------------------------------------------//
 
 // Edit an existing FAQ entry ------------------------------------------------//
-router.put('/edit-faq', function(req, res) {
-  var userId = req.userStatus.userId;
+router.put('/edit-faq/:id', function(req, res) {
+  var userId;
   var faqArray = req.body.faqArray;
-  // console.log('--- profile-edit.route faqArray: ', faqArray);
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
 
@@ -94,7 +94,15 @@ router.put('/edit-faq', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
-module.exports = router;
+// Assigns userId based on isAdmin -------------------------------------------//
+function assignUserId(req){
+  if(req.userStatus.isAdmin){
+    return req.params.id;
+  } else {
+    return req.userStatus.userId;
+  }
+}
+//----------------------------------------------------------------------------//
 
 // Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
@@ -174,3 +182,5 @@ function faqEditQueryBuilder(faqArray, userId) {
   };
 }
 //----------------------------------------------------------------------------//
+
+module.exports = router;

@@ -39,7 +39,7 @@ var tokenDecoder = function(req, res, next) {
         req.decodedToken = decodedToken;
         // console.log('GOT DECODED TOKEN');
         // next();
-        console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
+        // console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
 
         // call this function to check attach user_id to the request
         // if they are already in the db. If they aren't, add them
@@ -84,8 +84,9 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
           } else {
             //If not in db, insert new user into db
             if (result.rows.length === 0) {
+              if(userType === 'mentor'){
               client.query(
-                'INSERT INTO ' + userType + ' (email, avatar) ' +
+                'INSERT INTO mentors (email, avatar) ' +
                 'VALUES ($1, $2)', [userEmail, userAvatar],
                 function(err, result) {
                   done(); // close the connection.
@@ -101,6 +102,25 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                   }
 
                 });
+              } else {
+                client.query(
+                  'INSERT INTO students (email) ' +
+                  'VALUES ($1)', [userEmail],
+                  function(err, result) {
+                    done(); // close the connection.
+
+                    if (err) {
+                      console.log('insert query error: ', err);
+                      res.sendStatus(500);
+                    } else {
+                      // console.log("INSERT SUCCESSFUL!");
+                      req.userStatus.newUser = true;
+
+                      next();
+                    }
+
+                  });
+              }
             } else {
               //If already in db, attach userId to req
               if (result.rows.length === 1) {
@@ -132,6 +152,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
             } else {
               // console.log("RESULT: ", result.rows[0]);
               var userObject = result.rows[0];
+              console.log('userObject', userObject);
               for (var property in userObject) {
 
                 if (userObject[property] !== null && typeof userObject[property] === 'string') {
