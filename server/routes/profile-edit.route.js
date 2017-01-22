@@ -5,64 +5,38 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-// Edit user info ------------------------------------------------------------//
+// Edit user profile info ----------------------------------------------------//
 router.put('/update/:id', function(req, res) {
-  console.log('ARRIVED IN EDIT ROUTE');
-  console.log('USER DATA:', req.body.userData);
+
   var userData = req.body.userData;
+  // var userId = req.userStatus.userId;
 
-  var userType = req.userStatus.userType;
-  var typeId = userType + '_id';
-  var userDatabase = userType + 's';
-  var userId;
+  var userId = assignUserId(req);
 
-  console.log("USER ID IN PARAMS", req.params.id);
-  assignUserId();
+  var queryObject = profileEditQueryBuilder(userData, userId);
 
-  // userId = req.userStatus.userId;
+  if (queryObject.queryString !== 'UPDATE mentors SE WHERE id = $1') {
+    pg.connect(connectionString, function(error, client, done) {
+      connectionErrorCheck(error);
 
-  // This is what incoming data will look like
-  // var userData = {
-  //   first_name: null,
-  //   last_name: null,
-  //   email: null,
-  //   avatar: null,
-  //   company: null,
-  //   job_title: null,
-  //   zip: null,
-  //   race: null,
-  //   gender: null,
-  //   orientation: null,
-  //   birthday: null,
-  //   school: null,
-  //   degree: null,
-  //   major: null,
-  //   languages: null
-  // };
+      // Update the database
+      client.query(queryObject.queryString, queryObject.propertyArray,
+        function(error, result) {
+          done(); // Close connection to the database
 
-  var query = queryBuilder(userData) + ' WHERE id = $1';
-  console.log(query);
+          if(error) {
+            console.log('Unable to update user information: ', error);
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
 
-  pg.connect(connectionString, function(error, client, done) {
-    connectionErrorCheck(error);
-
-    // Update the database
-    client.query(query, [userId],
-      function(error, result) {
-        done(); // Close connection to the database
-
-        if(error) {
-          console.log('Unable to update user information: ', error);
-          res.sendStatus(500);
-        } else {
-          console.log('SUCCESSFUL! USER DATA:', userData);
-          res.sendStatus(200);
         }
-
-      }
-    );
-  });
+      );
+    });
+  }
 });
+//----------------------------------------------------------------------------//
 
 // Create a new FAQ entry ----------------------------------------------------//
 router.post('/new-faq', function(req, res) {
@@ -78,7 +52,8 @@ router.post('/new-faq', function(req, res) {
       'INSERT INTO faq (mentor_id, question, answer) VALUES ($1, $2, $3)',
       [userId, question, answer],
       function(error, result) {
-        done();
+        done(); // Close connection to the database
+
         if(error) {
           console.log('Error when creating new FAQ: ', error);
           res.sendStatus(500);
@@ -89,24 +64,24 @@ router.post('/new-faq', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 // Edit an existing FAQ entry ------------------------------------------------//
-router.put('/edit-faq/:faq-id', function(req, res) {
+router.put('/edit-faq/:id', function(req, res) {
   var userId;
-  var faqId = req.body.faqId;
-  var question = req.body.question;
-  var answer = req.body.answer;
+  var faqArray = req.body.faqArray;
 
-  assignUserId();
+  var queryObject = faqEditQueryBuilder(faqArray, userId);
+
+  userId = assignUserId(req);
 
   pg.connect(connectionString, function(error, client, done) {
-    connectionString(error);
+    connectionErrorCheck(error);
 
-    client.query(
-      'UPDATE faq SET question = $1 AND answer = $2 WHERE id = $3',
-      [question, answer, faqId],
+    client.query(queryObject.queryString, queryObject.propertyArray,
       function(error, result) {
-        done();
+        done(); // Close connection to the database
+
         if(error) {
           console.log('Error when updating FAQ: ', error);
           res.sendStatus(500);
@@ -117,8 +92,17 @@ router.put('/edit-faq/:faq-id', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
-module.exports = router;
+// Assigns userId based on isAdmin -------------------------------------------//
+function assignUserId(req){
+  if(req.userStatus.isAdmin){
+    return req.params.id;
+  } else {
+    return req.userStatus.userId;
+  }
+}
+//----------------------------------------------------------------------------//
 
 // Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
@@ -127,28 +111,76 @@ function connectionErrorCheck(error) {
     res.sendStatus(500);
   }
 }
+//----------------------------------------------------------------------------//
 
-// Assign user id to the mentor id if user is an admin -----------------------//
-function assignUserId(){
-  if(req.userStatus.isAdmin === true){
-    userId = req.params.id;
-  } else {
-    userId = req.userStatus.userId;
-  }
-}
+// Cunstructs SQL query based off of the profile fields ----------------------//
+function profileEditQueryBuilder(object, userId) {
+  var query = 'UPDATE mentors SET ';
+  var array = [];
+  var index = 0;
 
-// Cunstructs SQL query based off of user defined search paramaters ----------//
-function queryBuilder(object) {
-  console.log('OBJECT IN QUERY BUILDER', object);
-  var query = 'UPDATE mentors SET';
-
-  for(var property in object) {
-    if(object[property]) {
-      query += ' ' + property + ' = \'' + object[property] + '\',';
+  for (var property in object) {
+    if (object[property]) {
+      index++;
+      query += property + ' = $' + index + ', ';
+      array.push(object[property]);
     }
   }
 
-  query = query.slice(0, -1);
+  index++;
+  query = query.slice(0, -2);
+  query += ' WHERE id = $' + index;
+  array.push(userId);
 
-  return query;
+  return {
+    queryString: query,
+    propertyArray: array
+  };
 }
+//----------------------------------------------------------------------------//
+
+// Constructs SQL query based off of updated FAQ info ------------------------//
+function faqEditQueryBuilder(faqArray, userId) {
+  // console.log('ARRAY IN QUERY BUILDER', array);
+
+  var queryString = '';
+  var propertyArray = [];
+  var questionString = '';
+  var answerString = '';
+  var loopTracker = 0;
+
+  for (var index = 0; index < faqArray.length; index++) {
+    loopTracker++;
+    questionString += ' WHEN $' + loopTracker;
+    loopTracker++;
+    questionString += ' THEN $' + loopTracker;
+  }
+
+  for (index = 0; index < faqArray.length; index++) {
+    loopTracker++;
+    answerString += ' WHEN $' + loopTracker;
+    loopTracker++;
+    answerString += ' THEN $' + loopTracker;
+  }
+
+  queryString +=
+    'UPDATE faq ' +
+    'SET question = CASE id' + questionString + ' END, ' +
+    'answer = CASE id' + answerString + ' END';
+
+  for (index = 0; index < faqArray.length; index++) {
+    propertyArray.push(faqArray[index].faq_id, faqArray[index].question);
+  }
+
+  for (index = 0; index < faqArray.length; index++) {
+    propertyArray.push(faqArray[index].faq_id, faqArray[index].answer);
+  }
+
+  return {
+    queryString: queryString,
+    propertyArray: propertyArray
+  };
+}
+//----------------------------------------------------------------------------//
+
+module.exports = router;

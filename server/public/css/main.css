@@ -60,7 +60,7 @@
 .field {
   display: flex;
   position: realtive;
-  margin: 5em auto;
+  margin: 5px auto;
   width: 70%;
   flex-direction: row;
   box-shadow: 1px 1px 0 #00A0DC, 2px 2px 0 #00A0DC, 3px 3px 0 #00A0DC, 4px 4px 0 #00A0DC, 5px 5px 0 #00A0DC, 6px 6px 0 #00A0DC, 7px 7px 0 #00A0DC; }
@@ -81,10 +81,31 @@
   color: white;
   border: none; }
 
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+  box-shadow: none;
+  border: none;
+  transform: none;
+  -webkit-transform: none; }
+
+.front {
+  height: 500px; }
+
+.spacer {
+  padding-left: 8%; }
+
 #profileHeader {
   border: 1px solid #000000;
   width: 20px;
   height: 20px; }
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.carousel {
+  max-width: 50%; }
 
 .tabsdemoDynamicHeight md-content {
   background-color: transparent !important; }
@@ -114,6 +135,12 @@
   border: 1px solid #ddd;
   width: 48px;
   margin: 16px; }
+
+#clickToView {
+  color: #808080; }
+
+a {
+  color: #000000; }
 
 .border {
   border-radius: 2px; }
