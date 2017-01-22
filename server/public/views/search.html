@@ -123,7 +123,6 @@
               <input ng-model="search.newSearch.school" />
             </md-input-container>
           </div>
-
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm="50">
               <label>Degree</label>
@@ -160,10 +159,11 @@
                 <md-card-title-media>
                   <div class="md-media-lg card-media">
                     <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
-                  </div>
+                  </div>        
                   <p ng-if="mentor.blurb">
                     "{{mentor.blurb}}"
                   </p>
+                  <h5>(Click Picture for Additional Info)</h5>
                 </md-card-title-media>
               </md-card-title>
 
@@ -173,6 +173,7 @@
                 </md-button>
               </a>
 
+
               <md-button ng-click="search.createMessage($event)" class="md-fab md-primary md-hue-2" aria-label="Message">
                 <md-icon ng-click="search.createMessage($event)" md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
               </md-button>
@@ -181,9 +182,11 @@
           </flippy-front>
 
           <flippy-back>
+
             <md-card>
               <div>
                 <md-card-title>
+
                   <md-card-title-text>
                     <span ng-if="mentor.company" class="md-headline">
                       <strong>Company:</strong> {{mentor.company}}
@@ -195,6 +198,7 @@
                       <strong>School:</strong> {{mentor.school}}
                     </span>
                   </md-card-title-text>
+
                 </md-card-title>
 
                 <a href="#profile" style="text-decoration: none !important;">

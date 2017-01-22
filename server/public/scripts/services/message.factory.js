@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 app.factory('MessageFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   console.log('MessageFactory running');
 
@@ -50,8 +51,13 @@ app.factory('MessageFactory', ['$http', 'AuthFactory', function($http, AuthFacto
    }
  };
 
- return publicApi;
+  var publicApi = {
+    currentMessage: currentMessage,
+    setMessage: function(item) {
+      return setMessage(item);
+    }
+  };
 
-
+  return publicApi;
 
 }]);

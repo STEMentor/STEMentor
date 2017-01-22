@@ -1,17 +1,15 @@
 app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('MessageController running');
   var self = this;
-  self.newMessage = [];
+
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
   var messageInfo = {};
 
-  // console.log(InboxController.selectedMessage);
-
+  self.newMessage = [];
+  self.newReply = [];
   self.userStatus = AuthFactory.userStatus;
-
   self.mentor = BioFactory.mentorBio.info;
-
   self.currentMessage = MessageFactory.currentMessage.thing;
 
   self.cancel = function() {
@@ -19,11 +17,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
   };
 
   self.sendStudentMessage = function() {
-    console.log('newMessage: ', self.newMessage);
-    console.log('authInfo: ', authInfo);
-    console.log('userStatus: ', userStatus);
-    console.log('self.mentor: ', self.mentor);
-
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendMessage(currentUser);
@@ -31,12 +24,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
   };
 
   self.sendMentorMessage = function() {
-    console.log('newMessage: ', self.newMessage);
-    console.log('authInfo: ', authInfo);
-    console.log('userStatus: ', userStatus);
-    console.log('self.mentor: ', self.mentor);
-    console.log('self.currentMessage: ', self.currentMessage);
-
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendReply(currentUser);
@@ -74,17 +61,20 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
-  //Mentor sending response message (updating field in db)
+  // Mentor sending response message (updating field in db)
   function sendReply(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
+<<<<<<< HEAD
         messageInfo = self.mentor;
         console.log('messageInfo', messageInfo);
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
+=======
+>>>>>>> dev
         messageInfo.msgId = self.currentMessage.id;
-        console.log('messageInfo: ', messageInfo);
+        messageInfo.msgReply = self.newReply.reply;
         return $http({
           method: 'PUT',
           url: '/message/reply',
@@ -106,6 +96,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
+<<<<<<< HEAD
   function sendEmail(){
     return $http({
       method: 'POST',
@@ -143,4 +134,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
 
 
 
+=======
+>>>>>>> dev
 }]);
