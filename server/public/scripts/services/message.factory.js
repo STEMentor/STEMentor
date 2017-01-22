@@ -1,25 +1,21 @@
-app.factory('MessageFactory', ['$http', function($http){
+app.factory('MessageFactory', ['$http', function($http) {
   console.log('MessageFactory running');
 
- // var messages = {};
- var currentMessage = {};
+  var currentMessage = {};
 
- function setMessage(item){
-   currentMessage.thing = item;
-   console.log('message factory currentMessage: ', currentMessage);
- }
+  function setMessage(item) {
+    // console.log('item: ', item);
+    currentMessage.thing = item;
+    // console.log('message factory currentMessage: ', currentMessage);
+  }
 
+  var publicApi = {
+    currentMessage: currentMessage,
+    setMessage: function(item) {
+      return setMessage(item);
+    }
+  };
 
- var publicApi = {
-  //  messages: messages,
-   currentMessage: currentMessage,
-   setMessage: function(item){
-     return setMessage(item);
-   }
- };
-
- return publicApi;
-
-
+  return publicApi;
 
 }]);
