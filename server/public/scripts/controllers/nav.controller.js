@@ -14,6 +14,28 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
         clickOutsideToClose: true
       });
   };
+  // Makes sure that currentUser is set before getting messages from the server
+  AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    getUnreadMessages(currentUser);
+  });
+
+  function getUnreadMessages(currentUser){
+    console.log("IN THE getUnreadMessages FUNCTION!");
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'GET',
+          url: '/message/unread-messages',
+        })
+        .then(function(response) {
+          console.log(response)
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+  }
 
   self.setMentorId = function(){
     console.log("SOMETHING");
