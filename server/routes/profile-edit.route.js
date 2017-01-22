@@ -12,7 +12,6 @@ router.put('/update/:id', function(req, res) {
   var userData = req.body.userData;
   // var userId = req.userStatus.userId;
 
-
   userId = assignUserId(req);
 
   var queryObject = profileEditQueryBuilder(userData, userId);
@@ -104,7 +103,7 @@ function assignUserId(req){
   if(req.userStatus.isAdmin){
     return req.params.id;
   } else {
-    return req.user.userStatus.id;
+    return req.userStatus.id;
   }
 }
 
