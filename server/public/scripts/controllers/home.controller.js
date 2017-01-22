@@ -14,19 +14,6 @@ app.controller('HomeController', ['$http', 'AuthFactory', '$mdDialog', function(
     { src: '../assets/images/carousel/circuit-board-sm.jpg' }
   ];
 
-  self.sendEmail = function(){
-        return $http({
-          method: 'POST',
-          url: '/email',
-        })
-        .then(function(response) {
-          console.log(response)
-        }),
-        function(error) {
-          console.log('Error with messages POST request: ', error);
-        };
-      };
-
   self.logInModal = function(ev) {
     $mdDialog.show({
         controller: 'LoginController as login',

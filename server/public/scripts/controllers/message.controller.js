@@ -64,6 +64,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         })
         .then(function(response) {
           self.messages = response.data;
+          sendEmail();
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
@@ -104,6 +105,19 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       });
     }
   }
+
+  function sendEmail(){
+    return $http({
+      method: 'POST',
+      url: '/email',
+    })
+    .then(function(response) {
+      console.log(response)
+    }),
+    function(error) {
+      console.log('Error with messages POST request: ', error);
+    };
+  };
 
 
 
