@@ -123,7 +123,6 @@
               <input ng-model="search.newSearch.school" />
             </md-input-container>
           </div>
-
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm="50">
               <label>Degree</label>
@@ -160,10 +159,11 @@
                 <md-card-title-media>
                   <div class="md-media-lg card-media">
                     <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
-                  </div>
+                  </div>        
                   <p ng-if="mentor.blurb">
                     "{{mentor.blurb}}"
                   </p>
+                  <h5>(Click Picture for Additional Info)</h5>
                 </md-card-title-media>
               </md-card-title>
 
