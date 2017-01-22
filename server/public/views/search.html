@@ -180,7 +180,7 @@
                 <md-card-title md-media-lg>
                     <md-card-title-text>
                         <h1 class="md-headline">{{mentor.first_name}} {{mentor.last_name}}</h1>
-                        <br>
+
                         <h3 class="md-subhead">{{mentor.job_title}}</h3>
                     </md-card-title-text>
                     <md-card-title-media>
@@ -192,38 +192,54 @@
                     </md-card-title-media>
                 </md-card-title>
 
-                <md-card-actions layout="row" layout-align="end center">
+                <!-- <md-card-actions layout="row" layout-align="end center">
+
                     <a href="#profile"><md-button ng-click="search.setMentor(mentor)">View Profile</md-button></a>
                     <a href="#profile"> <md-button ng-click="search.createMessage($event)">Message</md-button> </a>
-                </md-card-actions>
+                </md-card-actions> -->
+
+              <br>
+              <br>
+                <a href= "#profile" style="text-decoration: none !important;">
+                <md-button ng-click ="search.setMentor(mentor)" class="md-fab" aria-label="Comment">
+                    <md-icon ng-click ="search.setMentor(mentor)" md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
+                    </md-button>
+                  </a>
+                    <a href= "#profile" style="text-decoration: none !important;">
+                <md-button ng-click="search.createMessage($event)" class="md-fab md-primary md-hue-2" aria-label="Profile">
+                      <md-icon ng-click="search.createMessage($event)" md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
+                </md-button>
+              </a>
                 <br>
                 <br>
 
             <!-- <md-card-actions layout="row" layout-align="space-around center">
-              <div class="md-accent">
+              <div class="md-accent"
                     <div class="md-toolbar-tools">
 
 
-            <md-button class="md-icon-button md-fab" aria-label="refresh">
-              <md-tooltip md-direction="left">
-                Send a Message
-              </md-tooltip>
+            <md-button  ng-click="search.setMentor(mentor)" class="md-icon-button " >
 
+              <div >
               <md-icon class="material-icons" style="width: 24px; height: 24px;"> message
               </md-icon>
+            </div>
             </md-button>
+
+
             <md-button class="md-icon-button md-fab" aria-label="refresh">
-              <md-tooltip md-direction="right">
-                Go to Profile
-              </md-tooltip>
 
-              <md-icon class="material-icons" style="width: 24px; height: 24px;"> perm_identity
+
+              <div ng-click="search.createMessage($event)">
+              <md-icon  class="material-icons" style="width: 24px; height: 24px;"> perm_identity
               </md-icon>
+            </div>
             </md-button>
-          </div>
-        </div>
 
-          </md-card-actions> -->
+          </div>
+        </div> -->
+
+          </md-card-actions>
         </div>
 
 
