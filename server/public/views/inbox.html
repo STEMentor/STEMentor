@@ -63,6 +63,12 @@
               <p>
                 <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
               </p>
+              <p ng-if="item.message_read">
+                Message Read
+              </p>
+              <p ng-if="!item.message_read">
+                Message Not Read
+              </p>
             </div>
             <p id="clickToView">Click to View Message</p>
             <md-divider ng-if="!$last"></md-divider>
