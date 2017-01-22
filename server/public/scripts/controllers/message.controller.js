@@ -65,14 +65,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
   function sendReply(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
-<<<<<<< HEAD
-        messageInfo = self.mentor;
-        console.log('messageInfo', messageInfo);
-        messageInfo.msgName = self.newMessage.name;
-        messageInfo.msgSubject = self.newMessage.subject;
-        messageInfo.msgBody = self.newMessage.body;
-=======
->>>>>>> dev
         messageInfo.msgId = self.currentMessage.id;
         messageInfo.msgReply = self.newReply.reply;
         return $http({
@@ -96,7 +88,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
-<<<<<<< HEAD
   function sendEmail(){
     return $http({
       method: 'POST',
@@ -109,31 +100,4 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       console.log('Error with messages POST request: ', error);
     };
   };
-
-
-
-  //   // Reply to message
-  //   self.replyToMessage = function() {
-  //     var messageId; // TODO: Need to get the message's ID somehow
-  //
-  //     return $http({
-  //       method: 'PUT',
-  //       url: '/message/reply',
-  //       data: {
-  //         messageId: messageId,
-  //         authInfo: authInfo
-  //       }
-  //     })
-  //     .then(function(response) {
-  //       console.log('Response from the server: ', response);
-  //     }),
-  //     function(error) {
-  //       console.log('Error with the reply PUT request: ', error);
-  //     };
-  //   };
-
-
-
-=======
->>>>>>> dev
 }]);
