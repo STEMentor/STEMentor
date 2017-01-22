@@ -134,7 +134,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
       return currentUser.getToken().then(function(idToken) {
         return $http({
           method: 'PUT',
-          url: '/profile-edit/edit-faq',
+          url: '/profile-edit/edit-faq/'+faqArray.faq_id,
           headers: {
             id_token: idToken
           },
