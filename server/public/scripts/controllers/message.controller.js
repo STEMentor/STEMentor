@@ -51,6 +51,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         })
         .then(function(response) {
           self.messages = response.data;
+          console.log("CURRENT MESSAGE", self.currentMessage);
           sendEmail();
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
@@ -78,7 +79,9 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          sendEmail();
           self.messages = response.data;
+          console.log("CURRENT MESSAGE", self.currentMessage);
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
@@ -88,10 +91,13 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
-  function sendEmail(){
+  function sendEmail(receverId){
     return $http({
       method: 'POST',
       url: '/email',
+      data: {
+        receverId: receverId
+      }
     })
     .then(function(response) {
       console.log(response)
