@@ -31,11 +31,20 @@
           </div>
 
           <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <md-input-container class="md-block" flex-gt-sm="33">
               <input ng-model="search.newSearch.first_name" placeholder="First Name" />
             </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <md-input-container class="md-block" flex-gt-sm="33">
               <input ng-model="search.newSearch.last_name" placeholder="Last Name" />
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm="33">
+              <label>State</label>
+                <md-select ng-model="search.newSearch.state">
+                  <md-option></md-option>
+                  <md-option ng-repeat="state in search.theStates" value="{{state.abbreviation}}">
+                    {{state.abbreviation}}
+                  </md-option>
+                </md-select>
             </md-input-container>
           </div>
 
@@ -43,7 +52,7 @@
             <md-input-container class="md-block" flex-gt-sm="33">
               <label>Gender</label>
               <md-select name="gender" ng-model="search.newSearch.gender">
-                <md-option value=""></md-option>
+                <md-option></md-option>
                 <md-option value="Male">Male</md-option>
                 <md-option value="Female">Female</md-option>
                 <md-option value="Other">Other</md-option>
@@ -74,14 +83,25 @@
           </div>
 
           <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <md-input-container class="md-block" flex-gt-sm="33">
               <label>Company</label>
               <input ng-model="search.newSearch.company" />
             </md-input-container>
 
-            <md-input-container class="md-block" flex-gt-sm="50">
+            <md-input-container class="md-block" flex-gt-sm="33">
               <label>Job Title</label>
               <input ng-model="search.newSearch.job_title" />
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm="33">
+              <label>Primary STEM Field</label>
+              <md-select name="stem_primary" ng-model="search.newSearch.stem_primary">
+                <md-option></md-option>
+                <md-option value="Science">Science</md-option>
+                <md-option value="Technology">Technology</md-option>
+                <md-option value="Engineering">Engineering</md-option>
+                <md-option value="Math">Math</md-option>
+              </md-select>
             </md-input-container>
           </div>
         </md-content>
