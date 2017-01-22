@@ -7,12 +7,11 @@ var connectionString = require('../modules/db-config.module');
 
 // Edit user profile info ----------------------------------------------------//
 router.put('/update/:id', function(req, res) {
-  // console.log('ARRIVED IN EDIT ROUTE');
-  // console.log('USER DATA:', req.body.userData);
+
   var userData = req.body.userData;
   // var userId = req.userStatus.userId;
 
-  userId = assignUserId(req);
+  var userId = assignUserId(req);
 
   var queryObject = profileEditQueryBuilder(userData, userId);
 
@@ -71,7 +70,6 @@ router.post('/new-faq', function(req, res) {
 router.put('/edit-faq/:id', function(req, res) {
   var userId;
   var faqArray = req.body.faqArray;
-  // console.log('--- profile-edit.route faqArray: ', faqArray);
 
   var queryObject = faqEditQueryBuilder(faqArray, userId);
 
@@ -96,16 +94,15 @@ router.put('/edit-faq/:id', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
-module.exports = router;
-
-// Assigns userId based on isAdmin
+// Assigns userId based on isAdmin -------------------------------------------//
 function assignUserId(req){
   if(req.userStatus.isAdmin){
     return req.params.id;
   } else {
-    return req.userStatus.id;
+    return req.userStatus.userId;
   }
 }
+//----------------------------------------------------------------------------//
 
 // Checks for errors connecting to the database ------------------------------//
 function connectionErrorCheck(error) {
@@ -185,3 +182,5 @@ function faqEditQueryBuilder(faqArray, userId) {
   };
 }
 //----------------------------------------------------------------------------//
+
+module.exports = router;
