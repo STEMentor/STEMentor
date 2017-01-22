@@ -84,7 +84,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
           } else {
             //If not in db, insert new user into db
             if (result.rows.length === 0) {
-              if(userType === 'mentor'){
+              if(userType === 'mentors'){
               client.query(
                 'INSERT INTO mentors (email, avatar) ' +
                 'VALUES ($1, $2)', [userEmail, userAvatar],
