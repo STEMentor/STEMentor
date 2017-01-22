@@ -69,7 +69,7 @@ router.post('/new-faq', function(req, res) {
 //----------------------------------------------------------------------------//
 
 // Edit an existing FAQ entry ------------------------------------------------//
-router.put('/edit-faq', function(req, res) {
+router.put('/edit-faq/:id', function(req, res) {
   var userId;
   var faqArray = req.body.faqArray;
   // console.log('--- profile-edit.route faqArray: ', faqArray);
