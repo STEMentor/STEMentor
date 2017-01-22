@@ -50,6 +50,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          self.cancel();
           self.messages = response.data;
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
@@ -77,6 +78,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          self.cancel();
           self.messages = response.data;
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
