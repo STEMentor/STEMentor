@@ -26,6 +26,9 @@
                 <span class="md-headline">
                   {{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}
                 </span>
+                <span class="md-headline">
+                  <em>{{profile.mentor.info.stem_primary}}</em>
+                </span>
                 <span class="md-subhead">
                   {{profile.mentor.info.job_title}}
                 </span>
@@ -66,12 +69,23 @@
               </div>
 
               <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm="50">
+                <md-input-container class="md-block" flex-gt-sm="33">
                   <textarea ng-model="profile.userData.first_name" rows="1" placeholder="First Name"></textarea>
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm="50">
+                <md-input-container class="md-block" flex-gt-sm="33">
                   <textarea ng-model="profile.userData.last_name" rows="1" placeholder="Last Name"></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <label>Primary STEM Field</label>
+                  <md-select name="stem_primary" ng-model="search.newSearch.stem_primary">
+                    <md-option></md-option>
+                    <md-option value="Science">Science</md-option>
+                    <md-option value="Technology">Technology</md-option>
+                    <md-option value="Engineering">Engineering</md-option>
+                    <md-option value="Math">Math</md-option>
+                  </md-select>
                 </md-input-container>
               </div>
 
