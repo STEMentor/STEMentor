@@ -40,7 +40,7 @@
       </md-dialog-content>
 
       <md-dialog-actions layout="row">
-        <md-button ng-click="message.sendStudentMessage(message.newMessage)">
+        <md-button class="md-raised" ng-click="message.sendStudentMessage(message.newMessage)">
           Send Message
         </md-button>
       </md-dialog-actions>
@@ -69,13 +69,13 @@
               <strong>Student's Name:</strong> {{message.currentMessage.student_name}}
             </p>
             <p>
-              <strong>Subject:</strong> {{message.currentMessage.message}}
+              <strong>Subject:</strong> {{message.currentMessage.subject}}
             </p>
           </md-input-container>
 
           <md-input-container class="md-block">
             <p>
-              <strong>Message:</strong>
+              <strong>Student's Message:</strong>
             </p>
             <p rows="4" md-select-on-focus="">{{message.currentMessage.message}}</p>
           </md-input-container>
@@ -89,7 +89,7 @@
       </md-dialog-content>
 
       <md-dialog-actions layout="row">
-        <md-button ng-click="message.sendMentorMessage(message.newReply)">
+        <md-button class="md-rasied" ng-click="message.sendMentorMessage(message.newReply)">
           Send Message
         </md-button>
       </md-dialog-actions>

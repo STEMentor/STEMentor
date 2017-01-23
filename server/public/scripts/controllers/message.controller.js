@@ -50,6 +50,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          self.cancel();
           self.messages = response.data;
           console.log("CURRENT MESSAGE", self.currentMessage);
           sendEmail('mentor', self.currentMessage.mentor_id);
@@ -80,6 +81,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         })
         .then(function(response) {
           sendEmail('student', self.currentMessage.student_id);
+          self.cancel();
           self.messages = response.data;
           console.log("CURRENT MESSAGE", self.currentMessage);
           console.log('Adding new message, messageInfo: ', messageInfo);
