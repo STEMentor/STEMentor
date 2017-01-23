@@ -38,46 +38,79 @@ router.get('/get-all-messages', function(req, res) {
   });
 });
 
-// Create new message (from student) when user hits the "Send" button --------//
-router.post('/new-message', function(req, res) {
-  // console.log('req.body: ', req.body);
-  var message = req.body.message_info;
+// Get all unread messages for current user ----------------------------------//
+router.get('/unread-messages', function(req, res) {
+  console.log("IN UNREAD-MESSAGES ROUTE");
+
+  // Pull needed data off of req
+  var userType = req.userStatus.userType,
+      typeId = userType + '_id';
+  var userId = req.userStatus.userId;
+  console.log("UserId, typeId", userId, typeId);
+  console.log(typeof userId);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
-    // Find mentor_id
     client.query(
-      'SELECT id FROM mentors WHERE email = $1', [message.email],
+      'SELECT * FROM messages WHERE message_read = FALSE AND '+typeId+' = ' + userId,
       function(error, result) {
         done(); // Close connection to the database
 
         if (error) {
-          console.log('Database SELECT error when searching for mentor ID: ', error);
+          console.log('Unable to mark message as read: ', error);
           res.sendStatus(500);
         } else {
-          var mentorId = result.rows[0].id; // TODO: Verify this value is returning correctly
-          // Create new message record
-          client.query(
-            'INSERT INTO messages' +
-            '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
-            'VALUES ($1, $2, now(), $3, $4, $5)',
-            [mentorId, req.userStatus.userId, message.msgSubject, message.msgBody, message.msgName],
-            function(error, result) {
-              done(); // Close connection to database
-
-              if (error) {
-                console.log('Error creating new message: ', error);
-                res.sendStatus(500);
-              } else {
-                res.sendStatus(201);
-              }
-            }
-          );
+          console.log("RESULT OF UNREAD MESSAGES query", result.rows.length);
+          res.send(result.rows);
         }
       }
     );
   });
+
+  // Create new message (from student) when user hits the "Send" button --------//
+  router.post('/new-message', function(req, res) {
+    // console.log('req.body: ', req.body);
+    var message = req.body.message_info;
+
+    pg.connect(connectionString, function(error, client, done) {
+      connectionErrorCheck(error);
+
+      // Find mentor_id
+      client.query(
+        'SELECT id FROM mentors WHERE email = $1', [message.email],
+        function(error, result) {
+          done(); // Close connection to the database
+
+          if (error) {
+            console.log('Database SELECT error when searching for mentor ID: ', error);
+            res.sendStatus(500);
+          } else {
+            var mentorId = result.rows[0].id; // TODO: Verify this value is returning correctly
+            // Create new message record
+            client.query(
+              'INSERT INTO messages' +
+              '(mentor_id, student_id, date_sent, subject, message, student_name) ' +
+              'VALUES ($1, $2, now(), $3, $4, $5)',
+              [mentorId, req.userStatus.userId, message.msgSubject, message.msgBody, message.msgName],
+              function(error, result) {
+                done(); // Close connection to database
+
+                if (error) {
+                  console.log('Error creating new message: ', error);
+                  res.sendStatus(500);
+                } else {
+                  res.sendStatus(201);
+                }
+              }
+            );
+          }
+        }
+      );
+    });
+  });
+
+
 });
 
 // Mark message as read ------------------------------------------------------//
@@ -86,8 +119,8 @@ router.put('/read-message', function(req, res) {
   var userEmail = req.decodedToken.email;
 
   var userType = req.userStatus.userType,
-      typeId = userType + '_id',
-      userDatabase = userType + 's';
+  typeId = userType + '_id',
+  userDatabase = userType + 's';
   var userId = req.userStatus.userId;
   var messageId = req.body.message.id;
   // console.log('userEmail: ', userEmail);
