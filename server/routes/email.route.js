@@ -37,17 +37,17 @@ router.post('/', function(req, res) {
     var transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'pivotpvttest@gmail.com',
+        user: 'ad.test.stementor@gmail.com',
         pass: process.env.GMAIL_PASSWORD
       } });
 
       // setup e-mail data with unicode symbols
       var mailOptions = {
-        from: 'pivotpvttest@gmail.com', // sender address
+        from: 'ad.test.stementor@gmail.com', // sender address
         to: email, // list of receivers
         subject: 'STEMentor', // Subject line
         text: 'You have a new message! ', // plaintext body
-        html: '<h1>You have a new message! </h1>' // html body
+        html: '<h3>You have a new message! </h3>' // html body
       };
 
       // send mail with defined transport object

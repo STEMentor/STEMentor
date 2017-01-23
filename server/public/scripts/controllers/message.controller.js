@@ -52,7 +52,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         .then(function(response) {
           self.cancel();
           self.messages = response.data;
-          console.log("CURRENT MESSAGE", self.currentMessage);
+          console.log("mentorId", BioFactory.mentorId);
           sendEmail('mentor', self.currentMessage.mentor_id);
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
