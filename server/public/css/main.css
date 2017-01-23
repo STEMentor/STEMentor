@@ -130,6 +130,13 @@
 .spacer {
   padding-left: 8%; }
 
+.greyButton {
+  color: grey;
+  background-color: grey; }
+
+.searchCard {
+  box-sizing: border-box; }
+
 .padding-col {
   padding-right: 15%; }
 
