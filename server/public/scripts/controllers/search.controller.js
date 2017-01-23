@@ -1,63 +1,79 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('SearchController running');
-
-  angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-    .controller('DemoCtrl', function($scope) {
-      $scope.user = {
-        company: 'Google',
-      };
-
-      $scope.states = (
-      'WY').split(' ').map(function(state) {
-          return {abbrev: state};
-        });
-    })
-    .config(function($mdThemingProvider) {
-
-      // Configure a dark theme with primary foreground yellow
-
-      $mdThemingProvider.theme('docs-dark', 'default')
-        .primaryPalette('yellow')
-        .dark();
-
-    });
-
-  angular.module('Checkbox',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-
-    .controller('AppCtrl', function($scope) {
-
-      $scope.data = {};
-
-
-    });
-
-  self.newSearch = {};
-
+  var self = this;
 
   self.mentors = [];
+  self.userStatus = AuthFactory.userStatus;
+  self.field = true;
+
+  self.newSearch = {
+    generic_search: null,
+    first_name: null,
+    last_name: null,
+    email: null,
+    company: null,
+    job_title: null,
+    zip: null,
+    race: null,
+    sex: null,
+    orientation: null,
+    birthday: null,
+    school: null,
+    degree: null,
+    major: null,
+    language: null
+  };
+
+  self.theStates = (
+    'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
+    'WI WY'
+  ).split(' ').map(function(state) {
+    return {
+      abbreviation: state
+    };
+  });
+
+  self.setMentor = function(mentor){
+    console.log(mentor.id);
+    BioFactory.setMentor(mentor);
+  };
 
   self.getMentors = function() {
+    console.log(self.newSearch);
+    var newSearchString = JSON.stringify(self.newSearch);
     return $http({
-          method: 'GET',
-          url: '/mentors',
-          headers: {
-            newSearch: newSearch
-          }
-        })
-        .then(function (response) {
-          self.mentors = response.data;
-          console.log(mentors);
+      method: 'GET',
+      url: '/mentor-search/search',
+      headers: {
+        newSearchString: newSearchString
+      }
+    })
+    .then(function(response) {
+      self.mentors = response.data;
+      console.log("Mentors list:", self.mentors);
+    }),
+    function(err) {
+      console.log("Error with search get request ", err);
+    };
+  };
 
-        });
-    .catch(function (error) {
-      console.log('An error has occurred');
-    });
-  }
+  self.createMessage = function(ev) {
+    if(self.userStatus.isLoggedIn) {
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    } else {
+      $mdDialog.show({
+        controller: 'WarningController as warning',
+        templateUrl: '../../views/warning-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
+  };
 
 }]);
-
-
-  /**
-  Copyright 2016 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-  **/

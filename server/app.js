@@ -6,20 +6,29 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder.module');
 var db = require('./modules/db.module');
+var mentorSearch = require('./routes/mentor-search.route');
+var users = require('./routes/users.route');
+var message = require('./routes/message.route');
+var profileEdit = require('./routes/profile-edit.route');
+var profile = require('./routes/profile.route');
+var email = require('./routes/email.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
+
 app.use(express.static('./server/public'));
 app.use(bodyParser.json());
 
-
-//----------------------- POSTGRES CONNECTION HANDLING -----------------------//
-
-
 //----------------------------- ROUTES & MODULES -----------------------------//
 
+app.use('/mentor-search', mentorSearch);
+app.use('/profile', profile);
+app.use('/email', email);
 
-//app.use(decoder.token); // Above not authenticated, below is authenticated
+app.use(decoder.token); // Above not authenticated, below is authenticated
 
+app.use('/users', users);
+app.use('/message', message);
+app.use('/profile-edit', profileEdit);
 
 //------------------------------- START SERVER -------------------------------//
 app.set('port', process.env.PORT || 3000);
