@@ -188,7 +188,7 @@
           <!-- ng-if for Technology icon-->
           <div ng-if="mentor.stem_primary == 'Technology'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px;">
           <a href="#profile" style="text-decoration: none !important;">
-            <md-button ng-click="search.setMentor(mentor)" class="md-fab" aria-label="Profile">
+            <md-button class='md-primary' ng-click="search.setMentor(mentor)" class="md-fab" aria-label="Profile">
               <md-icon ng-click="search.setMentor(mentor)" md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
             </md-button>
           </a>
@@ -228,7 +228,7 @@
       <md-button ng-click="search.createMessage($event)" class="md-fab md-primary md-hue-2" aria-label="Message">
         <md-icon ng-click="search.createMessage($event)" md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
       </md-button>
-    </div>      
+    </div>
 
             </div>
             </md-card>

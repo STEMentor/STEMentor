@@ -1,5 +1,10 @@
 var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy']);
 
+app.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('grey')
+      .accentPalette('grey');
+  });
+
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
   .when('/home', {
