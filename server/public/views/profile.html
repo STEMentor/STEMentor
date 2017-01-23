@@ -11,12 +11,13 @@
             <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">
               Edit Your Profile
             </md-switch>
+          </div>
 
             <!-- Save Changes button for Profile edits -->
-            <md-button class="md-raised" ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true">
+            <md-button class="md-raised" ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
               Save Changes
             </md-button>
-          </div>
+
           <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
           <!--––––––––––––––––––––––––––– Header Info Card –––––––––––––-––––––––––––––-->
