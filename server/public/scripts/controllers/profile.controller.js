@@ -23,6 +23,28 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   // self.mentor = BioFactory.mentor;
   self.mentor = BioFactory.mentorBio;
 
+  self.userData = {
+    first_name: null,
+    last_name: null,
+    email: null,
+    company: null,
+    job_title: null,
+    bio: null,
+    zip: null,
+    race: null,
+    gender: null,
+    orientation: null,
+    birthday: null,
+    school: null,
+    degree: null,
+    major: null,
+    language: null
+  };
+
+  self.editBio = function(){
+    BioFactory.editBio(self.userData);
+  };
+
   self.createMessage = function(ev) {
     console.log('profile controller self.userStatus: ', self.userStatus);
     if(self.userStatus.isLoggedIn) {

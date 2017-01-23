@@ -1,4 +1,4 @@
-app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location', function($http, $firebaseAuth, BioFactory, $location){
+app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($http, $firebaseAuth, $location){
   console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
@@ -21,25 +21,26 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', 'BioFactory', '$location',
       // console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
-        url: '/users.route',
+        url: '/users',
         headers: {
           id_token: idToken,
           type: userType
         }
       })
       .then(function(response) {
-        console.log(response.data);
+
         userStatus.userType = response.data.userStatus.userType;
         userStatus.userId = response.data.userStatus.userId;
+        userStatus.isAdmin = response.data.userStatus.isAdmin;
 
         // if they are a new mentor go straight to profile
 
         if(userStatus.userType === 'mentor'){
-          BioFactory.setMentorId(userStatus.userId);
+          // BioFactory.setMentorId(userStatus.userId);
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
               userStatus.newUser = true;
-              $location.path("profile");
+              // $location.path("profile");
           }
           console.log("USER STATUS:", userStatus);
         }
