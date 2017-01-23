@@ -142,15 +142,10 @@
 
   <div class="aligner spacer" flex>
     <div class="carousel" layout-align="space-around center" flex>
-
-<!-- begin ng-repeat -->
-
       <div ng-repeat="mentor in search.mentors" flex>
         <flippy class="fancy front" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
           <flippy-front>
-            <!-- <div ng-class="{science:search.mentor.stem_primary == Science}"> -->
-
-            <div ng-class="{science:mentor.stem_primary == Science, tech:mentor.stem_primary == Technology, math:mentor.stem_primary == Math, engineering:mentor.stem_primary == Engineering}">
+            <div ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}">
               <md-card-title md-media-lg>
                 <md-card-title-text>
                   <h1 class="md-headline">
@@ -216,9 +211,6 @@
           </flippy-back>
         </flippy>
       </div>
-
-<!-- end ng-repeat -->
-
     </div>
   </div>
 </div>
