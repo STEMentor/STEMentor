@@ -6,16 +6,38 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
   console.log(self.isLoggedIn);
 
-  self.logIn = function(userType) {
+  self.logIn = function(userType, ev) {
     console.log('logging user in');
     console.log(userType);
     AuthFactory.logIn(userType).then(function(response){
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     })
     .then(function(){
+      setTimeout(firstTimeMentor, 2000);
       self.cancel();
     });
   };
+
+  function firstTimeMentor() {
+    console.log('and here, AuthFactory.userStatus.newUser: ', AuthFactory.userStatus.newUser);
+    if (AuthFactory.userStatus.newUser === true && AuthFactory.userStatus.userType == 'mentor') {
+      // alert('fill out yer profile');
+      launchPopup();
+    }
+  }
+
+  function launchPopup(ev) {
+    $mdDialog.show(
+      $mdDialog.alert()
+      .parent(angular.element(document.querySelector('#popupContainer')))
+      .clickOutsideToClose(true)
+      .title('New Mentor Account')
+      .textContent('Welcome, mentor! Now you can fill your profile page with information about yourself.')
+      .ariaLabel('Alert Dialog Demo')
+      .ok('Got it!')
+      .targetEvent(ev)
+    );
+  }
 
   self.logOut = function() {
     console.log('logging user out');

@@ -7,7 +7,7 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   var mentorFAQs = [];
   var mentorId;
 
-  // gets all the mentors that match the newSearch selected fields
+//------ Gets all the mentors that match the newSearch selected fields -------//
   function getMentors(newSearch){
     console.log("NEW SEARCH:", newSearch);
     var newSearchString = JSON.stringify(newSearch);
@@ -20,96 +20,139 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     })
     .then(function(response) {
       mentors.info = response.data;
-      console.log("Mentors list:", mentors);
+      console.log("Mentors list: ", mentors);
     }),
     function(err) {
       console.log("Error with search get request ", err);
     };
   }
+//----------------------------------------------------------------------------//
 
-  // gets profiles associated with the mentor
-
+//----------------- Gets profiles associated with the mentor -----------------//
   function getProfiles(){
     console.log("MENTOR ID IN getProfiles()", mentorId);
     return $http.get('/profile/' + mentorId)
     .then(function (response) {
-      // console.log("getProfiles result:", response.data);
-      // mentorBio.info = response.data[0];
-      // console.log(mentorBio.info);
-
-      mentorBio.info = {
-        id: response.data[0].id,
-        first_name: response.data[0].first_name,
-        last_name: response.data[0].last_name,
-        email: response.data[0].email,
-        avatar: response.data[0].avatar,
-        company: response.data[0].company,
-        job_title: response.data[0].job_title,
-        zip: response.data[0].zip,
-        race: response.data[0].race,
-        gender: response.data[0].gender,
-        orientation: response.data[0].orientation,
-        birthday: response.data[0].birthday,
-        school: response.data[0].school,
-        degree: response.data[0].degree,
-        major: response.data[0].major,
-        languages: response.data[0].languages,
-        bio: response.data[0].bio,
-        blurb: response.data[0].blurb
-      };
-
+      console.log("Result from getProfiles: ", response.data.result);
+      response.data.result[0].id = response.data.userId;
+      mentorBio.info = response.data.result[0];
       mentorBio.faqs = [];
-      for(var key in response.data) {
+
+      for(var key in response.data.result) {
         mentorBio.faqs.push(
           {
-            question: response.data[key].question,
-            answer: response.data[key].answer
+            question: response.data.result[key].question,
+            answer: response.data.result[key].answer,
+            faq_id: response.data.result[key].faq_id
           }
         );
       }
-      console.log(mentorBio.info);
-      console.log(mentorBio.faqs);
     })
     .catch(function (error) {
       console.log('An error has occurred');
     });
   }
+//----------------------------------------------------------------------------//
 
-
-  // Attach the chosen mentor object to the info property on mentorBio.
-  // This will be accessed by the profile controller
+//----------------------------------------------------------------------------//
+  // Attach the chosen mentor object to the info property on mentorBio to be
+  // accessed by the profile controller
   function setMentor(mentor){
-
     mentorBio.info = mentor;
     mentorId = mentorBio.info.id;
-    console.log("MENTOR:", mentorBio.info);
+    console.log("MENTOR: ", mentorBio.info);
     getProfiles();
   }
+//----------------------------------------------------------------------------//
 
+//---------------------------- Sets the mentor ID ----------------------------//
   function setMentorId(id){
     mentorId = id;
     getProfiles();
-    console.log('MENTOR ID:', mentorId);
+    console.log('MENTOR ID: ', mentorId);
   }
+//----------------------------------------------------------------------------//
 
+//--------------------------- Edit bio information ---------------------------//
   function editBio(userData) {
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-    console.log('USER DATA:', userData);
+      console.log('User data in BioFactory: ', userData);
+
+      if(currentUser){
+        return currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'PUT',
+            url: '/profile-edit/update/'+ mentorId,
+            headers: {
+              id_token: idToken
+            },
+            data: {
+              userData: userData
+            }
+          })
+          .then(function(response) {
+            // console.log("User data in response from server: ", response.data);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with messages POST request: ', error);
+          };
+        });
+      }
+
+    });
+  }
+//----------------------------------------------------------------------------//
+
+//------------------------- Edit user's FAQ entires --------------------------//
+  function editFaqs(faqArray) {
+    // Makes sure that currentUser is set before getting messages from the server
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+      console.log('FAQ DATA:', faqArray);
+      if(currentUser){
+        return currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'PUT',
+            url: '/profile-edit/edit-faq/'+faqArray.faq_id,
+            headers: {
+              id_token: idToken
+            },
+            data: {
+              faqArray: faqArray
+            }
+          })
+          .then(function(response) {
+            console.log("USER DATA IN RESPONSE: ", response.data);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with messages POST request: ', error);
+          };
+        });
+      }
+    });
+  }
+//----------------------------------------------------------------------------//
+
+//--------------------------- Create new FAQ entry ---------------------------//
+  function postFaq(faqData){
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    console.log('FAQ DATA:', faqData);
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         return $http({
-          method: 'PUT',
-          url: '/profile-edit/update',
+          method: 'POST',
+          url: '/profile-edit/new-faq',
           headers: {
             id_token: idToken
           },
           data: {
-            userData: userData
+            faqData: faqData
           }
         })
         .then(function(response) {
-          console.log("USER DATA IN RESPONSE:", response.data);
+          console.log("FAQ DATA IN RESPONSE: ", response);
           getProfiles();
         }),
         function(error) {
@@ -119,10 +162,9 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     }
     });
   }
+//----------------------------------------------------------------------------//
 
-
-
-
+//----------------------------------------------------------------------------//
   var publicApi = {
     mentors: mentors,
     mentor: mentor,
@@ -139,14 +181,18 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     editBio: function(userData){
       return editBio(userData);
     },
+    editFaqs: function(faqData){
+      return editFaqs(faqData);
+    },
+    postFaq: function(faqData){
+      return postFaq(faqData);
+    },
     setMentorId: function(id){
       return setMentorId(id);
     },
-
   };
 
   return publicApi;
 
-
-
 }]);
+//----------------------------------------------------------------------------//

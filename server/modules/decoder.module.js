@@ -26,23 +26,24 @@ admin.initializeApp({
     private_key, then add the decodedToken -----------------------------------*/
 var tokenDecoder = function(req, res, next) {
   //console.log("ID TOKEN",req.headers.id_token);
-  console.log("TYPE IN DECODER", req.headers.type);
+  // console.log("TYPE IN DECODER", req.headers.type);
   req.userStatus = {};
 
   var userType = req.headers.type;
-  console.log('USER TYPE:', userType);
+  // console.log('USER TYPE:', userType);
 
   if (req.headers.id_token) {
-    console.log('TOKEN DECODER');
+    // console.log('TOKEN DECODER');
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
         // Adding the decodedToken to the request so that downstream processes can use it
         req.decodedToken = decodedToken;
-        console.log('GOT DECODED TOKEN');
+        // console.log('GOT DECODED TOKEN');
         // next();
+        // console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
 
         // call this function to check attach user_id to the request
         // if they are already in the db. If they aren't, add them
-        userIdQuery(decodedToken.email, req, res, next, userType);
+        userIdQuery(decodedToken.picture, decodedToken.email, req, res, next, userType);
       })
       .catch(function(error) {
         // If the id_token isn't right, you end up in this callback function
@@ -52,13 +53,13 @@ var tokenDecoder = function(req, res, next) {
       });
 
   } else {
-    console.log('NO ID TOKEN');
+    // console.log('NO ID TOKEN');
     res.sendStatus(403);
   }
 };
 
 //This runs everytime a request goes through decoder
-function userIdQuery(userEmail, req, res, next, userType) {
+function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
   return pg.connect(connectionString, function(err, client, done) {
     if (err) {
       console.log('connection error: ', err);
@@ -83,10 +84,10 @@ function userIdQuery(userEmail, req, res, next, userType) {
           } else {
             //If not in db, insert new user into db
             if (result.rows.length === 0) {
-              console.log("ENTER IF STATEMENT. userEmail:", userEmail);
+              if(userType === 'mentors'){
               client.query(
-                'INSERT INTO ' + userType + ' (email) ' +
-                'VALUES ($1)', [userEmail],
+                'INSERT INTO mentors (email, avatar) ' +
+                'VALUES ($1, $2)', [userEmail, userAvatar],
                 function(err, result) {
                   done(); // close the connection.
 
@@ -94,20 +95,39 @@ function userIdQuery(userEmail, req, res, next, userType) {
                     console.log('insert query error: ', err);
                     res.sendStatus(500);
                   } else {
-                    console.log("INSERT SUCCESSFUL!");
+                    // console.log("INSERT SUCCESSFUL!");
                     req.userStatus.newUser = true;
 
                     next();
                   }
 
                 });
+              } else {
+                client.query(
+                  'INSERT INTO students (email) ' +
+                  'VALUES ($1)', [userEmail],
+                  function(err, result) {
+                    done(); // close the connection.
+
+                    if (err) {
+                      console.log('insert query error: ', err);
+                      res.sendStatus(500);
+                    } else {
+                      // console.log("INSERT SUCCESSFUL!");
+                      req.userStatus.newUser = true;
+
+                      next();
+                    }
+
+                  });
+              }
             } else {
               //If already in db, attach userId to req
               if (result.rows.length === 1) {
                 var userId = result.rows[0].id;
                 req.userStatus.userId = userId; // this is the id that corresponds to users email in users table
 
-                console.log('USER ID DECODER:', userId);
+                // console.log('USER ID DECODER:', userId);
 
                 next();
               }
@@ -130,8 +150,9 @@ function userIdQuery(userEmail, req, res, next, userType) {
               console.log('select query error: ', err);
               res.sendStatus(500);
             } else {
-              console.log("RESULT: ", result.rows[0]);
+              // console.log("RESULT: ", result.rows[0]);
               var userObject = result.rows[0];
+              console.log('userObject', userObject);
               for (var property in userObject) {
 
                 if (userObject[property] !== null && typeof userObject[property] === 'string') {
@@ -144,8 +165,8 @@ function userIdQuery(userEmail, req, res, next, userType) {
 
               }
               req.userStatus.isAdmin = userObject.admin;
-              console.log('req.userType: ', req.userType);
-              console.log('req.userId: ', req.userId);
+              // console.log('req.userType: ', req.userType);
+              // console.log('req.userId: ', req.userId);
               next();
             }
           });

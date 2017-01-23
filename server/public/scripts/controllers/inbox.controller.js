@@ -61,7 +61,7 @@ reply: 'reply text',
 
 \*----------------------------------------------------------------------------*/
 
-app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', function($http, AuthFactory, MessageFactory, $mdDialog) {
+app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('InboxController running');
   var self = this;
   self.userStatus = AuthFactory.userStatus;
@@ -71,6 +71,8 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
     getMessages(currentUser);
   });
+
+  self.person = BioFactory.mentorBio;
 
   // Get all messages from the database for a specific user
   function getMessages(currentUser) {
@@ -98,10 +100,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   self.selectedMessage = MessageFactory.currentMessage;
 
   self.createMessage = function(ev, clickedMessage) {
-    console.log('clickedMessage.item: ', clickedMessage.item);
-    MessageFactory.setMessage(clickedMessage.item);
-    // self.selectedMessage = clickedMessage.item;
-    console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
+    // MessageFactory.setMessage(clickedMessage.item);
     $mdDialog.show({
       controller: 'MessageController as message',
       templateUrl: '../../views/message-modal.html',
@@ -111,16 +110,23 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   };
 
   self.viewMessage = function(ev, clickedMessage) {
-    console.log('clickedMessage.item: ', clickedMessage.item);
     MessageFactory.setMessage(clickedMessage.item);
-    // self.selectedMessage = clickedMessage.item;
-    console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
-    $mdDialog.show({
-      controller: 'MessageController as message',
-      templateUrl: '../../views/message-modal2.html',
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
+
+    if (clickedMessage.item.reply || self.userStatus.userType === 'student'){
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal-static.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    } else {
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
   };
 
   self.markAsRead = function() {
@@ -133,7 +139,6 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   function markRead(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
-        console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
         return $http({
           method: 'PUT',
           url: '/message/read-message',
