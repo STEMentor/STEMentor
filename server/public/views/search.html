@@ -180,8 +180,8 @@
             </div>
           </flippy-front>
 
-          <flippy-back>
-            <md-card>
+          <flippy-back style="display:flex;" style="flex-direction:column;">
+            <md-card style="flex:1;" ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}">
               <div>
                 <md-card-title>
                   <md-card-title-text>
