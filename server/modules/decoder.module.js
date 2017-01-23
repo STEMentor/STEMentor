@@ -25,21 +25,14 @@ admin.initializeApp({
 /*- Pull id_token off of the request, verify it against firebase service account
     private_key, then add the decodedToken -----------------------------------*/
 var tokenDecoder = function(req, res, next) {
-  //console.log("ID TOKEN",req.headers.id_token);
-  // console.log("TYPE IN DECODER", req.headers.type);
   req.userStatus = {};
-
   var userType = req.headers.type;
-  // console.log('USER TYPE:', userType);
 
   if (req.headers.id_token) {
     // console.log('TOKEN DECODER');
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
         // Adding the decodedToken to the request so that downstream processes can use it
         req.decodedToken = decodedToken;
-        // console.log('GOT DECODED TOKEN');
-        // next();
-        // console.log("USER OBJECT IN TOKEN DECODER:", decodedToken.picture);
 
         // call this function to check attach user_id to the request
         // if they are already in the db. If they aren't, add them
