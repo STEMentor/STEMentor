@@ -16,7 +16,6 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
       });
   };
 
-
   self.setMentorId = function(){
     console.log("SOMETHING");
     console.log("USER ID in setMentorId", AuthFactory.userStatus.userId);

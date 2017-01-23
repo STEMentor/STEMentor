@@ -4,6 +4,7 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFac
 
   self.mentors = [];
   self.userStatus = AuthFactory.userStatus;
+  self.field = true;
 
   self.newSearch = {
     generic_search: null,
