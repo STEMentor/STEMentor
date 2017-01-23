@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <div class='center-card card-1' layout="column">
-<!-- <br><br><br><br>
-<br><br><br> <-->
-<br>
+  <br />
 
-
-<div layout="row" layout-align="center">
-<img src="./assets/images/logo/STEMentorLogo.png" alt="Mountain View" style="width:600px;height:250px;">
-</div>
-
-<br><br><br>
-<br><br><br>
-
-<div layout="row" layout-align="space-around center" flex>
-
-  <md-button class="md-raised md-primary" href="#search">Find A Mentor</md-button>
-
-
-  <md-button class="md-raised md-primary" ng-click="home.logInModal($event)">Sign-up to become a mentor</md-button>
-
-</div>
-<br>
-<br>
-
-<!-- <md-card layout="column" layout-align="center center" style="padding-bottom: 10px" > -->
-<div class="aligner"
-  <div class="carousel">
-      <jk-carousel
-        data="home.dataArray"
-        item-template-url="'./views/item-template.html'"
-        max-width="800"
-        max-height="500"
-        auto-slide="true"
-        auto-slide-time="5000" >
-      </jk-carousel>
+  <div layout="row" layout-align="center">
+    <img src="./assets/images/logo/STEMentorLogo.png" alt="Mountain View" style="width:600px;height:250px;">
   </div>
-</div>
+
+  <br /><br /><br />
+
+  <div layout="row" layout-align="space-around center" flex>
+    <span flex></span>
+    <md-button class="md-raised home-button find-mentor" href="#search">Find A Mentor</md-button>
+    <span flex></span>
+    <md-button class="md-raised home-button become-mentor" ng-click="home.logInModal($event)">Become a mentor</md-button>
+    <span flex></span>
+  </div>
+  <br>
+  <br>
+
+  <!-- <md-card layout="column" layout-align="center center" style="padding-bottom: 10px" > -->
+  <div class="aligner">
+    <!-- <div class="carousel"> -->
+      <jk-carousel data="home.dataArray" item-template-url="'./views/item-template.html'" max-width="800" max-height="500" auto-slide="true" auto-slide-time="5000">
+      </jk-carousel>
+    <!-- </div> -->
+  </div>
 </div>
 <!-- </md-card> -->
