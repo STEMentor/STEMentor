@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
         to: email, // list of receivers
         subject: 'STEMentor', // Subject line
         text: 'You have a new message! ', // plaintext body
-        html: '<h3>You have a new message! </h3>' // html body
+        html: '<h2>You have a new message! </h2><h3>Click <a href="http://localhost:5000">STEMentor</a> and log in to view your message</h3>' // html body
       };
 
       // send mail with defined transport object
