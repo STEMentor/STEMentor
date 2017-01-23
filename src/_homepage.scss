@@ -28,3 +28,32 @@
 .hidden {
   color: white;
 }
+
+.md-button.home-button {
+  font-size: 20px;
+  padding: 10px;
+  width: 225px;
+}
+
+.md-button.home-button.find-mentor {
+  color: white;
+  background-color: #694296;
+}
+
+.md-button.home-button.find-mentor:hover {
+  color: #694296;
+}
+
+.md-button.home-button.become-mentor {
+  color: white;
+  background-color: #DB5659;
+}
+
+.md-button.home-button.become-mentor:hover {
+  color: #DB5659;
+}
+
+// #4BB346
+// #694296
+// #DB5659
+// #DDD457
