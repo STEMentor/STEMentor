@@ -121,19 +121,29 @@
 }
 
 .science {
-  background: linear-gradient(white, #4BB346);
+  // background: linear-gradient(white, #4BB346);
+  background-color: rgba(75, 179, 70, 0.1);
+  // opacity: 0.5;
 }
 
 .tech {
-  background: linear-gradient(white, #694296);
+  // background: linear-gradient(white, #694296);
+  background-color: rgba(105, 66, 150, 0.1);
 }
 
 .engineering {
-  background: linear-gradient(white, #DB5659);
+  // background: linear-gradient(white, #DB5659);
+  background-color: rgba(219, 86, 89, 0.1);
 }
 
 .math {
-  background: linear-gradient(white, #DDD457);
+  // background: linear-gradient(white, #DDD457);
+  background-color: rgba(221, 212, 87, 0.1);
+}
+
+.greyButton {
+  color: grey;
+  background-color: grey;
 }
 
 .searchCard {

@@ -144,27 +144,30 @@
     <div class="carousel" layout-align="space-around center" flex>
       <div ng-repeat="mentor in search.mentors" flex>
         <flippy class="fancy front" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
-          <flippy-front>
-            <div ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}">
+          <flippy-front style="display:flex;" layout="column">
+            <md-card  style="flex:1;" ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}">
+              <div>
               <md-card-title md-media-lg>
                 <md-card-title-text>
-                  <h1 class="md-headline">
+                  <span class="md-headline">
+                  <!-- <h1> -->
                     {{mentor.first_name}} {{mentor.last_name}}
-                  </h1>
-                  <h3 class="md-subhead">
+                  </span>
+                  <span class="md-subhead">
+                    <!-- <h3> -->
                     {{mentor.job_title}}
-                  </h3>
-                </md-card-title-text>
+                  </span>
+                <!-- </md-card-title-text> -->
 
-                <md-card-title-media>
+                <!-- <md-card-title-media> -->
                   <div class="md-media-lg card-media">
                     <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
                   </div>
                   <p ng-if="mentor.blurb">
                     "{{mentor.blurb}}"
                   </p>
-                  <h5>(Click Picture for Additional Info)</h5>
-                </md-card-title-media>
+                  <!-- <h5>(Click Picture for Additional Info)</h5> -->
+                </md-card-title-text>
               </md-card-title>
 
               <a href="#profile" style="text-decoration: none !important;">
@@ -178,6 +181,7 @@
               </md-button>
 
             </div>
+            </md-card>
           </flippy-front>
 
           <flippy-back style="display:flex;" style="flex-direction:column;">
