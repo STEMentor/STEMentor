@@ -46,7 +46,7 @@
 
             </md-card-title>
 
-            <md-card-actions layout="row" layout-align="end center" layout-padding>
+            <md-card-actions ng-if="profile.userStatus.userType !== 'mentor'" layout="row" layout-align="end center" layout-padding>
               <md-button class="md-raised" ng-click="profile.createMessage($event)">
                 Ask me a question!
               </md-button>
