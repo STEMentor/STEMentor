@@ -42,6 +42,10 @@
   padding-bottom: 40px;
   margin: 20px; }
 
+.notification {
+  color: red;
+  font-weight: bold; }
+
 .checkboxdemoBasicUsage div.flex-xs {
   min-height: 40px; }
 

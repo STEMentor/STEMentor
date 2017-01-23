@@ -4,7 +4,9 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
-//---------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+// Find email of receiver of in app msg then send email notification to them -//
 router.post('/', function(req, res) {
   var receiverId = req.body.receiverId;
   var userType = req.body.userType + 's';
@@ -61,5 +63,7 @@ router.post('/', function(req, res) {
       });
     }
   });
+
+  //--------------------------------------------------------------------------//
 
   module.exports = router;
