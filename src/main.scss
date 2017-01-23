@@ -6,5 +6,24 @@
 @import "_search";
 @import "_font-size";
 @import "_profile";
+@import "_inbox";
 
 //************************************************************//
+
+
+a {
+  color: $main-black
+}
+
+.border {
+  border-radius: 2px;
+}
+
+// body {
+//   font-family: 'Montserrat Alternates';
+// }
+
+.about-center {
+  padding-left: 25%;
+  padding-right: 25%;
+}

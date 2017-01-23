@@ -1,45 +1,59 @@
-app.controller('SearchController', ['$http', function($http) {
+app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
   console.log('SearchController running');
   var self = this;
+
   self.mentors = [];
-  self.newSearch = {first_name: null, last_name:null, email: null, company: null,
-                    job_title:null, zip: null, race: null, sex: null, orientation: null,
-                    birthday: null, school: null, degree: null, major: null, language: null};
 
+  self.newSearch = {
+    generic_search: null,
+    first_name: null,
+    last_name: null,
+    email: null,
+    company: null,
+    job_title: null,
+    zip: null,
+    race: null,
+    sex: null,
+    orientation: null,
+    birthday: null,
+    school: null,
+    degree: null,
+    major: null,
+    language: null
+  };
 
-  // .config(function($mdThemingProvider) {
-  //   $mdThemingProvider.theme('docs-dark', 'default')
-  //     .primaryPalette('yellow')
-  //     .dark();
-  //
-  // });
+  self.theStates = (
+    'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV ' +
+    'WI WY'
+  ).split(' ').map(function(state) {
+    return {
+      abbreviation: state
+    };
+  });
 
-  self.test = function (){
-      console.log(self.newSearch);
-  }
+  self.setMentor = function(mentor){
+    console.log(mentor.id);
+    BioFactory.setMentor(mentor);
+  };
 
   self.getMentors = function() {
     console.log(self.newSearch);
     var newSearchString = JSON.stringify(self.newSearch);
     return $http({
-          method: 'GET',
-          url: '/mentor-search',
-          headers: {
-            newSearchString: newSearchString
-          }
-        })
-        .then(function (response) {
-          self.mentors = response.data;
-          console.log("Mentors list:", self.mentors);
-        }),
-        function(err){
-          console.log("Error with search get request ", err);
-        };
-
-  }
+      method: 'GET',
+      url: '/mentor-search/search',
+      headers: {
+        newSearchString: newSearchString
+      }
+    })
+    .then(function(response) {
+      self.mentors = response.data;
+      console.log("Mentors list:", self.mentors);
+    }),
+    function(err) {
+      console.log("Error with search get request ", err);
+    };
+  };
 
 }]);
-/**
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
-**/

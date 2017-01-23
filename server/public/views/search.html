@@ -1,143 +1,234 @@
-<div ng-controller="SearchController" layout="column" ng-cloak="" class="md-inline-form inputdemoBasicUsage" ng-app="stementor">
+<!DOCTYPE html>
+<div layout="column" ng-cloak="" class="md-inline-form" ng-app="stementor">
 
-    <!-- <h1>Search</h1> -->
+  <md-content layout-padding>
 
-    <md-content layout-padding="">
-        <div>
-            <form name="userForm">
+    <form name="userForm">
+      <div class="field" id="searchform">
+        <input type="text" id="searchterm" placeholder="What kind of mentor are you looking for?" ng-model="search.newSearch.generic_search" />
+        <button ng-click="search.getMentors()" type="submit" id="search">
+          Find!
+        </button>
+      </div>
+      <div flex-offset="50">
+        <md-checkbox class="refine" ng-model="refineChecked">
+          Refine your search
+        </md-checkbox>
+      </div>
 
-                <div layout-gt-xs="row">
-                    <md-input-container class="md-block" flex-gt-xs="">
-                        <label>Search for a mentor!</label>
-                        <input ng-model="user.company">
-                    </md-input-container>
-            </form>
-            </div>
-    </md-content>
+<!--–––––––––––––––––––-––––– Refined Search Fields –––––––––––––––––-–––––––-->
+      <div layout="column" flex-offset="15" flex="70">
+        <div ng-show="refineChecked">
+          <md-tabs md-dynamic-height="" md-border-bottom="">
+            <md-tab label="Personal Info">
 
-    </div>
+              <md-content layout-padding="">
+                <div layout-gt-xs="row" flex="100">
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                    <label>Personal Info:</label>
+                    <input disabled />
+                  </md-input-container>
+                </div>
 
-    <input class="refine" type="checkbox" ng-model="myVar">Refine your search
-    <div ng-show="myVar">
-        <md-content layout-gt-sm="row" layout-padding="">
-            <div>
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-icon-float md-block" flex-gt-sm="33">
-                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                        <input ng-model="search.newSearch.first_name" placeholder="First Name">
-                    </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <input ng-model="search.newSearch.first_name" placeholder="First Name" />
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <input ng-model="search.newSearch.last_name" placeholder="Last Name" />
+                  </md-input-container>
+                </div>
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>State</label>
+                    <md-select ng-model="search.newSearch.state">
+                      <md-option></md-option>
+                      <md-option ng-repeat="state in search.theStates" value="{{state.abbreviation}}">
+                        {{state.abbreviation}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Languages Spoken</label>
+                    <input ng-model="search.newSearch.languages" />
+                  </md-input-container>
+                </div>
 
-                        <label>Last Name</label>
-                        <input ng-model="search.newSearch.last_name">
-                    </md-input-container>
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Race</label>
+                    <input ng-model="search.newSearch.race" />
+                  </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-sm="33">
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Gender</label>
+                    <md-select name="gender" ng-model="search.newSearch.gender">
+                      <md-option></md-option>
+                      <md-option value="Male">Male</md-option>
+                      <md-option value="Female">Female</md-option>
+                      <md-option value="Other">Other</md-option>
+                    </md-select>
+                  </md-input-container>
 
-                        <label>Company</label>
-                        <input ng-model="search.newSearch.company">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Job Title</label>
-                        <input ng-model="search.newSearch.job_title">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Zip Code</label>
-                        <input ng-model="search.newSearch.zip">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Sex</label>
-                        <input ng-model="search.newSearch.sex">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Age</label>
-                        <input ng-model="search.newSearch.age">
-                    </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Orientation</label>
+                    <input ng-model="search.newSearch.orientation" />
+                  </md-input-container>
 
                 </div>
-            </div>
-        </md-content>
+              </md-content>
+            </md-tab>
 
-        <md-content layout-gt-sm="row" layout-padding="">
-            <div>
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="33">
-                        <label>Email</label>
-                        <input ng-model="search.newSearch.email">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>College</label>
-                        <input ng-model="search.newSearch.college">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Degree</label>
-                        <input ng-model="search.newSearch.degree">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Major</label>
-                        <input ng-model="search.newSearch.major">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Languages</label>
-                        <input ng-model="search.newSearch.languages">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm="33">
-
-                        <label>Orientation</label>
-                        <input ng-model="search.newSearch.orientation">
-                    </md-input-container>
-
+            <md-tab label="Professional Info">
+              <md-content>
+                <div layout-gt-xs="row" flex="100">
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <md-icon class="material-icons">work</md-icon>
+                    <label>Professional Info: </label>
+                    <input disabled />
+                  </md-input-container>
                 </div>
+
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Company</label>
+                    <input ng-model="search.newSearch.company" />
+                  </md-input-container>
+
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Job Title</label>
+                    <input ng-model="search.newSearch.job_title" />
+                  </md-input-container>
+
+                  <md-input-container class="md-block" flex-gt-sm="33">
+                    <label>Primary STEM Field</label>
+                    <md-select name="stem_primary" ng-model="search.newSearch.stem_primary">
+                      <md-option></md-option>
+                      <md-option value="Science">Science</md-option>
+                      <md-option value="Technology">Technology</md-option>
+                      <md-option value="Engineering">Engineering</md-option>
+                      <md-option value="Math">Math</md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+              </md-content>
+            </md-tab>
+
+            <md-tab label="Education">
+              <md-content>
+                <div layout-gt-xs="row" flex="100">
+                  <md-input-container class="md-block" flex-gt-xs>
+                    <md-icon class="material-icons">school</md-icon>
+                    <label>Education Info:</label>
+                    <input disabled />
+                  </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>School</label>
+                    <input ng-model="search.newSearch.school" />
+                  </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Degree</label>
+                    <input ng-model="search.newSearch.degree" placeholder="Masters, Bachelors, etc." />
+                  </md-input-container>
+
+                  <md-input-container class="md-block" flex-gt-sm="50">
+                    <label>Major</label>
+                    <input ng-model="search.newSearch.major" placeholder="Biology, Engineering, etc." />
+                  </md-input-container>
+                </div>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+        </div>
+      </div>
+    </form>
+  </md-content>
+
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+  <div class="aligner spacer" flex>
+    <div class="carousel" layout-align="space-around center" flex>
+      <div ng-repeat="mentor in search.mentors" flex>
+        <flippy class="fancy front" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
+          <flippy-front>
+            <div>
+              <md-card-title md-media-lg>
+                <md-card-title-text>
+                  <h1 class="md-headline">
+                    {{mentor.first_name}} {{mentor.last_name}}
+                  </h1>
+                  <h3 class="md-subhead">
+                    {{mentor.job_title}}
+                  </h3>
+                </md-card-title-text>
+
+                <md-card-title-media>
+                  <div class="md-media-lg card-media">
+                    <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
+                  </div>
+                  <p ng-if="mentor.blurb">
+                    "{{mentor.blurb}}"
+                  </p>
+                  <h5>(Click Picture for Additional Info)</h5>
+                </md-card-title-media>
+              </md-card-title>
+
+              <a href="#profile" style="text-decoration: none !important;">
+                <md-button ng-click="search.setMentor(mentor)" class="md-fab" aria-label="Profile">
+                  <md-icon ng-click="search.setMentor(mentor)" md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
+                </md-button>
+              </a>
+
+
+              <md-button ng-click="search.createMessage($event)" class="md-fab md-primary md-hue-2" aria-label="Message">
+                <md-icon ng-click="search.createMessage($event)" md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
+              </md-button>
+
             </div>
-        </md-content>
+          </flippy-front>
+
+          <flippy-back>
+
+            <md-card>
+              <div>
+                <md-card-title>
+
+                  <md-card-title-text>
+                    <span ng-if="mentor.company" class="md-headline">
+                      <strong>Company:</strong> {{mentor.company}}
+                    </span>
+                    <span ng-if="mentor.job_title" class="md-subhead">
+                      <strong>Job Title:</strong> {{mentor.job_title}}
+                    </span>
+                    <span ng-if="mentor.school" class="md-subhead">
+                      <strong>School:</strong> {{mentor.school}}
+                    </span>
+                  </md-card-title-text>
+
+                </md-card-title>
+
+                <a href="#profile" style="text-decoration: none !important;">
+                  <md-button ng-click="search.setMentor(mentor)" class="md-fab" aria-label="Profile">
+                    <md-icon ng-click="search.setMentor(mentor)" md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
+                  </md-button>
+                </a>
+
+                <md-button ng-click="search.createMessage($event)" class="md-fab md-primary md-hue-2" aria-label="Message">
+                  <md-icon ng-click="search.createMessage($event)" md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
+                </md-button>
+              </div>
+            </md-card>
+          </flippy-back>
+        </flippy>
+      </div>
     </div>
-
-    <div layout="row" layout-align="center">
-        <button md-button ng-click="search.getMentors()">Search</button>
-    </div>
-
-
-
+  </div>
 </div>
-<div ng-repeat="mentor in search.mentors">
-
-
-    <flippy class="fancy" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
-
-        <flippy-front>
-            {{mentor.first_name}}
-        </flippy-front>
-
-        <flippy-back>
-            {{mentor.last_name}}
-        </flippy-back>
-
-    </flippy>
-</div>
-
-
-</div>
-
-
-<!--
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
--->
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
