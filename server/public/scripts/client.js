@@ -1,4 +1,4 @@
-var app = angular.module('stementor', ['ngRoute', 'ngMaterial']);
+var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarousel', 'firebase', 'ngMessages', 'material.svgAssetsCache', 'angular-flippy']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -17,20 +17,10 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'InboxController',
     controllerAs: 'inbox'
   })
-  .when('/login', {
-    templateUrl: '/views/login.html',
-    controller: 'LoginController',
-    controllerAs: 'login'
-  })
   .when('/message', {
     templateUrl: '/views/message.html',
     controller: 'MessageController',
     controllerAs: 'message'
-  })
-  .when('/nav', {
-    templateUrl: '/views/nav.html',
-    controller: 'NavController',
-    controllerAs: 'nav'
   })
   .when('/profile', {
     templateUrl: '/views/profile.html',
@@ -41,11 +31,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/views/search.html',
     controller: 'SearchController',
     controllerAs: 'search'
-  })
-  .when('/settings', {
-    templateUrl: '/views/settings.html',
-    controller: 'SettingsController',
-    controllerAs: 'settings'
   })
   .otherwise({
     redirectTo: 'home'

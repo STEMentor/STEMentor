@@ -1,0 +1,125 @@
+//***** Checkbox CSS ***** //
+
+.checkboxdemoBasicUsage div.flex-xs {
+  min-height: 40px; }
+
+.checkboxdemoBasicUsage .checkboxDemo1 div {
+  clear: both; }
+
+.checkboxdemoBasicUsage p {
+  padding-left: 8px;}
+
+.checkboxdemoBasicUsage fieldset.standard {
+  border-style: solid;
+  border-width: 1px; }
+
+.checkboxdemoBasicUsage legend {
+  color: #3F51B5; }
+
+.checkboxdemoBasicUsage legend code {
+  color: #3F51B5;
+  font-weight: normal; }
+
+.checkboxdemoBasicUsage .ipsum {
+  color: saddlebrown; }
+
+//***************************//
+
+//***** icons *****//
+.inputdemoIcons {
+  /*
+.right-icon {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  left: auto;
+  margin-top: 0;
+}
+*/ }
+  .inputdemoIcons .inputIconDemo {
+    min-height: 48px; }
+  .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
+    color: green; }
+  .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
+    color: dodgerblue; }
+  .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
+  .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
+    color: red; }
+
+
+//*****search bar ****//
+@import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates);
+
+// * {
+//     margin:0;
+//     padding:0;
+//     font:12pt Arial;
+// }
+
+// body {
+//   background-color:#34495e;
+// }
+
+.field {
+  display:flex;
+  position:realtive;
+  margin: 5px auto;
+  width:70%;
+  flex-direction:row;
+  box-shadow:
+   1px 1px 0 $accent-blue,
+   2px 2px 0 $accent-blue,
+   3px 3px 0 $accent-blue,
+   4px 4px 0 $accent-blue,
+   5px 5px 0 $accent-blue,
+   6px 6px 0 $accent-blue,
+   7px 7px 0 $accent-blue
+  ;
+}
+
+.field>input[type=text],
+.field>button {
+  display:block;
+  font:1.2em 'Montserrat Alternates';
+}
+
+.field>input[type=text] {
+  flex:1;
+  padding:0.6em;
+  border:0.2em solid $main-blue;
+}
+
+.field>button {
+  padding:0.6em 0.8em;
+  background-color:$main-blue;
+  color:white;
+  border:none;
+}
+
+//***** Tooltip CSS *****//
+
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+  box-shadow: none;
+  border: none;
+  transform: none;
+  -webkit-transform: none; }
+
+////////////////////////////
+
+
+//***** flippy css *****//
+
+.front{
+    height: 500px;
+
+}
+
+.spacer {
+  padding-left: 8%;
+
+}
+
+.padding-col {
+  padding-right: 15%;
+}

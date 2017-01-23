@@ -24,9 +24,10 @@
 <!--*************************************************************************-->
 </head>
 
-<body ng-view>
+<body>
 
-  <h1>STEMentor</h1>
+  <div ng-include="'./views/nav.html'"></div>
+  <main ng-view></main>
 
 <!--******************************** SCRIPTS ********************************-->
 
@@ -39,9 +40,22 @@
 
 <!-- Angular Material Library -->
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
+  <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+
+  <!-- Angular Carousel -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/jk-carousel.min.css">
+  <script src="./vendor/jk-carousel.js"></script>
+
+  <!-- Angular Flippy Card -->
+  <link rel="stylesheet" href="/vendor/angular-flippy.min.css" >
+  <link rel="stylesheet" href="/vendor/angular-flippy-fancy.min.css" >
+  <script src="/vendor/flippy-directive.js"></script>
+
 
 <!-- Firebase Code -->
-  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.js"></script>
   <script type="text/javascript" src="./scripts/firebase-config.js"></script>
 
@@ -57,13 +71,16 @@
     <script type="text/javascript" src="./scripts/controllers/nav.controller.js"></script>
     <script type="text/javascript" src="./scripts/controllers/profile.controller.js"></script>
     <script type="text/javascript" src="./scripts/controllers/search.controller.js"></script>
-    <script type="text/javascript" src="./scripts/controllers/settings.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/warning.controller.js"></script>
+    <script type="text/javascript" src="./scripts/controllers/first-login-modal.controller.js"></script>
 
   <!-- Factories -->
     <script type="text/javascript" src="./scripts/services/auth.factory.js"></script>
+    <script type="text/javascript" src="./scripts/services/bio.factory.js"></script>
     <script type="text/javascript" src="./scripts/services/mentor.factory.js"></script>
     <script type="text/javascript" src="./scripts/services/message.factory.js"></script>
     <script type="text/javascript" src="./scripts/services/student.factory.js"></script>
+    <script type="text/javascript" src="./scripts/services/bio.factory.js"></script>
 
 <!--*************************************************************************-->
 
