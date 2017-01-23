@@ -139,7 +139,6 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
   function markRead(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
-        // console.log('self.selectedMessage.thing: ', self.selectedMessage.thing);
         return $http({
           method: 'PUT',
           url: '/message/read-message',
@@ -152,6 +151,8 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
         })
         .then(function(response) {
           console.log('Response from server: ', response);
+          MessageFactory.getUnreadMessages();
+          getMessages(currentUser);
         }),
         function(error) {
           console.log('Error with message-read PUT request: ', error);
