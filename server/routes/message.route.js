@@ -46,14 +46,20 @@ router.get('/unread-messages', function(req, res) {
   var userType = req.userStatus.userType,
       typeId = userType + '_id';
   var userId = req.userStatus.userId;
+  var query;
   console.log("UserId, typeId", userId, typeId);
   console.log(typeof userId);
+
+  if (userType === 'mentor') {
+    query = 'SELECT * FROM messages WHERE message_read = FALSE AND ' + typeId + ' = ' + userId;
+  } else if (userType === 'student') {
+    query = 'SELECT * FROM messages WHERE reply IS NOT NULL AND ' + typeId + ' = ' + userId;
+  }
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
-    client.query(
-      'SELECT * FROM messages WHERE message_read = FALSE AND '+typeId+' = ' + userId,
+    client.query(query,
       function(error, result) {
         done(); // Close connection to the database
 
