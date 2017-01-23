@@ -1,10 +1,11 @@
-app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFactory', 'BioFactory', function($http, $firebaseAuth, $mdDialog, AuthFactory, BioFactory) {
+app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFactory', 'BioFactory', 'MessageFactory', function($http, $firebaseAuth, $mdDialog, AuthFactory, BioFactory, MessageFactory) {
   console.log('NavController running');
   var auth = $firebaseAuth();
   var self = this;
 
   var userId = AuthFactory.userStatus.userId;
   self.userStatus = AuthFactory.userStatus;
+  self.unreadMessages = MessageFactory.unreadMessages;
 
   self.logInModal = function(ev) {
     $mdDialog.show({
@@ -14,6 +15,7 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
         clickOutsideToClose: true
       });
   };
+
 
   self.setMentorId = function(){
     console.log("SOMETHING");

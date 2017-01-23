@@ -151,6 +151,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
         })
         .then(function(response) {
           console.log('Response from server: ', response);
+          MessageFactory.getUnreadMessages();
           getMessages(currentUser);
         }),
         function(error) {

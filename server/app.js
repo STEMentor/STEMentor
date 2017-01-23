@@ -11,6 +11,7 @@ var users = require('./routes/users.route');
 var message = require('./routes/message.route');
 var profileEdit = require('./routes/profile-edit.route');
 var profile = require('./routes/profile.route');
+var email = require('./routes/email.route');
 //----------------------------------------------------------------------------//
 //---------------------------------- SETUP -----------------------------------//
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 app.use('/mentor-search', mentorSearch);
 app.use('/profile', profile);
+app.use('/email', email);
 
 app.use(decoder.token); // Above not authenticated, below is authenticated
 
