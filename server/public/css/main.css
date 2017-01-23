@@ -94,18 +94,6 @@
 .spacer {
   padding-left: 8%; }
 
-.science {
-  background-color: rgba(75, 179, 70, 0.1); }
-
-.tech {
-  background-color: rgba(105, 66, 150, 0.1); }
-
-.engineering {
-  background-color: rgba(219, 86, 89, 0.1); }
-
-.math {
-  background-color: rgba(221, 212, 87, 0.1); }
-
 .greyButton {
   color: grey;
   background-color: grey; }
