@@ -13,15 +13,13 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     })
     .then(function(){
-<<<<<<< HEAD
       // TODO This isn't working because user type isn't set in time
       if(AuthFactory.userStatus.newUser === false && AuthFactory.userStatus.userType == 'mentor') {
 
         console.log('duh');
         self.cancel();
       }
-=======
->>>>>>> dev
+
       setTimeout(firstTimeMentor, 2000);
       self.cancel();
     });
