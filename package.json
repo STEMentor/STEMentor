@@ -31,6 +31,7 @@
     "firebase": "^3.6.4",
     "firebase-admin": "^4.0.4",
     "material-design-icons": "^3.0.1",
+    "nodemailer": "^2.7.0",
     "pg": "^6.1.2"
   },
   "devDependencies": {

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <md-dialog aria-label="Log In">
   <form ng-cloak>
     <md-toolbar>
@@ -18,12 +19,14 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="login.logIn('mentor', $event)">
+      <md-button class="md-raised md-primary" ng-click="login.logIn('mentor', $event)">
         Login as Mentor
       </md-button>
-      <md-button ng-click="login.logIn('student')">
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="login.logIn('student')">
         Login as Student
       </md-button>
+      <span flex></span>
     </md-dialog-actions>
 
   </form>
