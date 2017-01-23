@@ -160,9 +160,4 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
     }
   }
 
-  self.openMessage = function(message){
-
-  };
-
-
 }]);
