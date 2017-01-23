@@ -1,8 +1,9 @@
-app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function($http, $mdDialog, BioFactory) {
+app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('SearchController running');
   var self = this;
 
   self.mentors = [];
+  self.userStatus = AuthFactory.userStatus;
   self.field = true;
 
   self.newSearch = {
@@ -55,6 +56,24 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', function
     function(err) {
       console.log("Error with search get request ", err);
     };
+  };
+
+  self.createMessage = function(ev) {
+    if(self.userStatus.isLoggedIn) {
+      $mdDialog.show({
+        controller: 'MessageController as message',
+        templateUrl: '../../views/message-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    } else {
+      $mdDialog.show({
+        controller: 'WarningController as warning',
+        templateUrl: '../../views/warning-modal.html',
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
   };
 
 }]);
