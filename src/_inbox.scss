@@ -1,10 +1,14 @@
-.dividerdemoBasicUsage .face {
-  border-radius: 30px;
-  border: 1px solid #ddd;
-  width: 48px;
-  margin: 16px; }
+.inbox-center-card {
+    margin: auto;
+    width: 900px;
+}
 
-  #clickToView {
-    color: #808080;
-  }
-  
+.inbox-unread,
+.inbox-replied {
+  background-color: white;
+}
+
+.inbox-read,
+.inbox-not-replied {
+  background-color: gainsboro;
+}
