@@ -94,12 +94,6 @@ router.put('/edit-faq/:id', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
-// Delete an existing FAQ entry ------------------------------------------------//
-router.delete('/edit-faq/:id', function(req, res) {
-
-});
-//----------------------------------------------------------------------------//
-
 // Delete a user and all related messages and FAQs from the database ---------//
 router.delete('/delete-user/:id', function(req, res) {
   var isAdmin = req.userStatus.isAdmin;
@@ -111,7 +105,7 @@ router.delete('/delete-user/:id', function(req, res) {
       connectionErrorCheck(error);
 
       client.query(
-        'DELETE FROM mentors WHERE id = $1', [userId],
+        'DELETE FROM mentors WHERE id = $1', [userToDelete],
         function(error, result) {
           done(); // Close connection to the database
 
