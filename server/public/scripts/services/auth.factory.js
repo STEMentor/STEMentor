@@ -69,6 +69,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       userStatus.isLoggedIn = false;
       userStatus.userType = "None";
       $location.path("home");
+      location.reload(false);
       userStatus.newUser = false;
       console.log('logged out');
       console.log('currentUser: ', currentUser);
