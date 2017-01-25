@@ -5,10 +5,10 @@
 
 .inbox-unread,
 .inbox-replied {
-  background-color: white;
+  background-color: $main-white;
 }
 
 .inbox-read,
 .inbox-not-replied {
-  background-color: gainsboro;
+  background-color: $prime-gray;
 }

@@ -3,8 +3,8 @@ var app = angular.module('stementor', ['ngRoute', 'ngMaterial', 'jkAngularCarous
 app.config(function($mdThemingProvider) {
   $mdThemingProvider
     .theme('default')
-    .primaryPalette('grey')
     .accentPalette('grey');
+
 });
 
 app.config(['$routeProvider', function($routeProvider) {
