@@ -113,7 +113,7 @@ router.delete('/delete-user/:id', function(req, res) {
             console.log('Error when deleting user: ', error);
             res.sendStatus(500);
           } else {
-            res.sendStatus(201);
+            res.sendStatus(200);
           }
         }
       );
