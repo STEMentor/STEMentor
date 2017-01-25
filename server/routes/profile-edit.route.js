@@ -120,7 +120,33 @@ router.delete('/delete-user/:id', function(req, res) {
     });
   }
 });
+//----------------------------------------------------------------------------//
 
+// Delete an existing FAQ entry ----------------------------------------------//
+router.delete('/delete-faq/:id', function(req, res) {
+  var faqId = req.params.id;
+
+  console.log("FAQ Id:", faqId);
+
+  pg.connect(connectionString, function(error, client, done) {
+    connectionErrorCheck(error);
+
+    client.query(
+      'DELETE FROM faq WHERE id = $1',
+      [faqId],
+      function(error, result) {
+        done(); // Close connection to the database
+
+        if(error) {
+          console.log('Error when creating new FAQ: ', error);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      }
+    );
+  });
+});
 //----------------------------------------------------------------------------//
 
 // Assigns userId based on isAdmin -------------------------------------------//

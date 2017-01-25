@@ -104,6 +104,35 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
 //----------------------------------------------------------------------------//
 
+//--------------------------- Create new FAQ entry ---------------------------//
+  function postFaq(faqData){
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+    console.log('FAQ DATA:', faqData);
+    if(currentUser){
+      return currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'POST',
+          url: '/profile-edit/new-faq',
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            faqData: faqData
+          }
+        })
+        .then(function(response) {
+          console.log("FAQ DATA IN RESPONSE: ", response);
+          getProfiles();
+        }),
+        function(error) {
+          console.log('Error with messages POST request: ', error);
+        };
+      });
+    }
+    });
+  }
+//----------------------------------------------------------------------------//
+
 //------------------------- Edit user's FAQ entires --------------------------//
   function editFaqs(faqArray) {
     // Makes sure that currentUser is set before getting messages from the server
@@ -134,31 +163,29 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
 //----------------------------------------------------------------------------//
 
-//--------------------------- Create new FAQ entry ---------------------------//
-  function postFaq(faqData){
+//------------------------- Delete user's FAQ entires --------------------------//
+  function deleteFaq(faqId) {
+    // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-    console.log('FAQ DATA:', faqData);
-    if(currentUser){
-      return currentUser.getToken().then(function(idToken) {
-        return $http({
-          method: 'POST',
-          url: '/profile-edit/new-faq',
-          headers: {
-            id_token: idToken
-          },
-          data: {
-            faqData: faqData
-          }
-        })
-        .then(function(response) {
-          console.log("FAQ DATA IN RESPONSE: ", response);
-          getProfiles();
-        }),
-        function(error) {
-          console.log('Error with messages POST request: ', error);
-        };
-      });
-    }
+      console.log('FAQ ID:', faqId);
+      if(currentUser){
+        return currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'DELETE',
+            url: '/profile-edit/delete-faq/' + faqId,
+            headers: {
+              id_token: idToken
+            }
+          })
+          .then(function(response) {
+            console.log("USER DATA IN RESPONSE: ", response.data);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with messages POST request: ', error);
+          };
+        });
+      }
     });
   }
 //----------------------------------------------------------------------------//
@@ -202,11 +229,17 @@ function deleteUser(userData) {
     getMentors: function(newSearch){
       return getMentors(newSearch);
     },
+    getProfiles: function(){
+      return getProfiles();
+    },
     setMentor: function(mentor){
       return setMentor(mentor);
     },
-    getProfiles: function(){
-      return getProfiles();
+    setMentorId: function(id){
+      return setMentorId(id);
+    },
+    postFaq: function(faqData){
+      return postFaq(faqData);
     },
     editBio: function(userData){
       return editBio(userData);
@@ -214,14 +247,11 @@ function deleteUser(userData) {
     editFaqs: function(faqData){
       return editFaqs(faqData);
     },
-    postFaq: function(faqData){
-      return postFaq(faqData);
-    },
-    setMentorId: function(id){
-      return setMentorId(id);
-    },
     deleteUser: function(userData){
       return deleteUser(userData);
+    },
+    deleteFaq: function(faqId){
+      return deleteFaq(faqId);
     }
   };
 
