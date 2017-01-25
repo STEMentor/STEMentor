@@ -28,31 +28,25 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
         }
       })
       .then(function(response) {
-
         userStatus.userType = response.data.userStatus.userType;
         userStatus.userId = response.data.userStatus.userId;
         userStatus.isAdmin = response.data.userStatus.isAdmin;
-
         // if they are a new mentor go straight to profile
-
         if(userStatus.userType === 'mentor'){
           // BioFactory.setMentorId(userStatus.userId);
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
-              userStatus.newUser = true;
-              // $location.path("profile");
+            userStatus.newUser = true;
+            // $location.path("profile");
           }
           console.log("USER STATUS:", userStatus);
         }
-
       });
       userStatus.isLoggedIn = true;
     });
-
   }
 
   auth.$onAuthStateChanged(function(firebaseUser){
-
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
     if(currentUser) {
@@ -60,7 +54,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
     } else {
       userStatus.isLoggedIn = false;
     }
-
   });
 
   function logOut() {
@@ -89,6 +82,5 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   };
 
   return publicApi;
-
-
+  
 }]);

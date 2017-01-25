@@ -27,13 +27,11 @@ private_key, then add the decodedToken -----------------------------------*/
 var tokenDecoder = function(req, res, next) {
   req.userStatus = {};
   var userType = req.headers.type;
-
   if (req.headers.id_token) {
     // console.log('TOKEN DECODER');
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
       // Adding the decodedToken to the request so that downstream processes can use it
       req.decodedToken = decodedToken;
-
       // call this function to check attach user_id to the request
       // if they are already in the db. If they aren't, add them
       userIdQuery(decodedToken.picture, decodedToken.email, req, res, next, userType);
@@ -44,7 +42,6 @@ var tokenDecoder = function(req, res, next) {
       console.log('User token could not be verified');
       res.sendStatus(403);
     });
-
   } else {
     // console.log('NO ID TOKEN');
     res.sendStatus(403);
@@ -59,18 +56,14 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
       res.sendStatus(500);
     }
     req.userStatus.newUser = false;
-
     //Checking to see if user exists in db and if not, adds them based on type
     if (userType) {
       req.userStatus.userType = userType;
       userType = userType + 's'; // Add 's' to match tables (mentors, students)
-
       // TODO sanitize userType input
-
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1', [userEmail],
       function(err, result) {
         done(); // close the connection.
-
         if (err) {
           console.log('select query error: ', err);
           res.sendStatus(500);
@@ -83,17 +76,14 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                 'VALUES ($1, $2)', [userEmail, userAvatar],
                 function(err, result) {
                   done(); // close the connection.
-
                   if (err) {
                     console.log('insert query error: ', err);
                     res.sendStatus(500);
                   } else {
                     // console.log("INSERT SUCCESSFUL!");
                     req.userStatus.newUser = true;
-
                     next();
                   }
-
                 });
               } else {
                 client.query(
@@ -101,17 +91,14 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                   'VALUES ($1)', [userEmail],
                   function(err, result) {
                     done(); // close the connection.
-
                     if (err) {
                       console.log('insert query error: ', err);
                       res.sendStatus(500);
                     } else {
                       // console.log("INSERT SUCCESSFUL!");
                       req.userStatus.newUser = true;
-
                       next();
                     }
-
                   });
                 }
               } else {
@@ -119,9 +106,7 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                 if (result.rows.length === 1) {
                   var userId = result.rows[0].id;
                   req.userStatus.userId = userId; // this is the id that corresponds to users email in users table
-
                   // console.log('USER ID DECODER:', userId);
-
                   next();
                 }
               }
@@ -145,15 +130,12 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
                 var userObject = result.rows[0];
                 console.log('userObject', userObject);
                 for (var property in userObject) {
-
                   if (userObject[property] !== null && typeof userObject[property] === 'string') {
                     req.userStatus.userType = property;
                   }
-
                   if (userObject[property] !== null && typeof userObject[property] === 'number') {
                     req.userStatus.userId = userObject[property];
                   }
-
                 }
                 if(userObject !== undefined){
                   req.userStatus.isAdmin = userObject.admin;
@@ -163,7 +145,6 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
             });
           }
         });
-
       }
 
       module.exports = {
