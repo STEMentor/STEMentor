@@ -23,5 +23,4 @@ app.controller('HomeController', ['$http', 'AuthFactory', '$mdDialog', function(
       });
   };
 
-
 }]);
