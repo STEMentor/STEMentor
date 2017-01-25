@@ -13,13 +13,12 @@ var profileEdit = require('./routes/profile-edit.route');
 var profile = require('./routes/profile.route');
 var email = require('./routes/email.route');
 //----------------------------------------------------------------------------//
-//---------------------------------- SETUP -----------------------------------//
 
+//---------------------------------- SETUP -----------------------------------//
 app.use(express.static('./server/public'));
 app.use(bodyParser.json());
 
 //----------------------------- ROUTES & MODULES -----------------------------//
-
 app.use('/mentor-search', mentorSearch);
 app.use('/profile', profile);
 app.use('/email', email);
