@@ -1,7 +1,6 @@
 app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('MessageController running');
   var self = this;
-
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
   var messageInfo = {};
@@ -16,15 +15,17 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     $mdDialog.cancel();
   };
 
+  //Student sending message
   self.sendStudentMessage = function() {
-    // Makes sure that currentUser is set before getting messages from the server
+    // Makes sure that currentUser is set
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendMessage(currentUser);
     });
   };
 
+  //Mentor sending message
   self.sendMentorMessage = function() {
-    // Makes sure that currentUser is set before getting messages from the server
+    // Makes sure that currentUser is set
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendReply(currentUser);
     });
@@ -93,6 +94,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
+  //Send email alerting that message has been sent
   function sendEmail(userType, receiverId){
     console.log("CURRENT MESSAGE RECIEVER ID:", receiverId);
     return $http({
@@ -110,4 +112,5 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       console.log('Error with messages POST request: ', error);
     };
   }
+
 }]);
