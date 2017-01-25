@@ -17,6 +17,9 @@
             <md-button class="md-raised" ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
               Save Changes
             </md-button>
+            <md-button class="md-raised md-warn" ng-click="profile.deleteUser()" ng-show="showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+              Delete User
+            </md-button>
 
           <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 

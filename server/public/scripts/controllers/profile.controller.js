@@ -77,6 +77,11 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     BioFactory.editBio(self.userData);
   };
 
+  self.deleteUser = function(){
+    console.log('delete user fired');
+    BioFactory.deleteUser(self.userData);
+  };
+
   self.createMessage = function(ev) {
     if(self.userStatus.isLoggedIn) {
       $mdDialog.show({
