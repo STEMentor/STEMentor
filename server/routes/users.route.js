@@ -6,11 +6,13 @@ var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
 router.get('/', function(req, res) {
-  console.log('req.userInfo in user route', req.userStatus);
+  // console.log('req.userInfo in user route', req.userStatus);
   var data = {};
   data.userStatus = req.userStatus;
 
   res.send(data);
 });
+
+//----------------------------------------------------------------------------//
 
 module.exports = router;

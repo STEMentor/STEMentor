@@ -1,17 +1,15 @@
 app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('MessageController running');
   var self = this;
-  self.newMessage = [];
+
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
   var messageInfo = {};
 
-  // console.log(InboxController.selectedMessage);
-
+  self.newMessage = [];
+  self.newReply = [];
   self.userStatus = AuthFactory.userStatus;
-
   self.mentor = BioFactory.mentorBio.info;
-
   self.currentMessage = MessageFactory.currentMessage.thing;
 
   self.cancel = function() {
@@ -19,11 +17,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
   };
 
   self.sendStudentMessage = function() {
-    console.log('newMessage: ', self.newMessage);
-    console.log('authInfo: ', authInfo);
-    console.log('userStatus: ', userStatus);
-    console.log('self.mentor: ', self.mentor);
-
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendMessage(currentUser);
@@ -31,12 +24,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
   };
 
   self.sendMentorMessage = function() {
-    console.log('newMessage: ', self.newMessage);
-    console.log('authInfo: ', authInfo);
-    console.log('userStatus: ', userStatus);
-    console.log('self.mentor: ', self.mentor);
-    console.log('self.currentMessage: ', self.currentMessage);
-
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       sendReply(currentUser);
@@ -48,6 +35,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
+
+        console.log(messageInfo);
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
@@ -63,7 +52,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          self.cancel();
           self.messages = response.data;
+          console.log("currentMessage", messageInfo.id);
+          sendEmail('mentor', messageInfo.id);
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
@@ -73,16 +65,12 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
-  //Mentor sending response message (updating field in db)
+  // Mentor sending response message (updating field in db)
   function sendReply(currentUser) {
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
-        messageInfo = self.mentor;
-        messageInfo.msgName = self.newMessage.name;
-        messageInfo.msgSubject = self.newMessage.subject;
-        messageInfo.msgBody = self.newMessage.body;
         messageInfo.msgId = self.currentMessage.id;
-        console.log('messageInfo: ', messageInfo);
+        messageInfo.msgReply = self.newReply.reply;
         return $http({
           method: 'PUT',
           url: '/message/reply',
@@ -94,7 +82,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          sendEmail('student', self.currentMessage.student_id);
+          self.cancel();
           self.messages = response.data;
+          console.log("CURRENT MESSAGE", self.currentMessage);
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
@@ -104,28 +95,21 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     }
   }
 
-
-
-  //   // Reply to message
-  //   self.replyToMessage = function() {
-  //     var messageId; // TODO: Need to get the message's ID somehow
-  //
-  //     return $http({
-  //       method: 'PUT',
-  //       url: '/message/reply',
-  //       data: {
-  //         messageId: messageId,
-  //         authInfo: authInfo
-  //       }
-  //     })
-  //     .then(function(response) {
-  //       console.log('Response from the server: ', response);
-  //     }),
-  //     function(error) {
-  //       console.log('Error with the reply PUT request: ', error);
-  //     };
-  //   };
-
-
-
+  function sendEmail(userType, receiverId){
+    console.log("CURRENT MESSAGE RECIEVER ID:", receiverId);
+    return $http({
+      method: 'POST',
+      url: '/email',
+      data: {
+        receiverId: receiverId,
+        userType: userType
+      }
+    })
+    .then(function(response) {
+      console.log(response);
+    }),
+    function(error) {
+      console.log('Error with messages POST request: ', error);
+    };
+  }
 }]);
