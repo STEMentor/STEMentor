@@ -6,6 +6,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   var loggedIn = false;
   var userStatus = {};
 
+  //-------------------------------Login--------------------------------------//
   function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
       currentUser = firebaseUser.user;
@@ -15,7 +16,9 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       }
     });
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
       // console.log('ID TOKEN:', idToken);
@@ -45,7 +48,9 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       userStatus.isLoggedIn = true;
     });
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   auth.$onAuthStateChanged(function(firebaseUser){
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
@@ -55,7 +60,9 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       userStatus.isLoggedIn = false;
     }
   });
+  //--------------------------------------------------------------------------//
 
+  //-------------------------------Logout-------------------------------------//
   function logOut() {
     return auth.$signOut().then(function() {
       currentUser = undefined;
@@ -67,7 +74,10 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       console.log('currentUser: ', currentUser);
     });
   }
+  //--------------------------------------------------------------------------//
 
+
+  //--------------------------------------------------------------------------//
   // TODO: Have Oliver explain what these variables are
   var publicApi = {
     auth: auth,
@@ -82,5 +92,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   };
 
   return publicApi;
-  
+  //--------------------------------------------------------------------------//
+
 }]);

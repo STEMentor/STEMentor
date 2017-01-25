@@ -4,11 +4,14 @@ app.factory('MessageFactory', ['$http', 'AuthFactory', function($http, AuthFacto
   var currentMessage = {};
   var unreadMessages = {};
 
+  //--------------------------------------------------------------------------//
   function setMessage(item){
     currentMessage.thing = item;
     console.log('message factory currentMessage: ', currentMessage);
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   // Get request to retrieve the user's unread messages
   function getUnreadMessages(){
     console.log('IN THE getUnreadMessages FUNCTION!');
@@ -35,7 +38,9 @@ app.factory('MessageFactory', ['$http', 'AuthFactory', function($http, AuthFacto
       }
     });
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   var publicApi = {
     currentMessage: currentMessage,
     unreadMessages: unreadMessages,
@@ -48,5 +53,6 @@ app.factory('MessageFactory', ['$http', 'AuthFactory', function($http, AuthFacto
   };
 
   return publicApi;
+  //--------------------------------------------------------------------------//
 
 }]);
