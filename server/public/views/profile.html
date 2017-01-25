@@ -384,6 +384,7 @@
 
                             <md-card ng-repeat="faq in profile.mentor.faqs">
                                 <md-card-content>
+                                  <md-button ng-click="profile.deleteFaq(faq.faq_id)">Delete</md-button>
                                     <div layout-gt-xs="row">
                                         <md-input-container class="md-block" flex-gt-xs>
                                             <div ng-hide="showEdits">

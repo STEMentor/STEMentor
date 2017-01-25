@@ -72,6 +72,11 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     BioFactory.editFaqs(self.mentor.faqs);
   };
 
+  self.deleteFaq = function(faqId){
+    console.log(faqId);
+    BioFactory.deleteFaq(faqId);
+  };
+
   self.editBio = function(){
     console.log("Updates to profile data: ", self.userData);
     BioFactory.editBio(self.userData);
