@@ -104,10 +104,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       }
     })
     .then(function(response) {
-      console.log(response)
+      console.log(response);
     }),
     function(error) {
       console.log('Error with messages POST request: ', error);
     };
-  };
+  }
 }]);
