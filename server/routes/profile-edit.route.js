@@ -94,6 +94,19 @@ router.put('/edit-faq/:id', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
+// Delete an existing FAQ entry ------------------------------------------------//
+router.delete('/edit-faq/:id', function(req, res) {
+
+});
+//----------------------------------------------------------------------------//
+
+// Delete a user and all related messages and FAQs from the database ---------//
+router.delete('/delete-user/:id', function(req, res) {
+  
+});
+
+//----------------------------------------------------------------------------//
+
 // Assigns userId based on isAdmin -------------------------------------------//
 function assignUserId(req){
   if(req.userStatus.isAdmin){
