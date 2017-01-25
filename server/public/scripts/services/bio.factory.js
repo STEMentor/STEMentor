@@ -100,7 +100,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
           };
         });
       }
-
     });
   }
 //----------------------------------------------------------------------------//
@@ -191,7 +190,36 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
 //----------------------------------------------------------------------------//
 
+// Delete an existing user and their associated FAQs and messages ------------//
+function deleteUser(userData) {
+  console.log('bio factory delete user fired');
+  // Makes sure that currentUser is set before getting messages from the server
+  AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
 
+    if(currentUser){
+      currentUser.getToken().then(function(idToken) {
+        return $http({
+          method: 'DELETE',
+          url: '/profile-edit/delete-user/' + mentorId,
+          headers: {
+            id_token: idToken
+          },
+          data: {
+            userData: userData
+          }
+        })
+        .then(function(response) {
+          // console.log("User data in response from server: ", response.data);
+          getProfiles();
+        }),
+        function(error) {
+          console.log('Error with user DELETE request: ', error);
+        };
+      });
+    }
+  });
+}
+//----------------------------------------------------------------------------//
 
 //----------------------------------------------------------------------------//
   var publicApi = {
@@ -219,8 +247,11 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     editFaqs: function(faqData){
       return editFaqs(faqData);
     },
+    deleteUser: function(userData){
+      return deleteUser(userData);
+    },
     deleteFaq: function(faqId){
-      return deleteFaq(faqId)
+      return deleteFaq(faqId);
     }
   };
 
