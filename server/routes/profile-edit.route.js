@@ -94,6 +94,34 @@ router.put('/edit-faq/:id', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
+// Delete an existing FAQ entry ----------------------------------------------//
+router.delete('/delete-faq/:id', function(req, res) {
+  var userId = req.userStatus.userId;
+  var faqId = req.params.id;
+
+  console.log("FAQ Id:", faqId);
+
+  // pg.connect(connectionString, function(error, client, done) {
+  //   connectionErrorCheck(error);
+  //
+  //   client.query(
+  //     'DELETE FROM faq (mentor_id, question, answer) VALUES ($1, $2, $3)',
+  //     [userId, question, answer],
+  //     function(error, result) {
+  //       done(); // Close connection to the database
+  //
+  //       if(error) {
+  //         console.log('Error when creating new FAQ: ', error);
+  //         res.sendStatus(500);
+  //       } else {
+  //         res.sendStatus(201);
+  //       }
+  //     }
+  //   );
+  // });
+});
+//----------------------------------------------------------------------------//
+
 // Assigns userId based on isAdmin -------------------------------------------//
 function assignUserId(req){
   if(req.userStatus.isAdmin){

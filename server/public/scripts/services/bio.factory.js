@@ -164,32 +164,29 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
 //----------------------------------------------------------------------------//
 
-//------------------------- Edit user's FAQ entires --------------------------//
+//------------------------- Delete user's FAQ entires --------------------------//
   function deleteFaq(faqId) {
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
       console.log('FAQ ID:', faqId);
-      // if(currentUser){
-      //   return currentUser.getToken().then(function(idToken) {
-      //     return $http({
-      //       method: 'PUT',
-      //       url: '/profile-edit/edit-faq/'+faqArray.faq_id,
-      //       headers: {
-      //         id_token: idToken
-      //       },
-      //       data: {
-      //         faqArray: faqArray
-      //       }
-      //     })
-      //     .then(function(response) {
-      //       console.log("USER DATA IN RESPONSE: ", response.data);
-      //       getProfiles();
-      //     }),
-      //     function(error) {
-      //       console.log('Error with messages POST request: ', error);
-      //     };
-      //   });
-      // }
+      if(currentUser){
+        return currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'DELETE',
+            url: '/profile-edit/delete-faq/' + faqId,
+            headers: {
+              id_token: idToken
+            }
+          })
+          .then(function(response) {
+            console.log("USER DATA IN RESPONSE: ", response.data);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with messages POST request: ', error);
+          };
+        });
+      }
     });
   }
 //----------------------------------------------------------------------------//
