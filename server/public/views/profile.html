@@ -382,7 +382,7 @@
                                 </md-card-content>
                             </md-card>
 
-                            <md-card ng-repeat="faq in profile.mentor.faqs">
+                            <md-card ng-hide="faq.question === null || faq.answer === null" ng-repeat="faq in profile.mentor.faqs">
                                 <md-card-content>
                                   <md-button ng-click="profile.deleteFaq(faq.faq_id)">Delete</md-button>
                                     <div layout-gt-xs="row">
