@@ -8,13 +8,13 @@
                 <!--–––––––––––––––––––––––– Edit Switch and Buttons ––––––––––––––––––––––––-->
                 <md-tab md-on-select="profile.selectProfileTab()" label="Profile">
                     <div layout-gt-xs="row" layout-padding>
-                        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">
+                        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="profile.showEdits">
                             Edit Your Profile
                         </md-switch>
                     </div>
 
                     <!-- Save Changes button for Profile edits -->
-                    <md-button class="md-raised" ng-click="profile.editBio()" ng-show="showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+                    <md-button class="md-raised" ng-click="profile.editBio()" ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
                         Save Changes
                     </md-button>
 
@@ -57,7 +57,7 @@
                     <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
                     <!--––––––––––––––––––––––––– Header Info Edit Card –––––––––––––––––––––––––-->
-                    <md-card ng-if="showEdits">
+                    <md-card ng-if="profile.showEdits">
                         <md-card-content>
 
                             <div layout-gt-sm="row">
@@ -102,7 +102,7 @@
                     <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
                     <!--––––––––––––––––––––––––––––––– Bio Card ––––––––––––––––––––––––––––––––-->
-                    <md-card ng-if="!showEdits && profile.mentor.info.bio">
+                    <md-card ng-if="!profile.showEdits && profile.mentor.info.bio">
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Bio</span>
@@ -118,7 +118,7 @@
                         </md-card-content>
                     </md-card>
 
-                    <md-card ng-if="showEdits">
+                    <md-card ng-if="profile.showEdits">
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">Bio</span>
@@ -136,7 +136,7 @@
                     <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
                     <!--–––––––––––––––––––––––––––– Education Card –––––––––––––––––––––––––––––-->
-                    <md-card ng-if="!showEdits && (profile.mentor.info.school || profile.mentor.info.degree || profile.mentor.info.major)">
+                    <md-card ng-if="!profile.showEdits && (profile.mentor.info.school || profile.mentor.info.degree || profile.mentor.info.major)">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -162,7 +162,7 @@
 
                     </md-card>
 
-                    <md-card ng-if="showEdits">
+                    <md-card ng-if="profile.showEdits">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -194,7 +194,7 @@
                     <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
                     <!--–-–––––––––––––––––––––––––––– Career Card –-––––––––––––––––––––––––––––-->
-                    <md-card ng-if="!showEdits && (profile.mentor.info.company || profile.mentor.info.job_title)">
+                    <md-card ng-if="!profile.showEdits && (profile.mentor.info.company || profile.mentor.info.job_title)">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -216,7 +216,7 @@
                         </md-card-content>
                     </md-card>
 
-                    <md-card ng-if="showEdits">
+                    <md-card ng-if="profile.showEdits">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -224,7 +224,7 @@
                             </md-card-title-text>
                         </md-card-title>
 
-                        <md-card-content ng-if="showEdits">
+                        <md-card-content ng-if="profile.showEdits">
                             <div layout-gt-sm="row">
 
                                 <md-input-container class="md-block" flex-gt-sm="50">
@@ -243,7 +243,7 @@
                     <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 
                     <!--–––––––––––––––––––––––––– Personal Info Card –––––––––––––––––––-–––––––-->
-                    <md-card ng-if="!showEdits && (profile.mentor.info.gender || profile.mentor.info.orientation || profile.mentor.info.state || profile.mentor.info.languages)">
+                    <md-card ng-if="!profile.showEdits && (profile.mentor.info.gender || profile.mentor.info.orientation || profile.mentor.info.state || profile.mentor.info.languages)">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -278,7 +278,7 @@
                         </md-card-content>
                     </md-card>
 
-                    <md-card ng-if="showEdits">
+                    <md-card ng-if="profile.showEdits">
 
                         <md-card-title>
                             <md-card-title-text>
@@ -336,20 +336,20 @@
 
                 <md-tab label="FAQs" md-on-select="profile.selectFaqTab()">
                     <div layout-gt-xs="row" layout-padding>
-                        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="showEdits">
+                        <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="profile.showEdits">
                             Edit Your FAQs
                         </md-switch>
-
-                        <!-- save changes button for faq edits -->
-                        <md-button class="md-raised" ng-click="profile.editFaqs()" ng-show="showEdits && profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id">
-                            Save Changes
-                        </md-button>
                     </div>
 
                     <div layout-gt-xs="row" layout-padding>
                         <!-- Add a new faq button -->
                         <md-button class="md-raised" ng-click="profile.changeAddFaqClicked(true)" ng-show="profile.addFaqClicked == false && profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id">
                             Add Faq
+                        </md-button>
+
+                        <!-- save changes button for faq edits -->
+                        <md-button class="md-raised" ng-click="profile.editFaqs()" ng-show="profile.showEdits && profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id">
+                            Save Changes
                         </md-button>
 
                         <!-- Save or cancel the new faq -->
@@ -384,22 +384,24 @@
 
                             <md-card ng-hide="faq.question === null || faq.answer === null" ng-repeat="faq in profile.mentor.faqs">
                                 <md-card-content>
-                                  <md-button ng-click="profile.deleteFaq(faq.faq_id)">Delete</md-button>
+                                  <md-button class="md-icon-button" ng-click="profile.deleteFaq(faq.faq_id)">
+                                    <i id="delete" class="material-icons">delete</i>
+                                  </md-button>
                                     <div layout-gt-xs="row">
                                         <md-input-container class="md-block" flex-gt-xs>
-                                            <div ng-hide="showEdits">
+                                            <div ng-hide="profile.showEdits">
                                                 <strong>{{faq.question}}</strong>
                                             </div>
-                                            <input type="text" ng-show="showEdits" ng-model="faq.question" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_7" aria-label="FAQ Question Field" aria-hidden="false" aria-invalid="false" style="">
+                                            <input type="text" ng-show="profile.showEdits" ng-model="faq.question" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_7" aria-label="FAQ Question Field" aria-hidden="false" aria-invalid="false" style="">
                                         </md-input-container>
                                     </div>
 
                                     <div layout-gt-xs="row">
                                         <md-input-container class="md-block" flex-gt-xs>
-                                            <div ng-hide="showEdits">
+                                            <div ng-hide="profile.showEdits">
                                                 {{faq.answer}}
                                             </div>
-                                            <input type="text" ng-show="showEdits" ng-model="faq.answer" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_8" aria-label="FAQ Answer Field" aria-hidden="false" aria-invalid="false" style="">
+                                            <input type="text" ng-show="profile.showEdits" ng-model="faq.answer" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_8" aria-label="FAQ Answer Field" aria-hidden="false" aria-invalid="false" style="">
                                         </md-input-container>
                                     </div>
                                 </md-card-content>

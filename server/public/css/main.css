@@ -146,6 +146,11 @@
   transform: scale(1.15);
   z-index: 1; }
 
+#delete {
+  float: right;
+  position: relative;
+  display: inline; }
+
 #profileHeader {
   border: 1px solid #000000;
   width: 20px;

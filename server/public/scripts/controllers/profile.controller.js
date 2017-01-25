@@ -10,6 +10,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   self.faqTabSelected = false;
   self.userStatus = AuthFactory.userStatus;
 
+  self.showEdits = false;
+
   self.userData = {
     first_name: null,
     last_name: null,
@@ -69,6 +71,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editFaqs = function(){
+    self.showEdits = false;
     BioFactory.editFaqs(self.mentor.faqs);
   };
 
@@ -78,6 +81,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editBio = function(){
+    self.showEdits = false;
     console.log("Updates to profile data: ", self.userData);
     BioFactory.editBio(self.userData);
   };
