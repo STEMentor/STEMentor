@@ -6,6 +6,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   var loggedIn = false;
   var userStatus = {};
 
+  //-------------------------------Login--------------------------------------//
   function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
       currentUser = firebaseUser.user;
@@ -15,7 +16,9 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       }
     });
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
       // console.log('ID TOKEN:', idToken);
@@ -28,31 +31,27 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
         }
       })
       .then(function(response) {
-
         userStatus.userType = response.data.userStatus.userType;
         userStatus.userId = response.data.userStatus.userId;
         userStatus.isAdmin = response.data.userStatus.isAdmin;
-
         // if they are a new mentor go straight to profile
-
         if(userStatus.userType === 'mentor'){
           // BioFactory.setMentorId(userStatus.userId);
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
-              userStatus.newUser = true;
-              // $location.path("profile");
+            userStatus.newUser = true;
+            // $location.path("profile");
           }
           console.log("USER STATUS:", userStatus);
         }
-
       });
       userStatus.isLoggedIn = true;
     });
-
   }
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   auth.$onAuthStateChanged(function(firebaseUser){
-
     // firebaseUser will be null if not logged in
     currentUser = firebaseUser;
     if(currentUser) {
@@ -60,9 +59,10 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
     } else {
       userStatus.isLoggedIn = false;
     }
-
   });
+  //--------------------------------------------------------------------------//
 
+  //-------------------------------Logout-------------------------------------//
   function logOut() {
     return auth.$signOut().then(function() {
       currentUser = undefined;
@@ -75,8 +75,10 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       console.log('currentUser: ', currentUser);
     });
   }
+  //--------------------------------------------------------------------------//
 
-  // TODO: Have Oliver explain what these variables are
+
+  //--------------------------------------------------------------------------//
   var publicApi = {
     auth: auth,
     userStatus: userStatus,
@@ -90,6 +92,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   };
 
   return publicApi;
-
+  //--------------------------------------------------------------------------//
 
 }]);
