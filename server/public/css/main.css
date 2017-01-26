@@ -146,7 +146,7 @@
   transform: scale(1.15);
   z-index: 1; }
 
-#delete {
+.delete-button {
   float: right;
   position: relative;
   display: inline; }
