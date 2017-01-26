@@ -5,7 +5,6 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder.module');
-var db = require('./modules/db.module');
 var mentorSearch = require('./routes/mentor-search.route');
 var users = require('./routes/users.route');
 var message = require('./routes/message.route');

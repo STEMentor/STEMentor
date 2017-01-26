@@ -36,6 +36,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
+
+        console.log(messageInfo);
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
@@ -53,8 +55,8 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         .then(function(response) {
           self.cancel();
           self.messages = response.data;
-          console.log("mentorId", BioFactory.mentorId);
-          sendEmail('mentor', self.currentMessage.mentor_id);
+          console.log("currentMessage", messageInfo.id);
+          sendEmail('mentor', messageInfo.id);
           console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {

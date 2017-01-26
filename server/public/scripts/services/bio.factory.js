@@ -101,6 +101,35 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
   //--------------------------------------------------------------------------//
 
+  //-------------------------- Create new FAQ entry --------------------------//
+  function postFaq(faqData){
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+      console.log('FAQ DATA:', faqData);
+      if(currentUser){
+        return currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'POST',
+            url: '/profile-edit/new-faq',
+            headers: {
+              id_token: idToken
+            },
+            data: {
+              faqData: faqData
+            }
+          })
+          .then(function(response) {
+            console.log("FAQ DATA IN RESPONSE: ", response);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with messages POST request: ', error);
+          };
+        });
+      }
+    });
+  }
+  //--------------------------------------------------------------------------//
+
   //------------------------ Edit user's FAQ entires -------------------------//
   function editFaqs(faqArray) {
     // Makes sure that currentUser is set
@@ -131,24 +160,22 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
   //--------------------------------------------------------------------------//
 
-  //-------------------------- Create new FAQ entry --------------------------//
-  function postFaq(faqData){
+  //----------------------- Delete user's FAQ entires ------------------------//
+  function deleteFaq(faqId) {
+    // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      console.log('FAQ DATA:', faqData);
+      console.log('FAQ ID:', faqId);
       if(currentUser){
         return currentUser.getToken().then(function(idToken) {
           return $http({
-            method: 'POST',
-            url: '/profile-edit/new-faq',
+            method: 'DELETE',
+            url: '/profile-edit/delete-faq/' + faqId,
             headers: {
               id_token: idToken
-            },
-            data: {
-              faqData: faqData
             }
           })
           .then(function(response) {
-            console.log("FAQ DATA IN RESPONSE: ", response);
+            console.log("USER DATA IN RESPONSE: ", response.data);
             getProfiles();
           }),
           function(error) {
@@ -160,6 +187,38 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   }
   //--------------------------------------------------------------------------//
 
+  // Delete an existing user and their associated FAQs and messages ----------//
+  function deleteUser(userData) {
+    console.log('bio factory delete user fired');
+    // Makes sure that currentUser is set before getting messages from the server
+    AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
+
+      if(currentUser){
+        currentUser.getToken().then(function(idToken) {
+          return $http({
+            method: 'DELETE',
+            url: '/profile-edit/delete-user/' + mentorId,
+            headers: {
+              id_token: idToken
+            },
+            data: {
+              userData: userData
+            }
+          })
+          .then(function(response) {
+            // console.log("User data in response from server: ", response.data);
+            getProfiles();
+          }),
+          function(error) {
+            console.log('Error with user DELETE request: ', error);
+          };
+        });
+      }
+    });
+  }
+  //--------------------------------------------------------------------------//
+
+
   //--------------------------------------------------------------------------//
   var publicApi = {
     mentors: mentors,
@@ -168,11 +227,17 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     getMentors: function(newSearch){
       return getMentors(newSearch);
     },
+    getProfiles: function(){
+      return getProfiles();
+    },
     setMentor: function(mentor){
       return setMentor(mentor);
     },
-    getProfiles: function(){
-      return getProfiles();
+    setMentorId: function(id){
+      return setMentorId(id);
+    },
+    postFaq: function(faqData){
+      return postFaq(faqData);
     },
     editBio: function(userData){
       return editBio(userData);
@@ -180,12 +245,12 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     editFaqs: function(faqData){
       return editFaqs(faqData);
     },
-    postFaq: function(faqData){
-      return postFaq(faqData);
+    deleteUser: function(userData){
+      return deleteUser(userData);
     },
-    setMentorId: function(id){
-      return setMentorId(id);
-    },
+    deleteFaq: function(faqId){
+      return deleteFaq(faqId);
+    }
   };
 
   return publicApi;

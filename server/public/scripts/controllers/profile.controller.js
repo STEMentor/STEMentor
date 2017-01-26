@@ -11,6 +11,8 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   self.userStatus = AuthFactory.userStatus;
   self.primaryStemField = '';
 
+  self.showEdits = false;
+
   self.userData = {
     first_name: null,
     last_name: null,
@@ -68,12 +70,24 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
   };
 
   self.editFaqs = function(){
+    self.showEdits = false;
     BioFactory.editFaqs(self.mentor.faqs);
   };
 
+  self.deleteFaq = function(faqId){
+    console.log(faqId);
+    BioFactory.deleteFaq(faqId);
+  };
+
   self.editBio = function(){
+    self.showEdits = false;
     console.log("Updates to profile data: ", self.userData);
     BioFactory.editBio(self.userData);
+  };
+
+  self.deleteUser = function(){
+    console.log('delete user fired');
+    BioFactory.deleteUser(self.userData);
   };
 
   self.createMessage = function(ev) {

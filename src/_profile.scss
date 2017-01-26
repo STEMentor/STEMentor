@@ -1,12 +1,17 @@
-// * {
-//   background: #FAFAFA;
-// }
+
+.delete-button {
+  float: right;
+  position: relative;
+  display: inline;
+}
 
 #profileHeader {
   border: 1px solid $main-black;
   width: 20px;
   height: 20px;
 }
+
+//***** Centering CSS *****//
 
 .aligner {
   display: flex;
@@ -18,16 +23,17 @@
   max-width: 50%;
 }
 
+/////////////////////////////////////
 
 //***** profile nav bar css *****//
 
 .tabsdemoDynamicHeight md-content {
   background-color: transparent !important; }
   .tabsdemoDynamicHeight md-content md-tabs {
-    background: #f6f6f6;
-    border: 1px solid #e1e1e1; }
+    background: $light-gray;
+    border: 1px solid $medium-gray; }
     .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-      background: white; }
+      background: $main-white; }
   .tabsdemoDynamicHeight md-content h1:first-child {
     margin-top: 0; }
 

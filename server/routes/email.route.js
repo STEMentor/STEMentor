@@ -25,7 +25,7 @@ router.post('/', function(req, res) {
           console.log('select query error: ', err);
           res.sendStatus(500);
         } else {
-          sendEmail('mentor.test.stementor@gmail.com');
+          sendEmail(result.rows[0].email);
           console.log('EMAIL OF RECEIVER:', result.rows[0].email);
         }
       });
