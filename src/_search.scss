@@ -14,51 +14,35 @@
   border-width: 1px; }
 
 .checkboxdemoBasicUsage legend {
-  color: #3F51B5; }
+  color: $main-blue; }
 
 .checkboxdemoBasicUsage legend code {
-  color: #3F51B5;
+  color: $main-blue;
   font-weight: normal; }
 
 .checkboxdemoBasicUsage .ipsum {
-  color: saddlebrown; }
+  color: $STEM-red; }
 
 //***************************//
 
 //***** icons *****//
-.inputdemoIcons {
-  /*
-.right-icon {
-  position: absolute;
-  top: 4px;
-  right: 2px;
-  left: auto;
-  margin-top: 0;
-}
-*/ }
+.inputdemoIcons {}
   .inputdemoIcons .inputIconDemo {
     min-height: 48px; }
   .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
-    color: green; }
+    color: $STEM-green; }
   .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
-    color: dodgerblue; }
+    color: $main-blue; }
   .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
   .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
-    color: red; }
+    color: $STEM-red; }
 
 
 //*****search bar ****//
+
 @import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates);
 
-// * {
-//     margin:0;
-//     padding:0;
-//     font:12pt Arial;
-// }
-
-// body {
-//   background-color:#34495e;
-// }
+////////////////////////
 
 .field {
   display:flex;
@@ -92,7 +76,7 @@
 .field>button {
   padding:0.6em 0.8em;
   background-color:$main-blue;
-  color:white;
+  color:$main-white;
   border:none;
 }
 
@@ -120,30 +104,32 @@
 
 }
 
+//***** flippy card css colors *****//
+
 .science {
-  // background: linear-gradient(white, #4BB346);
+  // background: linear-gradient(white, $STEM-green);
   // background-color: rgba(75, 179, 70, 0.1);
   // opacity: 0.5;
 }
 
 .tech {
-  // background: linear-gradient(white, #694296);
+  // background: linear-gradient(white, $STEM-purple);
   // background-color: rgba(105, 66, 150, 0.1);
 }
 
 .engineering {
-  // background: linear-gradient(white, #DB5659);
+  // background: linear-gradient(white, $STEM-red);
   // background-color: rgba(219, 86, 89, 0.1);
 }
 
 .math {
-  // background: linear-gradient(white, #DDD457);
+  // background: linear-gradient(white, $STEM-yellow);
   // background-color: rgba(221, 212, 87, 0.1);
 }
 
 .greyButton {
-  color: grey;
-  background-color: grey;
+  color: $medium-gray;
+  background-color: $medium-gray;
 }
 
 .searchCard {
@@ -153,6 +139,8 @@
 .padding-col {
   padding-right: 15%;
 }
+
+//***** flippy card grow css *****//
 
 .grow {
   display: inline-block;
