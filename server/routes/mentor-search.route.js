@@ -76,19 +76,19 @@ function queryBuilder(object) {
   if (object.generic_search) {
     index++;
     query +=
-      '(first_name ILIKE $' + index +
-      ' OR last_name ILIKE $' + index +
-      ' OR blurb ILIKE $' + index +
-      ' OR bio ILIKE $' + index +
-      ' OR company ILIKE $' + index +
-      ' OR job_title ILIKE $' + index +
-      ' OR race ILIKE $' + index +
-      ' OR gender ILIKE $' + index +
-      ' OR orientation ILIKE $' + index +
-      ' OR school ILIKE $' + index +
-      ' OR degree ILIKE $' + index +
-      ' OR major ILIKE $' + index +
-      ' OR languages ILIKE $' + index + ')';
+    '(first_name ILIKE $' + index +
+    ' OR last_name ILIKE $' + index +
+    ' OR blurb ILIKE $' + index +
+    ' OR bio ILIKE $' + index +
+    ' OR company ILIKE $' + index +
+    ' OR job_title ILIKE $' + index +
+    ' OR race ILIKE $' + index +
+    ' OR gender ILIKE $' + index +
+    ' OR orientation ILIKE $' + index +
+    ' OR school ILIKE $' + index +
+    ' OR degree ILIKE $' + index +
+    ' OR major ILIKE $' + index +
+    ' OR languages ILIKE $' + index + ')';
   }
 
   for (var property in object) {
@@ -115,10 +115,9 @@ function queryBuilder(object) {
 }
 //----------------------------------------------------------------------------//
 
-// Constructs an array of property names for PG to use in the query
+// Constructs an array of property names for PG to use in the query-----------//
 function propertyArrayBuilder(object) {
   var propertyArray = [];
-
   for (var property in object) {
     if (object[property]) {
       if (property === 'generic_search') {
@@ -130,9 +129,7 @@ function propertyArrayBuilder(object) {
       }
     }
   }
-
   return propertyArray;
-
 }
 //----------------------------------------------------------------------------//
 

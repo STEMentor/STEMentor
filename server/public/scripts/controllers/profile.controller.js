@@ -1,14 +1,15 @@
 app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
   console.log('ProfileController running');
   var self = this;
-
   var isMentor = false;
   var isStudent = false;
+
   self.mentor = BioFactory.mentorBio;
   self.addFaqClicked = false;
   self.profileTabSelected = true;
   self.faqTabSelected = false;
   self.userStatus = AuthFactory.userStatus;
+  self.primaryStemField = '';
 
   self.showEdits = false;
 
@@ -45,9 +46,7 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
       abbrev: state
     };
   });
-
-  self.primaryStemField = '';
-
+  
   self.selectFaqTab = function(){
     console.log("SOMETHING");
     self.faqTabSelected = true;
@@ -84,6 +83,11 @@ app.controller('ProfileController', ['$http', '$mdDialog', 'BioFactory', 'AuthFa
     self.showEdits = false;
     console.log("Updates to profile data: ", self.userData);
     BioFactory.editBio(self.userData);
+  };
+
+  self.deleteUser = function(){
+    console.log('delete user fired');
+    BioFactory.deleteUser(self.userData);
   };
 
   self.createMessage = function(ev) {

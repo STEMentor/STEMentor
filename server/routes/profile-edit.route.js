@@ -94,6 +94,34 @@ router.put('/edit-faq/:id', function(req, res) {
 });
 //----------------------------------------------------------------------------//
 
+// Delete a user and all related messages and FAQs from the database ---------//
+router.delete('/delete-user/:id', function(req, res) {
+  var isAdmin = req.userStatus.isAdmin;
+  var userId = req.userStatus.userId;
+  var userToDelete = req.params.id;
+
+  if (isAdmin === true || userToDelete === userId){
+    pg.connect(connectionString, function(error, client, done) {
+      connectionErrorCheck(error);
+
+      client.query(
+        'DELETE FROM mentors WHERE id = $1', [userToDelete],
+        function(error, result) {
+          done(); // Close connection to the database
+
+          if(error) {
+            console.log('Error when deleting user: ', error);
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        }
+      );
+    });
+  }
+});
+//----------------------------------------------------------------------------//
+
 // Delete an existing FAQ entry ----------------------------------------------//
 router.delete('/delete-faq/:id', function(req, res) {
   var faqId = req.params.id;
@@ -191,9 +219,9 @@ function faqEditQueryBuilder(faqArray, userId) {
   }
 
   queryString +=
-    'UPDATE faq ' +
-    'SET question = CASE id' + questionString + ' END, ' +
-    'answer = CASE id' + answerString + ' END';
+  'UPDATE faq ' +
+  'SET question = CASE id' + questionString + ' END, ' +
+  'answer = CASE id' + answerString + ' END';
 
   for (index = 0; index < faqArray.length; index++) {
     propertyArray.push(faqArray[index].faq_id, faqArray[index].question);
