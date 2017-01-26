@@ -17,7 +17,7 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
 
 .hidden {
-  color: white; }
+  color: #FFFFFF; }
 
 .md-button.home-button {
   font-size: 20px;
@@ -25,14 +25,14 @@
   width: 225px; }
 
 .md-button.home-button.find-mentor {
-  color: white;
+  color: #FFFFFF;
   background-color: #694296; }
 
 .md-button.home-button.find-mentor:hover {
   color: #694296; }
 
 .md-button.home-button.become-mentor {
-  color: white;
+  color: #FFFFFF;
   background-color: #DB5659; }
 
 .md-button.home-button.become-mentor:hover {
@@ -43,7 +43,7 @@
   margin: 20px; }
 
 .notification {
-  color: red;
+  color: #DB5659;
   font-weight: bold; }
 
 .checkboxdemoBasicUsage div.flex-xs {
@@ -60,38 +60,27 @@
   border-width: 1px; }
 
 .checkboxdemoBasicUsage legend {
-  color: #3F51B5; }
+  color: #0077b5; }
 
 .checkboxdemoBasicUsage legend code {
-  color: #3F51B5;
+  color: #0077b5;
   font-weight: normal; }
 
 .checkboxdemoBasicUsage .ipsum {
-  color: saddlebrown; }
-
-.inputdemoIcons {
-  /*
-.right-icon {
-  position: absolute;
-  top: 4px;
-  right: 2px;
-  left: auto;
-  margin-top: 0;
-}
-*/ }
+  color: #DB5659; }
 
 .inputdemoIcons .inputIconDemo {
   min-height: 48px; }
 
 .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
-  color: green; }
+  color: #4BB346; }
 
 .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
-  color: dodgerblue; }
+  color: #0077b5; }
 
 .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
 .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
-  color: red; }
+  color: #DB5659; }
 
 .field {
   display: flex;
@@ -114,7 +103,7 @@
 .field > button {
   padding: 0.6em 0.8em;
   background-color: #0077b5;
-  color: white;
+  color: #FFFFFF;
   border: none; }
 
 .tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
@@ -129,6 +118,13 @@
 
 .spacer {
   padding-left: 8%; }
+
+.greyButton {
+  color: #86888A;
+  background-color: #86888A; }
+
+.searchCard {
+  box-sizing: border-box; }
 
 .padding-col {
   padding-right: 15%; }
@@ -150,6 +146,11 @@
   transform: scale(1.15);
   z-index: 1; }
 
+#delete {
+  float: right;
+  position: relative;
+  display: inline; }
+
 #profileHeader {
   border: 1px solid #000000;
   width: 20px;
@@ -167,11 +168,11 @@
   background-color: transparent !important; }
 
 .tabsdemoDynamicHeight md-content md-tabs {
-  background: #f6f6f6;
-  border: 1px solid #e1e1e1; }
+  background: #CACCCE;
+  border: 1px solid #86888A; }
 
 .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-  background: white; }
+  background: #FFFFFF; }
 
 .tabsdemoDynamicHeight md-content h1:first-child {
   margin-top: 0; }
@@ -192,7 +193,7 @@
 
 .inbox-unread,
 .inbox-replied {
-  background-color: white; }
+  background-color: #FFFFFF; }
 
 .inbox-read,
 .inbox-not-replied {

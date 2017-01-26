@@ -13,7 +13,7 @@
 //*****************************//
 
 .center-card {
-  background: #FFFFFF;
+  background: $main-white;
   border-radius: 2px;
   margin: auto;
   height: 100%;
@@ -26,7 +26,7 @@
 
 
 .hidden {
-  color: white;
+  color: $main-white;
 }
 
 .md-button.home-button {
@@ -36,24 +36,19 @@
 }
 
 .md-button.home-button.find-mentor {
-  color: white;
-  background-color: #694296;
+  color: $main-white;
+  background-color: $STEM-purple;
 }
 
 .md-button.home-button.find-mentor:hover {
-  color: #694296;
+  color: $STEM-purple;
 }
 
 .md-button.home-button.become-mentor {
-  color: white;
-  background-color: #DB5659;
+  color: $main-white;
+  background-color: $STEM-red;
 }
 
 .md-button.home-button.become-mentor:hover {
-  color: #DB5659;
+  color: $STEM-red;
 }
-
-// #4BB346
-// #694296
-// #DB5659
-// #DDD457
