@@ -8,7 +8,6 @@ app.controller('WarningController', ['$http', 'AuthFactory', '$mdDialog', 'BioFa
 
   self.logIn = function(userType) {
     console.log('logging user in');
-    // console.log(userType);
     AuthFactory.logIn(userType).then(function(response){
       console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     })
