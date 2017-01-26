@@ -1,6 +1,9 @@
 {
   "name": "stementor",
   "version": "1.0.0",
+  "engines": {
+    "node": "7.4.0"
+  },
   "description": "STEMentor connects STEM professionals to interested students",
   "main": "app.js",
   "scripts": {
