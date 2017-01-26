@@ -90,7 +90,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
             }
           })
           .then(function(response) {
-            // console.log("User data in response from server: ", response.data);
             getProfiles();
           }),
           function(error) {

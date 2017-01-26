@@ -60,7 +60,6 @@ function userIdQuery(userAvatar, userEmail, req, res, next, userType) {
     if (userType) {
       req.userStatus.userType = userType;
       userType = userType + 's'; // Add 's' to match tables (mentors, students)
-      // TODO sanitize userType input
       client.query('SELECT id FROM ' + userType + ' WHERE email = $1', [userEmail],
       function(err, result) {
         done(); // close the connection.

@@ -78,7 +78,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
 
 
   //--------------------------------------------------------------------------//
-  // TODO: Have Oliver explain what these variables are
   var publicApi = {
     auth: auth,
     userStatus: userStatus,

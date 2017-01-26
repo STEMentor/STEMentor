@@ -118,7 +118,6 @@ function queryBuilder(object) {
 // Constructs an array of property names for PG to use in the query-----------//
 function propertyArrayBuilder(object) {
   var propertyArray = [];
-
   for (var property in object) {
     if (object[property]) {
       if (property === 'generic_search') {
