@@ -1,5 +1,5 @@
 app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
-  console.log('MessageController running');
+  // console.log('MessageController running');
   var self = this;
   var authInfo = AuthFactory.auth;
   var userStatus = AuthFactory.userStatus;
@@ -37,11 +37,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
 
-        console.log(messageInfo);
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
-        console.log('messageInfo: ', messageInfo);
+
         return $http({
           method: 'POST',
           url: '/message/new-message',
@@ -55,9 +54,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         .then(function(response) {
           self.cancel();
           self.messages = response.data;
-          console.log("currentMessage", messageInfo.id);
           sendEmail('mentor', messageInfo.id);
-          console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
           console.log('Error with messages POST request: ', error);
@@ -86,8 +83,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           sendEmail('student', self.currentMessage.student_id);
           self.cancel();
           self.messages = response.data;
-          console.log("CURRENT MESSAGE", self.currentMessage);
-          console.log('Adding new message, messageInfo: ', messageInfo);
         }),
         function(error) {
           console.log('Error with messages POST request: ', error);
@@ -98,7 +93,6 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
 
   //Send email alerting that message has been sent
   function sendEmail(userType, receiverId){
-    console.log("CURRENT MESSAGE RECIEVER ID:", receiverId);
     return $http({
       method: 'POST',
       url: '/email',
@@ -108,7 +102,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       }
     })
     .then(function(response) {
-      console.log(response);
+      // console.log(response);
     }),
     function(error) {
       console.log('Error with messages POST request: ', error);
