@@ -8,7 +8,6 @@ var connectionString = require('../modules/db-config.module');
 // Gets a user's profile info and FAQ entries---------------------------------//
 router.get('/:id', function(req, res) {
   var userId = parseInt(req.params.id);
-  // console.log('USER ID:', userId);
   var data = {};
 
   pg.connect(connectionString, function(error, client, done) {
@@ -23,7 +22,6 @@ router.get('/:id', function(req, res) {
           console.log('Error when searching mentors and FAQ tables: ', error);
           res.sendStatus(500);
         } else {
-          // console.log('RESULT:', result.rows);
           data.userId = userId;
           data.result = result.rows;
           res.send(data);

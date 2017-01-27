@@ -43,7 +43,6 @@ router.post('/new-faq', function(req, res) {
   var userId = req.userStatus.userId;
   var question = req.body.faqData.question;
   var answer = req.body.faqData.answer;
-  console.log("FAQ OBJECT:", req.body.faqData);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
@@ -126,8 +125,6 @@ router.delete('/delete-user/:id', function(req, res) {
 router.delete('/delete-faq/:id', function(req, res) {
   var faqId = req.params.id;
 
-  console.log("FAQ Id:", faqId);
-
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);
 
@@ -196,7 +193,6 @@ function profileEditQueryBuilder(object, userId) {
 
 // Constructs SQL query based off of updated FAQ info ------------------------//
 function faqEditQueryBuilder(faqArray, userId) {
-  // console.log('ARRAY IN QUERY BUILDER', array);
 
   var queryString = '';
   var propertyArray = [];

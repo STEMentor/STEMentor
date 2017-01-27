@@ -1,5 +1,5 @@
 app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFactory', function($http, $mdDialog, BioFactory, AuthFactory) {
-  console.log('SearchController running');
+  // console.log('SearchController running');
   var self = this;
 
   self.mentors = [];
@@ -35,12 +35,10 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFac
   });
 
   self.setMentor = function(mentor){
-    console.log(mentor.id);
     BioFactory.setMentor(mentor);
   };
 
   self.getMentors = function() {
-    console.log(self.newSearch);
     var newSearchString = JSON.stringify(self.newSearch);
     return $http({
       method: 'GET',
@@ -51,7 +49,6 @@ app.controller('SearchController', ['$http', '$mdDialog', 'BioFactory', 'AuthFac
     })
     .then(function(response) {
       self.mentors = response.data;
-      console.log("Mentors list:", self.mentors);
     }),
     function(err) {
       console.log("Error with search get request ", err);

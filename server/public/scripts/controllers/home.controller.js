@@ -1,9 +1,9 @@
 app.controller('HomeController', ['$http', 'AuthFactory', '$mdDialog', function($http, AuthFactory, $mdDialog) {
-  console.log('HomeController running');
+  // console.log('HomeController running');
   var self = this;
 
   self.userStatus = AuthFactory.userStatus;
-  
+
   self.dataArray = [
     { src: '../assets/images/carousel/genome-sm.jpg' },
     { src: '../assets/images/carousel/falkirk-wheel-sm.jpg' },
