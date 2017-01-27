@@ -219,9 +219,9 @@ function faqEditQueryBuilder(faqArray, userId) {
   }
 
   queryString +=
-    'UPDATE faq ' +
-    'SET question = CASE id' + questionString + ' END, ' +
-    'answer = CASE id' + answerString + ' END';
+  'UPDATE faq ' +
+  'SET question = CASE id' + questionString + ' END, ' +
+  'answer = CASE id' + answerString + ' END';
 
   for (index = 0; index < faqArray.length; index++) {
     propertyArray.push(faqArray[index].faq_id, faqArray[index].question);
