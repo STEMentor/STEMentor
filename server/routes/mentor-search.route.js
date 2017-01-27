@@ -38,13 +38,8 @@ router.get('/profile/:id', function(req, res) {
 router.get('/search', function(req, res) {
 
   var queryObject = JSON.parse(req.headers.newsearchstring);
-  console.log('Query object from client: ', queryObject);
-
   var query = queryBuilder(queryObject);
-  console.log('Built query: ', query);
-
   var propertyArray = propertyArrayBuilder(queryObject);
-  console.log('Built array: ', propertyArray);
 
   pg.connect(connectionString, function(error, client, done) {
     if (error) {
@@ -60,7 +55,6 @@ router.get('/search', function(req, res) {
         res.sendStatus(500);
       }
 
-      // console.log('result.rows: ', result.rows);
       res.send(result.rows);
     });
   });

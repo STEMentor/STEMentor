@@ -1,5 +1,5 @@
 app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($http, $firebaseAuth, $location){
-  console.log('AuthFactory running');
+  // console.log('AuthFactory running');
 
   var auth = $firebaseAuth();
   var currentUser = {};
@@ -10,7 +10,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
       currentUser = firebaseUser.user;
-      console.log('USER TYPE:', userType);
       if(currentUser) {
         getUser(currentUser, userType);
       }
@@ -21,7 +20,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   //--------------------------------------------------------------------------//
   function getUser(currentUser, userType){
     currentUser.getToken().then(function(idToken){
-      // console.log('ID TOKEN:', idToken);
       $http({
         method: 'GET',
         url: '/users',
@@ -40,9 +38,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
           var newUser = response.data.userStatus.newUser;
           if(newUser === true){
             userStatus.newUser = true;
-            // $location.path("profile");
           }
-          console.log("USER STATUS:", userStatus);
         }
       });
       userStatus.isLoggedIn = true;
@@ -71,8 +67,6 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
       $location.path("home");
       location.reload(false);
       userStatus.newUser = false;
-      console.log('logged out');
-      console.log('currentUser: ', currentUser);
     });
   }
   //--------------------------------------------------------------------------//
