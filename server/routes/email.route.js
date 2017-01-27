@@ -28,12 +28,12 @@ router.post('/', function(req, res) {
           sendEmail(result.rows[0].email);
           console.log('EMAIL OF RECEIVER:', result.rows[0].email);
         }
-
       });
     }
-
   });
+  //--------------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------------//
   function sendEmail(email){
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
@@ -63,7 +63,6 @@ router.post('/', function(req, res) {
       });
     }
   });
-
   //--------------------------------------------------------------------------//
 
   module.exports = router;

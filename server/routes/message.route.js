@@ -37,6 +37,7 @@ router.get('/get-all-messages', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 // Get all unread messages for current user ----------------------------------//
 router.get('/unread-messages', function(req, res) {
@@ -44,7 +45,7 @@ router.get('/unread-messages', function(req, res) {
 
   // Pull needed data off of req
   var userType = req.userStatus.userType,
-      typeId = userType + '_id';
+  typeId = userType + '_id';
   var userId = req.userStatus.userId;
   var query;
   console.log("UserId, typeId", userId, typeId);
@@ -73,8 +74,9 @@ router.get('/unread-messages', function(req, res) {
       }
     );
   });
+  //--------------------------------------------------------------------------//
 
-  // Create new message (from student) when user hits the "Send" button --------//
+  // Create new message (from student) when user hits the "Send" button ------//
   router.post('/new-message', function(req, res) {
     // console.log('req.body: ', req.body);
     var message = req.body.message_info;
@@ -115,9 +117,8 @@ router.get('/unread-messages', function(req, res) {
       );
     });
   });
-
-
 });
+//----------------------------------------------------------------------------//
 
 // Mark message as read ------------------------------------------------------//
 router.put('/read-message', function(req, res) {
@@ -151,6 +152,7 @@ router.put('/read-message', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 // Reply to message ----------------------------------------------------------//
 router.put('/reply', function(req, res) {
@@ -176,6 +178,7 @@ router.put('/reply', function(req, res) {
     );
   });
 });
+//----------------------------------------------------------------------------//
 
 module.exports = router;
 
@@ -186,3 +189,4 @@ function connectionErrorCheck(error) {
     res.sendStatus(500);
   }
 }
+//----------------------------------------------------------------------------//

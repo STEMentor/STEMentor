@@ -64,15 +64,16 @@ reply: 'reply text',
 app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, MessageFactory, $mdDialog, BioFactory) {
   console.log('InboxController running');
   var self = this;
+  
   self.userStatus = AuthFactory.userStatus;
   self.messages = [];
+  self.person = BioFactory.mentorBio;
+  self.selectedMessage = MessageFactory.currentMessage;
 
   // Makes sure that currentUser is set before getting messages from the server
   AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
     getMessages(currentUser);
   });
-
-  self.person = BioFactory.mentorBio;
 
   // Get all messages from the database for a specific user
   function getMessages(currentUser) {
@@ -97,8 +98,7 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
     }
   }
 
-  self.selectedMessage = MessageFactory.currentMessage;
-
+  //Bring up message creation modal
   self.createMessage = function(ev, clickedMessage) {
     // MessageFactory.setMessage(clickedMessage.item);
     $mdDialog.show({
@@ -109,9 +109,9 @@ app.controller('InboxController', ['$http', 'AuthFactory', 'MessageFactory', '$m
     });
   };
 
+  //Bring up message modal
   self.viewMessage = function(ev, clickedMessage) {
     MessageFactory.setMessage(clickedMessage.item);
-
     if (clickedMessage.item.reply || self.userStatus.userType === 'student'){
       $mdDialog.show({
         controller: 'MessageController as message',
