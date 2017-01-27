@@ -5,6 +5,7 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
+//----------------------------------------------------------------------------//
 router.get('/', function(req, res) {
   // console.log('req.userInfo in user route', req.userStatus);
   var data = {};
@@ -12,7 +13,6 @@ router.get('/', function(req, res) {
 
   res.send(data);
 });
-
 //----------------------------------------------------------------------------//
 
 module.exports = router;
