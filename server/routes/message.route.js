@@ -5,6 +5,8 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
+console.log('REACHED MESSAGE ROUTE');
+
 // Get messages for specific user --------------------------------------------//
 router.get('/get-all-messages', function(req, res) {
 
@@ -71,6 +73,7 @@ router.get('/unread-messages', function(req, res) {
   // Create new message (from student) when user hits the "Send" button ------//
   router.post('/new-message', function(req, res) {
     var message = req.body.message_info;
+    console.log('MESSAGE ROUTE: message:', message);
 
     pg.connect(connectionString, function(error, client, done) {
       connectionErrorCheck(error);
