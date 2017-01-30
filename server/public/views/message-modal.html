@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<md-dialog flex="50">
+
+<!--––––––––––––––––––––––– Initial message creation ––––––––––––––––––––––––-->
+  <div ng-if="message.userStatus.userType === 'student'">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Ask a Mentor!</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="message.cancel()" aria-label="Close Message Modal">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content>
+        <div class="md-dialog-content">
+
+          <md-input-container class="md-block">
+            <label>Your Name (optional)</label>
+            <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.name"></textarea>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Subject</label>
+            <textarea rows="1" md-select-on-focus="" ng-model="message.newMessage.subject"></textarea>
+          </md-input-container>
+
+          <p>
+            <em>Create your message below. We suggest including a little bit about yourself — your age, background, and anything else that might help a mentor provide meaningful advice.</em>
+          </p>
+
+          <md-input-container class="md-block">
+            <label>Message</label>
+            <textarea rows="4" md-select-on-focus="" ng-model="message.newMessage.body"></textarea>
+          </md-input-container>
+
+        </div>
+      </md-dialog-content>
+
+      <md-dialog-actions layout="row">
+        <md-button class="md-raised" ng-click="message.sendStudentMessage(message.newMessage)">
+          Send Message
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </div>
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+<!--––––––––––––––––––––––––––––– Mentor reply ––––––––––––––––––––––––––––––-->
+  <div ng-if="message.userStatus.userType === 'mentor' && !message.currentMessage.reply">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Reply</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="message.cancel()" aria-label="Close Message Modal">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content>
+        <div class="md-dialog-content">
+
+          <md-input-container class="md-block">
+            <p>
+              <strong>Student's Name:</strong> {{message.currentMessage.student_name}}
+            </p>
+            <p>
+              <strong>Subject:</strong> {{message.currentMessage.subject}}
+            </p>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <p>
+              <strong>Student's Message:</strong>
+            </p>
+            <p rows="4" md-select-on-focus="">{{message.currentMessage.message}}</p>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Add your reply here</label>
+            <textarea rows="4" md-select-on-focus="" ng-model="message.newReply.reply"></textarea>
+          </md-input-container>
+
+        </div>
+      </md-dialog-content>
+
+      <md-dialog-actions layout="row">
+        <md-button class="md-rasied" ng-click="message.sendMentorMessage(message.newReply)">
+          Send Message
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </div>
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+</md-dialog>

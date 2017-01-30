@@ -1,0 +1,14 @@
+.inbox-center-card {
+    margin: auto;
+    width: 900px;
+}
+
+.inbox-unread,
+.inbox-replied {
+  background-color: $main-white;
+}
+
+.inbox-read,
+.inbox-not-replied {
+  background-color: $prime-gray;
+}

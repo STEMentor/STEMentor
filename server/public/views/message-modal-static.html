@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<!--______________ Message Modal ______________ -->
+
+<md-dialog flex="50">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Message</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="message.cancel()" aria-label="Close Message Modal">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content >
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <p>
+            <strong>Student's Name:</strong> {{message.currentMessage.student_name}}
+          </p>
+          <p>
+            <strong>Subject:</strong> {{message.currentMessage.subject}}
+          </p>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <p>
+            <strong>Student's Message:</strong>
+          </p>
+          <p rows="4" md-select-on-focus="">
+            {{message.currentMessage.message}}
+          </p>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <p>
+            <strong>Mentor's Reply:</strong>
+          </p>
+          <p rows="4" md-select-on-focus="" ng-if="message.currentMessage.reply">
+            {{message.currentMessage.reply}}
+          </p>
+          <p rows="4" ng-if="!message.currentMessage.reply">
+            <em>(Message has not yet been replied to)</em>
+          </p>
+        </md-input-container>
+
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

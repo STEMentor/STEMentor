@@ -1,0 +1,55 @@
+
+.delete-button {
+  float: right;
+  position: relative;
+  display: inline;
+}
+
+#profileHeader {
+  border: 1px solid $main-black;
+  width: 20px;
+  height: 20px;
+}
+
+//***** Centering CSS *****//
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  max-width: 50%;
+}
+
+/////////////////////////////////////
+
+//***** profile nav bar css *****//
+
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important; }
+  .tabsdemoDynamicHeight md-content md-tabs {
+    background: $light-gray;
+    border: 1px solid $medium-gray; }
+    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+      background: $main-white; }
+  .tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; }
+
+
+/////////////////////////////////////
+
+//***** content boxes css *****//
+
+.contentdemoBasicUsage div.demo-content {
+  height: 450px; }
+
+.contentdemoBasicUsage div[ng-controller] {
+  height: 100%;
+  padding-bottom: 15px; }
+
+.contentdemoBasicUsage md-content {
+  padding: 24px; }
+
+///////////////////////////////////////

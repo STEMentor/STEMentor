@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<div ng-cloak="" ng-app="stementor">
+
+  <!--––––––––––––––––––––––––––––– Student Inbox –––––––––––––––––––––––––––––-->
+  <div ng-if="inbox.userStatus.userType === 'student'">
+
+    <md-toolbar class="md-theme-light">
+      <h2 class="md-toolbar-tools">
+        <span flex-offset="0">Your Inbox</span>
+      </h2>
+    </md-toolbar>
+
+    <div class="inbox-center-card">
+      <md-content flex-offset="0" class="md-padding" layout-xs="column" layout="row">
+        <div flex="" layout="column">
+          <md-subheader class="md-primary">Replied To</md-subheader>
+          <md-list>
+            <md-list-item ng-click="inbox.viewMessage($event, this); inbox.markAsRead()" class="md-2-line inbox-replied" ng-repeat="item in inbox.messages" ng-if="item.reply">
+              <div class="md-list-item-text">
+                <h4 ng-if="item.student_name">
+                <strong>Student Name:</strong> {{ item.student_name }} | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <h4 ng-if="!item.student_name">
+                <strong>Student Name:</strong> (Anonymous)  | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <p>
+                  <strong>Subject:</strong> {{item.subject}}
+                </p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+          <md-subheader>No Reply</md-subheader>
+          <md-list>
+            <md-list-item ng-click="inbox.viewMessage($event, this); inbox.markAsRead()" class="md-2-line inbox-not-replied" ng-repeat="item in inbox.messages" ng-if="!item.reply">
+              <div class="md-list-item-text">
+                <h4 ng-if="item.student_name">
+                <strong>Student Name:</strong> {{ item.student_name }} | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <h4 ng-if="!item.student_name">
+                <strong>Student Name:</strong> (Anonymous) | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <p>
+                  <strong>Subject:</strong> {{item.subject}}
+                </p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-content>
+    </div>
+
+  </div>
+  <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+  <!--––––––––––––––––––––––––––––– Mentor Inbox ––––––––––––––––––––––––––––––-->
+  <div ng-if="inbox.userStatus.userType === 'mentor'">
+
+    <md-toolbar class="md-theme-light">
+      <h2 class="md-toolbar-tools">
+        <span flex-offset="0">Your Inbox</span>
+      </h2>
+    </md-toolbar>
+
+    <div class="inbox-center-card">
+      <md-content flex-offset="0" class="md-padding" layout-xs="column" layout="row">
+        <div flex="" layout="column">
+          <md-subheader class="md-primary">Unread Messages</md-subheader>
+          <md-list>
+            <md-list-item ng-click="inbox.viewMessage($event, this); inbox.markAsRead()" class="md-2-line inbox-unread" ng-repeat="item in inbox.messages" ng-if="!item.message_read">
+              <div class="md-list-item-text">
+                <h4 ng-if="item.student_name">
+                <strong>Student Name:</strong> {{ item.student_name }} | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <h4 ng-if="!item.student_name">
+                <strong>Student Name:</strong> (Anonymous)  | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <p>
+                  <strong>Subject:</strong> {{item.subject}}
+                </p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+          <md-subheader>Read Messages</md-subheader>
+          <md-list>
+            <md-list-item ng-click="inbox.viewMessage($event, this); inbox.markAsRead()" class="md-2-line inbox-read" ng-repeat="item in inbox.messages" ng-if="item.message_read">
+              <div class="md-list-item-text">
+                <h4 ng-if="item.student_name">
+                <strong>Student Name:</strong> {{ item.student_name }} | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <h4 ng-if="!item.student_name">
+                <strong>Student Name:</strong> (Anonymous) | <strong>Date Sent:</strong> {{item.date_sent | date: shortDate}}
+              </h4>
+                <p>
+                  <strong>Subject:</strong> {{item.subject}}
+                </p>
+              </div>
+              <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</div>
