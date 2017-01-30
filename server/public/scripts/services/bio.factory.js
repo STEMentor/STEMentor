@@ -1,5 +1,5 @@
 app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
-  console.log('BioFactory running');
+  // console.log('BioFactory running');
 
   var mentors = {};
   var mentor = {};
@@ -9,7 +9,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
 
   //----- Gets all the mentors that match the newSearch selected fields ------//
   function getMentors(newSearch){
-    console.log("NEW SEARCH:", newSearch);
     var newSearchString = JSON.stringify(newSearch);
     return $http({
       method: 'GET',
@@ -20,7 +19,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
     })
     .then(function(response) {
       mentors.info = response.data;
-      console.log("Mentors list: ", mentors);
     }),
     function(err) {
       console.log("Error with search get request ", err);
@@ -30,10 +28,8 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
 
   //---------------- Gets profiles associated with the mentor ----------------//
   function getProfiles(){
-    console.log("MENTOR ID IN getProfiles()", mentorId);
     return $http.get('/profile/' + mentorId)
     .then(function (response) {
-      console.log("Result from getProfiles: ", response.data.result);
       response.data.result[0].id = response.data.userId;
       mentorBio.info = response.data.result[0];
       mentorBio.faqs = [];
@@ -59,7 +55,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   function setMentor(mentor){
     mentorBio.info = mentor;
     mentorId = mentorBio.info.id;
-    console.log("MENTOR: ", mentorBio.info);
     getProfiles();
   }
   //--------------------------------------------------------------------------//
@@ -68,7 +63,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   function setMentorId(id){
     mentorId = id;
     getProfiles();
-    console.log('MENTOR ID: ', mentorId);
   }
   //--------------------------------------------------------------------------//
 
@@ -76,7 +70,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   function editBio(userData) {
     // Makes sure that currentUser is set
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      console.log('User data in BioFactory: ', userData);
       if(currentUser){
         return currentUser.getToken().then(function(idToken) {
           return $http({
@@ -104,7 +97,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   //-------------------------- Create new FAQ entry --------------------------//
   function postFaq(faqData){
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      console.log('FAQ DATA:', faqData);
       if(currentUser){
         return currentUser.getToken().then(function(idToken) {
           return $http({
@@ -118,7 +110,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
             }
           })
           .then(function(response) {
-            console.log("FAQ DATA IN RESPONSE: ", response);
             getProfiles();
           }),
           function(error) {
@@ -134,7 +125,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   function editFaqs(faqArray) {
     // Makes sure that currentUser is set
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      console.log('FAQ DATA:', faqArray);
       if(currentUser){
         return currentUser.getToken().then(function(idToken) {
           return $http({
@@ -148,7 +138,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
             }
           })
           .then(function(response) {
-            console.log("USER DATA IN RESPONSE: ", response.data);
             getProfiles();
           }),
           function(error) {
@@ -164,7 +153,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
   function deleteFaq(faqId) {
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
-      console.log('FAQ ID:', faqId);
       if(currentUser){
         return currentUser.getToken().then(function(idToken) {
           return $http({
@@ -175,7 +163,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
             }
           })
           .then(function(response) {
-            console.log("USER DATA IN RESPONSE: ", response.data);
             getProfiles();
           }),
           function(error) {
@@ -189,7 +176,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
 
   // Delete an existing user and their associated FAQs and messages ----------//
   function deleteUser(userData) {
-    console.log('bio factory delete user fired');
     // Makes sure that currentUser is set before getting messages from the server
     AuthFactory.auth.$onAuthStateChanged(function(currentUser) {
 
@@ -206,7 +192,6 @@ app.factory('BioFactory', ['$http', 'AuthFactory', function($http, AuthFactory){
             }
           })
           .then(function(response) {
-            // console.log("User data in response from server: ", response.data);
             getProfiles();
           }),
           function(error) {
