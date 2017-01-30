@@ -5,8 +5,6 @@ var pg = require('pg');
 var connectionString = require('../modules/db-config.module');
 //----------------------------------------------------------------------------//
 
-console.log('REACHED MESSAGE ROUTE');
-
 // Get messages for specific user --------------------------------------------//
 router.get('/get-all-messages', function(req, res) {
 
