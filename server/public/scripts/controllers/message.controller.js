@@ -40,7 +40,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
-
+        console.log("messageInfo: ", messageInfo);
         return $http({
           method: 'POST',
           url: '/message/new-message',
@@ -52,6 +52,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          console.log("getting here?");
           self.cancel();
           self.messages = response.data;
           sendEmail('mentor', messageInfo.id);
