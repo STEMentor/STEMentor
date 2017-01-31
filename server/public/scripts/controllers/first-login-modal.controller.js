@@ -1,4 +1,4 @@
-app.controller('FirstLoginModalController', ['$http', 'AuthFactory', '$mdDialog', 'BioFactory', function($http, AuthFactory, $mdDialog, BioFactory) {
+app.controller('FirstLoginModalController', ['$http', 'AuthFactory', '$mdDialog', 'BioFactory', '$location', function($http, AuthFactory, $mdDialog, BioFactory, $location) {
   // console.log('FirstLoginModalController running');
   var self = this;
 
@@ -7,6 +7,7 @@ app.controller('FirstLoginModalController', ['$http', 'AuthFactory', '$mdDialog'
   };
 
   self.goToProfile = function(){
+    BioFactory.setMentorId(AuthFactory.userStatus.userId);
     $location.path("profile");
     self.cancel();
   };
