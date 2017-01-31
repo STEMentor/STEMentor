@@ -20,5 +20,33 @@
   "bugs": {
     "url": "https://github.com/stementor/stementor/issues"
   },
-  "homepage": "https://github.com/stementor/stementor#readme"
+  "homepage": "https://github.com/stementor/stementor#readme",
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-animate": "^1.6.1",
+    "angular-aria": "^1.6.1",
+    "angular-flippy": "^2.0.6",
+    "angular-jk-carousel": "^0.1.9",
+    "angular-material": "^1.1.1",
+    "angular-messages": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "body-parser": "^1.15.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "firebase": "^3.6.4",
+    "firebase-admin": "^4.0.4",
+    "material-design-icons": "^3.0.1",
+    "nodemailer": "^2.7.0",
+    "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.6",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.0.0"
+  }
 }
