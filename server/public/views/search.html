@@ -163,23 +163,17 @@
                 <md-card-title md-media-lg>
                   <md-card-title-text>
                     <span class="md-headline">
-                  <!-- <h1> -->
-                    {{mentor.first_name}} {{mentor.last_name}}
-                  </span>
+                      {{mentor.first_name}} {{mentor.last_name}}
+                    </span>
                     <span class="md-subhead">
-                    <!-- <h3> -->
-                    {{mentor.job_title}}
-                  </span>
-                    <!-- </md-card-title-text> -->
-
-                    <!-- <md-card-title-media> -->
+                      {{mentor.job_title}}
+                    </span>
                     <div class="md-media-lg card-media">
                       <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
                     </div>
                     <p ng-if="mentor.blurb">
                       "{{mentor.blurb}}"
                     </p>
-                    <!-- <h5>(Click Picture for Additional Info)</h5> -->
                   </md-card-title-text>
                 </md-card-title>
 

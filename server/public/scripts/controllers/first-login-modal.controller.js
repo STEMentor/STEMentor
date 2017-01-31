@@ -1,5 +1,5 @@
 app.controller('FirstLoginModalController', ['$http', 'AuthFactory', '$mdDialog', 'BioFactory', '$location', function($http, AuthFactory, $mdDialog, BioFactory, $location) {
-  console.log('FirstLoginModalController running');
+  // console.log('FirstLoginModalController running');
   var self = this;
 
   self.cancel = function() {
