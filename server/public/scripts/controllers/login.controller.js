@@ -15,10 +15,25 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     });
   };
 
+  self.openFirstLoginModal = function(ev) {
+    $mdDialog.show({
+      controller: 'FirstLoginModalController as first',
+      templateUrl: '../../views/first-login-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose:true
+    });
+    // .then(function(answer) {
+    //   $scope.status = 'You said the information was "' + answer + '".';
+    // }, function() {
+    //   $scope.status = 'You cancelled the dialog.';
+    // });
+  };
+
   //Check if mentor is logging in for the first time
   function firstTimeMentor() {
     if (AuthFactory.userStatus.newUser === true && AuthFactory.userStatus.userType == 'mentor') {
-      launchPopup();
+      // launchPopup();
+      self.openFirstLoginModal();
     }
     MessageFactory.getUnreadMessages();
   }
