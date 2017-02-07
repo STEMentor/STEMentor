@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<md-dialog aria-label="First Login">
+  <form ng-cloak>
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Welcome!</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="first.cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h2>Since it's your first time logging in, let's go fill out your profile</h2>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="first.goToProfile()">
+        Go to your profile
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>
+
+<!------------------->

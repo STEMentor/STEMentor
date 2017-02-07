@@ -1,0 +1,54 @@
+
+//***** homepage styling ***** //
+
+.homepage-header {
+  justify-content: center;
+  text-align: center;
+}
+
+.homepage-buttons {
+  justify-content: center;
+}
+
+//*****************************//
+
+.center-card {
+  background: $main-white;
+  border-radius: 2px;
+  margin: auto;
+  height: 100%;
+  width: 900px;
+}
+
+.card-1 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+.hidden {
+  color: $main-white;
+}
+
+.md-button.home-button {
+  font-size: 20px;
+  padding: 10px;
+  width: 225px;
+}
+
+.md-button.home-button.find-mentor {
+  color: $main-white;
+  background-color: $STEM-purple;
+}
+
+.md-button.home-button.find-mentor:hover {
+  color: $STEM-purple;
+}
+
+.md-button.home-button.become-mentor {
+  color: $main-white;
+  background-color: $STEM-red;
+}
+
+.md-button.home-button.become-mentor:hover {
+  color: $STEM-red;
+}

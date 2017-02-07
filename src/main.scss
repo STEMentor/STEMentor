@@ -1,0 +1,25 @@
+//***** Import Sass files that need to be complied here ***** //
+
+@import "_color-guide";
+@import "_homepage";
+@import "_navbar";
+@import "_search";
+@import "_font-size";
+@import "_profile";
+@import "_inbox";
+
+//************************************************************//
+
+
+a {
+  color: $main-black
+}
+
+.border {
+  border-radius: 2px;
+}
+
+.about-center {
+  padding-left: 25%;
+  padding-right: 25%;
+}

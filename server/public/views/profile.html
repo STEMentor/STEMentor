@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<div ng-cloak="" class="carddemoBasicUsage" ng-app="stementor">
+  <md-content flex-offset="15" class="md-padding" layout-xs="column" layout="row">
+    <div flex="80" layout="column">
+      <md-tabs md-dynamic-height="" md-border-bottom="">
+        <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+        <!--–––––––––––––––––––––––– Edit Switch and Buttons ––––––––––––––––––––––––-->
+        <md-tab md-on-select="profile.selectProfileTab()" label="Profile">
+          <div layout-gt-xs="row" layout-padding>
+            <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="profile.showEdits">
+              Edit Your Profile
+            </md-switch>
+          </div>
+
+          <!-- Save Changes button for Profile edits -->
+          <md-button class="md-raised" ng-click="profile.editBio()" ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+            Save Changes
+          </md-button>
+          <md-button class="md-raised md-warn" ng-click="profile.deleteUser()" ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+            Delete User
+          </md-button>
+          <p ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+            All the information below is optional. Please only fill out what you feel comfortable sharing online.
+          </p>
+
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--––––––––––––––––––––––––––– Header Info Card –––––––––––––-––––––––––––––-->
+          <md-card>
+            <md-card-title>
+
+              <md-card-title-text>
+                <span class="md-headline">
+                  {{profile.mentor.info.first_name}} {{profile.mentor.info.last_name}}
+                </span>
+                <span class="md-headline">
+                  <em>{{profile.mentor.info.stem_primary}}</em>
+                </span>
+                <span class="md-subhead">
+                  {{profile.mentor.info.job_title}}
+                </span>
+                <span class="md-subhead" ng-if="profile.mentor.info.blurb">
+                  "{{profile.mentor.info.blurb}}"
+                </span>
+              </md-card-title-text>
+
+              <md-card-title-media>
+                <div class="md-media-lg card-media">
+                  <img src="{{profile.mentor.info.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
+                </div>
+              </md-card-title-media>
+
+            </md-card-title>
+
+            <md-card-actions ng-if="profile.userStatus.userType !== 'mentor'" layout="row" layout-align="end center" layout-padding>
+              <md-button class="md-raised" ng-click="profile.createMessage($event)">
+                Ask me a question!
+              </md-button>
+            </md-card-actions>
+
+          </md-card>
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--––––––––––––––––––––––––– Header Info Edit Card –––––––––––––––––––––––––-->
+          <md-card ng-if="profile.showEdits">
+            <md-card-content>
+
+              <div layout-gt-sm="row">
+                <md-card-title>
+                  <md-card-title-text>
+                    <span class="md-headline">
+                      Edit Your Header Info
+                    </span>
+                  </md-card-title-text>
+                </md-card-title>
+              </div>
+
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <textarea ng-model="profile.mentor.info.first_name" ng-change="profile.userData.first_name = profile.mentor.info.first_name" rows="1" placeholder="First Name"></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <textarea ng-model="profile.mentor.info.last_name" ng-change="profile.userData.last_name = profile.mentor.info.last_name" rows="1" placeholder="Last Name"></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <label>Primary STEM Field</label>
+                  <md-select name="stem_primary" ng-model="profile.mentor.info.stem_primary" ng-change="profile.userData.stem_primary = profile.mentor.info.stem_primary">
+                    <md-option></md-option>
+                    <md-option value="Science">Science</md-option>
+                    <md-option value="Technology">Technology</md-option>
+                    <md-option value="Engineering">Engineering</md-option>
+                    <md-option value="Math">Math</md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="100">
+                  <textarea ng-model="profile.mentor.info.blurb" ng-change="profile.userData.blurb = profile.mentor.info.blurb" rows="1" placeholder="Write a short sentence about yourself!"></textarea>
+                </md-input-container>
+              </div>
+
+            </md-card-content>
+          </md-card>
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--––––––––––––––––––––––––––––––– Bio Card ––––––––––––––––––––––––––––––––-->
+          <md-card ng-if="!profile.showEdits && profile.mentor.info.bio">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Bio</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="100" rows="5">
+                  <p>{{profile.mentor.info.bio}}</p>
+                </md-input-container>
+              </div>
+            </md-card-content>
+          </md-card>
+
+          <md-card ng-if="profile.showEdits">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Bio</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="100">
+                  <textarea ng-model="profile.mentor.info.bio" ng-change="profile.userData.bio = profile.mentor.info.bio" rows="3" placeholder="Edit your bio here"></textarea>
+                </md-input-container>
+              </div>
+            </md-card-content>
+          </md-card>
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--–––––––––––––––––––––––––––– Education Card –––––––––––––––––––––––––––––-->
+          <md-card ng-if="!profile.showEdits && (profile.mentor.info.school || profile.mentor.info.degree || profile.mentor.info.major)">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Education</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="">
+                  <p ng-if="profile.mentor.info.school">
+                    <strong>School:</strong> {{profile.mentor.info.school}}
+                  </p>
+                  <p ng-if="profile.mentor.info.degree">
+                    <strong>Degree:</strong> {{profile.mentor.info.degree}}
+                  </p>
+                  <p ng-if="profile.mentor.info.major">
+                    <strong>Major:</strong> {{profile.mentor.info.major}}
+                  </p>
+                </md-input-container>
+              </div>
+            </md-card-content>
+
+          </md-card>
+
+          <md-card ng-if="profile.showEdits">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Education</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="100">
+                  <label>School</label>
+                  <input ng-model="profile.mentor.info.school" ng-change="profile.userData.school = profile.mentor.info.school">
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Degree</label>
+                  <input ng-model="profile.mentor.info.degree" ng-change="profile.userData.degree = profile.mentor.info.degree" placeholder="Masters, Bachelors, etc.">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Major</label>
+                  <input ng-model="profile.mentor.info.major" ng-change="profile.userData.major = profile.mentor.info.major" placeholder="Biology, Engineering, etc.">
+                </md-input-container>
+              </div>
+            </md-card-content>
+
+          </md-card>
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--–-–––––––––––––––––––––––––––– Career Card –-––––––––––––––––––––––––––––-->
+          <md-card ng-if="!profile.showEdits && (profile.mentor.info.company || profile.mentor.info.job_title)">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Career</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                  <p ng-if="profile.mentor.info.company">
+                    <strong>Company:</strong> {{profile.mentor.info.company}}
+                  </p>
+                  <p ng-if="profile.mentor.info.job_title">
+                    <strong>Job Title:</strong> {{profile.mentor.info.job_title}}
+                  </p>
+                </md-input-container>
+              </div>
+            </md-card-content>
+          </md-card>
+
+          <md-card ng-if="profile.showEdits">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Career</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content ng-if="profile.showEdits">
+              <div layout-gt-sm="row">
+
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Company</label>
+                  <input ng-model="profile.mentor.info.company" ng-change="profile.userData.company = profile.mentor.info.company">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Job Title</label>
+                  <input ng-model="profile.mentor.info.job_title" ng-change="profile.userData.job_title = profile.mentor.info.job_title">
+                </md-input-container>
+
+              </div>
+            </md-card-content>
+          </md-card>
+          <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+          <!--–––––––––––––––––––––––––– Personal Info Card –––––––––––––––––––-–––––––-->
+          <md-card ng-if="!profile.showEdits && (profile.mentor.info.gender || profile.mentor.info.orientation || profile.mentor.info.state || profile.mentor.info.languages)">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Personal Info</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                  <p ng-if="profile.mentor.info.state">
+                    <strong>State:</strong> {{profile.mentor.info.state}}
+                  </p>
+                  <p ng-if="profile.mentor.info.languages">
+                    <strong>Languages:</strong> {{profile.mentor.info.languages}}
+                  </p>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="" rows="5">
+                  <p ng-if="profile.mentor.info.race">
+                    <strong>Race:</strong> {{profile.mentor.info.race}}
+                  </p>
+                  <p ng-if="profile.mentor.info.gender">
+                    <strong>Gender:</strong> {{profile.mentor.info.gender}}
+                  </p>
+                  <p ng-if="profile.mentor.info.orientation">
+                    <strong>Orientation:</strong> {{profile.mentor.info.orientation}}
+                  </p>
+                </md-input-container>
+              </div>
+            </md-card-content>
+          </md-card>
+
+          <md-card ng-if="profile.showEdits">
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Personal Info</span>
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>State</label>
+                  <md-select ng-model="profile.mentor.info.state" ng-change="profile.userData.state = profile.mentor.info.state">
+                    <md-option value=""></md-option>
+                    <md-option ng-repeat="state in profile.states" value="{{state.abbrev}}">
+                      {{state.abbrev}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="50">
+                  <label>Languages</label>
+                  <input ng-model="profile.mentor.info.languages" ng-change="profile.userData.languages = profile.mentor.info.languages">
+                </md-input-container>
+              </div>
+
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <label>Race</label>
+                  <input ng-model="profile.mentor.info.race" ng-change="profile.userData.race = profile.mentor.info.race">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <label>Gender</label>
+                  <md-select name="type" ng-model="profile.mentor.info.gender" ng-change="profile.userData.gender = profile.mentor.info.gender">
+                    <md-option value=""></md-option>
+                    <md-option value="Male">Male</md-option>
+                    <md-option value="Female">Female</md-option>
+                    <md-option valeu="Other">Other</md-option>
+                  </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="33">
+                  <label>Orientation</label>
+                  <input ng-model="profile.mentor.info.orientation" ng-change="profile.userData.orientation = profile.mentor.info.orientation">
+                </md-input-container>
+              </div>
+
+            </md-card-content>
+          </md-card>
+        </md-tab>
+        <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+        <!--–––––––––––––––––––––––––––––– FAQ Section ––––––––––––––––––––––––––––––-->
+
+        <md-tab label="FAQs" md-on-select="profile.selectFaqTab()">
+          <div layout-gt-xs="row" layout-padding>
+            <md-switch ng-show="profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true" ng-model="profile.showEdits">
+              Edit Your FAQs
+            </md-switch>
+          </div>
+
+          <div layout-gt-xs="row" layout-padding>
+            <!-- Add a new faq button -->
+            <md-button class="md-raised" ng-click="profile.changeAddFaqClicked(true)" ng-show="profile.addFaqClicked == false && profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id">
+              Add Faq
+            </md-button>
+
+            <!-- save changes button for faq edits -->
+            <md-button class="md-raised" ng-click="profile.editFaqs()" ng-show="profile.showEdits && profile.faqTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && profile.userStatus.userId == profile.mentor.info.id">
+              Save Changes
+            </md-button>
+
+            <!-- Save or cancel the new faq -->
+            <md-button class="md-raised" ng-click="profile.saveFaq()" ng-show="profile.addFaqClicked && profile.faqTabSelected == true">
+              Save FAQ
+            </md-button>
+
+            <md-button class="md-raised" ng-click="profile.changeAddFaqClicked(false)" ng-show="profile.addFaqClicked && profile.faqTabSelected == true">
+              Cancel
+            </md-button>
+          </div>
+          <md-content layout-padding>
+            <form name="userForm">
+
+              <md-card ng-if="profile.addFaqClicked">
+                <md-card-content>
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                      <label>Question</label>
+                      <input ng-model="profile.faqData.question">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                      <label>Answer</label>
+                      <input ng-model="profile.faqData.answer">
+                    </md-input-container>
+                  </div>
+                </md-card-content>
+              </md-card>
+
+              <md-card ng-hide="faq.question === null || faq.answer === null" ng-repeat="faq in profile.mentor.faqs">
+                <md-card-content>
+                  <md-button class="md-icon-button delete-button" ng-click="profile.deleteFaq(faq.faq_id)">
+                    <i id="delete" class="material-icons">delete</i>
+                  </md-button>
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                      <div ng-hide="profile.showEdits">
+                        <strong>{{faq.question}}</strong>
+                      </div>
+                      <input type="text" ng-show="profile.showEdits" ng-model="faq.question" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_7" aria-label="FAQ Question Field" aria-hidden="false" aria-invalid="false" style="">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                      <div ng-hide="profile.showEdits">
+                        {{faq.answer}}
+                      </div>
+                      <input type="text" ng-show="profile.showEdits" ng-model="faq.answer" class="ng-pristine ng-untouched ng-valid md-input ng-not-empty" id="input_8" aria-label="FAQ Answer Field" aria-hidden="false" aria-invalid="false" style="">
+                    </md-input-container>
+                  </div>
+                </md-card-content>
+              </md-card>
+
+            </form>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </div>
+  </md-content>
+</div>

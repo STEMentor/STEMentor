@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<!--_________ Nav Bar __________ -->
+
+<div ng-controller="NavController as nav" ng-cloak="" class="navBardemoBasicUsage" ng-app="stementor">
+  <md-content class="md-padding">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-href="#home" name="home">
+        <!-- <img src="./assets/images/logo/STEMentorLogo.png" style="height:50px;width:150px"> -->
+        Home
+      </md-nav-item>
+      <md-nav-item md-nav-href="#search" name="search">
+        Search
+      </md-nav-item>
+      <md-nav-item md-nav-href="#about" name="about">
+        About
+      </md-nav-item>
+
+      <span flex></span>
+
+      <md-nav-item ng-click="nav.setMentorId()" ng-if="nav.userStatus.isLoggedIn && nav.userStatus.userType == 'mentor'" md-nav-href="#profile" name="profile">
+        Your Profile
+      </md-nav-item>
+      <md-nav-item ng-if="nav.userStatus.isLoggedIn" md-nav-href="#inbox" name="inbox">
+        Inbox <span ng-if="nav.unreadMessages.unread > 0">(<span class="notification">{{nav.unreadMessages.unread}}</span>)</span>
+      </md-nav-item>
+      <md-button ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()">
+        Log Out
+      </md-button>
+      <md-button ng-if="!nav.userStatus.isLoggedIn" ng-click="nav.logInModal($event)">
+        Log In / Sign Up
+      </md-button>
+    </md-nav-bar>
+  </md-content>
+</div>

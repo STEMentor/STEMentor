@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<div class="center-card card-1" layout="column">
+    <br/>
+
+        <!--STEMentor Logo -->
+
+    <div layout="row" layout-align="center">
+        <img src="./assets/images/logo/STEMentorLogo.png" style="width:600px;height:250px;">
+    </div>
+    <br/><br/><br/>
+    <div layout="row" layout-align="space-around center" flex>
+
+        <!-- Find a Mentor Button -->
+
+        <span flex></span>
+        <md-button class="md-raised home-button find-mentor" href="#search">Find A Mentor</md-button>
+
+        <!-- Become a mentor button -->
+
+        <span flex></span>
+        <md-button class="md-raised home-button become-mentor" ng-click="home.logInModal($event)">Become a mentor</md-button>
+        <span flex></span>
+    </div>
+    <br>
+    <br>
+
+      <!-- Rotating carousel info -->
+
+    <div class="aligner">
+        <jk-carousel data="home.dataArray" item-template-url="'./views/item-template.html'" max-width="800" max-height="500" auto-slide="true" auto-slide-time="5000">
+        </jk-carousel>
+    </div>
+</div>
+
+      <!------------------->

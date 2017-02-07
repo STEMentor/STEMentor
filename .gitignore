@@ -35,3 +35,15 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# macOS Specific
+.DS_Store
+
+# dotenv
+.env
+
+# Firebase Info
+firebase-service-account.json
+
+# Remove CSS files for Gulp to regenerate
+./server/public/css/*.css

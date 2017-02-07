@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<!--___________ Warning Modal __________-->
+
+<md-dialog aria-label="Warning">
+  <form ng-cloak>
+    <md-toolbar class="md-toolbar-tools">
+      <h2>Warning</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="warning.cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </md-toolbar>
+
+    <md-dialog-content class="md-dialog-content">
+      <h2>You must log in to message a mentor.</h2>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="warning.logIn('student')">
+        Log In or Create Student Account
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

@@ -1,0 +1,161 @@
+//***** Checkbox CSS ***** //
+
+.checkboxdemoBasicUsage div.flex-xs {
+  min-height: 40px; }
+
+.checkboxdemoBasicUsage .checkboxDemo1 div {
+  clear: both; }
+
+.checkboxdemoBasicUsage p {
+  padding-left: 8px;}
+
+.checkboxdemoBasicUsage fieldset.standard {
+  border-style: solid;
+  border-width: 1px; }
+
+.checkboxdemoBasicUsage legend {
+  color: $main-blue; }
+
+.checkboxdemoBasicUsage legend code {
+  color: $main-blue;
+  font-weight: normal; }
+
+.checkboxdemoBasicUsage .ipsum {
+  color: $STEM-red; }
+
+//***************************//
+
+//***** icons *****//
+.inputdemoIcons {}
+  .inputdemoIcons .inputIconDemo {
+    min-height: 48px; }
+  .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
+    color: $STEM-green; }
+  .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
+    color: $main-blue; }
+  .inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
+  .inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
+    color: $STEM-red; }
+
+
+//*****search bar ****//
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
+
+////////////////////////
+
+.field {
+  display:flex;
+  position:realtive;
+  margin: 5px auto;
+  width:70%;
+  flex-direction:row;
+  box-shadow:
+   1px 1px 0 $accent-blue,
+   2px 2px 0 $accent-blue,
+   3px 3px 0 $accent-blue,
+   4px 4px 0 $accent-blue,
+   5px 5px 0 $accent-blue,
+   6px 6px 0 $accent-blue,
+   7px 7px 0 $accent-blue
+  ;
+}
+
+.field>input[type=text],
+.field>button {
+  display:block;
+  font:1.2em 'Montserrat Alternates';
+}
+
+.field>input[type=text] {
+  flex:1;
+  padding:0.6em;
+  border:0.2em solid $main-blue;
+}
+
+.field>button {
+  padding:0.6em 0.8em;
+  background-color:$main-blue;
+  color:$main-white;
+  border:none;
+}
+
+//***** Tooltip CSS *****//
+
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button,
+.tooltipdemoBasicUsage md-toolbar .md-toolbar-tools .md-button:hover {
+  box-shadow: none;
+  border: none;
+  transform: none;
+  -webkit-transform: none; }
+
+////////////////////////////
+
+
+//***** flippy css *****//
+
+.front{
+    height: 500px;
+
+}
+
+.spacer {
+  padding-left: 8%;
+
+}
+
+//***** flippy card css colors *****//
+
+.science {
+  // background: linear-gradient(white, $STEM-green);
+  // background-color: rgba(75, 179, 70, 0.1);
+  // opacity: 0.5;
+}
+
+.tech {
+  // background: linear-gradient(white, $STEM-purple);
+  // background-color: rgba(105, 66, 150, 0.1);
+}
+
+.engineering {
+  // background: linear-gradient(white, $STEM-red);
+  // background-color: rgba(219, 86, 89, 0.1);
+}
+
+.math {
+  // background: linear-gradient(white, $STEM-yellow);
+  // background-color: rgba(221, 212, 87, 0.1);
+}
+
+.greyButton {
+  color: $medium-gray;
+  background-color: $medium-gray;
+}
+
+.searchCard {
+  box-sizing: border-box;
+}
+
+.padding-col {
+  padding-right: 15%;
+}
+
+//***** flippy card grow css *****//
+
+.grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  z-index: 0;
+}
+.grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.15);
+  transform: scale(1.15);
+  z-index: 1;
+}

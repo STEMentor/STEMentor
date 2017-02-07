@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<!--
+  Copyright 2017 STEMentor
+-->
+
+<html ng-app="stementor">
+
+<head>
+<!--––––––––––––––––––––––––––––––– META INFO –––––––––––––––––––––––––––––––-->
+  <title>STEMentor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1" />
+  <meta name="copyright" content="$copy; 2017 STEMentor" />
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+<!--–––––––––––––––––––––––––––––– STYLESHEETS ––––––––––––––––––––––––––––––-->
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css" />
+
+  <!-- Our Stylesheet -->
+  <link rel="stylesheet" href="./css/main.css" />
+
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+</head>
+
+<body>
+
+  <div ng-include="'./views/nav.html'"></div>
+  <main ng-view></main>
+
+<!--–––––––––––––––––––––––––––––––– SCRIPTS ––––––––––––––––––––––––––––––––-->
+
+  <!-- Base Angular.js Libraries -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+  <!-- Angular Material Library -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.js"></script>
+  <script type="text/javascript" src="./vendor/svg-assets-cache.js"></script>
+
+  <!-- Angular Carousel -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="/vendor/jk-carousel.min.css" />
+  <script type="text/javascript" src="./vendor/jk-carousel.js"></script>
+
+  <!-- Angular Flippy Card -->
+  <link rel="stylesheet" href="/vendor/angular-flippy.min.css" />
+  <link rel="stylesheet" href="/vendor/angular-flippy-fancy.min.css" />
+  <script type="text/javascript" src="./vendor/flippy-directive.js"></script>
+
+
+  <!-- Firebase Code -->
+  <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+  <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.js"></script>
+  <script type="text/javascript" src="./scripts/firebase-config.js"></script>
+
+  <!-- Our JavaScript Code -->
+  <script type="text/javascript" src="./scripts/client.js"></script>
+
+  <!-- Controllers -->
+  <script type="text/javascript" src="./scripts/controllers/about.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/home.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/inbox.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/login.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/message.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/nav.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/profile.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/search.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/warning.controller.js"></script>
+  <script type="text/javascript" src="./scripts/controllers/first-login-modal.controller.js"></script>
+
+  <!-- Factories -->
+  <script type="text/javascript" src="./scripts/services/auth.factory.js"></script>
+  <script type="text/javascript" src="./scripts/services/bio.factory.js"></script>
+  <script type="text/javascript" src="./scripts/services/message.factory.js"></script>
+
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
+
+</body>
+
+</html>
