@@ -177,18 +177,18 @@
               <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm="100">
                   <label>School</label>
-                  <input ng-model="profile.mentor.info.school" ng-change="profile.userData.school = profile.mentor.info.school">
+                  <input md-maxlength="100" ng-model="profile.mentor.info.school" ng-change="profile.userData.school = profile.mentor.info.school">
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label>Degree</label>
-                  <input ng-model="profile.mentor.info.degree" ng-change="profile.userData.degree = profile.mentor.info.degree" placeholder="Masters, Bachelors, etc.">
+                  <input md-maxlength="500" ng-model="profile.mentor.info.degree" ng-change="profile.userData.degree = profile.mentor.info.degree" placeholder="Masters, Bachelors, etc.">
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label>Major</label>
-                  <input ng-model="profile.mentor.info.major" ng-change="profile.userData.major = profile.mentor.info.major" placeholder="Biology, Engineering, etc.">
+                  <input md-maxlength="500" ng-model="profile.mentor.info.major" ng-change="profile.userData.major = profile.mentor.info.major" placeholder="Biology, Engineering, etc.">
                 </md-input-container>
               </div>
             </md-card-content>
@@ -232,12 +232,12 @@
 
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label>Company</label>
-                  <input ng-model="profile.mentor.info.company" ng-change="profile.userData.company = profile.mentor.info.company">
+                  <input md-maxlength="100" ng-model="profile.mentor.info.company" ng-change="profile.userData.company = profile.mentor.info.company">
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="50">
                   <label>Job Title</label>
-                  <input ng-model="profile.mentor.info.job_title" ng-change="profile.userData.job_title = profile.mentor.info.job_title">
+                  <input md-maxlength="100" ng-model="profile.mentor.info.job_title" ng-change="profile.userData.job_title = profile.mentor.info.job_title">
                 </md-input-container>
 
               </div>
