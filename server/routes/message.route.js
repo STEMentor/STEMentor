@@ -7,20 +7,16 @@ var connectionString = require('../modules/db-config.module');
 
 // Get messages for specific user --------------------------------------------//
 router.get('/get-all-messages', function(req, res) {
-  // console.log('req.decodedToken: ', req.decodedToken);
 
   // Pull needed data off of req
   var userEmail = req.decodedToken.email;
   var userType = req.userStatus.userType;
-  // console.log("USER TYPE:", userType);
   var typeId = userType + '_id';
   var userDatabase = userType + 's';
   var userId = req.userStatus.userId;
 
   pg.connect(connectionString, function(error, client, done){
     connectionErrorCheck(error);
-    // console.log('message route userType: ', userType);
-    // console.log('message route userId: ', userId);
     // Query the database for the user's messages
     client.query(
       'SELECT * FROM messages where ' + typeId + ' = $1', [userId],
@@ -41,15 +37,12 @@ router.get('/get-all-messages', function(req, res) {
 
 // Get all unread messages for current user ----------------------------------//
 router.get('/unread-messages', function(req, res) {
-  console.log("IN UNREAD-MESSAGES ROUTE");
 
   // Pull needed data off of req
   var userType = req.userStatus.userType,
   typeId = userType + '_id';
   var userId = req.userStatus.userId;
   var query;
-  console.log("UserId, typeId", userId, typeId);
-  console.log(typeof userId);
 
   if (userType === 'mentor') {
     query = 'SELECT * FROM messages WHERE message_read = FALSE AND ' + typeId + ' = ' + userId;
@@ -68,7 +61,6 @@ router.get('/unread-messages', function(req, res) {
           console.log('Unable to mark message as read: ', error);
           res.sendStatus(500);
         } else {
-          console.log("RESULT OF UNREAD MESSAGES query", result.rows.length);
           res.send(result.rows);
         }
       }
@@ -78,8 +70,8 @@ router.get('/unread-messages', function(req, res) {
 
   // Create new message (from student) when user hits the "Send" button ------//
   router.post('/new-message', function(req, res) {
-    // console.log('req.body: ', req.body);
     var message = req.body.message_info;
+    console.log('MESSAGE ROUTE: message:', message);
 
     pg.connect(connectionString, function(error, client, done) {
       connectionErrorCheck(error);
@@ -130,8 +122,6 @@ router.put('/read-message', function(req, res) {
   userDatabase = userType + 's';
   var userId = req.userStatus.userId;
   var messageId = req.body.message.id;
-  // console.log('userEmail: ', userEmail);
-  // console.log('messageId: ', messageId);
 
   pg.connect(connectionString, function(error, client, done) {
     connectionErrorCheck(error);

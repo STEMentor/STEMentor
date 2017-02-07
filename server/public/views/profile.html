@@ -20,6 +20,9 @@
           <md-button class="md-raised md-warn" ng-click="profile.deleteUser()" ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
             Delete User
           </md-button>
+          <p ng-show="profile.showEdits && profile.profileTabSelected == true && profile.userStatus.isLoggedIn && profile.userStatus.userType == 'mentor' && (profile.userStatus.userId == profile.mentor.info.id || profile.userStatus.isAdmin == true)">
+            All the information below is optional. Please only fill out what you feel comfortable sharing online.
+          </p>
 
           <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 

@@ -10,7 +10,6 @@ var connectionString = require('../modules/db-config.module');
 router.post('/', function(req, res) {
   var receiverId = req.body.receiverId;
   var userType = req.body.userType + 's';
-  console.log('RECEIVER id, USERTYPE', receiverId, userType);
 
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
@@ -26,7 +25,6 @@ router.post('/', function(req, res) {
           res.sendStatus(500);
         } else {
           sendEmail(result.rows[0].email);
-          console.log('EMAIL OF RECEIVER:', result.rows[0].email);
         }
       });
     }
@@ -49,7 +47,7 @@ router.post('/', function(req, res) {
         to: email, // list of receivers
         subject: 'STEMentor', // Subject line
         text: 'You have a new message! ', // plaintext body
-        html: '<h2>You have a new message! </h2><h3>Click <a href="http://localhost:5000">STEMentor</a> and log in to view your message</h3>' // html body
+        html: '<h2>You have a new message! </h2><h3>Click <a href="https://stementor.herokuapp.com">STEMentor</a> and log in to view your message</h3>' // html body
       };
 
       // send mail with defined transport object
@@ -57,7 +55,6 @@ router.post('/', function(req, res) {
         if(error){
           return console.log(error);
         } else{
-          console.log('Message sent: ' + info.response);
           res.json({yo: info.response});
         }
       });

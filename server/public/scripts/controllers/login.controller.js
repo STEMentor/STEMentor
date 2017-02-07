@@ -1,16 +1,13 @@
 app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', '$http','MessageFactory', function($scope, $mdDialog, $firebaseAuth, AuthFactory, $http, MessageFactory){
-  console.log('login controller is running');
+  // console.log('login controller is running');
   var self = this;
   var auth = $firebaseAuth();
 
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
-  console.log(self.isLoggedIn);
 
   self.logIn = function(userType, ev) {
-    console.log('logging user in');
-    console.log(userType);
     AuthFactory.logIn(userType).then(function(response){
-      console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
+      // console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     })
     .then(function(){
       setTimeout(firstTimeMentor, 2000);
@@ -18,11 +15,25 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
     });
   };
 
+  self.openFirstLoginModal = function(ev) {
+    $mdDialog.show({
+      controller: 'FirstLoginModalController as first',
+      templateUrl: '../../views/first-login-modal.html',
+      targetEvent: ev,
+      clickOutsideToClose:true
+    });
+    // .then(function(answer) {
+    //   $scope.status = 'You said the information was "' + answer + '".';
+    // }, function() {
+    //   $scope.status = 'You cancelled the dialog.';
+    // });
+  };
+
   //Check if mentor is logging in for the first time
   function firstTimeMentor() {
-    console.log('and here, AuthFactory.userStatus.newUser: ', AuthFactory.userStatus.newUser);
     if (AuthFactory.userStatus.newUser === true && AuthFactory.userStatus.userType == 'mentor') {
-      launchPopup();
+      // launchPopup();
+      self.openFirstLoginModal();
     }
     MessageFactory.getUnreadMessages();
   }
@@ -42,7 +53,6 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
   }
 
   self.logOut = function() {
-    console.log('logging user out');
     AuthFactory.logOut();
   };
 
