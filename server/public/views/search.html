@@ -158,7 +158,7 @@
       <div ng-repeat="mentor in search.mentors" flex>
         <flippy class="fancy front grow" flip="['click']" flip-back="['click']" duration="800" timing-function="ease-in-out">
           <flippy-front style="display:flex;" layout="column">
-            <md-card style="flex:1;" ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}">
+            <md-card style="flex:1;" ng-class="{science: mentor.stem_primary == 'Science', tech: mentor.stem_primary == 'Technology', math: mentor.stem_primary == 'Math', engineering: mentor.stem_primary == 'Engineering'}" style="position:relative;">
               <div>
                 <md-card-title md-media-lg>
                   <md-card-title-text>
@@ -166,19 +166,19 @@
                       {{mentor.first_name}} {{mentor.last_name}}
                     </span>
                     <span class="md-subhead">
-                      {{mentor.job_title}}
+                      {{mentor.job_title | characters:50}}
                     </span>
                     <div class="md-media-lg card-media">
                       <img src="{{mentor.avatar}}" style="width: 150px; height: 150px; display: block; margin: 10px auto 0 auto;" />
                     </div>
                     <p ng-if="mentor.blurb">
-                      "{{mentor.blurb}}"
+                      "{{mentor.blurb | characters:140}}"
                     </p>
                   </md-card-title-text>
                 </md-card-title>
 
                 <!-- ng-if for Science icon-->
-                <div ng-if="mentor.stem_primary == 'Science'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px;">
+                <div ng-if="mentor.stem_primary == 'Science'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px; position:absolute; left:25px; top:350px;">
                   <a href="#profile" style="text-decoration: none !important;">
                     <md-button ng-click="search.setMentor(mentor)" class="md-fab md-accent md-hue-2" aria-label="Profile">
                       <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
@@ -193,7 +193,7 @@
                 </div>
 
                 <!-- ng-if for Technology icon-->
-                <div ng-if="mentor.stem_primary == 'Technology'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px;">
+                <div ng-if="mentor.stem_primary == 'Technology'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px; position:absolute; left:25px; top:350px;">
                   <a href="#profile" style="text-decoration: none !important;">
                     <md-button ng-click="search.setMentor(mentor)" class="md-fab md-accent md-hue-2" aria-label="Profile">
                       <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
@@ -208,7 +208,7 @@
                 </div>
 
                 <!-- ng-if for Engineering icon-->
-                <div ng-if="mentor.stem_primary == 'Engineering'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px;">
+                <div ng-if="mentor.stem_primary == 'Engineering'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px; position:absolute; left:25px; top:350px;">
                   <a href="#profile" style="text-decoration: none !important;">
                     <md-button ng-click="search.setMentor(mentor)" class="md-fab md-accent md-hue-2" aria-label="Profile">
                       <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
@@ -223,7 +223,7 @@
                 </div>
 
                 <!-- ng-if for Math icon-->
-                <div ng-if="mentor.stem_primary == 'Math'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px;">
+                <div ng-if="mentor.stem_primary == 'Math'" layout="row" layout-align="space-around center" style="margin-left:15px; margin-right:15px; position:absolute; left:25px; top:350px;">
                   <a href="#profile" style="text-decoration: none !important;">
                     <md-button ng-click="search.setMentor(mentor)" class="md-fab md-accent md-hue-2" aria-label="Profile">
                       <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
@@ -238,7 +238,7 @@
                 </div>
 
                 <!-- ng-if if no primary STEM field is set -->
-                <div ng-if="!mentor.stem_primary" layout="row" layout-align="center">
+                <div ng-if="!mentor.stem_primary" layout="row" layout-align="center" style="margin-left:15px; margin-right:15px; position:absolute; left:60px; top:350px;">
                   <a href="#profile" style="text-decoration: none !important;">
                     <md-button ng-click="search.setMentor(mentor)" class="md-fab md-accent md-hue-2" aria-label="Profile">
                       <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
