@@ -36,10 +36,10 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
     if(currentUser){
       return currentUser.getToken().then(function(idToken) {
         messageInfo = self.mentor;
-
         messageInfo.msgName = self.newMessage.name;
         messageInfo.msgSubject = self.newMessage.subject;
         messageInfo.msgBody = self.newMessage.body;
+        console.log('messageInfo:', messageInfo);
 
         return $http({
           method: 'POST',
