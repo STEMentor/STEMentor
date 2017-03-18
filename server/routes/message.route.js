@@ -71,7 +71,7 @@ router.get('/unread-messages', function(req, res) {
   // Create new message (from student) when user hits the "Send" button ------//
   router.post('/new-message', function(req, res) {
     var message = req.body.message_info;
-    console.log('MESSAGE ROUTE: message:', message);
+    // console.log('MESSAGE ROUTE: message:', message);
 
     pg.connect(connectionString, function(error, client, done) {
       connectionErrorCheck(error);

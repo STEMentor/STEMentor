@@ -52,6 +52,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
           }
         })
         .then(function(response) {
+          console.log('Message controller start to send email');
           self.cancel();
           self.messages = response.data;
           sendEmail('mentor', messageInfo.id);
@@ -93,6 +94,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
 
   //Send email alerting that message has been sent
   function sendEmail(userType, receiverId){
+    console.log('userType, receiverId: ', userType, receiverId);
     return $http({
       method: 'POST',
       url: '/email',
@@ -102,7 +104,7 @@ app.controller('MessageController', ['$http', 'AuthFactory', 'MessageFactory', '
       }
     })
     .then(function(response) {
-      // console.log(response);
+      console.log(response);
     }),
     function(error) {
       console.log('Error with messages POST request: ', error);
