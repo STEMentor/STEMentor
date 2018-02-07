@@ -6,6 +6,15 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function($htt
   var loggedIn = false;
   var userStatus = {};
 
+  //-------------------------------Register-----------------------------------//
+  // function registerNewUser(newUser){
+  //   auth.createNewUserWithEmailAndPassword(newUser.email, newUser.password)
+  //   .catch(function(err) {
+  //     //error handling
+  //   });
+  // }
+  //--------------------------------------------------------------------------//
+
   //-------------------------------Login--------------------------------------//
   function logIn(userType) {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {

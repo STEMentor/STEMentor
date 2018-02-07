@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
+
 .homepage-header {
   justify-content: center;
   text-align: center; }
@@ -10,8 +11,8 @@
   background: #FFFFFF;
   border-radius: 2px;
   margin: auto;
-  height: 100%;
-  width: 900px; }
+  max-height: 100%;
+  width: 100%; }
 
 .card-1 {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }

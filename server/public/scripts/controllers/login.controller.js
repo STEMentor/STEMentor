@@ -5,6 +5,10 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
 
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
 
+  self.registerNewUser = function(newUser){
+    console.log("Registering new user with: ", newUser.email, newUser.password);
+  };
+
   self.logIn = function(userType, ev) {
     AuthFactory.logIn(userType).then(function(response){
       // console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
