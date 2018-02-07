@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <div layout="column" ng-cloak="" class="md-inline-form" ng-app="stementor">
 
-  <md-content layout-padding>
+  <md-card class="searchForm">
 
-    <form name="userForm">
-      <div class="field" id="searchform">
+    <form flex="auto" name="userForm">
+      <div flex-offset="5" class="field" id="searchform">
         <input type="text" id="searchterm" placeholder="What kind of mentor are you looking for?" ng-model="search.newSearch.generic_search" />
         <button ng-click="search.getMentors()" type="submit" id="search">
           Find!
         </button>
       </div>
-      <div flex-offset="50">
+      <div flex-offset-gt-sm="40" flex-offset="5">
         <md-checkbox class="refine" ng-model="refineChecked">
           Refine your search
         </md-checkbox>
       </div>
 
       <!--–––––––––––––––––––-––––– Refined Search Fields –––––––––––––––––-–––––––-->
-      <div layout="column" flex-offset="15" flex="70">
+      <div layout="column" flex-offset-md="15" flex-md="70">
         <div ng-show="refineChecked">
           <md-tabs md-dynamic-height="" md-border-bottom="">
             <md-tab label="Personal Info">
@@ -149,7 +149,7 @@
         </div>
       </div>
     </form>
-  </md-content>
+  </md-card>
 
   <!--–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––-->
 

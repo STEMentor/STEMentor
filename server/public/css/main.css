@@ -21,7 +21,7 @@
   color: #FFFFFF; }
 
 .md-button.home-button {
-  font-size: 20px;
+  font-size: 1em;
   padding: 10px;
   width: 225px; }
 
@@ -41,7 +41,7 @@
 
 .navBardemoBasicUsage md-content .ext-content {
   padding-bottom: 40px;
-  margin: 20px; }
+  margin: 20px;}
 
 .notification {
   color: #DB5659;
@@ -85,8 +85,9 @@
 
 .field {
   display: flex;
-  position: realtive;
-  margin: 5px auto;
+  position: relative;
+  margin: auto;
+  margin-top: 10px;
   width: 70%;
   flex-direction: row;
   box-shadow: 1px 1px 0 #00A0DC, 2px 2px 0 #00A0DC, 3px 3px 0 #00A0DC, 4px 4px 0 #00A0DC, 5px 5px 0 #00A0DC, 6px 6px 0 #00A0DC, 7px 7px 0 #00A0DC; }
