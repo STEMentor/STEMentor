@@ -13,13 +13,13 @@
     </md-toolbar>
 
     <md-dialog-actions layout="column">
-      <md-button class="md-raised md-primary login-modal-button" ng-href="#signup">
-        Sign Up
-      </md-button>
-      <md-button class="md-raised md-primary login-modal-button">
+      <md-button class="md-raised md-primary login-modal-button" ng-click="login.logInModalLogin($event)">
         Log In
       </md-button>
-      <p>Or Log In with your Google Account</p>
+      <md-button class="md-raised md-primary login-modal-button" ng-href="#signup" ng-click="login.cancel()">
+        Sign Up
+      </md-button>
+      <!-- <p>Or Log In with your Google Account</p>
       <div layout="row">
         <md-button class="md-raised md-primary login-modal-button" ng-click="login.logIn('mentor', $event)">
           Login as Mentor
@@ -29,7 +29,7 @@
           Login as Student
         </md-button>
         <span flex></span>
-      </div>
+      </div> -->
     </md-dialog-actions>
 
   </form>

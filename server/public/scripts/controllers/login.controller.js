@@ -5,17 +5,27 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
 
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
 
-  self.registerNewUser = function(newUser){
-    console.log("Registering new user with: ", newUser.email, newUser.password);
+  self.userSignIn = function(newUser){
+    console.log("Please  set up to handle sign ins Registering new user with: ", newUser.email, newUser.password);
   };
 
-  self.logIn = function(userType, ev) {
+  self.googleLogIn = function(userType, ev) {
     AuthFactory.logIn(userType).then(function(response){
       // console.log('Logged In: ', AuthFactory.userStatus.isLoggedIn);
     })
     .then(function(){
       setTimeout(firstTimeMentor, 2000);
       self.cancel();
+    });
+  };
+
+  self.logInModalLogin = function (ev) {
+    // console.log('Login button clicked');
+    $mdDialog.show({
+      controller: 'LoginController as login',
+      templateUrl: '../../views/login-modal-login.html',
+      targetEvent: ev,
+      clickOutsideToClose: true
     });
   };
 

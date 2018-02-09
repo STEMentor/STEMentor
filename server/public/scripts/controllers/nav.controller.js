@@ -1,4 +1,4 @@
-app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFactory', 'BioFactory', 'MessageFactory', function($http, $firebaseAuth, $mdDialog, AuthFactory, BioFactory, MessageFactory) {
+app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFactory', 'BioFactory', 'MessageFactory', function ($http, $firebaseAuth, $mdDialog, AuthFactory, BioFactory, MessageFactory) {
   // console.log('NavController running');
   var auth = $firebaseAuth();
   var self = this;
@@ -7,7 +7,7 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
   self.userStatus = AuthFactory.userStatus;
   self.unreadMessages = MessageFactory.unreadMessages;
 
-  self.logInModal = function(ev) {
+  self.logInModal = function (ev) {
     $mdDialog.show({
       controller: 'LoginController as login',
       templateUrl: '../../views/login-modal.html',
@@ -16,15 +16,15 @@ app.controller('NavController', ['$http', '$firebaseAuth', '$mdDialog', 'AuthFac
     });
   };
 
-  self.setMentorId = function(){
+  self.setMentorId = function () {
     BioFactory.setMentorId(AuthFactory.userStatus.userId);
   };
 
-  self.logOut = function() {
+  self.logOut = function () {
     AuthFactory.logOut();
   };
 
-  self.firstLoginModal = function(){
+  self.firstLoginModal = function () {
     $mdDialog.show({
       controller: 'FirstLoginController',
       templateUrl: '../../views/first-login-modal.html',

@@ -1,0 +1,42 @@
+<div class="center-card" layout="column">
+
+    <br>
+    <br>
+    <div layout="row" layout-align="center">
+        <img src="./assets/images/logo/STEMentorLogo.png" style="width:40%;height:10%;">
+    </div>
+    <br>
+    <br>
+    <div layout-gt-xs="row">
+        <md-card layout="column" flex-gt-xs="45">
+            <h3 align="center">Sign up for STEMentor!</h2>
+                <md-input-container>
+                    <label>Email</label>
+                    <input type="email" name="username" ng-model="newUser.email">
+                </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input type="password" name="password" ng-model="newUser.password">
+                </md-input-container>
+                <md-button class="md-raised md-primary" ng-click="signup.registerNewUser(newUser)">Submit</md-button>
+        </md-card>
+        <span flex></span>
+
+        <h3 align="center">Or</h3>
+
+        <span flex></span>
+
+        <md-card align="center" layout="column" flex-gt-xs="45">
+            <h3>Log In with your Gmail Account</h3>
+            <span flex></span>
+            <md-button class="md-raised md-primary login-modal-button" ng-click="signup.googleLogIn('mentor', $event)">
+                Login as Mentor
+            </md-button>
+            <span flex></span>
+            <md-button class="md-raised md-primary login-modal-button" ng-click="signup.googleLogIn('student')">
+                Login as Student
+            </md-button>
+            <span flex></span>
+        </md-card>
+    </div>
+</div>
