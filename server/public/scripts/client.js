@@ -39,6 +39,11 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'SearchController',
     controllerAs: 'search'
   })
+  .when('/signup', {
+    templateUrl: '/views/sign-up.html',
+    controller: 'SignUpController',
+    controllerAs: 'signup'
+  })
   .otherwise({
     redirectTo: 'home'
   });
