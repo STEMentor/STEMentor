@@ -27,10 +27,10 @@
         <span ng-if="nav.unreadMessages.unread > 0">(
           <span class="notification">{{nav.unreadMessages.unread}}</span>)</span>
       </md-nav-item>
-      <button class="md-nav-item nav-button md-button" ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()">
+      <button class="nav-button md-button" ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()" name="logout">
         Log Out
       </button>
-      <button class="md-nav-item nav-button md-button" ng-if="!nav.userStatus.isLoggedIn" ng-click="nav.logInModal($event)">
+      <button class="nav-button md-button" ng-if="!nav.userStatus.isLoggedIn" ng-click="nav.logInModal($event)" name="signup">
         Log In / Sign Up
       </button>
     </md-nav-bar>
