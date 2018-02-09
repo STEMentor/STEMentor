@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
 
+body {
+  width: 100%;
+}
+
 .homepage-header {
   justify-content: center;
   text-align: center; }
@@ -27,21 +31,33 @@
 
 .md-button.home-button.find-mentor {
   color: #FFFFFF;
-  background-color: #694296; }
+  background-color: #694296;
+  padding: 3px; }
 
 .md-button.home-button.find-mentor:hover {
   color: #694296; }
 
 .md-button.home-button.become-mentor {
   color: #FFFFFF;
-  background-color: #DB5659; }
+  background-color: #DB5659;
+  padding: 3px; }
 
 .md-button.home-button.become-mentor:hover {
   color: #DB5659; }
 
-.navBardemoBasicUsage md-content .ext-content {
+.md-raised.md-primary.login-modal-button{
+  width: 100%;
+  padding: 0 10px 0 10px;
+  font-size: 70%;
+}
+
+.navBardemoBasicUsage.md-nav-bar.ext-content {
   padding-bottom: 40px;
   margin: 20px;}
+
+.md-nav-item.nav-button{
+  font-size: 90%;
+}
 
 .notification {
   color: #DB5659;
@@ -119,7 +135,7 @@
   height: 500px; }
 
 .spacer {
-  padding-left: 8%; }
+  padding: 5%; }
 
 .greyButton {
   color: #86888A;
