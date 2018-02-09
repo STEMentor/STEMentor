@@ -10,14 +10,25 @@
     <div layout-gt-xs="row">
         <md-card layout="column" flex-gt-xs="45">
             <h3 align="center">Sign up for STEMentor!</h2>
-                <md-input-container>
+                <md-input-container class="signupInput">
                     <label>Email</label>
                     <input type="email" name="username" ng-model="newUser.email">
                 </md-input-container>
-                <md-input-container>
+                <md-input-container class="signupInput">
                     <label>Password</label>
                     <input type="password" name="password" ng-model="newUser.password">
                 </md-input-container>
+                <span flex></span>
+                <md-radio-group class="signupRadio" layout="row" ng-model="newUser.userType">
+                    <md-radio-button value="mentor">
+                        Mentor
+                    </md-radio-button>
+                    <md-radio-button value="student">
+                        Student
+                    </md-radio-button>
+                </md-radio-group>
+                <span flex></span>
+
                 <md-button class="md-raised md-primary" ng-click="signup.registerNewUser(newUser)">Submit</md-button>
         </md-card>
         <span flex></span>

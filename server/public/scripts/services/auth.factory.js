@@ -8,7 +8,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function ($ht
 
   //-------------------------------Register-----------------------------------//
   function registerNewUser(newUser) {
-    console.log('New User registration: ', newUser.email, newUser.password);
+    console.log('New User registration: ', newUser.email, newUser.password, newUser.userType);
     
     // auth.createNewUserWithEmailAndPassword(newUser.email, newUser.password)
     // .catch(function(err) {

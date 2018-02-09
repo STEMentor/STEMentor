@@ -218,3 +218,11 @@ a {
 .about-center {
   padding-left: 15%;
   padding-right: 15%; }
+
+.signupInput {
+  margin: 10px;
+}
+
+.signupRadio {
+  margin: 10px;
+}

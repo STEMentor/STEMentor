@@ -2,11 +2,14 @@ app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'Aut
     //console.log('Signup Controller Loaded');
     var self = this;
 
+    
+
     self.registerNewUser = function (newUser) {
         //console.log('New User details: ', newUser.email, newUser.password);
         var newUserToSave = {
             email: newUser.email,
-            password: newUser.password
+            password: newUser.password,
+            userType: newUser.userType
         }
         AuthFactory.registerNewUser(newUserToSave);
     }
