@@ -219,10 +219,14 @@ a {
   padding-left: 15%;
   padding-right: 15%; }
 
-.signupInput {
+.signup-input {
   margin: 10px;
 }
 
-.signupRadio {
+.signup-radio {
   margin: 10px;
+}
+
+.md-raised.md-primary.signup-modal-button {
+  padding: 10%;
 }

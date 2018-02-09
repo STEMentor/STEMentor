@@ -10,16 +10,16 @@
     <div layout-gt-xs="row">
         <md-card layout="column" flex-gt-xs="45">
             <h3 align="center">Sign up for STEMentor!</h2>
-                <md-input-container class="signupInput">
+                <md-input-container class="signup-input">
                     <label>Email</label>
                     <input type="email" name="username" ng-model="newUser.email">
                 </md-input-container>
-                <md-input-container class="signupInput">
+                <md-input-container class="signup-input">
                     <label>Password</label>
                     <input type="password" name="password" ng-model="newUser.password">
                 </md-input-container>
                 <span flex></span>
-                <md-radio-group class="signupRadio" layout="row" ng-model="newUser.userType">
+                <md-radio-group class="signup-radio" layout="row" ng-model="newUser.userType">
                     <md-radio-button value="mentor">
                         Mentor
                     </md-radio-button>
@@ -40,11 +40,11 @@
         <md-card align="center" layout="column" flex-gt-xs="45">
             <h3>Log In with your Gmail Account</h3>
             <span flex></span>
-            <md-button class="md-raised md-primary login-modal-button" ng-click="signup.googleLogIn('mentor', $event)">
+            <md-button class="md-raised md-primary signup-modal-button" ng-click="signup.googleLogIn('mentor', $event)">
                 Login as Mentor
             </md-button>
             <span flex></span>
-            <md-button class="md-raised md-primary login-modal-button" ng-click="signup.googleLogIn('student')">
+            <md-button class="md-raised md-primary signup-modal-button" ng-click="signup.googleLogIn('student')">
                 Login as Student
             </md-button>
             <span flex></span>
