@@ -1,9 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates);
 
-body {
-  width: 100%;
-}
-
 .homepage-header {
   justify-content: center;
   text-align: center; }
@@ -51,12 +47,9 @@ body {
   font-size: 70%;
 }
 
-.navBardemoBasicUsage.md-nav-bar.ext-content {
-  padding-bottom: 40px;
-  margin: 20px;}
-
-.md-nav-item.nav-button{
-  font-size: 90%;
+.md-content{
+  max-width: 100%;
+  padding: 10px;
 }
 
 .notification {
@@ -224,5 +217,5 @@ a {
   border-radius: 2px; }
 
 .about-center {
-  padding-left: 25%;
-  padding-right: 25%; }
+  padding-left: 15%;
+  padding-right: 15%; }

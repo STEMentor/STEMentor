@@ -3,7 +3,8 @@
 <!--_________ Nav Bar __________ -->
 
 <div ng-controller="NavController as nav" ng-cloak="" class="navBardemoBasicUsage" ng-app="stementor">
-    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+  <md-content>
+    <md-nav-bar flex layout-xs="row" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
       <md-nav-item md-nav-href="#home" name="home">
         <!-- <img src="./assets/images/logo/STEMentorLogo.png" style="height:50px;width:150px"> -->
         Home
@@ -26,11 +27,12 @@
         <span ng-if="nav.unreadMessages.unread > 0">(
           <span class="notification">{{nav.unreadMessages.unread}}</span>)</span>
       </md-nav-item>
-      <button class="md-nav-item" ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()">
+      <button class="md-nav-item nav-button md-button" ng-if="nav.userStatus.isLoggedIn" ng-click="nav.logOut()">
         Log Out
       </button>
-      <button class="md-nav-item nav-button" ng-if="!nav.userStatus.isLoggedIn" ng-click="nav.logInModal($event)">
+      <button class="md-nav-item nav-button md-button" ng-if="!nav.userStatus.isLoggedIn" ng-click="nav.logInModal($event)">
         Log In / Sign Up
       </button>
     </md-nav-bar>
+  </md-content>
 </div>
