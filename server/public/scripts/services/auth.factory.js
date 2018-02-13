@@ -18,6 +18,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function ($ht
         // console.log('User: ', user);
         var currentUser = user;
         getUser(currentUser, userType);
+        $location.path('home');
       })
       .catch(function (err) {
         //error handling

@@ -1,16 +1,24 @@
-app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', '$http', 'MessageFactory', '$location', function ($scope, $mdDialog, $firebaseAuth, AuthFactory, $http, MessageFactory, $location) {
+app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', '$http', 'MessageFactory', '$location',  function ($scope, $mdDialog, $firebaseAuth, AuthFactory, $http, MessageFactory, $location) {
     //console.log('Signup Controller Loaded');
     var self = this;
     var auth = $firebaseAuth();
 
     self.registerNewUser = function (newUser) {
         //console.log('New User details: ', newUser.email, newUser.password);
-        var newUserToSave = {
-            email: newUser.email,
-            password: newUser.password,
-            userType: newUser.userType
+        if (!newUser.email || !newUser.password ) {
+            return alert('Please fill out both fields!');
         }
-        AuthFactory.registerNewUser(newUserToSave);
+        if (!newUser.userType) {
+            return alert('Please choose a role to sign up as!');
+        }
+        else {
+            var newUserToSave = {
+                email: newUser.email,
+                password: newUser.password,
+                userType: newUser.userType
+            }
+            AuthFactory.registerNewUser(newUserToSave);
+        }
     }
 
     self.openFirstLoginModal = function (ev) {
@@ -20,11 +28,6 @@ app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'Aut
             targetEvent: ev,
             clickOutsideToClose: false
         });
-        // .then(function(answer) {
-        //   $scope.status = 'You said the information was "' + answer + '".';
-        // }, function() {
-        //   $scope.status = 'You cancelled the dialog.';
-        // });
     };
 
     //Check if mentor is logging in for the first time

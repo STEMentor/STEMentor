@@ -9,28 +9,37 @@
     <br>
     <div layout-gt-xs="row">
         <md-card layout="column" flex-gt-xs="45">
-            <h2 align="center">Sign up for STEMentor!</h2>
-            <md-input-container class="signup-input">
-                <label>Email</label>
-                <input type="email" name="username" ng-model="newUser.email">
-            </md-input-container>
-            <md-input-container class="signup-input">
-                <label>Password</label>
-                <input type="password" name="password" ng-model="newUser.password">
-            </md-input-container>
-
-            <h4 class="signup-radio">Sign Up As:</h4>
-            <span flex></span>
-            <md-radio-group class="signup-radio" layout="row" ng-model="newUser.userType">
-                <md-radio-button value="mentor">
-                    Mentor
-                </md-radio-button>
-                <md-radio-button value="student">
-                    Student
-                </md-radio-button>
-            </md-radio-group>
-            <span flex></span>
-            <md-button class="md-raised md-primary" ng-click="signup.registerNewUser(newUser)">Submit</md-button>
+            <form name="signUpForm">
+                <h2 align="center">Sign up for STEMentor!</h2>
+                <md-input-container class="signup-input">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="newUser.email" minength="5">
+                    <div ng-messages="signUpForm.email.$error" role="alert">
+                        <div ng-message="required">You did not enter an email address</div>
+                        <div ng-message="email">Your email address is invalid</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="signup-input">
+                    <label>Password</label>
+                    <input type="password" name="password" ng-model="newUser.password" minlength="5">
+                    <div ng-messages="signUpForm.password.$error" role="alert">
+                        <div ng-message="minlength">Password must be longer than 5 characters!</div>
+                        <div ng-message="required">Please create a password for your account!</div>
+                    </div>
+                </md-input-container>
+                <h4 class="signup-radio">Sign Up As:</h4>
+                <span flex></span>
+                <md-radio-group class="signup-radio" layout="row" ng-model="newUser.userType">
+                    <md-radio-button value="mentor">
+                        Mentor
+                    </md-radio-button>
+                    <md-radio-button value="student">
+                        Student
+                    </md-radio-button>
+                </md-radio-group>
+                <span flex></span>
+                <md-button class="md-raised md-primary signup-button" ng-click="signup.registerNewUser(newUser)">Submit</md-button>
+            </form>
         </md-card>
         <span flex></span>
 
