@@ -1,8 +1,7 @@
 app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'AuthFactory', '$http', 'MessageFactory', '$location', function ($scope, $mdDialog, $firebaseAuth, AuthFactory, $http, MessageFactory, $location) {
     //console.log('Signup Controller Loaded');
     var self = this;
-
-    
+    var auth = $firebaseAuth();
 
     self.registerNewUser = function (newUser) {
         //console.log('New User details: ', newUser.email, newUser.password);
@@ -44,6 +43,7 @@ app.controller('SignUpController', ['$scope', '$mdDialog', '$firebaseAuth', 'Aut
             .then(function () {
                 setTimeout(firstTimeMentor, 2000);
                 self.cancel();
+                $location.path('home');
             });
     };
 

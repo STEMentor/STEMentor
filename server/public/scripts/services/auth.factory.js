@@ -8,16 +8,23 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function ($ht
 
   //-------------------------------Register-----------------------------------//
   function registerNewUser(newUser) {
-    console.log('New User registration: ', newUser.email, newUser.password, newUser.userType);
-    
-    // auth.createNewUserWithEmailAndPassword(newUser.email, newUser.password)
-    // .catch(function(err) {
-    //   //error handling
-    //   var errorCode = err.code;
-    //   var errorMessage = err.message;
+    var email = newUser.email;
+    var password = newUser.password;
+    var userType = newUser.userType;
+    //console.log('New User registration: ', email, password, userType);
 
-    //   console.log('Error code and message: ', errorCode, errorMessage);
-    // });
+    return auth.$createUserWithEmailAndPassword(email, password)
+      .then(function (user) {
+        // console.log('User: ', user);
+        var currentUser = user;
+        getUser(currentUser, userType);
+      })
+      .catch(function (err) {
+        //error handling
+        var errorCode = err.code;
+        var errorMessage = err.message;
+        console.log('Error Code + Msg: ', errorCode, errorMessage);
+      });
   }
   //--------------------------------------------------------------------------//
 
@@ -34,6 +41,7 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function ($ht
 
   //--------------------------------------------------------------------------//
   function getUser(currentUser, userType) {
+    // console.log('currentUser and userType: ', currentUser, userType);
     currentUser.getToken().then(function (idToken) {
       $http({
         method: 'GET',
@@ -64,6 +72,8 @@ app.factory('AuthFactory', ['$http', '$firebaseAuth', '$location', function ($ht
   //--------------------------------------------------------------------------//
   auth.$onAuthStateChanged(function (firebaseUser) {
     // firebaseUser will be null if not logged in
+    // console.log('firebaseUser: ', firebaseUser);
+
     currentUser = firebaseUser;
     if (currentUser) {
       getUser(currentUser);

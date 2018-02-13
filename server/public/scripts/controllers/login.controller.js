@@ -6,7 +6,13 @@ app.controller('LoginController', ['$scope', '$mdDialog', '$firebaseAuth', 'Auth
   self.isLoggedIn = AuthFactory.userStatus.isLoggedIn;
 
   self.userSignIn = function(newUser){
-    console.log("Please  set up to handle sign ins Registering new user with: ", newUser.email, newUser.password);
+    // console.log("Please  set up to handle sign ins Registering new user with: ", newUser.email, newUser.password);
+    firebase.auth().signInWithEmailAndPassword(newUser.email, newUser.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+    self.cancel();
   };
 
   self.googleLogIn = function(userType, ev) {

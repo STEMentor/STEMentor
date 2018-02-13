@@ -9,6 +9,7 @@ var connectionString = require('../modules/db-config.module');
 router.get('/', function(req, res) {
   var data = {};
   data.userStatus = req.userStatus;
+  
   res.send(data);
 });
 //----------------------------------------------------------------------------//
